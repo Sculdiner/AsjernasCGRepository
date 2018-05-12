@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using AsjernasCG.Common;
+
+public class ViewController : IViewController
+{
+    private readonly View _controlledView;
+    private readonly RoutingOperationCode routingCode;
+    private static string FIRSTSCENE_NAME { get { return "LoginScene"; } }
+    public View ControlledView { get { return _controlledView; } }
+
+    private readonly Dictionary<byte, IPhotonOperationHandler> _operationHandlers = new Dictionary<byte, IPhotonOperationHandler>();
+    private readonly Dictionary<byte, IPhotonEventHandler> _eventHandlers = new Dictionary<byte, IPhotonEventHandler>();
+    public ViewController(View controlledView, RoutingOperationCode routingOperationCode)
+    {
+        _controlledView = controlledView;
+        routingCode = routingOperationCode;
+        if (PhotonEngine.Instance == null)
+        {
+            SceneManager.LoadScene(FIRSTSCENE_NAME);
+        }
+        else
+        {
+            PhotonEngine.Instance.Controller = this;
+        }
+    }
+
+    public Dictionary<byte, IPhotonOperationHandler> OperationHandlers
+    {
+        get { return _operationHandlers; }
+    }
+
+    public Dictionary<byte, IPhotonEventHandler> EventHandlers
+    {
+        get { return _eventHandlers; }
+    }
+
+    #region Implementation of IViewController
+    public bool IsConnected
+    {
+        get { return PhotonEngine.Instance.State is Connected; }
+    }
+
+    public void ApplicationQuit()
+    {
+        PhotonEngine.Instance.Disconnect();
+    }
+
+    public void DisconnectPeer()
+    {
+        PhotonEngine.Instance.Disconnect();
+    }
+
+    public void Connect()
+    {
+        if (!IsConnected)
+        {
+            PhotonEngine.Instance.Initialize();
+        }
+    }
+
+    public void DebugReturn(DebugLevel level, string message)
+    {
+        _controlledView.LogDebug(string.Format("{0} - {1}", level, message));
+    }
+
+    public void OnDisconnected(string message)
+    {
+        _controlledView.Disconnected(message);
+    }
+
+    public void OnEvent(EventData eventData)
+    {
+        IPhotonEventHandler handler;
+        var _routingCode = eventData.Code;
+
+        _controlledView.LogDebug("Got server request from a non valid route");
+        //if ((byte)routingCode != _routingCode)
+        //{
+        //    _controlledView.LogDebug("Got server request from a non valid route");
+        //}
+        //else
+        //{
+        //    var subroutingCode = (byte)eventData.Parameters[(byte)OperationCodeType.SubOperationRouting];
+        //    var subroutingParameters = (Dictionary<byte, object>)eventData.Parameters[(byte)OperationCodeType.SubOperationParameters];
+        //    if (_eventHandlers.ContainsKey(subroutingCode))
+        //    {
+        //        //maybe map here first
+        //        _eventHandlers[subroutingCode].HandleEvent(subroutingParameters);
+        //    }
+        //    else
+        //    {
+        //        OnUnexpectedEvent(eventData);
+        //    }
+        //}
+    }
+
+    public void OnOperationResponse(OperationResponse operationResponse)
+    {
+        //IPhotonOperationHandler handler;
+        //if (operationResponse.Parameters.ContainsKey(_subOperationCode)
+        //    && OperationHandlers.TryGetValue(Convert.ToByte(operationResponse.Parameters[_subOperationCode]), out handler))
+        //{
+        //    handler.HandleResponse(operationResponse);
+        //}
+        //else
+        //{
+        //    OnUnexpectedOperationResponse(operationResponse);
+        //}
+    }
+
+    public void OnUnexpectedEvent(EventData eventData)
+    {
+        _controlledView.LogError(string.Format("Unexpected Event {0}", eventData.Code));
+    }
+
+    public void OnUnexpectedOperationResponse(OperationResponse operationResponse)
+    {
+        _controlledView.LogError(string.Format("Unexpected Operation error {0} from operation {1}", operationResponse.ReturnCode, operationResponse.OperationCode));
+    }
+
+    public void OnUnexpectedStatusCode(StatusCode statusCode)
+    {
+        _controlledView.LogError(string.Format("Unexpected Status  {0}", statusCode));
+    }
+
+    public void SendOperation(OperationRequest request, bool sendReliable, byte channelId, bool encrypt)
+    {
+        PhotonEngine.Instance.SetOp(request, sendReliable, channelId, encrypt);
+    }
+
+    #endregion
+}
