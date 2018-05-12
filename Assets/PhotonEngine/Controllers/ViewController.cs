@@ -4,6 +4,7 @@ using ExitGames.Client.Photon;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using AsjernasCG.Common;
+using AsjernasCG.Common.OperationHelpers;
 
 public class ViewController : IViewController
 {
@@ -127,8 +128,16 @@ public class ViewController : IViewController
         _controlledView.LogError(string.Format("Unexpected Status  {0}", statusCode));
     }
 
-    public void SendOperation(OperationRequest request, bool sendReliable, byte channelId, bool encrypt)
+    public void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, TInput input, bool sendReliable, byte channelId, bool encrypt) where TInput : class
     {
+        var operationParams = operationHelper.GenerateOperationParameters(input);
+        var operationRoutingCode = (byte)operationParams[(byte)OperationCodeType.BaseOperationRouting];
+        operationParams.Remove((byte)OperationCodeType.BaseOperationRouting);
+        var request = new OperationRequest()
+        {
+            OperationCode = operationRoutingCode,
+            Parameters = operationParams
+        };
         PhotonEngine.Instance.SetOp(request, sendReliable, channelId, encrypt);
     }
 

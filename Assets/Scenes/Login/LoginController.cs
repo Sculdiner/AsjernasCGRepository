@@ -1,4 +1,6 @@
 ﻿using AsjernasCG.Common;
+using AsjernasCG.Common.OperationHelpers;
+using AsjernasCG.Common.OperationModels;
 using ExitGames.Client.Photon;
 using System.Collections.Generic;
 
@@ -20,12 +22,10 @@ public class LoginController : ViewController
 
     public void SendLogin(string username, string password)
     {
-        SendOperation(new OperationRequest()
+        SendOperation(new LoginOperationHelper<LoginOperationModel>(), new LoginOperationModel()
         {
-            OperationCode = (byte)RoutingOperationCode.Login,
-            Parameters = new Dictionary<byte, object>() {
-                { (byte)OperationCodeType.SubOperationRouting, 0}
-            }
+            Username = username,
+            Password = password
         }, true, 0, false);
     }
 

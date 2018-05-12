@@ -1,4 +1,5 @@
-﻿using ExitGames.Client.Photon;
+﻿using AsjernasCG.Common.OperationHelpers;
+using ExitGames.Client.Photon;
 
 
 public interface IViewController
@@ -7,7 +8,7 @@ public interface IViewController
     void ApplicationQuit();
     void DisconnectPeer();
     void Connect();
-    void SendOperation(OperationRequest request, bool sendReliable, byte channelId, bool encrypt);
+    void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, TInput input, bool sendReliable, byte channelId, bool encrypt) where TInput : class;
     #region
     void DebugReturn(DebugLevel level, string message);
     void OnOperationResponse(OperationResponse operationResponse);
