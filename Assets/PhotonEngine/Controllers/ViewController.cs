@@ -13,8 +13,8 @@ public class ViewController : IViewController
     private static string FIRSTSCENE_NAME { get { return "LoginScene"; } }
     public View ControlledView { get { return _controlledView; } }
 
-    private readonly Dictionary<byte, IPhotonOperationHandler> _operationHandlers = new Dictionary<byte, IPhotonOperationHandler>();
-    private readonly Dictionary<byte, IPhotonEventHandler> _eventHandlers = new Dictionary<byte, IPhotonEventHandler>();
+    //private readonly Dictionary<byte, IPhotonOperationHandler> _operationHandlers = new Dictionary<byte, IPhotonOperationHandler>();
+    private readonly Dictionary<byte, IEventHandler> _eventHandlers = new Dictionary<byte, IEventHandler>();
     public ViewController(View controlledView, RoutingOperationCode routingOperationCode)
     {
         _controlledView = controlledView;
@@ -29,12 +29,12 @@ public class ViewController : IViewController
         }
     }
 
-    public Dictionary<byte, IPhotonOperationHandler> OperationHandlers
-    {
-        get { return _operationHandlers; }
-    }
+    //public Dictionary<byte, IPhotonOperationHandler> OperationHandlers
+    //{
+    //    get { return _operationHandlers; }
+    //}
 
-    public Dictionary<byte, IPhotonEventHandler> EventHandlers
+    public Dictionary<byte, IEventHandler> EventHandlers
     {
         get { return _eventHandlers; }
     }
@@ -75,9 +75,7 @@ public class ViewController : IViewController
 
     public void OnEvent(EventData eventData)
     {
-        IPhotonEventHandler handler;
-        var _routingCode = eventData.Code;
-
+        EventRoutingHandlerCollection.GetHandler(eventData.Code).HandleEvent(_controlledView, eventData.Parameters);
         _controlledView.LogDebug("Got server request from a non valid route");
         //if ((byte)routingCode != _routingCode)
         //{

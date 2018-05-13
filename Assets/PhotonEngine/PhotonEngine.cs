@@ -1,4 +1,5 @@
-﻿using ExitGames.Client.Photon;
+﻿using AsjernasCG.Common.ClientEventCodes;
+using ExitGames.Client.Photon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,6 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
     public string ServerAddress;
     public string ApplicationName;
     public static string GameStateName { get; protected set; }
-
     #region Implementation of MonoBehaviour
     private static PhotonEngine _instance;
     public void Awake()
@@ -34,6 +34,8 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     public void Initialize()
     {
+        EventRoutingHandlerCollection.AddHandler(new LoginRoutingEventHandler());
+
         Peer = new PhotonPeer(this, ConnectionProtocol.Udp);
         Peer.Connect(ServerAddress, ApplicationName);
         State = new WaitingForConnection(_instance);
