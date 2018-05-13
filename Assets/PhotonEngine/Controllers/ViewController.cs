@@ -129,8 +129,8 @@ public class ViewController : IViewController
     public void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, TInput input, bool sendReliable, byte channelId, bool encrypt) where TInput : class
     {
         var operationParams = operationHelper.GenerateOperationParameters(input);
-        var operationRoutingCode = (byte)operationParams[(byte)OperationCodeType.BaseOperationRouting];
-        operationParams.Remove((byte)OperationCodeType.BaseOperationRouting);
+        var operationRoutingCode = (byte)operationParams[(byte)PacketCodeType.PacketBaseRouting];
+        operationParams.Remove((byte)PacketCodeType.PacketBaseRouting);
         var request = new OperationRequest()
         {
             OperationCode = operationRoutingCode,

@@ -1,7 +1,7 @@
 ﻿using AsjernasCG.Common.ClientEventCodes;
 using AsjernasCG.Common.EventModels;
 
-public class LoginRoutingEventHandler : BaseServerToClientEventHandler
+public class LoginRoutingEventHandler : BaseRoutingEventHandler
 {
     public LoginRoutingEventHandler()
     {
