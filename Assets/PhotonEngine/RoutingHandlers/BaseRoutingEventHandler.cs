@@ -2,7 +2,7 @@
 using AsjernasCG.Common.ClientEventCodes;
 using System.Collections.Generic;
 
-public abstract class BaseRoutingEventHandler : IRoutingEventHandler
+public abstract class BaseRoutingEventHandler : IEventRoutingHandler
 {
     //The operation family code
     public abstract ClientEventGroupCode RegisteredEventGroupCode { get; }
