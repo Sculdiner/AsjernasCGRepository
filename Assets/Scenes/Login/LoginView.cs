@@ -72,6 +72,11 @@ public class LoginView : View
 
     }
 
+    public void MatchmakeRequest()
+    {
+        _controller.LoadDeckTest(0);
+    }
+
     public override RoutingOperationCode GetRoutingOperationCode()
     {
         return RoutingOperationCode.Login;

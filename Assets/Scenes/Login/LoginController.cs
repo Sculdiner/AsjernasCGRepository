@@ -21,13 +21,21 @@ public class LoginController : ViewController
         _view.newMessageText = message;
     }
 
-    public void SendLogin(string username, string password)
+    public void SendLogin(string email, string password)
     {
-
         SendOperation(new LoginOperationHelper<LoginOperationModel>(), new LoginOperationModel()
         {
-            Username = username,
+            Email = email,
             Password = password
+        }, true, 0, false);
+    }
+
+    public void LoadDeckTest(int deckId)
+    {
+        SendOperation(new AsjernasCG.Common.OperationHelpers.Menu.MatchmakeRequestOperationHelper<MatchmakeRequestModel>(), new MatchmakeRequestModel()
+        {
+            DeckId = deckId,
+            GameType = "casual"
         }, true, 0, false);
     }
 
