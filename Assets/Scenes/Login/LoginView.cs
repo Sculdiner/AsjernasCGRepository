@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using AsjernasCG.Common;
+using UnityEngine.UI;
 
 public class LoginView : View
 {
@@ -28,6 +29,25 @@ public class LoginView : View
     {
         Controller = new LoginController(this, RoutingOperationCode.Login);
         PhotonEngine.UseExistingOrCreateNewPhotonEngine(ServerAddress, ApplicationName);
+        var dp = GameObject.Find("ServerDropdown");
+        var dpComp = dp.GetComponent<Dropdown>();
+        dpComp.onValueChanged.AddListener(ChangeServer);
+    }
+
+
+
+    public void ChangeServer(int server)
+    {
+        if (server == 0)
+        {
+            PhotonEngine.ChangeConnectionOrReconnect("localhost:5060", "AsjernasCGServer");
+            PhotonEngine.Instance.Controller = Controller as LoginController;
+        }
+        else if(server == 1)
+        {
+            PhotonEngine.ChangeConnectionOrReconnect("104.214.237.49:5060", "AsjernasCGServer");
+            PhotonEngine.Instance.Controller = Controller as LoginController;
+        }
     }
 
     // Update is called once per frame

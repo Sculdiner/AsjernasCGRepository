@@ -19,6 +19,11 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
         _instance = this;
     }
 
+    public void OnDestroy()
+    {
+        
+    }
+
     public void Start()
     {
         DontDestroyOnLoad(this);
@@ -64,19 +69,30 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     public static void UseExistingOrCreateNewPhotonEngine(string serverAddress, string applicationName)
     {
-        GameObject tempEngine;
-        PhotonEngine myEngine;
-        tempEngine = GameObject.Find("PhotonEngine");
-        if (tempEngine == null)
+        var photonEngineObject = GameObject.Find("PhotonEngine");
+        if (photonEngineObject == null)
         {
-            tempEngine = new GameObject("PhotonEngine");
+            photonEngineObject = new GameObject("PhotonEngine");
+            photonEngineObject.AddComponent<PhotonEngine>();
+        }
+        var photonEngineComponent = photonEngineObject.GetComponent<PhotonEngine>();
+        photonEngineComponent.ApplicationName = applicationName;
+        photonEngineComponent.ServerAddress = serverAddress;
+    }
+
+    public static void ChangeConnectionOrReconnect(string serverAddress, string applicationName)
+    {
+        GameObject tempEngine = GameObject.Find("PhotonEngine");
+        if (tempEngine != null)
+        {
+            var comp  = tempEngine.GetComponent<PhotonEngine>();
+            comp.Disconnect();
+            DestroyImmediate(comp);
             tempEngine.AddComponent<PhotonEngine>();
         }
-
-        myEngine = tempEngine.GetComponent<PhotonEngine>();
-        myEngine.ApplicationName = applicationName;
-        myEngine.ServerAddress = serverAddress;
+        UseExistingOrCreateNewPhotonEngine(serverAddress, applicationName);
     }
+
     #endregion
 
     #region Implementation of IPhotonPeerListener
