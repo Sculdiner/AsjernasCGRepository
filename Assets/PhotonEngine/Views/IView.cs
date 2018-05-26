@@ -12,4 +12,5 @@ public interface IView
     void LogError(Exception exception);
     void LogInfo(string message);
     void Disconnected(string message);
+    void ChangeScene(string newScene);
 }

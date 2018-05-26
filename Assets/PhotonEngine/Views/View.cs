@@ -1,6 +1,7 @@
 ﻿using System;
 using AsjernasCG.Common;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class View : MonoBehaviour, IView
 {
@@ -12,6 +13,11 @@ public abstract class View : MonoBehaviour, IView
     public virtual void OnApplicationQuit()
     {
         Controller.ApplicationQuit();
+    }
+
+    public void ChangeScene(string newScene)
+    {
+        SceneManager.LoadScene(newScene, LoadSceneMode.Single);
     }
 
     #region Implementation of IView

@@ -41,7 +41,7 @@ public class LoginView : View
         if (server == 0)
         {
             PhotonEngine.ChangeConnectionOrReconnect("localhost:5060", "AsjernasCGServer");
-            PhotonEngine.Instance.Controller = Controller as LoginController;
+            PhotonEngine.Instance.Controller = Controller as LoginController; 
         }
         else if(server == 1)
         {

@@ -18,6 +18,9 @@ public class LoginEventHandler<TModel> : BaseEventHandler<TModel> where TModel :
 
     public override void OnHandleEvent(View view, TModel model)
     {
-
+        if (model.Success)
+        {
+            view.ChangeScene("MainMenu");
+        }
     }
 }
