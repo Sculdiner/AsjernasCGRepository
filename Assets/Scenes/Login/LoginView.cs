@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using AsjernasCG.Common;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoginView : View
 {
@@ -30,7 +31,7 @@ public class LoginView : View
         Controller = new LoginController(this, RoutingOperationCode.Login);
         PhotonEngine.UseExistingOrCreateNewPhotonEngine(ServerAddress, ApplicationName);
         var dp = GameObject.Find("ServerDropdown");
-        var dpComp = dp.GetComponent<Dropdown>();
+        var dpComp = dp.GetComponent<TMP_Dropdown>();
         dpComp.onValueChanged.AddListener(ChangeServer);
     }
 
