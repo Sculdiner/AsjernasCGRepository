@@ -1,5 +1,8 @@
 ﻿using System;
 using AsjernasCG.Common;
+using AsjernasCG.Common.EventModels;
+using AsjernasCG.Common.OperationHelpers.General;
+using AsjernasCG.Common.OperationModels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +10,7 @@ public abstract class View : MonoBehaviour, IView
 {
     public virtual void Awake()
     {
-        Controller = new ViewController(this, GetRoutingOperationCode());
+        Controller = new ViewController(this);
     }
 
     public virtual void OnApplicationQuit()
@@ -18,6 +21,11 @@ public abstract class View : MonoBehaviour, IView
     public void ChangeScene(string newScene)
     {
         SceneManager.LoadScene(newScene, LoadSceneMode.Single);
+    }
+
+    public void RequestFriendListUpdate()
+    {
+        Controller.SendOperation(new GetFriendListOperationHelper<FriendListOperationModel>(), new FriendListOperationModel() { FriendsToSkip = 0 }, true, 0, false);
     }
 
     #region Implementation of IView

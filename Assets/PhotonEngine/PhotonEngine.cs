@@ -42,6 +42,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
         EventRoutingHandlerCollection.AddHandler(new LoginRoutingEventHandler());
         EventRoutingHandlerCollection.AddHandler(new MenuRoutingEventHandler());
         EventRoutingHandlerCollection.AddHandler(new GameRoutingEventHandler());
+        EventRoutingHandlerCollection.AddHandler(new GeneralRoutingEventHandler());
 
         Peer = new PhotonPeer(this, ConnectionProtocol.Udp);
         Peer.Connect(ServerAddress, ApplicationName);

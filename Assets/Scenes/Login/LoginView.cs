@@ -28,7 +28,7 @@ public class LoginView : View
     // Use this for initialization
     void Start()
     {
-        Controller = new LoginController(this, RoutingOperationCode.Login);
+        Controller = new LoginController(this);
         PhotonEngine.UseExistingOrCreateNewPhotonEngine(ServerAddress, ApplicationName);
         var dp = GameObject.Find("ServerDropdown");
         var dpComp = dp.GetComponent<TMP_Dropdown>();

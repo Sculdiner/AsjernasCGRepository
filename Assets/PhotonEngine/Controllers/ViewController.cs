@@ -9,16 +9,14 @@ using AsjernasCG.Common.OperationHelpers;
 public class ViewController : IViewController
 {
     private readonly View _controlledView;
-    private readonly RoutingOperationCode routingCode;
     private static string FIRSTSCENE_NAME { get { return "LoginScene"; } }
     public View ControlledView { get { return _controlledView; } }
 
     //private readonly Dictionary<byte, IPhotonOperationHandler> _operationHandlers = new Dictionary<byte, IPhotonOperationHandler>();
     private readonly Dictionary<byte, IEventHandler> _eventHandlers = new Dictionary<byte, IEventHandler>();
-    public ViewController(View controlledView, RoutingOperationCode routingOperationCode)
+    public ViewController(View controlledView)
     {
         _controlledView = controlledView;
-        routingCode = routingOperationCode;
         if (PhotonEngine.Instance == null)
         {
             SceneManager.LoadScene(FIRSTSCENE_NAME);
@@ -76,25 +74,6 @@ public class ViewController : IViewController
     public void OnEvent(EventData eventData)
     {
         EventRoutingHandlerCollection.GetHandler(eventData.Code).HandleEvent(_controlledView, eventData.Parameters);
-        _controlledView.LogDebug("Got server request from a non valid route");
-        //if ((byte)routingCode != _routingCode)
-        //{
-        //    _controlledView.LogDebug("Got server request from a non valid route");
-        //}
-        //else
-        //{
-        //    var subroutingCode = (byte)eventData.Parameters[(byte)OperationCodeType.SubOperationRouting];
-        //    var subroutingParameters = (Dictionary<byte, object>)eventData.Parameters[(byte)OperationCodeType.SubOperationParameters];
-        //    if (_eventHandlers.ContainsKey(subroutingCode))
-        //    {
-        //        //maybe map here first
-        //        _eventHandlers[subroutingCode].HandleEvent(subroutingParameters);
-        //    }
-        //    else
-        //    {
-        //        OnUnexpectedEvent(eventData);
-        //    }
-        //}
     }
 
     public void OnOperationResponse(OperationResponse operationResponse)

@@ -9,10 +9,9 @@ public class LoginController : ViewController
 {
     public LoginView _view;
 
-    public LoginController(View controlledView, RoutingOperationCode routingOperationCode) : base(controlledView, routingOperationCode)
+    public LoginController(View controlledView) : base(controlledView)
     {
         _view = controlledView as LoginView;
-        //EventHandlers.Add((byte)MessageSubCode.Login, new LoginHandler(this));
     }
 
     public void SendLoginMessage(string message)

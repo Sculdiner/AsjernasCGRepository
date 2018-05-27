@@ -936,7 +936,7 @@ MonoBehaviour:
   loggingIn: 0
   UserName: 
   PassWord: 
-  Email: 104.214.237.49
+  Email: 
   GameStateStatus: 
   LoginUserName: 
   LoginPassword: 
@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_isInputParsingRequired: 0
-  m_inputSource: 3
+  m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
