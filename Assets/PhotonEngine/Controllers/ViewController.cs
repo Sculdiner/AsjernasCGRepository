@@ -17,13 +17,17 @@ public class ViewController : IViewController
     public ViewController(View controlledView)
     {
         _controlledView = controlledView;
-        if (PhotonEngine.Instance == null)
+
+        if (!_controlledView.IsArtistDebug)
         {
-            SceneManager.LoadScene(FIRSTSCENE_NAME);
-        }
-        else
-        {
-            PhotonEngine.Instance.Controller = this;
+            if (PhotonEngine.Instance == null)
+            {
+                SceneManager.LoadScene(FIRSTSCENE_NAME);
+            }
+            else
+            {
+                PhotonEngine.Instance.Controller = this;
+            }
         }
     }
 

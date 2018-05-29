@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public abstract class View : MonoBehaviour, IView
 {
+    public bool IsArtistDebug = true;
+
     public virtual void Awake()
     {
         Controller = new ViewController(this);
