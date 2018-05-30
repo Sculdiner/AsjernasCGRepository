@@ -30,6 +30,8 @@ public abstract class View : MonoBehaviour, IView
         Controller.SendOperation(new GetFriendListOperationHelper<FriendListOperationModel>(), new FriendListOperationModel() { FriendsToSkip = 0 }, true, 0, false);
     }
 
+    public abstract void OnFriendStatusUpdate(FriendListItemViewModel friendStatusModel);
+
     #region Implementation of IView
 
     public abstract IViewController Controller { get; protected set; }

@@ -103,6 +103,10 @@ public class LoginView : View
         return RoutingOperationCode.Login;
     }
 
+    public override void OnFriendStatusUpdate(FriendListItemViewModel friendStatusModel)
+    {
+    }
+
     private LoginController _controller;
     public override IViewController Controller { get { return (IViewController)_controller; } protected set { _controller = value as LoginController; } }
 }

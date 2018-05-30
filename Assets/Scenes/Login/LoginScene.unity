@@ -931,6 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4346386f2df2f1f44958184cb307f686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsArtistDebug: 0
   ServerAddress: localhost:5060
   ApplicationName: AsjernasCGServer
   loggingIn: 0

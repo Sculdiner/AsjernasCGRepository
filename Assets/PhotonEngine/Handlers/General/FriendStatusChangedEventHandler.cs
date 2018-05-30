@@ -18,23 +18,32 @@ public class FriendStatusChangedEventHandler<TModel> : BaseEventHandler<TModel> 
 
     public override void OnHandleEvent(View view, TModel model)
     {
+        var info = string.Empty;
         switch (model.UserStatus)
         {
             case AsjernasCG.Common.BusinessModels.UserStatusModel.Disconnected:
-                view.LogInfo(model.UserName + " has gone offline");
+                info = model.UserName + " has gone offline";
                 break;
             case AsjernasCG.Common.BusinessModels.UserStatusModel.Away:
-                view.LogInfo(model.UserName + " is now away");
+                info = model.UserName + " is now away";
                 break;
             case AsjernasCG.Common.BusinessModels.UserStatusModel.DND:
-                view.LogInfo(model.UserName + " set their status to Do Not Disturb");
+                info = model.UserName + " set their status to Do Not Disturb";
                 break;
             case AsjernasCG.Common.BusinessModels.UserStatusModel.Connected:
-                view.LogInfo(model.UserName + " has come online");
+                info = model.UserName + " has come online";
                 break;
             default:
                 break;
         }
+
+        view.OnFriendStatusUpdate(new FriendListItemViewModel()
+        {
+            Status = model.UserStatus,
+            StatusDescription = model.UserStatus.ToString(),
+            UserId = model.UserId,
+            Username = model.UserName
+        });
     }
 }
 

@@ -18,9 +18,15 @@ public class FriendListUpdateEventHandler<TModel> : BaseEventHandler<TModel> whe
     {
         foreach (var friend in model)
         {
+            var _model = new FriendListItemViewModel()
+            {
+                UserId = friend.UserId,
+                Status = friend.UserStatus,
+                Username = friend.UserName
+            };
             if (friend.UserStatus == UserStatusModel.Disconnected)
             {
-                var offlineDesc = "";
+                var offlineDesc = "Offline";
                 if (friend.LastConnection.HasValue)
                 {
                     var tDif = DateTime.UtcNow - friend.LastConnection.Value;
@@ -34,12 +40,13 @@ public class FriendListUpdateEventHandler<TModel> : BaseEventHandler<TModel> whe
                     else if (minutesTillOffline > 0) { offlineDesc = String.Format("Offline for {0} minute(s)", minutesTillOffline); }
                     else if (secsTillOffline > 0) { offlineDesc = "Offline for less than a minute"; }
                 }
-                view.LogInfo(friend.UserName + " is offline. " + offlineDesc);
+                _model.StatusDescription = offlineDesc;
             }
             else
             {
-                view.LogInfo(friend.UserName + " is online. ");
+                _model.StatusDescription = friend.UserStatus.ToString();
             }
+            view.OnFriendStatusUpdate(_model);
         }
 
 

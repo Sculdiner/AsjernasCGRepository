@@ -9,21 +9,25 @@ public class MainMenuView : View
     private void Start()
     {
         Controller = new MainMenuController(this);
-
+        //FriendListViewManager.AddFriendItem(new AsjernasCG.Common.EventModels.FriendStatusModel()
+        //{
+        //    UserName = "asdasd",
+        //    UserStatus = AsjernasCG.Common.BusinessModels.UserStatusModel.Connected
+        //});
     }
 
     void Update()
     {
-        //timer++;
-        //if (timer==100 || timer == 200 || timer == 300 || timer == 400)
-        //{
-        //    FriendListViewManager.AddFriendItem();
-        //}
     }
 
     private MainMenuController _controller;
     public override IViewController Controller { get { return (IViewController)_controller; } protected set { _controller = value as MainMenuController; } }
     public override RoutingOperationCode GetRoutingOperationCode() { return RoutingOperationCode.Menu; }
+
+    public override void OnFriendStatusUpdate(FriendListItemViewModel friendStatusModel)
+    {
+        FriendListViewManager.FriendListMasterModel.FriendListContainer.UpdateFriendItem(friendStatusModel);
+    }
 
     public FriendListViewManager FriendListViewManager;
 }
