@@ -23,7 +23,7 @@ public class MasterCardManager : MonoBehaviour
             CardTemplateCollection.Add(card.CardTemplateId, Newtonsoft.Json.JsonConvert.SerializeObject(card));
     }
 
-    public BaseCardTemplate GetNewCardInstance(int cardTemplateId, int generatedCardId)
+    public BaseCardTemplate GetNewCardInstance(int cardTemplateId)
     {
         if (CardTemplateCollection.ContainsKey(cardTemplateId))
             return JsonConvert.DeserializeObject<BaseCardTemplate>(CardTemplateCollection[cardTemplateId]);
@@ -32,7 +32,7 @@ public class MasterCardManager : MonoBehaviour
 
     public GameObject GenerateCardPrefab(int cardTemplateId, int generatedCardId)
     {
-        var cardTemplate = GetNewCardInstance(cardTemplateId, generatedCardId);
+        var cardTemplate = GetNewCardInstance(cardTemplateId);
         var prefab = (GameObject)Instantiate(CardTemplatePrefab);
         var cardManager = prefab.GetComponent<CardManager>();
         cardManager.SetInitialTemplate(cardTemplate);
