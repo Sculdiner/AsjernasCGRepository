@@ -1,0 +1,247 @@
+﻿[
+  {
+    "CardName": "Speak with Dead",
+    "CardType": 4,
+    "BaseResourceCost": 1,
+    "CardText": "Encounter a random discarded minion, with 1 HP remaining. Gain progress equal to it's Threat Level.", //It gains 'Undead', we don't need to type this here
+    "Traits": "Event",
+    "Colors": [ "Black" ],
+    "CardImage": "speakwithdead.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Dusk Scion's Skull",
+    "CardType": 1,
+    "BaseResourceCost": 0,
+    "CardText": "Whenever attached character kills a minion, lose durability equal to it's Power. On Death: Summon Dusk Scion",
+    "Durability": "8",
+    "Traits": "Equipment - Item",
+    "Colors": [ "Black" ],
+    "CardImage": "duskscionskull.jpg",
+    "Quantity": 1
+  },
+  {
+    "CardName": "Dusk Scion",
+    "CardType": 3,
+    "BaseResourceCost": 8,
+    "Power": "6",
+    "Health": "6",
+    "CardText": "Discard this at the end of the turn.",
+    "Traits": "Ally - Follower",
+    "Threat": 10,
+    "Colors": [ "Black" ],
+    "CardImage": "dusk_scion.jpg",
+    "DontIncludeInMainDeck": true,
+    "IsGeneratedByCard": "Dusk Scion's Skull"
+  },
+  {
+    "CardName": "Arastel, Spell Weaver",
+    "CardType": 0,
+    "CardText": "Whenever you activate a Hex Ability, the next event you cast this turn cost 1 less.", // <b><i>Golden Thread</i></b>s in your deck",
+    "Power": 1,
+    "Health": 9,
+    "Initiative": 4,
+    "Traits": "Character",
+    "Flags": ["Arcane"],
+    "Colors": [ "Black" ],
+    "Setup": true,
+    "CardImage": "Arastel.jpg"
+  },
+  {
+    "CardName": "Nizoth, Rotten Prince",
+    "CardType": 0,
+    "CardText": "Activation: If a minion died this turn, heal 1 Health.",
+    "Power": 1,
+    "Health": 8,
+    "Initiative": 1,
+    "Traits": "Character",
+    "Flags": [],
+    "Colors": [ "Black" ],
+    "Setup": true,
+    "CardImage": "Nizzoth.jpg"
+  },
+  //{
+  //  "CardName": "Golden Thread",
+  //  "CardType": 1,
+  //  "ResourceCost": 1,
+  //  "CardText": "At the end of the round, reduce the cost of all cards in your hand, by 1 and then discard any costing 0.",
+  //  "Colors": [ "Black" ]
+  //},
+  {
+    "CardName": "Bone Sheer",
+    "CardType": 3,
+    "BaseResourceCost": 1,
+    "CardText": "The first time each round a minion dies, you may discard a card and draw 1.",
+    "Traits": "Equipment - Item",
+    "Colors": [ "Black" ],
+    "CardImage": "deathseer.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Bone Blade",
+    "CardType": 1,
+    "BaseResourceCost": 3,
+    "Power": 1,
+    "Durability": 2,
+    "CardText": "If you have discarded more than 5 Black cards Bone Blade gains Indestructible (attacking doesn't cause durability loss).",
+    "Traits": "Equipment - Item",
+    "Colors": [ "Black" ],
+    "CardImage": "bone_blade.jpg",
+    "Quantity": 1
+  },
+  {
+    "CardName": "Blood Cauldron",
+    "CardType": 1,
+    "BaseResourceCost": 2,
+    "CardText": "Whenever you discard a card, heal 1 from the lowest health character.",
+    "Traits": "Equipment - Item",
+    "Colors": [ "Black" ],
+    "CardImage": "cauldronofblood.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Pact Imp",
+    "CardType": 3,
+    "BaseResourceCost": 1,
+    "Power": 1,
+    "Health": 1,
+    "Initiative": 5,
+    "Threat": 0,
+    "CardText": "On Entry:  Discard a card. On Death: Return the discarded card to your hand.",
+    "Traits": "Ally - Follower",
+    "Colors": [ "Black" ],
+    "CardImage": "pact_imp.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Whip of Obedience",
+    "CardType": 1,
+    "BaseResourceCost": 2,
+    "Power": 1,
+    "Durability": 3,
+    "CardText": "Whenever equipped character deals damage to a minion, it gets -1 Initiative. It can't attack him this turn.",
+    "Traits": "Equipment - Weapon",
+    "Colors": [ "Black" ],
+    "CardImage": "whip_of_obedience.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Disintegrate",
+    "CardType": 4,
+    "BaseResourceCost": 5,
+    "CardText": "Set aside target (note: non-boss) minion. Discard the first card of the encounter deck.",
+    "Traits": "Event - Spell",
+    "Colors": [ "Black" ],
+    "CardImage": "disintegrate.jpg",
+    "Quantity": 1
+  },
+  {
+    "CardName": "Phylactery",
+    "CardType": 1,
+    "BaseResourceCost": 0,
+    "CardText": "On Entry: Discard a card. At the end of the turn reduce it's cost by 1. Cast it when it costs 0 and discard this.",
+    "Traits": "Equipment - Item",
+    "Colors": [ "Black" ],
+    "CardImage": "phylactery.jpg",
+    "Quantity": 2
+  },
+  //{
+  //  "CardName": "Asphyxiate",
+  //  "CardType": 4,
+  //  "BaseResourceCost": 1,
+  //  "CardText": "Deal 1 damage to target minion and Silence it till the end of the turn.",
+  //  "Traits": "Event",
+  //  "Colors": [ "Black" ]
+  //},
+  {
+    "CardName": "Lesser Summoning Circle",
+    "CardType": 2,
+    "BaseResourceCost": 3,
+    "CardText": "Summon a Hell Imp. Deal 1 damage to equipped character.",
+    "Cooldown": 2,
+    "Traits": "Ability",
+    "Colors": [ "Black" ],
+    "CardImage": "lesser_summoning.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Hell Imp",
+    "CardType": 3,
+    "BaseResourceCost": 2,
+    "Power": 2,
+    "Health": 1,
+    "CardText": "Discard at the end of the turn.",
+    "Traits": "Ally - Follower",
+    "Colors": [ "Black" ],
+    "IsGeneratedByCard": "Lesser Summoning Circle",
+    "CardImage": "hellimp.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Withering Hex",
+    "CardType": 2,
+    "BaseResourceCost": 1,
+    "Cooldown": 2,
+    "CardText": "Set target minion's initiative at 0. Gain 1 Health.",
+    "Traits": "Ability - Hex",
+    "Colors": [ "Black" ],
+    "CardImage": "wither.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Abominate",
+    "CardType": 4,
+    "BaseResourceCost": 0,
+    "CardText": "Discard target Ally and summon a Black 2/1 Abomination Follower with 0 Init.",
+    "Traits": "Event",
+    "Colors": [ "Black" ],
+    "CardImage": "abominate.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Abomination",
+    "CardType": 3,
+    "BaseResourceCost": 0,
+    "Power": 2,
+    "Health": 1,
+    "Initiative": 0,
+    "Traits": "Ally - Follower Abomination",
+    "Colors": [ "Black" ],
+    "IsGeneratedByCard": "Abominate",
+    "DontIncludeInMainDeck": true,
+    "CardImage": "abomination_effect.jpg"
+  },
+  {
+    "CardName": "Witch Brew",
+    "CardType": 1,
+    "BaseResourceCost": 1,
+    "CardText": "Target character gains +1 Initiative and +1 attack till the end of the turn and gains 1 Health. Costs 1 less for each Witch Brew in your discard pile.",
+    "Traits": "Event - Brew",
+    "Colors": [ "Black" ],
+    "CardImage": "witch_brew.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Scythe of the Pact",
+    "CardType": 1,
+    "BaseResourceCost": 2,
+    "Power": 1,
+    "Durability": 3,
+    "CardText": "If equipped character kills a minion, Scythe of the Pact gets +1 Attack.",
+    "Traits": "Equipment - Weapon Pact",
+    "Colors": [ "Black" ],
+    "CardImage": "scytheofthepact.jpg",
+    "Quantity": 2
+  },
+  {
+    "CardName": "Desecrating Aura",
+    "CardType": 2,
+    "BaseResourceCost": 1,
+    "Coooldown": 3,
+    "CardText": "Deal 1 damage when attacked this turn. Heals have no effect this turn.",
+    "Traits": "Ability - Hex",
+    "Colors": [ "Black" ],
+    "CardImage": "desecrate.jpg",
+    "Quantity": 1
+  }
+]
