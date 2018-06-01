@@ -502,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0461be676f514d644a44899b66654342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FriendListMasterModel: {fileID: 0}
+  FriendListMasterModel: {fileID: 774177004}
 --- !u!4 &321148232
 Transform:
   m_ObjectHideFlags: 0
@@ -726,11 +726,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 224599795337369470, guid: 6120cef48604a914896e1faecb3d98b1,
         type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224599795337369470, guid: 6120cef48604a914896e1faecb3d98b1,
-        type: 2}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
@@ -739,16 +734,6 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114697739039315966, guid: 6120cef48604a914896e1faecb3d98b1,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114697739039315966, guid: 6120cef48604a914896e1faecb3d98b1,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114582564266966322, guid: 6120cef48604a914896e1faecb3d98b1,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -775,6 +760,16 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114584744386428578, guid: 6120cef48604a914896e1faecb3d98b1,
+        type: 2}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114697739039315966, guid: 6120cef48604a914896e1faecb3d98b1,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114697739039315966, guid: 6120cef48604a914896e1faecb3d98b1,
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
@@ -787,6 +782,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224745934493774326, guid: 6120cef48604a914896e1faecb3d98b1,
     type: 2}
   m_PrefabInternal: {fileID: 774177002}
+--- !u!114 &774177004 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114375005794404210, guid: 6120cef48604a914896e1faecb3d98b1,
+    type: 2}
+  m_PrefabInternal: {fileID: 774177002}
+  m_Script: {fileID: 11500000, guid: ca2e5f8a80d455e4b898af6910bdedfa, type: 3}
 --- !u!1 &850300615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,6 +1021,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ecfa27d4639294bb16ec6d2b2f7aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardTemplatePrefab: {fileID: 1517101373665094, guid: b3b6eec7287d69c4a849fa6a87133f0a,
+    type: 2}
+  CardTemplates: {fileID: 0}
 --- !u!1 &1123736348
 GameObject:
   m_ObjectHideFlags: 0
