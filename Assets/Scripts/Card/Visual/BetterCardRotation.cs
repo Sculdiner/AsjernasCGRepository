@@ -6,7 +6,8 @@ using System.Collections;
 /// </summary>
 
 [ExecuteInEditMode]
-public class BetterCardRotation : MonoBehaviour {
+public class BetterCardRotation : MonoBehaviour
+{
 
     // parent game object for all the card face graphics
     public RectTransform CardFront;
@@ -23,15 +24,15 @@ public class BetterCardRotation : MonoBehaviour {
     // if this is true, our players currently see the card Back
     private bool showingBack = false;
 
-	// Update is called once per frame
-	void Update () 
+    // Update is called once per frame
+    void Update()
     {
         // Raycast from Camera to a target point on the face of the card
         // If it passes through the card`s collider, we should show the back of the card
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(origin: Camera.main.transform.position, 
-                                  direction: (-Camera.main.transform.position + targetFacePoint.position).normalized, 
-            maxDistance: (-Camera.main.transform.position + targetFacePoint.position).magnitude) ;
+        hits = Physics.RaycastAll(origin: Camera.main.transform.position,
+                                  direction: (-Camera.main.transform.position + targetFacePoint.position).normalized,
+            maxDistance: (-Camera.main.transform.position + targetFacePoint.position).magnitude);
         bool passedThroughColliderOnCard = false;
         foreach (RaycastHit h in hits)
         {
@@ -39,7 +40,7 @@ public class BetterCardRotation : MonoBehaviour {
                 passedThroughColliderOnCard = true;
         }
         //Debug.Log("TotalHits: " + hits.Length); 
-        if (passedThroughColliderOnCard!= showingBack)
+        if (passedThroughColliderOnCard != showingBack)
         {
             // something changed
             showingBack = passedThroughColliderOnCard;
@@ -58,5 +59,5 @@ public class BetterCardRotation : MonoBehaviour {
 
         }
 
-	}
+    }
 }
