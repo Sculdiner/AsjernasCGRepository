@@ -18,7 +18,7 @@ public class ViewController : IViewController
     {
         _controlledView = controlledView;
 
-        if (!_controlledView.IsArtistDebug)
+        if (!_controlledView.IsArtistDebug && PhotonEngine.Instance != null)
         {
             if (PhotonEngine.Instance == null)
             {
@@ -44,24 +44,34 @@ public class ViewController : IViewController
     #region Implementation of IViewController
     public bool IsConnected
     {
-        get { return PhotonEngine.Instance.State is Connected; }
+        get
+        {
+            if (!_controlledView.IsArtistDebug && PhotonEngine.Instance != null)
+            {
+                return PhotonEngine.Instance.State is Connected;
+            }
+            return false;
+        }
     }
 
     public void ApplicationQuit()
     {
-        PhotonEngine.Instance.Disconnect();
+        if (!_controlledView.IsArtistDebug && PhotonEngine.Instance != null)
+            PhotonEngine.Instance.Disconnect();
     }
 
     public void DisconnectPeer()
     {
-        PhotonEngine.Instance.Disconnect();
+        if (!_controlledView.IsArtistDebug && PhotonEngine.Instance != null)
+            PhotonEngine.Instance.Disconnect();
     }
 
     public void Connect()
     {
         if (!IsConnected)
         {
-            PhotonEngine.Instance.Initialize();
+            if (!_controlledView.IsArtistDebug && PhotonEngine.Instance != null)
+                PhotonEngine.Instance.Initialize();
         }
     }
 
