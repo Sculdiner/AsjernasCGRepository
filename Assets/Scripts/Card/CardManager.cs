@@ -1,15 +1,13 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
-public class CardManager : MonoBehaviour {
-
-    public GameObject CardTemplatePrefab;
-
-    public TextAsset CardTemplates;
-
-    public GameObject CreateCard()
+namespace Assets.Scripts.Card
+{
+    public class CardManager : MonoBehaviour
     {
-        return null;
+        public GameObject Prefab;
     }
 }
