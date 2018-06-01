@@ -1391,6 +1391,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bc56e60d1833aa449292ba97999ba1d, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1749547830 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114867287928506088, guid: 9bc56e60d1833aa449292ba97999ba1d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1749547829}
+  m_Script: {fileID: 11500000, guid: d21a5a86e82690648b85a7d76b65f73a, type: 3}
 --- !u!1001 &2096728716
 Prefab:
   m_ObjectHideFlags: 0
@@ -1467,7 +1473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsArtistDebug: 0
   FriendListViewManager: {fileID: 321148231}
-  MasterCardManager: {fileID: 0}
+  MasterCardManager: {fileID: 1749547830}
 --- !u!4 &2098624640
 Transform:
   m_ObjectHideFlags: 0

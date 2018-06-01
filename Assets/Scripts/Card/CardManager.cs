@@ -19,6 +19,12 @@ namespace Assets.Scripts.Card
         public Text Power;
         public Text Health;
         public Text ResourceCost;
+        public BaseCardTemplate InitialTemplate;
+
+        public void SetInitialTemplate(BaseCardTemplate template)
+        {
+            InitialTemplate = template;
+        }
 
         public void UpdateCardView(BaseCardTemplate cardTemplate)
         {

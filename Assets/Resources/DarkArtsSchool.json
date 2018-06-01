@@ -1,5 +1,5 @@
 ﻿[
-  {
+  { "CardTemplateId":0,
     "CardName": "Speak with Dead",
     "CardType": 4,
     "BaseResourceCost": 1,
@@ -9,7 +9,7 @@
     "CardImage": "speakwithdead.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":1,
     "CardName": "Dusk Scion's Skull",
     "CardType": 1,
     "BaseResourceCost": 0,
@@ -20,7 +20,7 @@
     "CardImage": "duskscionskull.jpg",
     "Quantity": 1
   },
-  {
+  { "CardTemplateId":2,
     "CardName": "Dusk Scion",
     "CardType": 3,
     "BaseResourceCost": 8,
@@ -34,7 +34,7 @@
     "DontIncludeInMainDeck": true,
     "IsGeneratedByCard": "Dusk Scion's Skull"
   },
-  {
+  { "CardTemplateId":3,
     "CardName": "Arastel, Spell Weaver",
     "CardType": 0,
     "CardText": "Whenever you activate a Hex Ability, the next event you cast this turn cost 1 less.", // <b><i>Golden Thread</i></b>s in your deck",
@@ -47,7 +47,7 @@
     "Setup": true,
     "CardImage": "Arastel.jpg"
   },
-  {
+  { "CardTemplateId":4,
     "CardName": "Nizoth, Rotten Prince",
     "CardType": 0,
     "CardText": "Activation: If a minion died this turn, heal 1 Health.",
@@ -60,14 +60,14 @@
     "Setup": true,
     "CardImage": "Nizzoth.jpg"
   },
-  //{
+  //{ "CardTemplateId":0,
   //  "CardName": "Golden Thread",
   //  "CardType": 1,
   //  "ResourceCost": 1,
   //  "CardText": "At the end of the round, reduce the cost of all cards in your hand, by 1 and then discard any costing 0.",
   //  "Colors": [ "Black" ]
   //},
-  {
+  { "CardTemplateId":5,
     "CardName": "Bone Sheer",
     "CardType": 3,
     "BaseResourceCost": 1,
@@ -77,7 +77,7 @@
     "CardImage": "deathseer.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":6,
     "CardName": "Bone Blade",
     "CardType": 1,
     "BaseResourceCost": 3,
@@ -89,7 +89,7 @@
     "CardImage": "bone_blade.jpg",
     "Quantity": 1
   },
-  {
+  { "CardTemplateId":7,
     "CardName": "Blood Cauldron",
     "CardType": 1,
     "BaseResourceCost": 2,
@@ -99,7 +99,7 @@
     "CardImage": "cauldronofblood.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":8,
     "CardName": "Pact Imp",
     "CardType": 3,
     "BaseResourceCost": 1,
@@ -113,7 +113,7 @@
     "CardImage": "pact_imp.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":9,
     "CardName": "Whip of Obedience",
     "CardType": 1,
     "BaseResourceCost": 2,
@@ -125,7 +125,7 @@
     "CardImage": "whip_of_obedience.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":10,
     "CardName": "Disintegrate",
     "CardType": 4,
     "BaseResourceCost": 5,
@@ -135,7 +135,7 @@
     "CardImage": "disintegrate.jpg",
     "Quantity": 1
   },
-  {
+  { "CardTemplateId":11,
     "CardName": "Phylactery",
     "CardType": 1,
     "BaseResourceCost": 0,
@@ -145,7 +145,7 @@
     "CardImage": "phylactery.jpg",
     "Quantity": 2
   },
-  //{
+  //{ "CardTemplateId":0,
   //  "CardName": "Asphyxiate",
   //  "CardType": 4,
   //  "BaseResourceCost": 1,
@@ -153,7 +153,7 @@
   //  "Traits": "Event",
   //  "Colors": [ "Black" ]
   //},
-  {
+  { "CardTemplateId":12,
     "CardName": "Lesser Summoning Circle",
     "CardType": 2,
     "BaseResourceCost": 3,
@@ -164,7 +164,7 @@
     "CardImage": "lesser_summoning.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":13,
     "CardName": "Hell Imp",
     "CardType": 3,
     "BaseResourceCost": 2,
@@ -177,7 +177,7 @@
     "CardImage": "hellimp.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":14,
     "CardName": "Withering Hex",
     "CardType": 2,
     "BaseResourceCost": 1,
@@ -188,7 +188,7 @@
     "CardImage": "wither.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":15,
     "CardName": "Abominate",
     "CardType": 4,
     "BaseResourceCost": 0,
@@ -198,7 +198,7 @@
     "CardImage": "abominate.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":16,
     "CardName": "Abomination",
     "CardType": 3,
     "BaseResourceCost": 0,
@@ -211,7 +211,7 @@
     "DontIncludeInMainDeck": true,
     "CardImage": "abomination_effect.jpg"
   },
-  {
+  { "CardTemplateId":17,
     "CardName": "Witch Brew",
     "CardType": 1,
     "BaseResourceCost": 1,
@@ -221,7 +221,7 @@
     "CardImage": "witch_brew.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":18,
     "CardName": "Scythe of the Pact",
     "CardType": 1,
     "BaseResourceCost": 2,
@@ -233,7 +233,7 @@
     "CardImage": "scytheofthepact.jpg",
     "Quantity": 2
   },
-  {
+  { "CardTemplateId":19,
     "CardName": "Desecrating Aura",
     "CardType": 2,
     "BaseResourceCost": 1,

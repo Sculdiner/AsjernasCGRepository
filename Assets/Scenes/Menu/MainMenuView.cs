@@ -17,7 +17,10 @@ public class MainMenuView : View
         {
             
         }
-        
+        MasterCardManager.GenerateCardPrefab(0, 9870);
+        MasterCardManager.GenerateCardPrefab(0, 9871);
+        MasterCardManager.GenerateCardPrefab(5, 9872);
+        MasterCardManager.GenerateCardPrefab(1, 9873);
         //FriendListViewManager.AddFriendItem(new AsjernasCG.Common.EventModels.FriendStatusModel()
         //{
         //    UserName = "asdasd",

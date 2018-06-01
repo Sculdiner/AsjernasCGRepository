@@ -35,6 +35,7 @@ public class MasterCardManager : MonoBehaviour
         var cardTemplate = GetNewCardInstance(cardTemplateId, generatedCardId);
         var prefab = (GameObject)Instantiate(CardTemplatePrefab);
         var cardManager = prefab.GetComponent<CardManager>();
+        cardManager.SetInitialTemplate(cardTemplate);
         cardManager.UpdateCardView(cardTemplate);
         Cards.Add(generatedCardId, cardManager);
         return prefab;
