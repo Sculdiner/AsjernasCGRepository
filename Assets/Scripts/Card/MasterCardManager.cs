@@ -13,29 +13,37 @@ public class MasterCardManager : MonoBehaviour
 
     public TextAsset CardTemplates;
 
-    private readonly Dictionary<int, string> CardCollection = new Dictionary<int, string>();
+    private readonly Dictionary<int, string> CardTemplateCollection = new Dictionary<int, string>();
+    private readonly Dictionary<int, CardManager> Cards = new Dictionary<int, CardManager>();
 
-    private void Awake()
+    public void LoadCards()
     {
         var desCards = JsonConvert.DeserializeObject<List<BaseCardTemplate>>(CardTemplates.text);
         foreach (var card in desCards)
-        {
-            CardCollection.Add(card.CardTemplateId, Newtonsoft.Json.JsonConvert.SerializeObject(card));
-        }
+            CardTemplateCollection.Add(card.CardTemplateId, Newtonsoft.Json.JsonConvert.SerializeObject(card));
     }
 
-    public BaseCardTemplate GetNewCardInstance(int cardTemplateId, int serverId)
+    public BaseCardTemplate GetNewCardInstance(int cardTemplateId, int generatedCardId)
     {
-        if (CardCollection.ContainsKey(cardTemplateId))
-            return JsonConvert.DeserializeObject<BaseCardTemplate>(CardCollection[cardTemplateId]);
+        if (CardTemplateCollection.ContainsKey(cardTemplateId))
+            return JsonConvert.DeserializeObject<BaseCardTemplate>(CardTemplateCollection[cardTemplateId]);
         return null;
     }
 
-    public GameObject GenerateCardPrefab(int cardTemplateId, int serverId)
+    public GameObject GenerateCardPrefab(int cardTemplateId, int generatedCardId)
     {
-        var cardTemplate = GetNewCardInstance(cardTemplateId, serverId);
+        var cardTemplate = GetNewCardInstance(cardTemplateId, generatedCardId);
         var prefab = (GameObject)Instantiate(CardTemplatePrefab);
         var cardManager = prefab.GetComponent<CardManager>();
+        cardManager.UpdateCardView(cardTemplate);
+        Cards.Add(generatedCardId, cardManager);
         return prefab;
+    }
+
+    public CardManager GetCardManager(int generatedCardId)
+    {
+        if (Cards.ContainsKey(generatedCardId))
+            return Cards[generatedCardId];
+        return null;
     }
 }

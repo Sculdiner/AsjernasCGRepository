@@ -547,6 +547,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1517101373665094}
+  Name: {fileID: 114772591509238448}
+  Text: {fileID: 114031507571510484}
+  Image: {fileID: 114655790699488170}
+  Traits: {fileID: 114068069449042526}
+  Power: {fileID: 0}
+  Health: {fileID: 0}
+  ResourceCost: {fileID: 114042860402450652}
 --- !u!114 &114206084537772622
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -9,6 +9,15 @@ public class MainMenuView : View
     private void Start()
     {
         Controller = new MainMenuController(this);
+        try
+        {
+            MasterCardManager.LoadCards();
+        }
+        catch (System.Exception ex)
+        {
+            
+        }
+        
         //FriendListViewManager.AddFriendItem(new AsjernasCG.Common.EventModels.FriendStatusModel()
         //{
         //    UserName = "asdasd",
@@ -30,4 +39,5 @@ public class MainMenuView : View
     }
 
     public FriendListViewManager FriendListViewManager;
+    public MasterCardManager MasterCardManager;
 }
