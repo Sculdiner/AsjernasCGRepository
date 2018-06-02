@@ -1,4 +1,4 @@
-﻿using AsjernasCG.Common.CardModels;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

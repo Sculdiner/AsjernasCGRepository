@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
-using AsjernasCG.Common.CardModels;
 using System;
 using Assets.Scripts.Card;
+using AsjernasCG.Common.BusinessModels.CardModels;
 
 public class MasterCardManager : MonoBehaviour
 {
