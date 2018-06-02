@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: f794c91e53e1cfd45bf369cbad3283fa
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: upg_dagger_0
+    21300002: upg_dagger_1
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -102,11 +104,31 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: upg_dagger_1
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 101
+        width: 197
+        height: 239
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 427113108a6c3774bab114ab2a92c623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6446833ba1a54124fbd7e9adeb4865c6
     vertices: []
     indices: 
     edges: []
