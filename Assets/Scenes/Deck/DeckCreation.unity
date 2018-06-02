@@ -777,11 +777,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!224 &439508311 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224892730953348492, guid: 6120cef48604a914896e1faecb3d98b1,
-    type: 2}
-  m_PrefabInternal: {fileID: 2010205316}
 --- !u!1 &448588408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,29 +3194,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 224599795337369470, guid: 6120cef48604a914896e1faecb3d98b1,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224599795337369470, guid: 6120cef48604a914896e1faecb3d98b1,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1190036350474212, guid: 6120cef48604a914896e1faecb3d98b1, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1190036350474212, guid: 6120cef48604a914896e1faecb3d98b1, type: 2}
-      propertyPath: m_Name
-      value: FriendListWrapper
-      objectReference: {fileID: 0}
-    - target: {fileID: 114375005794404210, guid: 6120cef48604a914896e1faecb3d98b1,
-        type: 2}
-      propertyPath: FriendListWrapper
-      value: 
-      objectReference: {fileID: 439508311}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6120cef48604a914896e1faecb3d98b1, type: 2}
   m_IsPrefabParent: 0
