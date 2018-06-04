@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: 574cea4fcf76760409f93388902f60bb
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: CreatureGlow_0
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -45,7 +46,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -102,11 +103,31 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: CreatureGlow_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 21
+        width: 958
+        height: 1358
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4d72afd8c1daeb4198ce1ef78ab23f2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 24687ba3620a54548917b5c5b9254c7f
     vertices: []
     indices: 
     edges: []

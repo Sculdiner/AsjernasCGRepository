@@ -2,7 +2,7 @@
 using System.Collections;
 using DG.Tweening;
 
-public class HoverPreview: MonoBehaviour
+public class HoverPreview : MonoBehaviour
 {
     // PUBLIC FIELDS
     public GameObject TurnThisOffWhenPreviewing;  // if this is null, will not turn off anything 
@@ -18,12 +18,12 @@ public class HoverPreview: MonoBehaviour
     private static bool _PreviewsAllowed = true;
     public static bool PreviewsAllowed
     {
-        get { return _PreviewsAllowed;}
+        get { return _PreviewsAllowed; }
 
-        set 
-        { 
+        set
+        {
             //Debug.Log("Hover Previews Allowed is now: " + value);
-            _PreviewsAllowed= value;
+            _PreviewsAllowed = value;
             if (!_PreviewsAllowed)
                 StopAllPreviews();
         }
@@ -32,31 +32,31 @@ public class HoverPreview: MonoBehaviour
     private bool _thisPreviewEnabled = false;
     public bool ThisPreviewEnabled
     {
-        get { return _thisPreviewEnabled;}
+        get { return _thisPreviewEnabled; }
 
-        set 
-        { 
+        set
+        {
             _thisPreviewEnabled = value;
             if (!_thisPreviewEnabled)
                 StopThisPreview();
         }
     }
 
-    public bool OverCollider { get; set;}
- 
+    public bool OverCollider { get; set; }
+
     // MONOBEHVIOUR METHODS
     void Awake()
     {
         ThisPreviewEnabled = ActivateInAwake;
     }
-            
+
     void OnMouseEnter()
     {
         OverCollider = true;
         if (PreviewsAllowed && ThisPreviewEnabled)
             PreviewThisObject();
     }
-        
+
     void OnMouseExit()
     {
         OverCollider = false;
@@ -76,8 +76,8 @@ public class HoverPreview: MonoBehaviour
         // 3) enable Preview game object
         previewGameObject.SetActive(true);
         // 4) disable if we have what to disable
-        if (TurnThisOffWhenPreviewing!=null)
-            TurnThisOffWhenPreviewing.SetActive(false); 
+        if (TurnThisOffWhenPreviewing != null)
+            TurnThisOffWhenPreviewing.SetActive(false);
         // 5) tween to target position
         previewGameObject.transform.localPosition = Vector3.zero;
         previewGameObject.transform.localScale = Vector3.one;
@@ -91,8 +91,8 @@ public class HoverPreview: MonoBehaviour
         previewGameObject.SetActive(false);
         previewGameObject.transform.localScale = Vector3.one;
         previewGameObject.transform.localPosition = Vector3.zero;
-        if (TurnThisOffWhenPreviewing!=null)
-            TurnThisOffWhenPreviewing.SetActive(true); 
+        if (TurnThisOffWhenPreviewing != null)
+            TurnThisOffWhenPreviewing.SetActive(true);
     }
 
     // STATIC METHODS
@@ -100,13 +100,9 @@ public class HoverPreview: MonoBehaviour
     {
         if (currentlyViewing != null)
         {
-            currentlyViewing.previewGameObject.SetActive(false);
-            currentlyViewing.previewGameObject.transform.localScale = Vector3.one;
-            currentlyViewing.previewGameObject.transform.localPosition = Vector3.zero;
-            if (currentlyViewing.TurnThisOffWhenPreviewing!=null)
-                currentlyViewing.TurnThisOffWhenPreviewing.SetActive(true); 
+            currentlyViewing.StopThisPreview();
         }
-         
+
     }
 
     private static bool PreviewingSomeCard()
@@ -125,5 +121,5 @@ public class HoverPreview: MonoBehaviour
         return false;
     }
 
-   
+
 }
