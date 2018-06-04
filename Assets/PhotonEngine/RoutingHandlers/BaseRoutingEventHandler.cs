@@ -7,7 +7,6 @@ public abstract class BaseRoutingEventHandler : IEventRoutingHandler
     //The operation family code
     public abstract ClientEventGroupCode RegisteredEventGroupCode { get; }
     public abstract SubEventHandlerCollection SubEventHandlerCollection { get; }
-
     //The handler family that is available for this operation
     public virtual void OnBeforeHandle()
     {
@@ -20,6 +19,9 @@ public abstract class BaseRoutingEventHandler : IEventRoutingHandler
 
     public void HandleEvent(View view, Dictionary<byte, object> parameters)
     {
-        SubEventHandlerCollection.GetHandler((byte)parameters[(byte)PacketCodeType.PacketSubRouting]).HandleEvent(view, parameters[(byte)PacketCodeType.PacketParameters] as string);
+        SubEventHandlerCollection
+            .GetHandler((byte)parameters[(byte)PacketCodeType.PacketSubRouting])
+            .HandleEvent(view, parameters[(byte)PacketCodeType.PacketParameters] as string);
+
     }
 }

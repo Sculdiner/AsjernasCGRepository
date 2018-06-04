@@ -18,7 +18,7 @@ public class ViewController : IViewController
     {
         _controlledView = controlledView;
 
-        if (!_controlledView.IsArtistDebug && PhotonEngine.Instance != null)
+        if (!_controlledView.IsArtistDebug)
         {
             if (PhotonEngine.Instance == null)
             {
