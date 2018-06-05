@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: a42dc95d0c63c87498f3e33265a91574
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: potionBlue_0
+    21300002: potionBlue_1
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -102,11 +104,31 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: potionBlue_1
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 123
+        width: 234
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb6cb97f382656447ab9108927ec0ad2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 378e98956b64a3642a39ac29655d6516
     vertices: []
     indices: 
     edges: []
