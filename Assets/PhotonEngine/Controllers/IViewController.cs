@@ -8,7 +8,7 @@ public interface IViewController
     void ApplicationQuit();
     void DisconnectPeer();
     void Connect();
-    void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, TInput input, bool sendReliable, byte channelId, bool encrypt) where TInput : class;
+    void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, bool sendReliable, byte channelId, bool encrypt) where TInput : class;
     #region
     void DebugReturn(DebugLevel level, string message);
     void OnOperationResponse(OperationResponse operationResponse);

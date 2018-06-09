@@ -1,6 +1,7 @@
 ﻿using AsjernasCG.Common;
 using AsjernasCG.Common.OperationHelpers;
 using AsjernasCG.Common.OperationHelpers.Login;
+using AsjernasCG.Common.OperationHelpers.Menu;
 using AsjernasCG.Common.OperationModels;
 using ExitGames.Client.Photon;
 using System.Collections.Generic;
@@ -22,20 +23,20 @@ public class LoginController : ViewController
 
     public void SendLogin(string email, string password)
     {
-        SendOperation(new LoginOperationHelper<LoginOperationModel>(), new LoginOperationModel()
+        SendOperation(new LoginOperationHelper<LoginOperationModel>(new LoginOperationModel()
         {
             Email = email,
             Password = password
-        }, true, 0, false);
+        }), true, 0, false);
     }
 
     public void LoadDeckTest(int deckId)
     {
-        SendOperation(new AsjernasCG.Common.OperationHelpers.Menu.MatchmakeRequestOperationHelper<MatchmakeRequestModel>(), new MatchmakeRequestModel()
+        SendOperation(new MatchmakeRequestOperationHelper<MatchmakeRequestModel>(new MatchmakeRequestModel()
         {
             DeckId = deckId,
             GameType = "casual"
-        }, true, 0, false);
+        }), true, 0, false);
     }
 
     public void SendRegister(string username, string password, string email)

@@ -27,7 +27,7 @@ public abstract class View : MonoBehaviour, IView
 
     public void RequestFriendListUpdate()
     {
-        Controller.SendOperation(new GetFriendListOperationHelper<FriendListOperationModel>(), new FriendListOperationModel() { FriendsToSkip = 0 }, true, 0, false);
+        Controller.SendOperation(new GetFriendListOperationHelper<FriendListOperationModel>(new FriendListOperationModel() { FriendsToSkip = 0 }), true, 0, false);
     }
 
     public abstract void OnFriendStatusUpdate(FriendListItemViewModel friendStatusModel);

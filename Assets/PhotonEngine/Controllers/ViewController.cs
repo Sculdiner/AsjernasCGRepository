@@ -119,9 +119,9 @@ public class ViewController : IViewController
         _controlledView.LogError(string.Format("Unexpected Status  {0}", statusCode));
     }
 
-    public void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, TInput input, bool sendReliable, byte channelId, bool encrypt) where TInput : class
+    public void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, bool sendReliable, byte channelId, bool encrypt) where TInput : class
     {
-        var operationParams = operationHelper.GenerateOperationParameters(input);
+        var operationParams = operationHelper.GenerateOperationParameters();
         var operationRoutingCode = (byte)operationParams[(byte)PacketCodeType.PacketBaseRouting];
         operationParams.Remove((byte)PacketCodeType.PacketBaseRouting);
         var request = new OperationRequest()
