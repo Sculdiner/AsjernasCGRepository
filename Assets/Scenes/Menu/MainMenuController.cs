@@ -40,7 +40,7 @@ public class MainMenuController : ViewController
         SendOperation(helper, true, 0, false);
     }
 
-    public void SendAcceptGroupInvitation(int groupLeaderId)
+    public void SendAcceptGroupInvitation(int groupLeaderId, string username)
     {
         var model = new GroupRequestReplyOperationModel()
         {
@@ -53,7 +53,9 @@ public class MainMenuController : ViewController
 
         //redirect to play area scene
         GroupManager.Instance.ClearGroup();
-        GroupManager.Instance.NewGroup(groupLeaderId, null);
+        GroupManager.Instance.NewGroup(groupLeaderId, username);
         GroupManager.Instance.AddNonLeaderPlayer(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
+
+        this.ControlledView.ChangeScene("PlayMenu");
     }
 }

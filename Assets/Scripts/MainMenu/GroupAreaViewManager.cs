@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class GroupAreaViewManager : MonoBehaviour
 {
-    public bool IsLeaderArea;
-    public int OwnerUserId;
-
     public GameObject DeckSelectionPrefab;
     public DeckSelectionPrefabHelperManager DeckListSelectionHelperManager;
     public TextMeshProUGUI UserName;
@@ -19,34 +16,37 @@ public class GroupAreaViewManager : MonoBehaviour
 
     public Action<int> OnKickedUser;
     public Action OnLeftGroup;
+    private int areasUserId;
 
-    public void LoadArea(int leaderId)
+    public void LoadArea(bool areaIsForCurrentUser, bool isGroupLeader, int userid, string username)
     {
-        //if (true)
-        //{
+        this.gameObject.SetActive(true);
+        UserName.text = username;
+        areasUserId = userid;
+        if (userid == PhotonEngine.Instance.UserId)
+        {
+            var prefab = (GameObject)Instantiate(DeckSelectionPrefab);
+            DeckListSelectionHelperManager = prefab.GetComponent<DeckSelectionPrefabHelperManager>();
+            prefab.transform.SetParent(this.transform);
+            prefab.transform.localPosition = new Vector3(0, 0, 0);
+            prefab.transform.localScale = new Vector3(1, 1, 1);
+        }
 
-        //}
-
-        //if (AreaUserId == PhotonEngine.Instance.UserId)
-        //{
-        //    var prefab = (GameObject)Instantiate(DeckSelectionPrefab);
-        //    DeckListSelectionHelperManager = prefab.GetComponent<DeckSelectionPrefabHelperManager>();
-        //    prefab.transform.SetParent(this.transform);
-        //    prefab.transform.localScale = new Vector3(1, 1, 1);
-        //}
-
-        //if (!IsCurrentPlayerArea && !IsLeaderArea)
-        //{
-        //    KickUserButton.gameObject.SetActive(true);
-        //    LeaveGroupButton.gameObject.SetActive(false);
-        //    KickUserButton.onClick.AddListener(OnKickedClicked);
-        //}
-        //else
-        //{
-        //    LeaveGroupButton.gameObject.SetActive(true);
-        //    KickUserButton.onClick.AddListener(OnLeaveGroupClicked);
-        //    KickUserButton.gameObject.SetActive(false);
-        //}
+        if (!isGroupLeader)
+        {
+            if (!areaIsForCurrentUser)
+            {
+                KickUserButton.gameObject.SetActive(true);
+                LeaveGroupButton.gameObject.SetActive(false);
+                KickUserButton.onClick.AddListener(OnKickedClicked);
+            }
+            else
+            {
+                LeaveGroupButton.gameObject.SetActive(true);
+                KickUserButton.onClick.AddListener(OnLeaveGroupClicked);
+                KickUserButton.gameObject.SetActive(false);
+            }
+        }
     }
 
 
@@ -55,7 +55,7 @@ public class GroupAreaViewManager : MonoBehaviour
     {
         if (OnKickedUser != null)
         {
-            OnKickedUser.Invoke(OwnerUserId);
+            OnKickedUser.Invoke(areasUserId);
         }
     }
 

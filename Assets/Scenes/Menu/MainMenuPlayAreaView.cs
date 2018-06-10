@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AsjernasCG.Common;
 using AsjernasCG.Common.OperationModels;
 using UnityEngine;
@@ -22,6 +23,24 @@ public class MainMenuPlayAreaView : View
         {
             RequestFriendListUpdate();
         }
+        var groupCount = GroupManager.Instance.Group.Count;
+        if (groupCount < 2)
+        {
+            GroupManager.Instance.ClearGroup();
+            GroupManager.Instance.NewGroup(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
+        }
+
+        var group = GroupManager.Instance.Group;
+
+        var groupLeader = group.FirstOrDefault(s => s.IsGroupLeader);
+        LeaderArea.LoadArea(groupLeader.UserId == PhotonEngine.Instance.UserId, true, groupLeader.UserId, groupLeader.UserName);
+        var nonLeader = group.FirstOrDefault(s => !s.IsGroupLeader);
+        if (nonLeader != null)
+        {
+            InviteToGroupFunctionalityArea.SetActive(false);
+            TeammateArea.LoadArea(nonLeader.UserId == PhotonEngine.Instance.UserId, false, nonLeader.UserId, nonLeader.UserName);
+        }
+
         //MasterCardManager.GenerateCardPrefab(0, 9870);
         //MasterCardManager.GenerateCardPrefab(0, 9871);
         //MasterCardManager.GenerateCardPrefab(5, 9872);
@@ -75,7 +94,7 @@ public class MainMenuPlayAreaView : View
         {
             InvitationManager.OnGroupAccept = (u) =>
             {
-                _controller.SendAcceptGroupInvitation(u);
+                _controller.SendAcceptGroupInvitation(u, username);
             };
             InvitationManager.OnGroupDecline = (u) =>
             {
@@ -89,7 +108,7 @@ public class MainMenuPlayAreaView : View
     public MasterCardManager MasterCardManager;
     public InviteListManager InviteListManager;
     public InvitationManager InvitationManager;
-    public GroupManager GroupManager;
     public GroupAreaViewManager LeaderArea;
     public GroupAreaViewManager TeammateArea;
+    public GameObject InviteToGroupFunctionalityArea;
 }
