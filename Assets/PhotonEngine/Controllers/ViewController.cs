@@ -132,5 +132,21 @@ public class ViewController : IViewController
         PhotonEngine.Instance.SetOp(request, sendReliable, channelId, encrypt);
     }
 
+    public void UpdateUserProfile(int userId, string userName)
+    {
+        PhotonEngine.Instance.UserId = userId;
+        PhotonEngine.Instance.UserName = userName;
+    }
+
+    public int GetUserId()
+    {
+        return PhotonEngine.Instance.UserId;
+    }
+
+    public string GetUserName()
+    {
+        return PhotonEngine.Instance.UserName;
+    }
+
     #endregion
 }

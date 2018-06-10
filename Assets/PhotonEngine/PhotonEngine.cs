@@ -66,6 +66,9 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
         State.OnUpdate();
     }
 
+    public int UserId { get; set; }
+    public string UserName { get; set; }
+
     public void SetOp(OperationRequest request, bool sendReliable, byte channelId, bool encrypt)
     {
         State.SendOperation(request, sendReliable, channelId, encrypt);

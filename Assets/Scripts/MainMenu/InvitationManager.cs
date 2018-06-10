@@ -11,10 +11,10 @@ public class InvitationManager : MonoBehaviour {
     public TextMeshProUGUI InvitationText;
     public Button AcceptInvitationButton;
     public Button DeclineInvitationButton;
-    private string inviteSourceId;
+    private int inviteSourceId;
 
-    public Action<string> OnGroupAccept;
-    public Action<string> OnGroupDecline;
+    public Action<int> OnGroupAccept;
+    public Action<int> OnGroupDecline;
 
     public void Awake()
     {
@@ -33,10 +33,10 @@ public class InvitationManager : MonoBehaviour {
         UIGroup.SetActive(false);
     }
 
-    public void InitializeInvitation(string groupId, string username)
+    public void InitializeInvitation(int groupId, string username)
     {
+        UIGroup.SetActive(true);
         inviteSourceId = groupId;
         InvitationText.text = username + " invites you to a group";
-        UIGroup.SetActive(true);
     }
 }

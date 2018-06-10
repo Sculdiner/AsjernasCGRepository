@@ -4,7 +4,7 @@ using AsjernasCG.Common;
 using AsjernasCG.Common.OperationModels;
 using UnityEngine;
 
-public class MainMenuView : View
+public class MainMenuPlayAreaView : View
 {
     private int timer = 0;
     private void Start()
@@ -31,7 +31,6 @@ public class MainMenuView : View
         //    UserName = "asdasd",
         //    UserStatus = AsjernasCG.Common.BusinessModels.UserStatusModel.Connected
         //});
-        GroupManager.InitializeManager();
     }
 
     void Update()
@@ -66,9 +65,11 @@ public class MainMenuView : View
     public void SendGroupInvitationRequest(int userId)
     {
         _controller.SendGroupInviteRequest(userId);
+        GroupManager.Instance.ClearGroup();
+        GroupManager.Instance.NewGroup(userId, PhotonEngine.Instance.UserName);
     }
 
-    public void OnInvited(int groupLeaderId, string username)
+    public void OnInvited(int groupId, string username)
     {
         if (InvitationManager != null)
         {
@@ -80,13 +81,8 @@ public class MainMenuView : View
             {
                 _controller.SendDeclineGroupInvitation(u);
             };
-            InvitationManager.InitializeInvitation(groupLeaderId, username);
+            InvitationManager.InitializeInvitation(groupId, username);
         }
-    }
-
-    public void GoToPlayScene()
-    {
-        ChangeScene("PlayMenu");
     }
 
     public FriendListViewManager FriendListViewManager;
@@ -94,4 +90,6 @@ public class MainMenuView : View
     public InviteListManager InviteListManager;
     public InvitationManager InvitationManager;
     public GroupManager GroupManager;
+    public GroupAreaViewManager LeaderArea;
+    public GroupAreaViewManager TeammateArea;
 }

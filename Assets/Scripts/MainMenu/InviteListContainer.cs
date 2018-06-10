@@ -7,6 +7,14 @@ public class InviteListContainer : MonoBehaviour {
 
     public GameObject InviteListItemPrefab;
 
+    public void Clear()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject.DestroyImmediate(child.gameObject);
+        }
+    }
+
     public void Add(int userId, string username, Action<int> OnInvite)
     {
         var invitationListItem = (GameObject)Instantiate(InviteListItemPrefab);
