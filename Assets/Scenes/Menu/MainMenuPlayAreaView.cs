@@ -81,6 +81,24 @@ public class MainMenuPlayAreaView : View
         }
     }
 
+    public void UpdateUserDecks(Dictionary<int, string> deckList)
+    {
+        if (LeaderArea.areasUserId == PhotonEngine.Instance.UserId)
+        {
+            foreach (var key in deckList.Keys)
+            {
+                LeaderArea.DeckListSelectionHelperManager.DeckListContainer.AddDeck(key, deckList[key]);
+            }
+        }
+        else
+        {
+            foreach (var key in deckList.Keys)
+            {
+                TeammateArea.DeckListSelectionHelperManager.DeckListContainer.AddDeck(key, deckList[key]);
+            }
+        }
+    }
+
     public void SendGroupInvitationRequest(int userId)
     {
         _controller.SendGroupInviteRequest(userId);

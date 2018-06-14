@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222764780692978408}
   - component: {fileID: 114436750072934206}
   - component: {fileID: 114515824837902332}
+  - component: {fileID: 114187558752533970}
   m_Layer: 5
   m_Name: DeckListItem
   m_TagString: Untagged
@@ -79,6 +80,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Button
+--- !u!114 &114187558752533970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1334756611323090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f15a57d14e4d9245afb3de1d5a123fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeckName: {fileID: 114137326265536314}
+  DeckSelection: {fileID: 114515824837902332}
+  DeckId: 0
 --- !u!114 &114436750072934206
 MonoBehaviour:
   m_ObjectHideFlags: 1

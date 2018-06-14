@@ -16,7 +16,7 @@ public class GroupAreaViewManager : MonoBehaviour
 
     public Action<int> OnKickedUser;
     public Action OnLeftGroup;
-    private int areasUserId;
+    public int areasUserId { get; private set; }
 
     public void LoadArea(bool areaIsForCurrentUser, bool isGroupLeader, int userid, string username)
     {

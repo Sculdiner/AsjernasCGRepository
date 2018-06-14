@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeckListItemViewModel : MonoBehaviour {
+public class DeckListItem : MonoBehaviour {
 
     public Text DeckName;
     public Button DeckSelection;
