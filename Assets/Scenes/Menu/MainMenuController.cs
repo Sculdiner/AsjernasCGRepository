@@ -1,4 +1,5 @@
-﻿using AsjernasCG.Common.OperationModels;
+﻿using AsjernasCG.Common.BusinessModels.BasicModels;
+using AsjernasCG.Common.OperationModels;
 using AsjernasCG.Common.OperationModels.BasicModels;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ public class MainMenuController : ViewController
 
     public void SendGroupInviteRequest(int userId)
     {
-        
+
         var model = new PlayerInteractionOperationModel()
         {
             UserId = userId
@@ -50,12 +51,34 @@ public class MainMenuController : ViewController
         var helper = new AsjernasCG.Common.OperationHelpers.General.GroupRequestReplyOperationHelper<GroupRequestReplyOperationModel>(model);
         SendOperation(helper, true, 0, false);
 
-
         //redirect to play area scene
         GroupManager.Instance.ClearGroup();
         GroupManager.Instance.NewGroup(groupLeaderId, username);
         GroupManager.Instance.AddNonLeaderPlayer(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
+        SendGetGroupState();
+    }
 
-        this.ControlledView.ChangeScene("PlayMenu");
+    public void SendGetGroupState()
+    {
+        var helper = new AsjernasCG.Common.OperationHelpers.General.GetGroupStatusOperationHelper<EmptyModel>(new EmptyModel());
+        SendOperation(helper, true, 0, false);
+    }
+
+    public void SendGetDeckList()
+    {
+        var helper = new AsjernasCG.Common.OperationHelpers.Menu.GetUserDecksOperationHelper<EmptyModel>(new EmptyModel());
+        SendOperation(helper, true, 0, false);
+    }
+
+    public void SendDeckSelectionChanged(int deckId)
+    {
+        var helper = new AsjernasCG.Common.OperationHelpers.Menu.SelectDeckOperationHelper<IntegerModel>(new IntegerModel() { Value = deckId });
+        SendOperation(helper, true, 0, false);
+    }
+
+    public void SendChangeReadyState(bool ready)
+    {
+        var helper = new AsjernasCG.Common.OperationHelpers.Menu.ChangeGameInitiationReadyStatusOperationHelper<BoolModel>(new BoolModel() { Value = ready });
+        SendOperation(helper, true, 0, false);
     }
 }

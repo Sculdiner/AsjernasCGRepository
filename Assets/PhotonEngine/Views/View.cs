@@ -1,6 +1,7 @@
 ﻿using System;
 using AsjernasCG.Common;
 using AsjernasCG.Common.EventModels;
+using AsjernasCG.Common.EventModels.General;
 using AsjernasCG.Common.OperationHelpers.General;
 using AsjernasCG.Common.OperationModels;
 using UnityEngine;

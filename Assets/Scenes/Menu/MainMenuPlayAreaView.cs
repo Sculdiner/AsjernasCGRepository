@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AsjernasCG.Common;
+using AsjernasCG.Common.EventModels.General;
 using AsjernasCG.Common.OperationModels;
 using UnityEngine;
 
@@ -33,14 +34,18 @@ public class MainMenuPlayAreaView : View
         var group = GroupManager.Instance.Group;
 
         var groupLeader = group.FirstOrDefault(s => s.IsGroupLeader);
-        LeaderArea.LoadArea(groupLeader.UserId == PhotonEngine.Instance.UserId, true, groupLeader.UserId, groupLeader.UserName);
+        LeaderArea.LoadArea(groupLeader.UserId == PhotonEngine.Instance.UserId, true, groupLeader.UserId, groupLeader.UserName, this);
         var nonLeader = group.FirstOrDefault(s => !s.IsGroupLeader);
         if (nonLeader != null)
         {
             InviteToGroupFunctionalityArea.SetActive(false);
-            TeammateArea.LoadArea(nonLeader.UserId == PhotonEngine.Instance.UserId, false, nonLeader.UserId, nonLeader.UserName);
+            TeammateArea.LoadArea(nonLeader.UserId == PhotonEngine.Instance.UserId, false, nonLeader.UserId, nonLeader.UserName, this);
         }
-
+        var existingGroupStatus = GroupManager.LoadGroupStatus();
+        if (existingGroupStatus != null)
+        {
+            ChangeStatus(existingGroupStatus);
+        }
         //MasterCardManager.GenerateCardPrefab(0, 9870);
         //MasterCardManager.GenerateCardPrefab(0, 9871);
         //MasterCardManager.GenerateCardPrefab(5, 9872);
@@ -81,22 +86,27 @@ public class MainMenuPlayAreaView : View
         }
     }
 
+    public void OnTeammateDeckSelectionChanged(int deckId, string deckName)
+    {
+        var teammateArea = FindMyTeammateArea();
+        if (teammateArea == null)
+            return;
+
+        teammateArea.SelectedDeckName.text = deckName;
+    }
+
+    public void OnTeammateGameInititiationReadyStatusChanged(bool isReady)
+    {
+        var teammateArea = FindMyTeammateArea();
+        if (teammateArea == null)
+            return;
+
+        teammateArea.ChangeGameInitiationReadyStatus(isReady);
+    }
+
     public void UpdateUserDecks(Dictionary<int, string> deckList)
     {
-        if (LeaderArea.areasUserId == PhotonEngine.Instance.UserId)
-        {
-            foreach (var key in deckList.Keys)
-            {
-                LeaderArea.DeckListSelectionHelperManager.DeckListContainer.AddDeck(key, deckList[key]);
-            }
-        }
-        else
-        {
-            foreach (var key in deckList.Keys)
-            {
-                TeammateArea.DeckListSelectionHelperManager.DeckListContainer.AddDeck(key, deckList[key]);
-            }
-        }
+        FindMyGroupArea().DeckListSelectionHelperManager.LoadDeckListArea(deckList);
     }
 
     public void SendGroupInvitationRequest(int userId)
@@ -119,6 +129,52 @@ public class MainMenuPlayAreaView : View
                 _controller.SendDeclineGroupInvitation(u);
             };
             InvitationManager.InitializeInvitation(groupId, username);
+        }
+    }
+
+    public GroupAreaViewManager FindMyGroupArea()
+    {
+        if (LeaderArea.areasUserId == PhotonEngine.Instance.UserId)
+        {
+            return LeaderArea;
+        }
+        else
+        {
+            return TeammateArea;
+        }
+    }
+
+    public GroupAreaViewManager FindMyTeammateArea()
+    {
+        if (LeaderArea.areasUserId == PhotonEngine.Instance.UserId)
+        {
+            return TeammateArea;
+        }
+        else
+        {
+            return LeaderArea;
+        }
+    }
+
+    public void StartGame()
+    {
+        if (LeaderArea.PlayerReady && TeammateArea.PlayerReady)
+        {
+            //_controller.Send
+        }
+    }
+
+    public void ChangeStatus(GroupStatusModel model)
+    {
+        if (model.GroupLeaderDeckId.HasValue)
+        {
+            LeaderArea.ChangeSelectedDeck(model.GroupLeaderDeckId.Value, model.GroupLeaderDeckName);
+            LeaderArea.ChangeGameInitiationReadyStatus(model.GroupLeaderReady);
+        }
+        if (model.TeammateDeckId.HasValue)
+        {
+            TeammateArea.ChangeSelectedDeck(model.TeammateDeckId.Value, model.TeammateDeckName);
+            TeammateArea.ChangeGameInitiationReadyStatus(model.TeammateReady);
         }
     }
 

@@ -10,6 +10,7 @@ public interface IViewController
     void Connect();
     void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, bool sendReliable, byte channelId, bool encrypt) where TInput : class;
     void UpdateUserProfile(int userId, string userName);
+    
     #region
     void DebugReturn(DebugLevel level, string message);
     void OnOperationResponse(OperationResponse operationResponse);

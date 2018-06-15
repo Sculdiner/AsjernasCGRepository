@@ -1,6 +1,7 @@
 ﻿using AsjernasCG.Common.ClientEventCodes;
 using AsjernasCG.Common.EventModels;
 using AsjernasCG.Common.EventModels.General;
+using Assets.PhotonEngine.Handlers.General;
 using System.Collections.Generic;
 
 public class GeneralRoutingEventHandler : BaseRoutingEventHandler
@@ -14,6 +15,7 @@ public class GeneralRoutingEventHandler : BaseRoutingEventHandler
         _subEventHandlerCollection.AddHandler(new GroupRequestDeniedByServerEventHandler<GroupRequestDeniedByServerModel>());
         _subEventHandlerCollection.AddHandler(new GroupRequestNotificationEventHandler<GroupRequestInitializeModel>());
         _subEventHandlerCollection.AddHandler(new GroupRequestResponseEventHandler<GroupRequestResponseModel>());
+        _subEventHandlerCollection.AddHandler(new GroupStatusEventHandler<GroupStatusModel>());
 
     }
     public override ClientEventGroupCode RegisteredEventGroupCode

@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using AsjernasCG.Common.EventModels.General;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GroupManager : MonoBehaviour
 {
@@ -38,6 +40,23 @@ public class GroupManager : MonoBehaviour
             UserId = userId,
             UserName = username,
         });
+    }
+
+    public void RemoveNonLeaderPlayers()
+    {
+        Group.RemoveAll(s => !s.IsGroupLeader);
+    }
+
+    private static GroupStatusModel _model;
+
+    public static void StoreGroupStatus(GroupStatusModel model)
+    {
+        _model = model;
+    }
+
+    public static GroupStatusModel LoadGroupStatus()
+    {
+        return _model;
     }
 
     private static GroupManager _instance;

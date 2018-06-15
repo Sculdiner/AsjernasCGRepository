@@ -8,7 +8,8 @@ public class DeckSelectionPrefabHelperManager : MonoBehaviour {
     public DeckListContainer DeckListContainer;
     public GameObject DeckListPopupWrapper;
     public Button DeckTogglingButton;
-
+    private bool getDeckListRequestInitialized;
+    private bool getDeckListRequestPending;
     private bool DeckPopupIsOpen;
 
     public void Awake()
@@ -25,8 +26,23 @@ public class DeckSelectionPrefabHelperManager : MonoBehaviour {
         }
         else
         {
+            if (!getDeckListRequestPending && !getDeckListRequestInitialized)
+            {
+                getDeckListRequestInitialized = true;
+                getDeckListRequestPending = true;
+            }
             DeckListPopupWrapper.SetActive(true);
             DeckPopupIsOpen = true;
+        }
+    }
+
+    public void LoadDeckListArea(Dictionary<int,string> deckList)
+    {
+        getDeckListRequestPending = false;
+        getDeckListRequestInitialized = true;
+        foreach (var key in deckList.Keys)
+        {
+            DeckListContainer.AddDeck(key, deckList[key]);
         }
     }
 }

@@ -25,7 +25,7 @@ public class GroupRequestResponseEventHandler<TModel> : BaseEventHandler<TModel>
             {
                 var castedView = ((MainMenuPlayAreaView)view);
                 castedView.InviteToGroupFunctionalityArea.SetActive(false);
-                castedView.TeammateArea.LoadArea(false, false, model.UserId, model.UserName);
+                castedView.TeammateArea.LoadArea(false, false, model.UserId, model.UserName, view as MainMenuPlayAreaView);
             }
         }
         else
