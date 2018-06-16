@@ -11,6 +11,19 @@ public class BoardView : View
         try
         {
             MasterCardManager.LoadCards();
+
+            var model = BoardTransitionHelper.Instance.GameInitializationModel;
+            var c1p1Template = model.Player1Model.Character1;
+            var c2p1Template = model.Player1Model.Character2;
+            var c1p2Template = model.Player2Model.Character1;
+            var c2p2Template = model.Player2Model.Character2;
+
+            var c1p1 = MasterCardManager.GenerateCardPrefab(c1p1Template.CardTemplateId, c1p1Template.GeneratedCardId);
+            var c2p1 = MasterCardManager.GenerateCardPrefab(c2p1Template.CardTemplateId, c2p1Template.GeneratedCardId);
+            var c1p2 = MasterCardManager.GenerateCardPrefab(c1p2Template.CardTemplateId, c1p2Template.GeneratedCardId);
+            var c2p2 = MasterCardManager.GenerateCardPrefab(c2p2Template.CardTemplateId, c2p2Template.GeneratedCardId);
+
+            _controller.SendClientReady();
         }
         catch (System.Exception ex)
         {
@@ -38,6 +51,11 @@ public class BoardView : View
     public override void OnFriendStatusUpdate(FriendListItemViewModel friendStatusModel)
     {
         FriendListViewManager.FriendListMasterModel.FriendListContainer.UpdateFriendItem(friendStatusModel);
+    }
+
+    public Vector3 GetPositionRelativeToObject(GameObject obj)
+    {
+        return Camera.main.ScreenToWorldPoint(obj.transform.position);
     }
 
     public FriendListViewManager FriendListViewManager;

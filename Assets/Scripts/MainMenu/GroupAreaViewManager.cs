@@ -21,18 +21,23 @@ public class GroupAreaViewManager : MonoBehaviour
     public bool PlayerReady { get; private set; }
 
     public int areasUserId { get; private set; }
-
+    public bool IsForLeader { get; private set; }
     public void LoadArea(bool areaIsForCurrentUser, bool isGroupLeader, int userid, string username, MainMenuPlayAreaView view)
     {
         this.gameObject.SetActive(true);
         UserName.text = username;
         areasUserId = userid;
         View = view;
+        IsForLeader = isGroupLeader;
         if (userid == PhotonEngine.Instance.UserId)
         {
             var prefab = (GameObject)Instantiate(DeckSelectionPrefab);
             DeckListSelectionHelperManager = prefab.GetComponent<DeckSelectionPrefabHelperManager>();
-            DeckListSelectionHelperManager.DeckListContainer.OnDeckSelected = ChangeSelectedDeck;
+            DeckListSelectionHelperManager.DeckListContainer.OnDeckSelected = (deckId, deckName) =>
+            {
+                ChangeSelectedDeck(deckId, deckName);
+                (View.Controller as MainMenuController).SendDeckSelectionChanged(deckId);
+            };
             prefab.transform.SetParent(this.transform);
             prefab.transform.localPosition = new Vector3(0, 0, 0);
             prefab.transform.localScale = new Vector3(1, 1, 1);
@@ -72,7 +77,18 @@ public class GroupAreaViewManager : MonoBehaviour
     public void ChangeSelectedDeck(int deckId, string deckName)
     {
         SelectedDeckName.text = deckName;
-        (View.Controller as MainMenuController).SendDeckSelectionChanged(deckId);
+
+        var group = GroupManager.Instance.LoadGroupStatus();
+        if (IsForLeader)
+        {
+            group.GroupLeaderDeckId = deckId;
+            group.GroupLeaderDeckName = deckName;
+        }
+        else
+        {
+            group.TeammateDeckId = deckId;
+            group.TeammateDeckName = deckName;
+        }
     }
 
     public void OnKickClicked()
@@ -113,9 +129,19 @@ public class GroupAreaViewManager : MonoBehaviour
         }
         else
         {
-            PlayerReady = true; 
+            PlayerReady = true;
             ReadyStatusButton_Ready();
             (View.Controller as MainMenuController).SendChangeReadyState(true);
+        }
+
+        var group = GroupManager.Instance.LoadGroupStatus();
+        if (IsForLeader)
+        {
+            group.GroupLeaderReady = PlayerReady;
+        }
+        else
+        {
+            group.TeammateReady = PlayerReady;
         }
     }
 }

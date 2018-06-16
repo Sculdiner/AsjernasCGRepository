@@ -5,6 +5,7 @@ using AsjernasCG.Common;
 using AsjernasCG.Common.EventModels.General;
 using AsjernasCG.Common.OperationModels;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuPlayAreaView : View
 {
@@ -41,11 +42,12 @@ public class MainMenuPlayAreaView : View
             InviteToGroupFunctionalityArea.SetActive(false);
             TeammateArea.LoadArea(nonLeader.UserId == PhotonEngine.Instance.UserId, false, nonLeader.UserId, nonLeader.UserName, this);
         }
-        var existingGroupStatus = GroupManager.LoadGroupStatus();
+        var existingGroupStatus = GroupManager.Instance.LoadGroupStatus();
         if (existingGroupStatus != null)
         {
             ChangeStatus(existingGroupStatus);
         }
+        StartGameButton.onClick.AddListener(StartGame);
         //MasterCardManager.GenerateCardPrefab(0, 9870);
         //MasterCardManager.GenerateCardPrefab(0, 9871);
         //MasterCardManager.GenerateCardPrefab(5, 9872);
@@ -158,10 +160,7 @@ public class MainMenuPlayAreaView : View
 
     public void StartGame()
     {
-        if (LeaderArea.PlayerReady && TeammateArea.PlayerReady)
-        {
-            //_controller.Send
-        }
+        _controller.SendStartGame();
     }
 
     public void ChangeStatus(GroupStatusModel model)
@@ -180,7 +179,7 @@ public class MainMenuPlayAreaView : View
 
     public void OnLeaderRefreshView()
     {
-        var storedStatus = GroupManager.LoadGroupStatus();
+        var storedStatus = GroupManager.Instance.LoadGroupStatus();
         var tempLeaderStatus = new AsjernasCG.Common.EventModels.General.GroupStatusModel()
         {
             GroupLeaderConnectionStatus = true,
@@ -192,8 +191,9 @@ public class MainMenuPlayAreaView : View
 
         GroupManager.Instance.ClearGroup();
         GroupManager.Instance.NewGroup(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
-        GroupManager.StoreGroupStatus(tempLeaderStatus);
-        ChangeScene("PlayMenu");
+        GroupManager.Instance.StoreGroupStatus(tempLeaderStatus);
+        FindMyTeammateArea().gameObject.SetActive(false);
+        //ChangeScene("PlayMenu");
     }
 
     public FriendListViewManager FriendListViewManager;
@@ -203,4 +203,5 @@ public class MainMenuPlayAreaView : View
     public GroupAreaViewManager LeaderArea;
     public GroupAreaViewManager TeammateArea;
     public GameObject InviteToGroupFunctionalityArea;
+    public Button StartGameButton;
 }

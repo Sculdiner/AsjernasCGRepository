@@ -68,21 +68,21 @@ public class MainMenuView : View
         _controller.SendGroupInviteRequest(userId);
     }
 
-    //public void OnInvited(int groupLeaderId, string username)
-    //{
-    //    if (InvitationManager != null)
-    //    {
-    //        InvitationManager.OnGroupAccept = (u) =>
-    //        {
-    //            _controller.SendAcceptGroupInvitation(u, username);
-    //        };
-    //        InvitationManager.OnGroupDecline = (u) =>
-    //        {
-    //            _controller.SendDeclineGroupInvitation(u);
-    //        };
-    //        InvitationManager.InitializeInvitation(groupLeaderId, username);
-    //    }
-    //}
+    public void OnInvited(int groupLeaderId, string username)
+    {
+        if (InvitationManager != null)
+        {
+            InvitationManager.OnGroupAccept = (u) =>
+            {
+                _controller.SendAcceptGroupInvitation(u, username);
+            };
+            InvitationManager.OnGroupDecline = (u) =>
+            {
+                _controller.SendDeclineGroupInvitation(u);
+            };
+            InvitationManager.InitializeInvitation(groupLeaderId, username);
+        }
+    }
 
     public void GoToPlayScene()
     {
@@ -93,5 +93,4 @@ public class MainMenuView : View
     public MasterCardManager MasterCardManager;
     public InviteListManager InviteListManager;
     public InvitationManager InvitationManager;
-    public GroupManager GroupManager;
 }

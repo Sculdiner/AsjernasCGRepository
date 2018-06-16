@@ -7,6 +7,9 @@ using System.Linq;
 public class GroupManager : MonoBehaviour
 {
     public List<GroupPlayer> Group = new List<GroupPlayer>();
+
+    private static readonly object groupModelLocker = new object();
+
     public void Awake()
     {
         _instance = this;
@@ -20,15 +23,18 @@ public class GroupManager : MonoBehaviour
     public void ClearGroup()
     {
         Group = new List<GroupPlayer>();
-        _model = new GroupStatusModel();
+        lock (groupModelLocker)
+        {
+            _model = new GroupStatusModel();
+        }
     }
 
     public void NewGroup(int leaderId, string username)
     {
         Group.Add(new GroupPlayer()
         {
-            IsGroupLeader=  true,
-            UserId =leaderId,
+            IsGroupLeader = true,
+            UserId = leaderId,
             UserName = username,
         });
     }
@@ -50,14 +56,20 @@ public class GroupManager : MonoBehaviour
 
     private static GroupStatusModel _model = new GroupStatusModel();
 
-    public static void StoreGroupStatus(GroupStatusModel model)
+    public void StoreGroupStatus(GroupStatusModel model)
     {
-        _model = model;
+        lock (groupModelLocker)
+        {
+            _model = model;
+        }
     }
 
-    public static GroupStatusModel LoadGroupStatus()
+    public GroupStatusModel LoadGroupStatus()
     {
-        return _model;
+        lock (groupModelLocker)
+        {
+            return _model;
+        }
     }
 
     private static GroupManager _instance;

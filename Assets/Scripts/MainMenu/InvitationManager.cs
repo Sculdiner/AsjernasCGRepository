@@ -29,7 +29,7 @@ public class InvitationManager : MonoBehaviour {
     }
     public void OnDeclinePressed()
     {
-        OnGroupAccept(inviteSourceId);
+        OnGroupDecline(inviteSourceId);
         UIGroup.SetActive(false);
     }
 
@@ -38,5 +38,11 @@ public class InvitationManager : MonoBehaviour {
         UIGroup.SetActive(true);
         inviteSourceId = groupId;
         InvitationText.text = username + " invites you to a group";
+    }
+
+    public void CancelInvitation()
+    {
+        UIGroup.SetActive(false);
+        InvitationText.text = "";
     }
 }

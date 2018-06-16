@@ -17,9 +17,11 @@ public class GeneralRoutingEventHandler : BaseRoutingEventHandler
         _subEventHandlerCollection.AddHandler(new GroupRequestDeniedByServerEventHandler<GroupRequestDeniedByServerModel>());
         _subEventHandlerCollection.AddHandler(new GroupRequestNotificationEventHandler<GroupRequestInitializeModel>());
         _subEventHandlerCollection.AddHandler(new GroupRequestResponseEventHandler<GroupRequestResponseModel>());
+        _subEventHandlerCollection.AddHandler(new GroupRequestCancelledEventHandler<EmptyModel>());
         _subEventHandlerCollection.AddHandler(new GroupStatusEventHandler<GroupStatusModel>());
         _subEventHandlerCollection.AddHandler(new GroupUserLeftEventHandler<IntegerModel>());
         _subEventHandlerCollection.AddHandler(new KickedFromGroupEventHandler<EmptyModel>());
+        _subEventHandlerCollection.AddHandler(new MessageEventHandler<MessageEventModel>());
 
     }
     public override ClientEventGroupCode RegisteredEventGroupCode
