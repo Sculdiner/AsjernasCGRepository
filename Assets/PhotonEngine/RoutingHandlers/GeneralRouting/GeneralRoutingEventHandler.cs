@@ -1,5 +1,9 @@
-﻿using AsjernasCG.Common.ClientEventCodes;
+﻿using AsjernasCG.Common.BusinessModels.BasicModels;
+using AsjernasCG.Common.ClientEventCodes;
 using AsjernasCG.Common.EventModels;
+using AsjernasCG.Common.EventModels.General;
+using AsjernasCG.Common.OperationModels.BasicModels;
+using Assets.PhotonEngine.Handlers.General;
 using System.Collections.Generic;
 
 public class GeneralRoutingEventHandler : BaseRoutingEventHandler
@@ -9,6 +13,14 @@ public class GeneralRoutingEventHandler : BaseRoutingEventHandler
         _subEventHandlerCollection = new SubEventHandlerCollection();
         _subEventHandlerCollection.AddHandler(new FriendStatusChangedEventHandler<FriendStatusModel>());
         _subEventHandlerCollection.AddHandler(new FriendListUpdateEventHandler<List<FriendStatusModel>>());
+        _subEventHandlerCollection.AddHandler(new FriendsAvailableForInviteEventHandler<List<FriendStatusModel>>());
+        _subEventHandlerCollection.AddHandler(new GroupRequestDeniedByServerEventHandler<GroupRequestDeniedByServerModel>());
+        _subEventHandlerCollection.AddHandler(new GroupRequestNotificationEventHandler<GroupRequestInitializeModel>());
+        _subEventHandlerCollection.AddHandler(new GroupRequestResponseEventHandler<GroupRequestResponseModel>());
+        _subEventHandlerCollection.AddHandler(new GroupStatusEventHandler<GroupStatusModel>());
+        _subEventHandlerCollection.AddHandler(new GroupUserLeftEventHandler<IntegerModel>());
+        _subEventHandlerCollection.AddHandler(new KickedFromGroupEventHandler<EmptyModel>());
+
     }
     public override ClientEventGroupCode RegisteredEventGroupCode
     {

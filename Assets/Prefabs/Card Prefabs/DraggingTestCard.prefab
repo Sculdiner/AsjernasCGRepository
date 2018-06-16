@@ -261,6 +261,8 @@ GameObject:
   - component: {fileID: 114959723306617228}
   - component: {fileID: 114474982465728710}
   - component: {fileID: 114845533905043638}
+  - component: {fileID: 114401135663369416}
+  - component: {fileID: 114688924646579516}
   m_Layer: 5
   m_Name: DraggingTestCard
   m_TagString: Untagged
@@ -828,6 +830,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114401135663369416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1483904383348690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb2991a2d8cccde4eb4ed7be4bbb30d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UsePointerDisplacement: 1
 --- !u!114 &114424823046895302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1149,6 +1163,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114688924646579516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1483904383348690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814e88e4252461c4b895e0067d9bf687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114738920698769348
 MonoBehaviour:
   m_ObjectHideFlags: 1

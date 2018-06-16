@@ -18,7 +18,7 @@ public class ViewController : IViewController
     {
         _controlledView = controlledView;
 
-        if (!_controlledView.IsArtistDebug && PhotonEngine.Instance != null)
+        if (!_controlledView.IsArtistDebug)
         {
             if (PhotonEngine.Instance == null)
             {
@@ -119,9 +119,9 @@ public class ViewController : IViewController
         _controlledView.LogError(string.Format("Unexpected Status  {0}", statusCode));
     }
 
-    public void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, TInput input, bool sendReliable, byte channelId, bool encrypt) where TInput : class
+    public void SendOperation<TInput>(IOperationHelper<TInput> operationHelper, bool sendReliable, byte channelId, bool encrypt) where TInput : class
     {
-        var operationParams = operationHelper.GenerateOperationParameters(input);
+        var operationParams = operationHelper.GenerateOperationParameters();
         var operationRoutingCode = (byte)operationParams[(byte)PacketCodeType.PacketBaseRouting];
         operationParams.Remove((byte)PacketCodeType.PacketBaseRouting);
         var request = new OperationRequest()
@@ -130,6 +130,22 @@ public class ViewController : IViewController
             Parameters = operationParams
         };
         PhotonEngine.Instance.SetOp(request, sendReliable, channelId, encrypt);
+    }
+
+    public void UpdateUserProfile(int userId, string userName)
+    {
+        PhotonEngine.Instance.UserId = userId;
+        PhotonEngine.Instance.UserName = userName;
+    }
+
+    public int GetUserId()
+    {
+        return PhotonEngine.Instance.UserId;
+    }
+
+    public string GetUserName()
+    {
+        return PhotonEngine.Instance.UserName;
     }
 
     #endregion

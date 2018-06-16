@@ -14,8 +14,8 @@ public class DraggingActionsTestReturn : DraggingActionsTest
     public override void OnEndDrag()
     {
         //transform.DOMove(savedPos, 1f);
-        //transform.DOMove(savedPos, 1f).SetEase(Ease.OutBounce, 0.5f, 0.1f);
-        transform.DOMove(savedPos, 1f).SetEase(Ease.OutQuint);//, 0.5f, 0.1f);
+        transform.DOMove(savedPos, 1f).SetEase(Ease.OutBounce, 0.5f, 0.1f);
+        //transform.DOMove(savedPos, 1f).SetEase(Ease.OutQuint);//, 0.5f, 0.1f);
     }
 
     public override void OnDraggingInUpdate(){}

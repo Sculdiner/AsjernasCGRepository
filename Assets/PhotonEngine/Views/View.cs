@@ -1,6 +1,7 @@
 ﻿using System;
 using AsjernasCG.Common;
 using AsjernasCG.Common.EventModels;
+using AsjernasCG.Common.EventModels.General;
 using AsjernasCG.Common.OperationHelpers.General;
 using AsjernasCG.Common.OperationModels;
 using UnityEngine;
@@ -27,7 +28,7 @@ public abstract class View : MonoBehaviour, IView
 
     public void RequestFriendListUpdate()
     {
-        Controller.SendOperation(new GetFriendListOperationHelper<FriendListOperationModel>(), new FriendListOperationModel() { FriendsToSkip = 0 }, true, 0, false);
+        Controller.SendOperation(new GetFriendListOperationHelper<FriendListOperationModel>(new FriendListOperationModel() { FriendsToSkip = 0 }), true, 0, false);
     }
 
     public abstract void OnFriendStatusUpdate(FriendListItemViewModel friendStatusModel);

@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: 96d6f1f7fcb37a74d9db7127c5e74146
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Avatar Frame mask_0
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -102,11 +103,31 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Avatar Frame mask_0
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 429
+        width: 1443
+        height: 1676
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af24f24810b72454e9e4bc6cd28694d0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5304d0d283addda4cb929e0226b944e5
     vertices: []
     indices: 
     edges: []

@@ -20,7 +20,7 @@ public class LoginEventHandler<TModel> : BaseEventHandler<TModel> where TModel :
     {
         if (model.Success)
         {
-            view.RequestFriendListUpdate();
+            view.Controller.UpdateUserProfile(model.UserId, model.UserName);
             view.ChangeScene("MainMenu");
         }
     }

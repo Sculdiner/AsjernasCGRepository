@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: 66809f3eb7d26d74c83e4de6d04aba3b
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: HeroPowerMask_0
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -102,11 +103,31 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: HeroPowerMask_0
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 164
+        width: 528
+        height: 525
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 839c5c2e28c86b44b8e94263ff2612f8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: adc1f8e1591749b4bb3113c9b0a34947
     vertices: []
     indices: 
     edges: []

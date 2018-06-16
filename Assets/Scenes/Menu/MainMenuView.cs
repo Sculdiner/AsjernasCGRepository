@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using AsjernasCG.Common;
+using AsjernasCG.Common.OperationModels;
 using UnityEngine;
 
 public class MainMenuView : View
@@ -15,7 +16,11 @@ public class MainMenuView : View
         }
         catch (System.Exception ex)
         {
-            
+
+        }
+        if (FriendListViewManager != null)
+        {
+            RequestFriendListUpdate();
         }
         //MasterCardManager.GenerateCardPrefab(0, 9870);
         //MasterCardManager.GenerateCardPrefab(0, 9871);
@@ -26,6 +31,7 @@ public class MainMenuView : View
         //    UserName = "asdasd",
         //    UserStatus = AsjernasCG.Common.BusinessModels.UserStatusModel.Connected
         //});
+        GroupManager.InitializeManager();
     }
 
     void Update()
@@ -39,8 +45,53 @@ public class MainMenuView : View
     public override void OnFriendStatusUpdate(FriendListItemViewModel friendStatusModel)
     {
         FriendListViewManager.FriendListMasterModel.FriendListContainer.UpdateFriendItem(friendStatusModel);
+        if (InviteListManager != null)
+        {
+            _controller.GetFriendListForInvite();
+        }
+    }
+
+    public void UpdateInviteList(Dictionary<int, string> inviteList)
+    {
+        if (InviteListManager != null)
+        {
+            InviteListManager.Container.Clear();
+            foreach (var key in inviteList.Keys)
+            {
+                InviteListManager.Container.Add(key, inviteList[key], SendGroupInvitationRequest);
+            }
+        }
+    }
+
+    public void SendGroupInvitationRequest(int userId)
+    {
+        _controller.SendGroupInviteRequest(userId);
+    }
+
+    //public void OnInvited(int groupLeaderId, string username)
+    //{
+    //    if (InvitationManager != null)
+    //    {
+    //        InvitationManager.OnGroupAccept = (u) =>
+    //        {
+    //            _controller.SendAcceptGroupInvitation(u, username);
+    //        };
+    //        InvitationManager.OnGroupDecline = (u) =>
+    //        {
+    //            _controller.SendDeclineGroupInvitation(u);
+    //        };
+    //        InvitationManager.InitializeInvitation(groupLeaderId, username);
+    //    }
+    //}
+
+    public void GoToPlayScene()
+    {
+        ChangeScene("PlayMenu");
     }
 
     public FriendListViewManager FriendListViewManager;
     public MasterCardManager MasterCardManager;
+    public InviteListManager InviteListManager;
+    public InvitationManager InvitationManager;
+    public GroupManager GroupManager;
 }

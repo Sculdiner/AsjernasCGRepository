@@ -42,4 +42,5 @@ public class BoardView : View
 
     public FriendListViewManager FriendListViewManager;
     public MasterCardManager MasterCardManager;
+    public BoardManager BoardManager;
 }

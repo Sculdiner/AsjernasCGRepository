@@ -1,7 +1,9 @@
 ﻿using AsjernasCG.Common.ClientEventCodes;
 using ExitGames.Client.Photon;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
@@ -21,7 +23,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     public void OnDestroy()
     {
-        
+
     }
 
     public void Start()
@@ -39,6 +41,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     public void Initialize()
     {
+        ActionQueue = new Queue<Action>();
         EventRoutingHandlerCollection.AddHandler(new LoginRoutingEventHandler());
         EventRoutingHandlerCollection.AddHandler(new MenuRoutingEventHandler());
         EventRoutingHandlerCollection.AddHandler(new GameRoutingEventHandler());
@@ -63,6 +66,9 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
         State.OnUpdate();
     }
 
+    public int UserId { get; set; }
+    public string UserName { get; set; }
+
     public void SetOp(OperationRequest request, bool sendReliable, byte channelId, bool encrypt)
     {
         State.SendOperation(request, sendReliable, channelId, encrypt);
@@ -86,7 +92,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
         GameObject tempEngine = GameObject.Find("PhotonEngine");
         if (tempEngine != null)
         {
-            var comp  = tempEngine.GetComponent<PhotonEngine>();
+            var comp = tempEngine.GetComponent<PhotonEngine>();
             comp.Disconnect();
             DestroyImmediate(comp);
             tempEngine.AddComponent<PhotonEngine>();
@@ -140,5 +146,34 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
         }
         GameStateName = State.StateName;
     }
+    #endregion
+
+    #region QueueManager
+
+    private static Queue<Action> ActionQueue { get; set; }
+    public static void AddToQueue(Action actionToQueue)
+    {
+        if (ActionQueue.Count == 1)
+        {
+            ActionQueue.Enqueue(actionToQueue);
+            NextAction();
+        }
+        else
+        {
+            ActionQueue.Enqueue(actionToQueue);
+        }
+    }
+    public static void NextAction()
+    {
+        if (ActionQueue.Any())
+        {
+            //peek first isntead of removing it because if another action comes while 
+            var actionToInvoke = ActionQueue.Peek();
+            if (actionToInvoke != null)
+                actionToInvoke();
+            ActionQueue.Dequeue();
+        }
+    }
+
     #endregion
 }
