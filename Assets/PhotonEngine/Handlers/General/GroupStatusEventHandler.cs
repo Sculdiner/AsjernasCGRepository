@@ -19,7 +19,7 @@ namespace Assets.PhotonEngine.Handlers.General
 
         public override void OnHandleEvent(View view, TModel model)
         {
-            GroupManager.StoreGroupStatus(model);
+            GroupManager.Instance.StoreGroupStatus(model);
             view.ChangeScene("PlayMenu");
         }
     }

@@ -21,8 +21,9 @@ public class MessageBoxManager : MonoBehaviour {
     {
         var instance = (GameObject)Instantiate(MessageItemPrefab);
         var messageItem = instance.GetComponent<MessageItem>();
-        messageItem.gameObject.transform.SetParent(this.gameObject.transform);
-        messageItem.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        instance.transform.SetParent(this.transform);
+        instance.transform.localPosition = new Vector3(0, 0, 0);
+        instance.transform.localScale = new Vector3(1, 1, 1);
         (messageItem as MessageItem).DisplayMessage(message);
     }
 }

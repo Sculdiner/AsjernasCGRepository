@@ -6,18 +6,19 @@ using System.Linq;
 using System.Text;
 
 
-    public class GroupRequestDeniedByServerEventHandler<TModel> : BaseEventHandler<TModel> where TModel : GroupRequestDeniedByServerModel
+public class GroupRequestDeniedByServerEventHandler<TModel> : BaseEventHandler<TModel> where TModel : GroupRequestDeniedByServerModel
+{
+    public override byte EventCode
     {
-        public override byte EventCode
+        get
         {
-            get
-            {
-                return (byte)ClientGeneralEventCode.GroupRequestDeniedByServer;
-            }
-        }
-
-        public override void OnHandleEvent(View view, TModel model)
-        {
-            view.LogInfo("Group request declined. Reason: "+model.DenialReason.ToString());
+            return (byte)ClientGeneralEventCode.GroupRequestDeniedByServer;
         }
     }
+
+    public override void OnHandleEvent(View view, TModel model)
+    {
+        view.MessageBoxManager.ShowMessage("Group request declined. " + model.DenialReason.ToString());
+
+    }
+}

@@ -30,7 +30,7 @@ public class GroupRequestResponseEventHandler<TModel> : BaseEventHandler<TModel>
         }
         else
         {
-            view.LogInfo("group request declined");
+            view.MessageBoxManager.ShowMessage("Group request was declined");
         }
 
     }

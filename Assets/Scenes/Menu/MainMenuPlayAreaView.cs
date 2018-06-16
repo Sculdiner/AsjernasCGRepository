@@ -41,7 +41,7 @@ public class MainMenuPlayAreaView : View
             InviteToGroupFunctionalityArea.SetActive(false);
             TeammateArea.LoadArea(nonLeader.UserId == PhotonEngine.Instance.UserId, false, nonLeader.UserId, nonLeader.UserName, this);
         }
-        var existingGroupStatus = GroupManager.LoadGroupStatus();
+        var existingGroupStatus = GroupManager.Instance.LoadGroupStatus();
         if (existingGroupStatus != null)
         {
             ChangeStatus(existingGroupStatus);
@@ -180,7 +180,7 @@ public class MainMenuPlayAreaView : View
 
     public void OnLeaderRefreshView()
     {
-        var storedStatus = GroupManager.LoadGroupStatus();
+        var storedStatus = GroupManager.Instance.LoadGroupStatus();
         var tempLeaderStatus = new AsjernasCG.Common.EventModels.General.GroupStatusModel()
         {
             GroupLeaderConnectionStatus = true,
@@ -192,8 +192,9 @@ public class MainMenuPlayAreaView : View
 
         GroupManager.Instance.ClearGroup();
         GroupManager.Instance.NewGroup(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
-        GroupManager.StoreGroupStatus(tempLeaderStatus);
-        ChangeScene("PlayMenu");
+        GroupManager.Instance.StoreGroupStatus(tempLeaderStatus);
+        FindMyTeammateArea().gameObject.SetActive(false);
+        //ChangeScene("PlayMenu");
     }
 
     public FriendListViewManager FriendListViewManager;
