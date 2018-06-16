@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2507,6 +2507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsArtistDebug: 1
+  MessageBoxManager: {fileID: 0}
   FriendListViewManager: {fileID: 0}
   MasterCardManager: {fileID: 1243530516}
   CardCollectionPageViewManager: {fileID: 1340122986}
@@ -3552,12 +3553,12 @@ Prefab:
     - target: {fileID: 224604136634584766, guid: 06829e66130f93a4b830f039f4b63eab,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224604136634584766, guid: 06829e66130f93a4b830f039f4b63eab,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224082284678519418, guid: 06829e66130f93a4b830f039f4b63eab,
         type: 2}
