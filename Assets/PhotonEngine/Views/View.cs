@@ -11,6 +11,8 @@ public abstract class View : MonoBehaviour, IView
 {
     public bool IsArtistDebug = true;
 
+    public MessageBoxManager MessageBoxManager;
+
     public virtual void Awake()
     {
         Controller = new ViewController(this);
