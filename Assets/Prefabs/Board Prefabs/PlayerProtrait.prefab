@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4477332247132714}
   - component: {fileID: 65673353363994300}
+  - component: {fileID: 114637020932349088}
   m_Layer: 5
   m_Name: PlayerProtrait
   m_TagString: Untagged
@@ -171,7 +172,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045932381173142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.39, y: -1.3, z: 0}
+  m_LocalPosition: {x: -10.39, y: -0.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224774871723106744}
@@ -309,6 +310,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114637020932349088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1045932381173142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60d242cf50c33e419eb334fe92fd062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharAsset: {fileID: 11400000, guid: c9ac5033ed41be44b982de6a4dd66afd, type: 2}
+  HealthText: {fileID: 114648793584895108}
+  HeroPowerIconImage: {fileID: 0}
+  HeroPowerBackgroundImage: {fileID: 0}
+  PortraitImage: {fileID: 114835915867832220}
+  PortraitBackgroundImage: {fileID: 114210807019027870}
 --- !u!114 &114642855149815970
 MonoBehaviour:
   m_ObjectHideFlags: 1

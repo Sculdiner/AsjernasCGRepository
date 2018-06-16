@@ -251,7 +251,7 @@ public class Player : MonoBehaviour, ICharacter
     {
         Health = charAsset.MaxHealth;
         // change the visuals for portrait, hero power, etc...
-        PArea.Portrait.charAsset = charAsset;
+        PArea.Portrait.CharAsset = charAsset;
         PArea.Portrait.ApplyLookFromAsset();
         // TODO: insert the code to attach hero power script here. 
         if (charAsset.HeroPowerName != null && charAsset.HeroPowerName != "")
@@ -260,7 +260,7 @@ public class Player : MonoBehaviour, ICharacter
         }
         else
         {
-            Debug.LogWarning("Check hero powr name for character " + charAsset.ClassName);
+            Debug.LogWarning("Check hero power name for character " + charAsset.ClassName);
         }
     }
 

@@ -1,7 +1,333 @@
 fileFormatVersion: 2
 guid: de7a2420f9479cc45a93501bcedb0872
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Stains_0
+    21300002: Stains_1
+    21300004: Stains_2
+    21300006: Stains_3
+    21300008: Stains_4
+    21300010: Stains_5
+    21300012: Stains_6
+    21300014: Stains_7
+    21300016: Stains_8
+    21300018: Stains_9
+    21300020: Stains_10
+    21300022: Stains_11
+    21300024: Stains_12
+    21300026: Stains_13
+    21300028: Stains_14
+    21300030: Stains_15
+    21300032: Stains_16
+    21300034: Stains_17
+    21300036: Stains_18
+    21300038: Stains_19
+    21300040: Stains_20
+    21300042: Stains_21
+    21300044: Stains_22
+    21300046: Stains_23
+    21300048: Stains_24
+    21300050: Stains_25
+    21300052: Stains_26
+    21300054: Stains_27
+    21300056: Stains_28
+    21300058: Stains_29
+    21300060: Stains_30
+    21300062: Stains_31
+    21300064: Stains_32
+    21300066: Stains_33
+    21300068: Stains_34
+    21300070: Stains_35
+    21300072: Stains_36
+    21300074: Stains_37
+    21300076: Stains_38
+    21300078: Stains_39
+    21300080: Stains_40
+    21300082: Stains_41
+    21300084: Stains_42
+    21300086: Stains_43
+    21300088: Stains_44
+    21300090: Stains_45
+    21300092: Stains_46
+    21300094: Stains_47
+    21300096: Stains_48
+    21300098: Stains_49
+    21300100: Stains_50
+    21300102: Stains_51
+    21300104: Stains_52
+    21300106: Stains_53
+    21300108: Stains_54
+    21300110: Stains_55
+    21300112: Stains_56
+    21300114: Stains_57
+    21300116: Stains_58
+    21300118: Stains_59
+    21300120: Stains_60
+    21300122: Stains_61
+    21300124: Stains_62
+    21300126: Stains_63
+    21300128: Stains_64
+    21300130: Stains_65
+    21300132: Stains_66
+    21300134: Stains_67
+    21300136: Stains_68
+    21300138: Stains_69
+    21300140: Stains_70
+    21300142: Stains_71
+    21300144: Stains_72
+    21300146: Stains_73
+    21300148: Stains_74
+    21300150: Stains_75
+    21300152: Stains_76
+    21300154: Stains_77
+    21300156: Stains_78
+    21300158: Stains_79
+    21300160: Stains_80
+    21300162: Stains_81
+    21300164: Stains_82
+    21300166: Stains_83
+    21300168: Stains_84
+    21300170: Stains_85
+    21300172: Stains_86
+    21300174: Stains_87
+    21300176: Stains_88
+    21300178: Stains_89
+    21300180: Stains_90
+    21300182: Stains_91
+    21300184: Stains_92
+    21300186: Stains_93
+    21300188: Stains_94
+    21300190: Stains_95
+    21300192: Stains_96
+    21300194: Stains_97
+    21300196: Stains_98
+    21300198: Stains_99
+    21300200: Stains_100
+    21300202: Stains_101
+    21300204: Stains_102
+    21300206: Stains_103
+    21300208: Stains_104
+    21300210: Stains_105
+    21300212: Stains_106
+    21300214: Stains_107
+    21300216: Stains_108
+    21300218: Stains_109
+    21300220: Stains_110
+    21300222: Stains_111
+    21300224: Stains_112
+    21300226: Stains_113
+    21300228: Stains_114
+    21300230: Stains_115
+    21300232: Stains_116
+    21300234: Stains_117
+    21300236: Stains_118
+    21300238: Stains_119
+    21300240: Stains_120
+    21300242: Stains_121
+    21300244: Stains_122
+    21300246: Stains_123
+    21300248: Stains_124
+    21300250: Stains_125
+    21300252: Stains_126
+    21300254: Stains_127
+    21300256: Stains_128
+    21300258: Stains_129
+    21300260: Stains_130
+    21300262: Stains_131
+    21300264: Stains_132
+    21300266: Stains_133
+    21300268: Stains_134
+    21300270: Stains_135
+    21300272: Stains_136
+    21300274: Stains_137
+    21300276: Stains_138
+    21300278: Stains_139
+    21300280: Stains_140
+    21300282: Stains_141
+    21300284: Stains_142
+    21300286: Stains_143
+    21300288: Stains_144
+    21300290: Stains_145
+    21300292: Stains_146
+    21300294: Stains_147
+    21300296: Stains_148
+    21300298: Stains_149
+    21300300: Stains_150
+    21300302: Stains_151
+    21300304: Stains_152
+    21300306: Stains_153
+    21300308: Stains_154
+    21300310: Stains_155
+    21300312: Stains_156
+    21300314: Stains_157
+    21300316: Stains_158
+    21300318: Stains_159
+    21300320: Stains_160
+    21300322: Stains_161
+    21300324: Stains_162
+    21300326: Stains_163
+    21300328: Stains_164
+    21300330: Stains_165
+    21300332: Stains_166
+    21300334: Stains_167
+    21300336: Stains_168
+    21300338: Stains_169
+    21300340: Stains_170
+    21300342: Stains_171
+    21300344: Stains_172
+    21300346: Stains_173
+    21300348: Stains_174
+    21300350: Stains_175
+    21300352: Stains_176
+    21300354: Stains_177
+    21300356: Stains_178
+    21300358: Stains_179
+    21300360: Stains_180
+    21300362: Stains_181
+    21300364: Stains_182
+    21300366: Stains_183
+    21300368: Stains_184
+    21300370: Stains_185
+    21300372: Stains_186
+    21300374: Stains_187
+    21300376: Stains_188
+    21300378: Stains_189
+    21300380: Stains_190
+    21300382: Stains_191
+    21300384: Stains_192
+    21300386: Stains_193
+    21300388: Stains_194
+    21300390: Stains_195
+    21300392: Stains_196
+    21300394: Stains_197
+    21300396: Stains_198
+    21300398: Stains_199
+    21300400: Stains_200
+    21300402: Stains_201
+    21300404: Stains_202
+    21300406: Stains_203
+    21300408: Stains_204
+    21300410: Stains_205
+    21300412: Stains_206
+    21300414: Stains_207
+    21300416: Stains_208
+    21300418: Stains_209
+    21300420: Stains_210
+    21300422: Stains_211
+    21300424: Stains_212
+    21300426: Stains_213
+    21300428: Stains_214
+    21300430: Stains_215
+    21300432: Stains_216
+    21300434: Stains_217
+    21300436: Stains_218
+    21300438: Stains_219
+    21300440: Stains_220
+    21300442: Stains_221
+    21300444: Stains_222
+    21300446: Stains_223
+    21300448: Stains_224
+    21300450: Stains_225
+    21300452: Stains_226
+    21300454: Stains_227
+    21300456: Stains_228
+    21300458: Stains_229
+    21300460: Stains_230
+    21300462: Stains_231
+    21300464: Stains_232
+    21300466: Stains_233
+    21300468: Stains_234
+    21300470: Stains_235
+    21300472: Stains_236
+    21300474: Stains_237
+    21300476: Stains_238
+    21300478: Stains_239
+    21300480: Stains_240
+    21300482: Stains_241
+    21300484: Stains_242
+    21300486: Stains_243
+    21300488: Stains_244
+    21300490: Stains_245
+    21300492: Stains_246
+    21300494: Stains_247
+    21300496: Stains_248
+    21300498: Stains_249
+    21300500: Stains_250
+    21300502: Stains_251
+    21300504: Stains_252
+    21300506: Stains_253
+    21300508: Stains_254
+    21300510: Stains_255
+    21300512: Stains_256
+    21300514: Stains_257
+    21300516: Stains_258
+    21300518: Stains_259
+    21300520: Stains_260
+    21300522: Stains_261
+    21300524: Stains_262
+    21300526: Stains_263
+    21300528: Stains_264
+    21300530: Stains_265
+    21300532: Stains_266
+    21300534: Stains_267
+    21300536: Stains_268
+    21300538: Stains_269
+    21300540: Stains_270
+    21300542: Stains_271
+    21300544: Stains_272
+    21300546: Stains_273
+    21300548: Stains_274
+    21300550: Stains_275
+    21300552: Stains_276
+    21300554: Stains_277
+    21300556: Stains_278
+    21300558: Stains_279
+    21300560: Stains_280
+    21300562: Stains_281
+    21300564: Stains_282
+    21300566: Stains_283
+    21300568: Stains_284
+    21300570: Stains_285
+    21300572: Stains_286
+    21300574: Stains_287
+    21300576: Stains_288
+    21300578: Stains_289
+    21300580: Stains_290
+    21300582: Stains_291
+    21300584: Stains_292
+    21300586: Stains_293
+    21300588: Stains_294
+    21300590: Stains_295
+    21300592: Stains_296
+    21300594: Stains_297
+    21300596: Stains_298
+    21300598: Stains_299
+    21300600: Stains_300
+    21300602: Stains_301
+    21300604: Stains_302
+    21300606: Stains_303
+    21300608: Stains_304
+    21300610: Stains_305
+    21300612: Stains_306
+    21300614: Stains_307
+    21300616: Stains_308
+    21300618: Stains_309
+    21300620: Stains_310
+    21300622: Stains_311
+    21300624: Stains_312
+    21300626: Stains_313
+    21300628: Stains_314
+    21300630: Stains_315
+    21300632: Stains_316
+    21300634: Stains_317
+    21300636: Stains_318
+    21300638: Stains_319
+    21300640: Stains_320
+    21300642: Stains_321
+    21300644: Stains_322
+    21300646: Stains_323
+    21300648: Stains_324
+    21300650: Stains_325
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -38,7 +364,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -102,11 +428,331 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Stains_0
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 1251
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e8dfa55a2ed1864786ba4f8bdbc9683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_1
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 1251
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe3a452952a6e244c9d03eacead67940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_2
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 1251
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ee3c5b7e7b60fa4a85d85bf80e87495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_3
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1251
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5ff3f6cfecb5eb4b8fbb206af5af371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_4
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 871
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91b61c9de774d1846bc65658fe28f982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_5
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 871
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f3e15c8b1d7e804a8a38a8c1df70a45
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_6
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 871
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6d5d393897e3eb4b9f5bb22af6e12c2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_7
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 887
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00d5419c67bd41443ad456fdeb964705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_8
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 491
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1250647f47ccca43ae7243143e503c0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_9
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 491
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13d74cd7f982b1f4c9967d170749547e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_10
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 491
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1d86c92902f7ff409a9a60e1da4c4fe
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_11
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 491
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c87e03a884581ad45abda4f749899ec2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_12
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 111
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 044a5b2892b47af44b5fe14cee340665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_13
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 111
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09ea3a0f33f24be44bf013e236b4f032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_14
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 111
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce9c1e13e3a0e0e47b66489e56d01c19
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stains_15
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 136
+        width: 350
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62bd10914fc0a7645b5418cc43b45fe1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7f201643dee50984c908d2fad5b8933a
     vertices: []
     indices: 
     edges: []

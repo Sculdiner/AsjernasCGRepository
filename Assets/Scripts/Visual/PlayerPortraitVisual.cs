@@ -3,12 +3,12 @@ using System.Collections;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PlayerPortraitVisual : MonoBehaviour {
+public class PlayerPortraitVisual : MonoBehaviour
+{
 
     // TODO : get ID from players when game starts
 
-    public GameObject Explosion;
-    public CharacterAsset charAsset{ get; set;}
+    public CharacterAsset CharAsset;
     [Header("Text Component References")]
     //public Text NameText;
     public Text HealthText;
@@ -18,16 +18,23 @@ public class PlayerPortraitVisual : MonoBehaviour {
     public Image PortraitImage;
     public Image PortraitBackgroundImage;
 
+    private void Awake()
+    {
+        if (CharAsset != null)
+            ApplyLookFromAsset();
+
+    }
+
     public void ApplyLookFromAsset()
     {
-        HealthText.text = charAsset.MaxHealth.ToString();
-        HeroPowerIconImage.sprite = charAsset.HeroPowerIconImage;
-        HeroPowerBackgroundImage.sprite = charAsset.HeroPowerBGImage;
-        PortraitImage.sprite = charAsset.AvatarImage;
-        PortraitBackgroundImage.sprite = charAsset.AvatarBGImage;
+        HealthText.text = CharAsset.MaxHealth.ToString();
+        HeroPowerIconImage.sprite = CharAsset.HeroPowerIconImage;
+        HeroPowerBackgroundImage.sprite = CharAsset.HeroPowerBGImage;
+        PortraitImage.sprite = CharAsset.AvatarImage;
+        PortraitBackgroundImage.sprite = CharAsset.AvatarBGImage;
 
-        HeroPowerBackgroundImage.color = charAsset.HeroPowerBGTint;
-        PortraitBackgroundImage.color = charAsset.AvatarBGTint;
+        HeroPowerBackgroundImage.color = CharAsset.HeroPowerBGTint;
+        PortraitBackgroundImage.color = CharAsset.AvatarBGTint;
 
     }
 

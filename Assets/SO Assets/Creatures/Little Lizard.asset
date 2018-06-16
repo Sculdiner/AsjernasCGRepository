@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f2c33ffc8bf9e4ba4d6fe94a328340, type: 3}
   m_Name: Little Lizard
   m_EditorClassIdentifier: 
-  characterAsset: {fileID: 0}
+  characterAsset: {fileID: 11400000, guid: 91c6abd4eb0ad61448a15aecdca47d5f, type: 2}
   Description: 'Battlecry: Poop'
   CardImage: {fileID: 21300000, guid: 068147f459eaab14e93c813ad21e6056, type: 3}
   ManaCost: 2
