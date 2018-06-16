@@ -2075,6 +2075,7 @@ MonoBehaviour:
   LeaderArea: {fileID: 594004389}
   TeammateArea: {fileID: 480578168}
   InviteToGroupFunctionalityArea: {fileID: 135500142}
+  StartGameButton: {fileID: 1704607218}
 --- !u!4 &1128577161
 Transform:
   m_ObjectHideFlags: 0
@@ -3061,7 +3062,7 @@ GameObject:
   - component: {fileID: 1704607219}
   - component: {fileID: 1704607218}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: PlayGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

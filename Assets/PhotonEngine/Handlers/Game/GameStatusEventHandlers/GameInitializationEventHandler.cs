@@ -15,6 +15,8 @@ public class GameInitializationEventHandler<TModel> : BaseEventHandler<TModel> w
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        BoardTransitionHelper.InitializeInstance();
+        BoardTransitionHelper.Instance.StoreGameInformation(model);
+        view.ChangeScene("LazGameScene");
     }
 }

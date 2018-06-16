@@ -20,6 +20,8 @@ public class GameRoutingEventHandler : BaseRoutingEventHandler
         _subEventHandlerCollection.AddHandler(new PlayCardWithTargetEventHandler<DetailedCardModel>());
         _subEventHandlerCollection.AddHandler(new CardElementValueBatchChangeEventHandler<List<CardElementValueChange>>());
         _subEventHandlerCollection.AddHandler(new CardElementValueChangeEventHandler<CardElementValueChange>());
+        _subEventHandlerCollection.AddHandler(new DrawCardHiddenEventHandler<HiddenCardModel>());
+        _subEventHandlerCollection.AddHandler(new DrawCardDetailedEventHandler<DetailedCardModel>());
     }
     public override ClientEventGroupCode RegisteredEventGroupCode
     {

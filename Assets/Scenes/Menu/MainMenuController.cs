@@ -13,6 +13,16 @@ public class MainMenuController : ViewController
     {
     }
 
+    public void SendStartGame()
+    {
+        var model = new MatchmakeRequestModel()
+        {
+            GameType = "TestEncounter"
+        };
+        var helper = new AsjernasCG.Common.OperationHelpers.Menu.GroupPracticeRequestOperationHelper<MatchmakeRequestModel>(model);
+        SendOperation(helper, true, 0, false);
+    }
+
     public void SendGroupInviteRequest(int userId)
     {
 

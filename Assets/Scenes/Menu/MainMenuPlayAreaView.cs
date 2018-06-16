@@ -5,6 +5,7 @@ using AsjernasCG.Common;
 using AsjernasCG.Common.EventModels.General;
 using AsjernasCG.Common.OperationModels;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuPlayAreaView : View
 {
@@ -46,6 +47,7 @@ public class MainMenuPlayAreaView : View
         {
             ChangeStatus(existingGroupStatus);
         }
+        StartGameButton.onClick.AddListener(StartGame);
         //MasterCardManager.GenerateCardPrefab(0, 9870);
         //MasterCardManager.GenerateCardPrefab(0, 9871);
         //MasterCardManager.GenerateCardPrefab(5, 9872);
@@ -158,10 +160,7 @@ public class MainMenuPlayAreaView : View
 
     public void StartGame()
     {
-        if (LeaderArea.PlayerReady && TeammateArea.PlayerReady)
-        {
-            //_controller.Send
-        }
+        _controller.SendStartGame();
     }
 
     public void ChangeStatus(GroupStatusModel model)
@@ -204,4 +203,5 @@ public class MainMenuPlayAreaView : View
     public GroupAreaViewManager LeaderArea;
     public GroupAreaViewManager TeammateArea;
     public GameObject InviteToGroupFunctionalityArea;
+    public Button StartGameButton;
 }
