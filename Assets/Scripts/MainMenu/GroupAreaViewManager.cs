@@ -17,8 +17,7 @@ public class GroupAreaViewManager : MonoBehaviour
     public Text GameInitiationReadyStatusButtonText;
 
     public MainMenuPlayAreaView View { get; private set; }
-    public Action<int> OnKickedUser;
-    public Action OnLeftGroup;
+
     public bool PlayerReady { get; private set; }
 
     public int areasUserId { get; private set; }
@@ -47,12 +46,12 @@ public class GroupAreaViewManager : MonoBehaviour
             {
                 KickUserButton.gameObject.SetActive(true);
                 LeaveGroupButton.gameObject.SetActive(false);
-                KickUserButton.onClick.AddListener(OnKickedClicked);
+                KickUserButton.onClick.AddListener(OnKickClicked);
             }
             else
             {
                 LeaveGroupButton.gameObject.SetActive(true);
-                KickUserButton.onClick.AddListener(OnLeaveGroupClicked);
+                LeaveGroupButton.onClick.AddListener(OnLeaveGroupClicked);
                 KickUserButton.gameObject.SetActive(false);
             }
         }
@@ -76,21 +75,17 @@ public class GroupAreaViewManager : MonoBehaviour
         (View.Controller as MainMenuController).SendDeckSelectionChanged(deckId);
     }
 
-
-    public void OnKickedClicked()
+    public void OnKickClicked()
     {
-        if (OnKickedUser != null)
-        {
-            OnKickedUser.Invoke(areasUserId);
-        }
+        (View.Controller as MainMenuController).SendKickUser(areasUserId);
+        View.OnLeaderRefreshView();
     }
 
     public void OnLeaveGroupClicked()
     {
-        if (OnLeftGroup != null)
-        {
-            OnLeftGroup.Invoke();
-        }
+        (View.Controller as MainMenuController).SendLeaveGroup();
+        GroupManager.Instance.ClearGroup();
+        View.ChangeScene("MainMenu");
     }
 
     public void ReadyStatusButton_Ready()

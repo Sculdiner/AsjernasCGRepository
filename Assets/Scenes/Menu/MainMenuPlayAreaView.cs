@@ -178,6 +178,24 @@ public class MainMenuPlayAreaView : View
         }
     }
 
+    public void OnLeaderRefreshView()
+    {
+        var storedStatus = GroupManager.LoadGroupStatus();
+        var tempLeaderStatus = new AsjernasCG.Common.EventModels.General.GroupStatusModel()
+        {
+            GroupLeaderConnectionStatus = true,
+            GroupLeaderDeckId = storedStatus.GroupLeaderDeckId,
+            GroupLeaderDeckName = storedStatus.GroupLeaderDeckName,
+            GroupLeaderId = storedStatus.GroupLeaderId,
+            GroupLeaderReady = storedStatus.GroupLeaderReady
+        };
+
+        GroupManager.Instance.ClearGroup();
+        GroupManager.Instance.NewGroup(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
+        GroupManager.StoreGroupStatus(tempLeaderStatus);
+        ChangeScene("PlayMenu");
+    }
+
     public FriendListViewManager FriendListViewManager;
     public MasterCardManager MasterCardManager;
     public InviteListManager InviteListManager;

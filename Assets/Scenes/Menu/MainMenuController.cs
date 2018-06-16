@@ -81,4 +81,16 @@ public class MainMenuController : ViewController
         var helper = new AsjernasCG.Common.OperationHelpers.Menu.ChangeGameInitiationReadyStatusOperationHelper<BoolModel>(new BoolModel() { Value = ready });
         SendOperation(helper, true, 0, false);
     }
+
+    public void SendKickUser(int userToKick)
+    {
+        var helper = new AsjernasCG.Common.OperationHelpers.General.KickFromGroupOperationHelper<IntegerModel>(new IntegerModel() { Value = userToKick });
+        SendOperation(helper, true, 0, false);
+    }
+
+    public void SendLeaveGroup()
+    {
+        var helper = new AsjernasCG.Common.OperationHelpers.General.LeaveGroupOperationHelper<EmptyModel>(new EmptyModel());
+        SendOperation(helper, true, 0, false);
+    }
 }

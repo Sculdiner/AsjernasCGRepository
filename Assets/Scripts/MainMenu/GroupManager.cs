@@ -20,6 +20,7 @@ public class GroupManager : MonoBehaviour
     public void ClearGroup()
     {
         Group = new List<GroupPlayer>();
+        _model = new GroupStatusModel();
     }
 
     public void NewGroup(int leaderId, string username)
@@ -47,7 +48,7 @@ public class GroupManager : MonoBehaviour
         Group.RemoveAll(s => !s.IsGroupLeader);
     }
 
-    private static GroupStatusModel _model;
+    private static GroupStatusModel _model = new GroupStatusModel();
 
     public static void StoreGroupStatus(GroupStatusModel model)
     {
