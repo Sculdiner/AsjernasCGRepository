@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Board/LazGameScene.unity
     guid: c3eb360497851644dbd789651175b848
+  - enabled: 1
+    path: Assets/Scenes/Board/3DBoard.unity
+    guid: 1c6f1f924593eb644b0b359f8b52da45
   m_configObjects: {}
