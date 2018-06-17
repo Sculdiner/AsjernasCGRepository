@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System;
 
 [System.Serializable]
-public class CardLogic: IIdentifiable
+public class CardLogic : IIdentifiable
 {
     public Player owner;
-    public int UniqueCardID; 
+    public int UniqueCardID;
 
     public CardAsset ca;
     public GameObject VisualRepresentation;
@@ -15,12 +15,15 @@ public class CardLogic: IIdentifiable
     private int baseManaCost;
     public SpellEffect effect;
 
+    // STATIC (for managing IDs)
+    public static Dictionary<int, CardLogic> CardsCreatedThisGame = new Dictionary<int, CardLogic>();
+
     public int ID
     {
-        get{ return UniqueCardID; }
+        get { return UniqueCardID; }
     }
 
-    public int CurrentManaCost{ get; set; }
+    public int CurrentManaCost { get; set; }
 
     public bool CanBePlayed
     {
@@ -44,7 +47,7 @@ public class CardLogic: IIdentifiable
         //UniqueCardID = IDFactory.GetUniqueID();
         baseManaCost = ca.ManaCost;
         ResetManaCost();
-        if (ca.SpellScriptName!= null && ca.SpellScriptName!= "")
+        if (!string.IsNullOrEmpty(ca.SpellScriptName))
         {
             effect = System.Activator.CreateInstance(System.Type.GetType(ca.SpellScriptName)) as SpellEffect;
         }
@@ -56,7 +59,5 @@ public class CardLogic: IIdentifiable
         CurrentManaCost = baseManaCost;
     }
 
-    // STATIC (for managing IDs)
-    public static Dictionary<int, CardLogic> CardsCreatedThisGame = new Dictionary<int, CardLogic>();
 
 }

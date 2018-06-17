@@ -533,6 +533,9 @@ GameObject:
   - component: {fileID: 114790378120288572}
   - component: {fileID: 114685304673153358}
   - component: {fileID: 114219787080158086}
+  - component: {fileID: 114379188728896904}
+  - component: {fileID: 114180925431523604}
+  - component: {fileID: 114253258963390772}
   m_Layer: 5
   m_Name: SpellCard
   m_TagString: Untagged
@@ -764,8 +767,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765247153831530}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224203090403063826}
@@ -887,6 +890,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114180925431523604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1765247153831530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c042854a6826009468d860d31a782df9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114205304045102292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -957,6 +971,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114253258963390772
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1765247153831530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61489b468214b74f9c7bb5a4482df36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114261775040750696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1108,7 +1133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca1bd68df8e038409471a5ab03c2509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardAsset: {fileID: 11400000, guid: 604e4ea44c7e23042861355ba9fec0cf, type: 2}
+  cardAsset: {fileID: 0}
   PreviewManager: {fileID: 0}
   NameText: {fileID: 114643147223298034}
   ManaCostText: {fileID: 114837399650155036}
@@ -1166,6 +1191,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114379188728896904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1765247153831530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea09c3b775d74442b774641f6726deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114410122202121858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1513,7 +1549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a8e9b80b7579049b68dd32da9b580a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.16862746}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
   m_circleCount: 2
@@ -1854,7 +1890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca1bd68df8e038409471a5ab03c2509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardAsset: {fileID: 11400000, guid: 604e4ea44c7e23042861355ba9fec0cf, type: 2}
+  cardAsset: {fileID: 0}
   PreviewManager: {fileID: 114329028377786572}
   NameText: {fileID: 114462371904047528}
   ManaCostText: {fileID: 114437367633922170}

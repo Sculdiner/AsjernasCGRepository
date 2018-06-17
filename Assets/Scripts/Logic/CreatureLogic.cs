@@ -10,6 +10,9 @@ public class CreatureLogic: ICharacter
     public CardAsset ca;
     public CreatureEffect effect;
     public int UniqueCreatureID;
+    // STATIC For managing IDs
+    public static Dictionary<int, CreatureLogic> CreaturesCreatedThisGame = new Dictionary<int, CreatureLogic>();
+
     public int ID
     {
         get{ return UniqueCreatureID; }
@@ -124,7 +127,5 @@ public class CreatureLogic: ICharacter
         AttackCreature(target);
     }
 
-    // STATIC For managing IDs
-    public static Dictionary<int, CreatureLogic> CreaturesCreatedThisGame = new Dictionary<int, CreatureLogic>();
-
+  
 }

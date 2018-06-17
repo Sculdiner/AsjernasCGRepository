@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DragCreatureAttack : DraggingActions {
+public class DragCreatureAttack : DraggingActions
+{
 
     // reference to the sprite with a round "Target" graphic
     private SpriteRenderer sr;
@@ -34,11 +35,13 @@ public class DragCreatureAttack : DraggingActions {
     public override bool CanDrag
     {
         get
-        {   
+        {
             // we can drag this card if 
             // a) we can control this our player (this is checked in base.canDrag)
             // b) creature "CanAttackNow" - this info comes from logic part of our code into each creature`s manager script
-            return base.CanDrag && manager.CanAttackNow;
+            //return base.CanDrag && manager.CanAttackNow;
+
+            return true;
         }
     }
 
@@ -55,16 +58,16 @@ public class DragCreatureAttack : DraggingActions {
     {
         Vector3 notNormalized = transform.position - transform.parent.position;
         Vector3 direction = notNormalized.normalized;
-        float distanceToTarget = (direction*2.3f).magnitude;
+        float distanceToTarget = (direction * 2.3f).magnitude;
         if (notNormalized.magnitude > distanceToTarget)
         {
             // draw a line between the creature and the target
-            lr.SetPositions(new Vector3[]{ transform.parent.position, transform.position - direction*2.3f });
+            lr.SetPositions(new Vector3[] { transform.parent.position, transform.position - direction * 2.3f });
             lr.enabled = true;
 
             // position the end of the arrow between near the target.
             triangleSR.enabled = true;
-            triangleSR.transform.position = transform.position - 1.5f*direction;
+            triangleSR.transform.position = transform.position - 1.5f * direction;
 
             // proper rotarion of arrow end
             float rot_z = Mathf.Atan2(notNormalized.y, notNormalized.x) * Mathf.Rad2Deg;
@@ -76,7 +79,7 @@ public class DragCreatureAttack : DraggingActions {
             lr.enabled = false;
             triangleSR.enabled = false;
         }
-            
+
     }
 
     public override void OnEndDrag()
@@ -84,9 +87,9 @@ public class DragCreatureAttack : DraggingActions {
         Target = null;
         RaycastHit[] hits;
         // TODO: raycast here anyway, store the results in 
-        hits = Physics.RaycastAll(origin: Camera.main.transform.position, 
-            direction: (-Camera.main.transform.position + this.transform.position).normalized, 
-            maxDistance: 30f) ;
+        hits = Physics.RaycastAll(origin: Camera.main.transform.position,
+            direction: (-Camera.main.transform.position + this.transform.position).normalized,
+            maxDistance: 30f);
 
         foreach (RaycastHit h in hits)
         {
@@ -102,7 +105,7 @@ public class DragCreatureAttack : DraggingActions {
                 // hit a creature, save parent transform
                 Target = h.transform.parent.gameObject;
             }
-               
+
         }
 
         bool targetValid = false;
@@ -114,7 +117,7 @@ public class DragCreatureAttack : DraggingActions {
             if (targetID == GlobalSettings.Instance.LowPlayer.PlayerID || targetID == GlobalSettings.Instance.TopPlayer.PlayerID)
             {
                 // attack character
-                Debug.Log("Attacking "+Target);
+                Debug.Log("Attacking " + Target);
                 Debug.Log("TargetID: " + targetID);
                 CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].GoFace();
                 targetValid = true;
@@ -124,15 +127,18 @@ public class DragCreatureAttack : DraggingActions {
                 // if targeted creature is still alive, attack creature
                 targetValid = true;
                 CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].AttackCreatureWithID(targetID);
-                Debug.Log("Attacking "+Target);
+                Debug.Log("Attacking " + Target);
             }
-                
+
         }
 
         if (!targetValid)
         {
             // not a valid target, return
-            whereIsThisCreature.VisualState = VisualStates.LowTable;
+            if (tag.Contains("Low"))
+                whereIsThisCreature.VisualState = VisualStates.LowTable;
+            else
+                whereIsThisCreature.VisualState = VisualStates.TopTable;
             whereIsThisCreature.SetTableSortingOrder();
         }
 

@@ -102,7 +102,7 @@ public class WhereIsTheCardOrCreature : MonoBehaviour {
 
     private int HandSortingOrder(int placeInHand)
     {
-        return ((placeInHand + 1) * 10); 
+        return ((placeInHand + 1) * (-10)); 
     }
 
 

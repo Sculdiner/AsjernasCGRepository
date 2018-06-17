@@ -60,7 +60,7 @@ public class HandVisual : MonoBehaviour
     {
         return CardsInHand[index];
     }
-        
+
     // MANAGING CARDS AND SLOTS
 
     // move Slots GameObject according to the number of cards in hand
@@ -73,7 +73,7 @@ public class HandVisual : MonoBehaviour
             posX = 0f;
 
         // tween Slots GameObject to new position in 0.3 seconds
-        slots.gameObject.transform.DOLocalMoveX(posX, 0.3f);  
+        slots.gameObject.transform.DOLocalMoveX(posX, 0.3f);
     }
 
     // shift all cards to their new slots
@@ -137,14 +137,15 @@ public class HandVisual : MonoBehaviour
 
         // Set a tag to reflect where this card is
         foreach (Transform t in card.GetComponentsInChildren<Transform>())
-            t.tag = owner.ToString()+"Card";
+            t.tag = owner.ToString() + "Card";
         // pass this card to HandVisual class
         AddCard(card);
 
         // Bring card to front while it travels from draw spot to hand
         WhereIsTheCardOrCreature w = card.GetComponent<WhereIsTheCardOrCreature>();
         w.BringToFront();
-        w.Slot = 0; 
+        w.Slot = 0;
+        w.VisualState = VisualStates.Transition;
 
         // pass a unique ID to this card.
         IDHolder id = card.AddComponent<IDHolder>();
@@ -157,9 +158,9 @@ public class HandVisual : MonoBehaviour
             // Debug.Log ("Not fast!!!");
             s.Append(card.transform.DOMove(DrawPreviewSpot.position, GlobalSettings.Instance.CardTransitionTime));
             if (TakeCardsOpenly)
-                s.Insert(0f, card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTime)); 
-            else 
-                s.Insert(0f, card.transform.DORotate(new Vector3(0f, 179f, 0f), GlobalSettings.Instance.CardTransitionTime)); 
+                s.Insert(0f, card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTime));
+            else
+                s.Insert(0f, card.transform.DORotate(new Vector3(0f, 179f, 0f), GlobalSettings.Instance.CardTransitionTime));
             s.AppendInterval(GlobalSettings.Instance.CardPreviewTime);
             // displace the card so that we can select it in the scene easier.
             s.Append(card.transform.DOLocalMove(slots.Children[0].transform.localPosition, GlobalSettings.Instance.CardTransitionTime));
@@ -168,11 +169,11 @@ public class HandVisual : MonoBehaviour
         {
             // displace the card so that we can select it in the scene easier.
             s.Append(card.transform.DOLocalMove(slots.Children[0].transform.localPosition, GlobalSettings.Instance.CardTransitionTimeFast));
-            if (TakeCardsOpenly)    
-                s.Insert(0f,card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTimeFast)); 
+            if (TakeCardsOpenly)
+                s.Insert(0f, card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTimeFast));
         }
 
-        s.OnComplete(()=>ChangeLastCardStatusToInHand(card, w));
+        s.OnComplete(() => ChangeLastCardStatusToInHand(card, w));
     }
 
     // this method will be called when the card arrived to hand 
@@ -190,7 +191,7 @@ public class HandVisual : MonoBehaviour
         Command.CommandExecutionComplete();
     }
 
-   
+
     // PLAYING SPELLS
 
     // 2 Overloaded method to show a spell played from hand
@@ -212,7 +213,7 @@ public class HandVisual : MonoBehaviour
         s.Append(CardVisual.transform.DOMove(PlayPreviewSpot.position, 1f));
         s.Insert(0f, CardVisual.transform.DORotate(Vector3.zero, 1f));
         s.AppendInterval(2f);
-        s.OnComplete(()=>
+        s.OnComplete(() =>
             {
                 //Command.CommandExecutionComplete();
                 Destroy(CardVisual);

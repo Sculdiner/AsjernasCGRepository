@@ -14,7 +14,7 @@ MonoBehaviour:
   characterAsset: {fileID: 11400000, guid: 91c6abd4eb0ad61448a15aecdca47d5f, type: 2}
   Description: 'Battlecry: Poop'
   CardImage: {fileID: 21300000, guid: 068147f459eaab14e93c813ad21e6056, type: 3}
-  ManaCost: 2
+  ManaCost: 0
   MaxHealth: 2
   Attack: 1
   AttacksForOneTurn: 1
