@@ -18,6 +18,11 @@ public class DrawCardDetailedEventHandler<TModel> : BaseEventHandler<TModel> whe
 
     public override void OnHandleEvent(View view, TModel model)
     {
+        var cardPrefab =  (view as BoardView).MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
+
+        //cardPrefab
+
+
         view.LogInfo("Draw Card. id:" + model.GeneratedCardId);
         view.MessageBoxManager.ShowMessage("Draw Card. id:" + model.GeneratedCardId);
     }

@@ -14,7 +14,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/MainMenu.unity
     guid: b1557992a4afbb849b33ebf71e443fd3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Board/Board.unity
     guid: 051266be4b38ba747997a64826def29e
+  - enabled: 0
+    path: Assets/Scenes/Board/InGame.unity
+    guid: a4fda282b21087b48862df3a849187dd
+  - enabled: 1
+    path: Assets/Scenes/Menu/PlayMenu.unity
+    guid: 746f7e982509a3c49a79d831a58606ba
+  - enabled: 1
+    path: Assets/Scenes/Board/LazGameScene.unity
+    guid: c3eb360497851644dbd789651175b848
+  - enabled: 1
+    path: Assets/Scenes/Board/3DBoard.unity
+    guid: 1c6f1f924593eb644b0b359f8b52da45
   m_configObjects: {}
