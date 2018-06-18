@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Login/LoginScene.unity
     guid: fc1aab59673248845935003b0a92e593
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu/MainMenu.unity
     guid: b1557992a4afbb849b33ebf71e443fd3
   - enabled: 0
@@ -20,10 +20,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Board/InGame.unity
     guid: a4fda282b21087b48862df3a849187dd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu/PlayMenu.unity
     guid: 746f7e982509a3c49a79d831a58606ba
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Board/LazGameScene.unity
     guid: c3eb360497851644dbd789651175b848
   - enabled: 1
