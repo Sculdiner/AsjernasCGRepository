@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardView : View
 {
@@ -61,4 +62,34 @@ public class BoardView : View
     public FriendListViewManager FriendListViewManager;
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
+
+    public Button AttackButton { get; set; }
+    public Button QuestButton { get; set; }
+    public Button PassButton { get; set; }
+    public Button PlayCard_Field_Button { get; set; }
+    public Button PlayCard_Targeted_Button { get; set; }
+    public Button PlayCard_Attach_Button { get; set; }
+    public Button PlayCard_AttachWithTarget_Button { get; set; }
+
+    public int SourceCardId { get; set; }
+    public int TargetCardId { get; set; }
+    public int AttachOnId { get; set; }
+
+    public void AssignButtonEvents()
+    {
+        AttackButton.onClick
+            .AddListener(() => { _controller.Attack(SourceCardId, TargetCardId); });
+        QuestButton.onClick
+            .AddListener(() => { _controller.Quest(SourceCardId); });
+        PassButton.onClick
+            .AddListener(() => { _controller.Pass(); });
+        PlayCard_Field_Button.onClick
+            .AddListener(() => { _controller.Play_CardWithoutTarget(SourceCardId); });
+        PlayCard_Targeted_Button.onClick
+            .AddListener(() => { _controller.Play_CardWithTarget(SourceCardId, TargetCardId); });
+        PlayCard_Attach_Button.onClick
+            .AddListener(() => { _controller.Play_AttachmentCardWithoutTarget(SourceCardId, AttachOnId); });
+        PlayCard_AttachWithTarget_Button.onClick
+            .AddListener(() => { _controller.Play_AttachmentCardWithTarget(SourceCardId, AttachOnId, TargetCardId); });
+    }
 }

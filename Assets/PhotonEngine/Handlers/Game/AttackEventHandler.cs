@@ -1,16 +1,16 @@
-﻿using AsjernasCG.Common.ClientEventCodes;
-using AsjernasCG.Common.EventModels.Game;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
+using AsjernasCG.Common.ClientEventCodes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardElementBatchValueChangeEventHandler<TModel> : BaseEventHandler<TModel> where TModel : List<CardElementValueChange>
+public class AttackEventHandler<TModel> : BaseEventHandler<TModel> where TModel : AttackModel
 {
     public override byte EventCode
     {
         get
         {
-            return (byte)ClientGameEventCode.ChangeCardElementsBatch;
+            return (byte)ClientGameEventCode.Attack;
         }
     }
 
