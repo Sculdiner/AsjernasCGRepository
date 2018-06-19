@@ -30,6 +30,16 @@ public class MasterCardManager : MonoBehaviour
         return null;
     }
 
+    public GameObject GenerateCardPrefab(BaseCardTemplate cardTemplate, int generatedCardId)
+    {
+        var prefab = (GameObject)Instantiate(CardTemplatePrefab);
+        var cardManager = prefab.GetComponent<CardManager>();
+        cardManager.SetInitialTemplate(cardTemplate);
+        cardManager.UpdateCardView(cardTemplate);
+        Cards.Add(generatedCardId, cardManager);
+        return prefab;
+    }
+
     public GameObject GenerateCardPrefab(int cardTemplateId, int generatedCardId)
     {
         var cardTemplate = GetNewCardInstance(cardTemplateId);

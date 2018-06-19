@@ -76,4 +76,6 @@ public class BoardController : ViewController
             Value = questingCardId
         }), true, 0, false);
     }
+
+   
 }

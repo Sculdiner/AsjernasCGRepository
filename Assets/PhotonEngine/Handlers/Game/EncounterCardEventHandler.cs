@@ -13,6 +13,6 @@ public class EncounterCardEventHandler<TModel> : BaseEventHandler<TModel> where 
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        //(view as BoardView).EncounterCard()
     }
 }

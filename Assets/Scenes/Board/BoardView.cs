@@ -1,4 +1,6 @@
 ﻿using AsjernasCG.Common;
+using AsjernasCG.Common.BusinessModels.CardModels;
+using AsjernasCG.Common.EventModels.Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,15 +16,13 @@ public class BoardView : View
             MasterCardManager.LoadCards();
 
             var model = BoardTransitionHelper.Instance.GameInitializationModel;
-            var c1p1Template = model.Player1Model.Character1;
-            var c2p1Template = model.Player1Model.Character2;
-            var c1p2Template = model.Player2Model.Character1;
-            var c2p2Template = model.Player2Model.Character2;
+            BoardManager.RegisterPlayer(model.Player1Model.PlayerId);
+            BoardManager.RegisterPlayer(model.Player2Model.PlayerId);
 
-            var c1p1 = MasterCardManager.GenerateCardPrefab(c1p1Template.CardTemplateId, c1p1Template.GeneratedCardId);
-            var c2p1 = MasterCardManager.GenerateCardPrefab(c2p1Template.CardTemplateId, c2p1Template.GeneratedCardId);
-            var c1p2 = MasterCardManager.GenerateCardPrefab(c1p2Template.CardTemplateId, c1p2Template.GeneratedCardId);
-            var c2p2 = MasterCardManager.GenerateCardPrefab(c2p2Template.CardTemplateId, c2p2Template.GeneratedCardId);
+            RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
+            RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
+            RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
+            RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
 
             _controller.SendClientReady();
         }
@@ -39,6 +39,13 @@ public class BoardView : View
         //    UserName = "asdasd",
         //    UserStatus = AsjernasCG.Common.BusinessModels.UserStatusModel.Connected
         //});
+    }
+
+    private void RegisterStartingCharacter(int userId, DetailedCardModel character)
+    {
+        var cardTemplate = MasterCardManager.GetNewCardInstance(character.CardTemplateId);
+        var obj = MasterCardManager.GenerateCardPrefab(cardTemplate, character.GeneratedCardId);
+        BoardManager.RegisterPlayerCard(obj, cardTemplate, CardLocation.PlayArea, userId);
     }
 
     void Update()
@@ -63,33 +70,33 @@ public class BoardView : View
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
 
-    public Button AttackButton { get; set; }
-    public Button QuestButton { get; set; }
-    public Button PassButton { get; set; }
-    public Button PlayCard_Field_Button { get; set; }
-    public Button PlayCard_Targeted_Button { get; set; }
-    public Button PlayCard_Attach_Button { get; set; }
-    public Button PlayCard_AttachWithTarget_Button { get; set; }
+    //public Button AttackButton { get; set; }
+    //public Button QuestButton { get; set; }
+    //public Button PassButton { get; set; }
+    //public Button PlayCard_Field_Button { get; set; }
+    //public Button PlayCard_Targeted_Button { get; set; }
+    //public Button PlayCard_Attach_Button { get; set; }
+    //public Button PlayCard_AttachWithTarget_Button { get; set; }
 
-    public int SourceCardId { get; set; }
-    public int TargetCardId { get; set; }
-    public int AttachOnId { get; set; }
+    //public int SourceCardId { get; set; }
+    //public int TargetCardId { get; set; }
+    //public int AttachOnId { get; set; }
 
-    public void AssignButtonEvents()
-    {
-        AttackButton.onClick
-            .AddListener(() => { _controller.Attack(SourceCardId, TargetCardId); });
-        QuestButton.onClick
-            .AddListener(() => { _controller.Quest(SourceCardId); });
-        PassButton.onClick
-            .AddListener(() => { _controller.Pass(); });
-        PlayCard_Field_Button.onClick
-            .AddListener(() => { _controller.Play_CardWithoutTarget(SourceCardId); });
-        PlayCard_Targeted_Button.onClick
-            .AddListener(() => { _controller.Play_CardWithTarget(SourceCardId, TargetCardId); });
-        PlayCard_Attach_Button.onClick
-            .AddListener(() => { _controller.Play_AttachmentCardWithoutTarget(SourceCardId, AttachOnId); });
-        PlayCard_AttachWithTarget_Button.onClick
-            .AddListener(() => { _controller.Play_AttachmentCardWithTarget(SourceCardId, AttachOnId, TargetCardId); });
-    }
+    //public void AssignButtonEvents()
+    //{
+    //    AttackButton.onClick
+    //        .AddListener(() => { _controller.Attack(SourceCardId, TargetCardId); });
+    //    QuestButton.onClick
+    //        .AddListener(() => { _controller.Quest(SourceCardId); });
+    //    PassButton.onClick
+    //        .AddListener(() => { _controller.Pass(); });
+    //    PlayCard_Field_Button.onClick
+    //        .AddListener(() => { _controller.Play_CardWithoutTarget(SourceCardId); });
+    //    PlayCard_Targeted_Button.onClick
+    //        .AddListener(() => { _controller.Play_CardWithTarget(SourceCardId, TargetCardId); });
+    //    PlayCard_Attach_Button.onClick
+    //        .AddListener(() => { _controller.Play_AttachmentCardWithoutTarget(SourceCardId, AttachOnId); });
+    //    PlayCard_AttachWithTarget_Button.onClick
+    //        .AddListener(() => { _controller.Play_AttachmentCardWithTarget(SourceCardId, AttachOnId, TargetCardId); });
+    //}
 }
