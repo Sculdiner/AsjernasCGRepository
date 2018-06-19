@@ -53,7 +53,6 @@ public class TurnManager : MonoBehaviour {
     public void OnGameStart()
     {
         //Debug.Log("In TurnManager.OnGameStart()");
-
         CardLogic.CardsCreatedThisGame.Clear();
         CreatureLogic.CreaturesCreatedThisGame.Clear();
 
