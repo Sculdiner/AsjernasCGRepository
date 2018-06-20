@@ -9,6 +9,11 @@ using System.Text;
 
 public class DrawCardDetailedEventHandler<TModel> : BaseEventHandler<TModel> where TModel : DetailedCardModel
 {
+    public DrawCardDetailedEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.CallbackSync;
+    }
+
     public override byte EventCode
     {
         get
