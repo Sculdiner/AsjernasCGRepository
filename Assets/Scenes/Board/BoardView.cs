@@ -92,7 +92,6 @@ public class BoardView : View
         {
             HandPlacement.PrepareCardToPlay(2, new Vector3(0, 0, 0));
         });
-        yield return new WaitForSeconds(1f);
         PhotonEngine.AddToQueue(() =>
         {
             HandPlacement.CardPlayed(2);
@@ -109,7 +108,6 @@ public class BoardView : View
         {
             HandPlacement.PrepareCardToPlay(5, new Vector3(3, 0, 0));
         });
-        yield return new WaitForSeconds(1);
         PhotonEngine.AddToQueue(() =>
         {
             HandPlacement.CardPlayed(5);
@@ -121,7 +119,7 @@ public class BoardView : View
         //    HandPlacement.CancelCardPlay(4);
         //});
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.1f);
         PhotonEngine.AddToQueue(() =>
         {
             HandPlacement.CardPlayed(4);

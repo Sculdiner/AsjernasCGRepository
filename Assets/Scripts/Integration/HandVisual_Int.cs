@@ -48,14 +48,14 @@ public class HandVisual_Int : MonoBehaviour
                         movedCard = true;
                         if (hand[i + 2].Status == HandItemStatus.Empty) //if i'm the last to move, call completeACtion.
                         {
-                            MoveCardToFirstFreeHandSlot(hand[i + 1].ReferencedCard, 3f, () =>
+                            MoveCardToFirstFreeHandSlot(hand[i + 1].ReferencedCard, 0.35f, () =>
                             {
                                 PhotonEngine.CompletedAction();
                             });
                         }
                         else
                         {
-                            MoveCardToFirstFreeHandSlot(hand[i + 1].ReferencedCard, 3f);
+                            MoveCardToFirstFreeHandSlot(hand[i + 1].ReferencedCard, 0.35f);
                         }
                         hand[i + 1].Status = HandItemStatus.Empty;
                     }
@@ -102,7 +102,7 @@ public class HandVisual_Int : MonoBehaviour
                 return;
             }
 
-            slotToRemove.ReferencedCard.CardViewObject.transform.DOMove(position, 2f).OnComplete(() =>
+            slotToRemove.ReferencedCard.CardViewObject.transform.DOMove(position, 0.85f).OnComplete(() =>
             {
                 PhotonEngine.CompletedAction();
             });
@@ -114,7 +114,7 @@ public class HandVisual_Int : MonoBehaviour
 
     public void DrawNewCard(ClientSideCard card)
     {
-        MoveCardToFirstFreeHandSlot(card, 0.5f, () => { PhotonEngine.CompletedAction(); });
+        MoveCardToFirstFreeHandSlot(card, 0.85f, () => { PhotonEngine.CompletedAction(); });
     }
 
     public void MoveCardToFirstFreeHandSlot(ClientSideCard card, float animationCompletionTime, Action OnComplete = null)
