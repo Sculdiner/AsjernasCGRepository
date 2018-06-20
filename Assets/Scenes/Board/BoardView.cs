@@ -23,7 +23,9 @@ public class BoardView : View
             //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
             //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
             //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
-
+            var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
+            BoardManager.RegisterPlayerCard(cardPrefab, 1, CardLocation.Hand, 1);
+            HandPlacement.GivePlayerACard(BoardManager.GetCard(cardPrefab), false);
             _controller.SendClientReady();
         }
         catch (System.Exception ex)
@@ -43,8 +45,7 @@ public class BoardView : View
 
     private void Awake()
     {
-        var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
-        BoardManager.RegisterPlayerCard(cardPrefab, 1, CardLocation.Hand, 1);
+       
 
     }
     private void RegisterStartingCharacter(int userId, DetailedCardModel character)
@@ -75,6 +76,7 @@ public class BoardView : View
     public FriendListViewManager FriendListViewManager;
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
+    public HandVisual_Int HandPlacement;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

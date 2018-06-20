@@ -64,7 +64,7 @@ public class MainMenuController : ViewController
         //redirect to play area scene
         GroupManager.Instance.ClearGroup();
         GroupManager.Instance.NewGroup(groupLeaderId, username);
-        GroupManager.Instance.AddNonLeaderPlayer(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
+        GroupManager.Instance.AddNonLeaderPlayer(PhotonEngine.UserId, PhotonEngine.Instance.UserName);
         SendGetGroupState();
     }
 

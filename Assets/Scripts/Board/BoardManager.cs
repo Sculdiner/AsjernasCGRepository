@@ -61,7 +61,7 @@ public class BoardManager : MonoBehaviour
     public void RegisterPlayer(int userId)
     {
         var state = new PlayerState() { UserId = userId };
-        if (userId == PhotonEngine.Instance.UserId)
+        if (userId == PhotonEngine.UserId)
             CurrentUserPlayerState = state;
         else
             TeammatePlayerState = state;
@@ -96,7 +96,7 @@ public class BoardManager : MonoBehaviour
         if (card.ParticipatorState is PlayerState)
         {
             var castedState = (PlayerState)card.ParticipatorState;
-            if (castedState.UserId == PhotonEngine.Instance.UserId)
+            if (castedState.UserId == PhotonEngine.UserId)
                 return true;
         }
         return false;

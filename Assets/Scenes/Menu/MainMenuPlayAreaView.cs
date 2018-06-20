@@ -29,18 +29,18 @@ public class MainMenuPlayAreaView : View
         if (groupCount < 2)
         {
             GroupManager.Instance.ClearGroup();
-            GroupManager.Instance.NewGroup(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
+            GroupManager.Instance.NewGroup(PhotonEngine.UserId, PhotonEngine.Instance.UserName);
         }
 
         var group = GroupManager.Instance.Group;
 
         var groupLeader = group.FirstOrDefault(s => s.IsGroupLeader);
-        LeaderArea.LoadArea(groupLeader.UserId == PhotonEngine.Instance.UserId, true, groupLeader.UserId, groupLeader.UserName, this);
+        LeaderArea.LoadArea(groupLeader.UserId == PhotonEngine.UserId, true, groupLeader.UserId, groupLeader.UserName, this);
         var nonLeader = group.FirstOrDefault(s => !s.IsGroupLeader);
         if (nonLeader != null)
         {
             InviteToGroupFunctionalityArea.SetActive(false);
-            TeammateArea.LoadArea(nonLeader.UserId == PhotonEngine.Instance.UserId, false, nonLeader.UserId, nonLeader.UserName, this);
+            TeammateArea.LoadArea(nonLeader.UserId == PhotonEngine.UserId, false, nonLeader.UserId, nonLeader.UserName, this);
         }
         var existingGroupStatus = GroupManager.Instance.LoadGroupStatus();
         if (existingGroupStatus != null)
@@ -136,7 +136,7 @@ public class MainMenuPlayAreaView : View
 
     public GroupAreaViewManager FindMyGroupArea()
     {
-        if (LeaderArea.areasUserId == PhotonEngine.Instance.UserId)
+        if (LeaderArea.areasUserId == PhotonEngine.UserId)
         {
             return LeaderArea;
         }
@@ -148,7 +148,7 @@ public class MainMenuPlayAreaView : View
 
     public GroupAreaViewManager FindMyTeammateArea()
     {
-        if (LeaderArea.areasUserId == PhotonEngine.Instance.UserId)
+        if (LeaderArea.areasUserId == PhotonEngine.UserId)
         {
             return TeammateArea;
         }
@@ -190,7 +190,7 @@ public class MainMenuPlayAreaView : View
         };
 
         GroupManager.Instance.ClearGroup();
-        GroupManager.Instance.NewGroup(PhotonEngine.Instance.UserId, PhotonEngine.Instance.UserName);
+        GroupManager.Instance.NewGroup(PhotonEngine.UserId, PhotonEngine.Instance.UserName);
         GroupManager.Instance.StoreGroupStatus(tempLeaderStatus);
         FindMyTeammateArea().gameObject.SetActive(false);
         //ChangeScene("PlayMenu");

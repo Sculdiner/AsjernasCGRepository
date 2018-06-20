@@ -29,7 +29,7 @@ public class GroupAreaViewManager : MonoBehaviour
         areasUserId = userid;
         View = view;
         IsForLeader = isGroupLeader;
-        if (userid == PhotonEngine.Instance.UserId)
+        if (userid == PhotonEngine.UserId)
         {
             var prefab = (GameObject)Instantiate(DeckSelectionPrefab);
             DeckListSelectionHelperManager = prefab.GetComponent<DeckSelectionPrefabHelperManager>();
@@ -118,7 +118,7 @@ public class GroupAreaViewManager : MonoBehaviour
 
     public void ReadyStatusButtonToggle()
     {
-        if (areasUserId != PhotonEngine.Instance.UserId)
+        if (areasUserId != PhotonEngine.UserId)
             return;
 
         if (PlayerReady)

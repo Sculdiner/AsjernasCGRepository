@@ -134,13 +134,13 @@ public class ViewController : IViewController
 
     public void UpdateUserProfile(int userId, string userName)
     {
-        PhotonEngine.Instance.UserId = userId;
+        PhotonEngine.UserId = userId;
         PhotonEngine.Instance.UserName = userName;
     }
 
     public int GetUserId()
     {
-        return PhotonEngine.Instance.UserId;
+        return PhotonEngine.UserId;
     }
 
     public string GetUserName()

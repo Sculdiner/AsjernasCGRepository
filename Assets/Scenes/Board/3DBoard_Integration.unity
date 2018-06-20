@@ -290,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &171252534
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -735,6 +735,7 @@ MonoBehaviour:
   FriendListViewManager: {fileID: 0}
   MasterCardManager: {fileID: 917470793}
   BoardManager: {fileID: 731265203}
+  HandPlacement: {fileID: 1887578975}
 --- !u!4 &260827570
 Transform:
   m_ObjectHideFlags: 0
@@ -1557,7 +1558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &548849012
 Transform:
   m_ObjectHideFlags: 0
@@ -1994,7 +1995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &872694518
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3197,7 +3198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1475044420
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4006,8 +4007,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: 0
   TakeCardsOpenly: 1
-  slots: {fileID: 0}
-  View: {fileID: 0}
+  slots: {fileID: 1270056669}
+  View: {fileID: 260827569}
   DrawPreviewSpot: {fileID: 1605351245}
   DeckTransform: {fileID: 903801299}
   OtherCardDrawSourceTransform: {fileID: 171252537}
@@ -4213,7 +4214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2014266984
 BoxCollider:
   m_ObjectHideFlags: 0
