@@ -15,9 +15,9 @@ public class BoardView : View
         {
             MasterCardManager.LoadCards();
 
-            var model = BoardTransitionHelper.Instance.GameInitializationModel;
-            BoardManager.RegisterPlayer(model.Player1Model.PlayerId);
-            BoardManager.RegisterPlayer(model.Player2Model.PlayerId);
+            //var model = BoardTransitionHelper.Instance.GameInitializationModel;
+            BoardManager.RegisterPlayer(1);
+            BoardManager.RegisterPlayer(2);
 
             //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
             //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
@@ -41,6 +41,12 @@ public class BoardView : View
         //});
     }
 
+    private void Awake()
+    {
+        var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
+        BoardManager.RegisterPlayerCard(cardPrefab, 1, CardLocation.Hand, 1);
+
+    }
     private void RegisterStartingCharacter(int userId, DetailedCardModel character)
     {
         var cardTemplate = MasterCardManager.GetNewCardInstance(character.CardTemplateId);
