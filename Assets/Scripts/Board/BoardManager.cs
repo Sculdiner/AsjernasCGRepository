@@ -12,7 +12,7 @@ public class BoardManager : MonoBehaviour
     private Dictionary<int, ParticipatorState> ParticipatorReferenceCollection;
     private PlayerState CurrentUserPlayerState;
     private PlayerState TeammatePlayerState;
-    private AIParticipatorState AiState;
+    private AIState AiState;
 
     public BoardManager()
     {
