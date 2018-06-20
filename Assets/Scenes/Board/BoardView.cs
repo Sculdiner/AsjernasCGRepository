@@ -19,10 +19,10 @@ public class BoardView : View
             BoardManager.RegisterPlayer(model.Player1Model.PlayerId);
             BoardManager.RegisterPlayer(model.Player2Model.PlayerId);
 
-            RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
-            RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
-            RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
-            RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
+            //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
+            //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
+            //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
+            //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
 
             _controller.SendClientReady();
         }

@@ -107,7 +107,7 @@ public class BoardManager : MonoBehaviour
         return CurrentUserIsCardOwner(GetCard(cardId));
     }
 
-    private bool CheckIfCardHasValidTargetsOnBoard(ClientSideCard card)
+    public bool CheckIfCardHasValidTargetsOnBoard(ClientSideCard card)
     {
         switch (card.CardStats.CastTargetOwningType.Value)
         {
@@ -186,14 +186,14 @@ public class BoardManager : MonoBehaviour
         return validTargetsList;
     }
 
-    private enum CardOwnerType
+    public enum CardOwnerType
     {
         Own = 0,
         Teammate = 1,
         Enemy = 2
     }
 
-    private CardOwnerType GetCardRelativeOwnerType(PlayerState sourcePlayerState, ClientSideCard targetCard)
+    public CardOwnerType GetCardRelativeOwnerType(PlayerState sourcePlayerState, ClientSideCard targetCard)
     {
         if (targetCard.CardStats.IsAiControlled)
             return CardOwnerType.Enemy;
@@ -204,7 +204,7 @@ public class BoardManager : MonoBehaviour
             return CardOwnerType.Teammate;
     }
 
-    private bool TargetedCastOwningTypeIsValid(ClientSideCard sourceCard, ClientSideCard targetCard)
+    public bool TargetedCastOwningTypeIsValid(ClientSideCard sourceCard, ClientSideCard targetCard)
     {
         var cardOwnerType = GetCardRelativeOwnerType((PlayerState)sourceCard.ParticipatorState, targetCard);
         switch (sourceCard.CardStats.CastTargetOwningType)
@@ -233,7 +233,7 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
-    private bool TargetedCastTargetTypeIsValid(ClientSideCard sourceCard, ClientSideCard targetCard)
+    public bool TargetedCastTargetTypeIsValid(ClientSideCard sourceCard, ClientSideCard targetCard)
     {
         if (sourceCard.CardStats.CastValidTargets.Contains(targetCard.CardStats.CardType))
             return true;

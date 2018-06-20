@@ -1,7 +1,7 @@
 ﻿using AsjernasCG.Common.BusinessModels.CardModels;
 using UnityEngine;
 
-public class ClientSideCard : MonoBehaviour
+public class ClientSideCard
 {
     public GameObject CardViewObject { get; set; }
     public BaseCardTemplate CardStats { get; set; }
