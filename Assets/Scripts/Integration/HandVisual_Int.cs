@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using AsjernasCG.Common.BusinessModels.CardModels;
+using System.Linq;
+using System;
 
 public class HandVisual_Int : MonoBehaviour
 {
@@ -18,8 +19,126 @@ public class HandVisual_Int : MonoBehaviour
     public Transform DeckTransform;
     public Transform OtherCardDrawSourceTransform;
     public Transform PlayPreviewSpot;
+    public SlotContainer SlotContainer;
 
     // PRIVATE : a list of all card visual representations as GameObjects
+
+    public HandItem GetFreeHandSlot()
+    {
+        return SlotContainer.HandSlots.FirstOrDefault(s => s.Status == HandItemStatus.Empty);
+
+    }
+
+    private object moveCardLocker = new object();
+
+    public void FillHandPositionEmptySlots()
+    {
+        var hand = SlotContainer.HandSlots;
+        var handSize = hand.Count;
+        var movedCard = false;
+        for (int i = 0; i < handSize; i++)
+        {
+            var handSlot = hand[i];
+            if (handSlot.Status == HandItemStatus.Empty)
+            {
+                if (i + 1 < handSize) //if has next
+                {
+                    if (hand[i + 1].Status == HandItemStatus.Filled)
+                    {
+                        movedCard = true;
+                        if (hand[i + 2].Status == HandItemStatus.Empty) //if i'm the last to move, call completeACtion.
+                        {
+                            MoveCardToFirstFreeHandSlot(hand[i + 1].ReferencedCard, 3f, () =>
+                            {
+                                PhotonEngine.CompletedAction();
+                            });
+                        }
+                        else
+                        {
+                            MoveCardToFirstFreeHandSlot(hand[i + 1].ReferencedCard, 3f);
+                        }
+                        hand[i + 1].Status = HandItemStatus.Empty;
+                    }
+                }
+            }
+        }
+
+        if (!movedCard)
+        {
+            PhotonEngine.CompletedAction();
+        }
+    }
+
+    public void CardPlayed(int cardGeneratedId)
+    {
+        //do vfx
+        //create a different object than the card!!!!!!!!!!!!!!!!!!!!!!
+        var existingCardSlot = SlotContainer.HandSlots.FirstOrDefault(s => s.ReferencedCard != null && s.ReferencedCard.CardStats.GeneratedCardId == cardGeneratedId);
+        existingCardSlot.Status = HandItemStatus.Empty;
+        existingCardSlot.ReferencedCard = null;
+        FillHandPositionEmptySlots();
+    }
+
+    public void CancelCardPlay(int cardGeneratedId)
+    {
+        //do vfx
+        var existingCardSlot = SlotContainer.HandSlots.FirstOrDefault(s => s.ReferencedCard != null && s.ReferencedCard.CardStats.GeneratedCardId == cardGeneratedId);
+        existingCardSlot.Status = HandItemStatus.Filled;
+        existingCardSlot.ReferencedCard.CardViewObject.transform.DOMove(existingCardSlot.GetMyWorldPosition(), 1f).OnComplete(() =>
+        {
+            PhotonEngine.CompletedAction();
+        });
+    }
+
+    public void PrepareCardToPlay(int cardGeneratedId, Vector3 position)
+    {
+        lock (moveCardLocker)
+        {
+            var handSlots = SlotContainer.HandSlots;
+            var slotToRemove = handSlots.FirstOrDefault(s => s.ReferencedCard != null && s.ReferencedCard.CardStats.GeneratedCardId == cardGeneratedId);
+            if (slotToRemove == null)
+            {
+                PhotonEngine.CompletedAction();
+                return;
+            }
+
+            slotToRemove.ReferencedCard.CardViewObject.transform.DOMove(position, 2f).OnComplete(() =>
+            {
+                PhotonEngine.CompletedAction();
+            });
+            slotToRemove.Status = HandItemStatus.WaitingToBePlayed;
+
+            Debug.Log("removed " + cardGeneratedId);
+        }
+    }
+
+    public void DrawNewCard(ClientSideCard card)
+    {
+        MoveCardToFirstFreeHandSlot(card, 0.5f, () => { PhotonEngine.CompletedAction(); });
+    }
+
+    public void MoveCardToFirstFreeHandSlot(ClientSideCard card, float animationCompletionTime, Action OnComplete = null)
+    {
+        lock (moveCardLocker)
+        {
+            var firstHandSlot = GetFreeHandSlot();
+            if (firstHandSlot == null)
+                return;
+            var vector = firstHandSlot.GetMyWorldPosition();
+            if (vector == null)
+                return;
+            firstHandSlot.Status = HandItemStatus.Filled;
+            firstHandSlot.ReferencedCard = card;
+
+            card.CardViewObject.transform.DOMove(vector, animationCompletionTime).OnComplete(() =>
+            {
+                if (OnComplete != null)
+                {
+                    OnComplete.Invoke();
+                }
+            });
+        }
+    }
 
 
     // ADDING OR REMOVING CARDS FROM HAND
@@ -100,7 +219,7 @@ public class HandVisual_Int : MonoBehaviour
     {
         // Instantiate a card depending on its type
         c.CardViewObject.transform.position = position;
-        c.CardViewObject.transform.rotation = Quaternion.Euler(eulerAngles);
+        //c.CardViewObject.transform.rotation = Quaternion.Euler(eulerAngles);
         //else
         //{
         //    // this is a spell: checking for targeted or non-targeted spell
@@ -128,7 +247,7 @@ public class HandVisual_Int : MonoBehaviour
     {
         var card = c.CardViewObject;
 
-        card = MoveToDeckAtPosition(c, DeckTransform.position, new Vector3(0f, 0f, -179f));
+        card = MoveToDeckAtPosition(c, DeckTransform.position, new Vector3(0f, 0f, 0f));
         //else
         //    card = MoveToDeckAtPosition(c, OtherCardDrawSourceTransform.position, new Vector3(0f, 0f, -179f));
 
@@ -143,14 +262,14 @@ public class HandVisual_Int : MonoBehaviour
         if (!fast)
         {
             // Debug.Log ("Not fast!!!");
-            s.Append(card.transform.DOMove(DrawPreviewSpot.position, 1f));
-            if (TakeCardsOpenly)
-                s.Insert(0f, card.transform.DORotate(Vector3.zero, 1f));
-            else
-                s.Insert(0f, card.transform.DORotate(new Vector3(0f, 179f, 0f), 1f));
-            s.AppendInterval(1f);
+            s.Append(card.transform.DOMove(DrawPreviewSpot.position, 0.6f));
+            //if (TakeCardsOpenly)
+            //    s.Insert(0f, card.transform.DORotate(Vector3.zero, 1f));
+            //else
+            //    s.Insert(0f, card.transform.DORotate(new Vector3(0f, 0f, 0f), 1f));
+            s.AppendInterval(0.6f);
             // displace the card so that we can select it in the scene easier.
-            s.Append(card.transform.DOLocalMove(slots.Children[0].transform.localPosition, 1f));
+            s.Append(card.transform.DOLocalMove(slots.Children[0].transform.localPosition, 0.6f));
         }
         else
         {

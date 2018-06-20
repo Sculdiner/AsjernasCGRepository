@@ -3,6 +3,7 @@ using AsjernasCG.Common.BusinessModels.CardModels;
 using AsjernasCG.Common.EventModels.Game;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,9 +24,51 @@ public class BoardView : View
             //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
             //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
             //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
-            var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
-            BoardManager.RegisterPlayerCard(cardPrefab, 1, CardLocation.Hand, 1);
-            HandPlacement.GivePlayerACard(BoardManager.GetCard(cardPrefab), false);
+
+
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
+                BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(1).InitialTemplate, CardLocation.Hand, 1);
+                HandPlacement.DrawNewCard(BoardManager.GetCard(cardPrefab));
+            });
+
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab2 = MasterCardManager.GenerateCardPrefab(1, 2);
+                BoardManager.RegisterPlayerCard(cardPrefab2, MasterCardManager.GetCardManager(2).InitialTemplate, CardLocation.Hand, 1);
+                HandPlacement.DrawNewCard(BoardManager.GetCard(cardPrefab2));
+            });
+
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab3 = MasterCardManager.GenerateCardPrefab(1, 3);
+                BoardManager.RegisterPlayerCard(cardPrefab3, MasterCardManager.GetCardManager(3).InitialTemplate, CardLocation.Hand, 1);
+                HandPlacement.DrawNewCard(BoardManager.GetCard(cardPrefab3));
+            });
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab4 = MasterCardManager.GenerateCardPrefab(1, 4);
+                BoardManager.RegisterPlayerCard(cardPrefab4, MasterCardManager.GetCardManager(4).InitialTemplate, CardLocation.Hand, 1);
+                HandPlacement.DrawNewCard(BoardManager.GetCard(cardPrefab4));
+            });
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab5 = MasterCardManager.GenerateCardPrefab(1, 5);
+                BoardManager.RegisterPlayerCard(cardPrefab5, MasterCardManager.GetCardManager(5).InitialTemplate, CardLocation.Hand, 1);
+                HandPlacement.DrawNewCard(BoardManager.GetCard(cardPrefab5));
+            });
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab6 = MasterCardManager.GenerateCardPrefab(1, 6);
+                BoardManager.RegisterPlayerCard(cardPrefab6, MasterCardManager.GetCardManager(6).InitialTemplate, CardLocation.Hand, 1);
+                HandPlacement.DrawNewCard(BoardManager.GetCard(cardPrefab6));
+            });
+
+            StartCoroutine(RemoveCardTest());
+
+
+
             _controller.SendClientReady();
         }
         catch (System.Exception ex)
@@ -43,9 +86,52 @@ public class BoardView : View
         //});
     }
 
+    private IEnumerator RemoveCardTest()
+    {
+        PhotonEngine.AddToQueue(() =>
+        {
+            HandPlacement.PrepareCardToPlay(2, new Vector3(0, 0, 0));
+        });
+        yield return new WaitForSeconds(1f);
+        PhotonEngine.AddToQueue(() =>
+        {
+            HandPlacement.CardPlayed(2);
+        });
+
+
+        PhotonEngine.AddToQueue(() =>
+        {
+            HandPlacement.PrepareCardToPlay(4, new Vector3(2, 0, 0));
+        });
+
+
+        PhotonEngine.AddToQueue(() =>
+        {
+            HandPlacement.PrepareCardToPlay(5, new Vector3(3, 0, 0));
+        });
+        yield return new WaitForSeconds(1);
+        PhotonEngine.AddToQueue(() =>
+        {
+            HandPlacement.CardPlayed(5);
+        });
+
+        //yield return new WaitForSeconds(2);
+        //PhotonEngine.AddToQueue(() =>
+        //{
+        //    HandPlacement.CancelCardPlay(4);
+        //});
+
+        yield return new WaitForSeconds(2);
+        PhotonEngine.AddToQueue(() =>
+        {
+            HandPlacement.CardPlayed(4);
+        });
+
+    }
+
     private void Awake()
     {
-       
+
 
     }
     private void RegisterStartingCharacter(int userId, DetailedCardModel character)
@@ -73,6 +159,7 @@ public class BoardView : View
         return Camera.main.ScreenToWorldPoint(obj.transform.position);
     }
 
+    public GameObject PlayArea;
     public FriendListViewManager FriendListViewManager;
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;

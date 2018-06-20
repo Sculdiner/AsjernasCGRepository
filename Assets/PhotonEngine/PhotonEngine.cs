@@ -168,26 +168,36 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
     private static Queue<Action> ActionQueue { get; set; }
     public static void AddToQueue(Action actionToQueue)
     {
-        if (ActionQueue.Count == 1)
-        {
-            ActionQueue.Enqueue(actionToQueue);
-            NextAction();
-        }
-        else
-        {
-            ActionQueue.Enqueue(actionToQueue);
-        }
+        if (ActionQueue == null)
+            ActionQueue = new Queue<Action>();
+        ActionQueue.Enqueue(actionToQueue);
+        NextAction();
     }
+
+    private static bool processingAction = false;
+
     public static void NextAction()
     {
-        if (ActionQueue!= null && ActionQueue.Any())
+        if (processingAction)
+            return;
+
+        if (ActionQueue != null && ActionQueue.Any())
         {
             //peek first isntead of removing it because if another action comes while 
             var actionToInvoke = ActionQueue.Peek();
             if (actionToInvoke != null)
+            {
+                processingAction = true;
+                ActionQueue.Dequeue();
                 actionToInvoke();
-            ActionQueue.Dequeue();
+            }
         }
+    }
+
+    public static void CompletedAction()
+    {
+        processingAction = false;
+        NextAction();
     }
 
     #endregion
