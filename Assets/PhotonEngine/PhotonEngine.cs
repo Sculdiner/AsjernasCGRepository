@@ -180,7 +180,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
     }
     public static void NextAction()
     {
-        if (ActionQueue.Any())
+        if (ActionQueue!= null && ActionQueue.Any())
         {
             //peek first isntead of removing it because if another action comes while 
             var actionToInvoke = ActionQueue.Peek();
