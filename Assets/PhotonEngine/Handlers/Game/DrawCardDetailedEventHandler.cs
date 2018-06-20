@@ -1,5 +1,6 @@
 ﻿using AsjernasCG.Common.ClientEventCodes;
 using AsjernasCG.Common.EventModels.Game;
+using AsjernasCG.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ public class DrawCardDetailedEventHandler<TModel> : BaseEventHandler<TModel> whe
     public override void OnHandleEvent(View view, TModel model)
     {
         var cardPrefab =  (view as BoardView).MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
-
+        (view as BoardView).BoardManager.RegisterPlayerCard(cardPrefab, model.CardTemplateId, AsjernasCG.Common.BusinessModels.CardModels.CardLocation.Hand, model.OwnerId);
         //cardPrefab
 
 
