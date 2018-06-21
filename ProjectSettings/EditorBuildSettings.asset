@@ -26,7 +26,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Board/LazGameScene.unity
     guid: c3eb360497851644dbd789651175b848
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Board/3DBoard.unity
     guid: 1c6f1f924593eb644b0b359f8b52da45
+  - enabled: 1
+    path: Assets/Scenes/Board/3DBoard_Integration_Lazaros.unity
+    guid: b7b7a26ea6022f34393cd9d33d16bf2d
   m_configObjects: {}

@@ -67,7 +67,7 @@ public class BoardView : View
 
             StartCoroutine(RemoveCardTest());
 
-
+            //EncounterSlotManager.AddEncounterCardToASlot()
 
             _controller.SendClientReady();
         }
@@ -162,6 +162,7 @@ public class BoardView : View
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
     public HandVisual_Int HandPlacement;
+    public EncounterSlotManager EncounterSlotManager;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }
