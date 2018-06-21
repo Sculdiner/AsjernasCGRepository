@@ -15,7 +15,7 @@ public class BoardView : View
         try
         {
             MasterCardManager.LoadCards();
-
+             
             //var model = BoardTransitionHelper.Instance.GameInitializationModel;
             BoardManager.RegisterPlayer(1);
             BoardManager.RegisterPlayer(2);
