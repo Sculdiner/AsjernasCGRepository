@@ -13,7 +13,7 @@ public class BetterCardRotation_Int : MonoBehaviour {
 
     // parent game object for all the card back graphics
     public RectTransform CardBack;
-
+     
     // an empty game object that is placed a bit above the face of the card, in the center of the card
     public Transform targetFacePoint;
 

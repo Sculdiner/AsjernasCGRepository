@@ -8,7 +8,7 @@ using DG.Tweening;
 /// whether the drop was successful or not.
 /// </summary>
 
-public class Draggable : MonoBehaviour {
+public class Draggable2D : MonoBehaviour {
 
     // PRIVATE FIELDS
 
@@ -25,8 +25,8 @@ public class Draggable : MonoBehaviour {
     private DraggingActions da;
 
     // STATIC property that returns the instance of Draggable that is currently being dragged
-    private static Draggable _draggingThis;
-    public static Draggable DraggingThis
+    private static Draggable2D _draggingThis;
+    public static Draggable2D DraggingThis
     {
         get{ return _draggingThis;}
     }
