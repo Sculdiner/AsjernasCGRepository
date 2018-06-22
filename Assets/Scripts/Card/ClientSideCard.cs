@@ -7,4 +7,5 @@ public class ClientSideCard
     public BaseCardTemplate CardStats { get; set; }
     public ParticipatorState ParticipatorState { get; set; }
     public CardLocation CurrentLocation { get; set; }
+    //public bool EnableForceDragEffect { get; set; }
 }

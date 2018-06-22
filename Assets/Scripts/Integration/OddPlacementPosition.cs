@@ -1,4 +1,4 @@
-﻿public enum OddEncounterPlacementPosition
+﻿public enum OddPlacementPosition
 {
     LeftFar,
     Left,

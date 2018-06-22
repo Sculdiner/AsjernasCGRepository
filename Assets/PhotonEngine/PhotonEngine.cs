@@ -165,11 +165,9 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     #region QueueManager
 
-    private static Queue<Action> ActionQueue { get; set; }
+    private static Queue<Action> ActionQueue = new Queue<Action>();
     public static void AddToQueue(Action actionToQueue)
     {
-        if (ActionQueue == null)
-            ActionQueue = new Queue<Action>();
         ActionQueue.Enqueue(actionToQueue);
         NextAction();
     }

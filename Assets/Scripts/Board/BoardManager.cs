@@ -20,7 +20,7 @@ public class BoardManager : MonoBehaviour
         ParticipatorReferenceCollection = new Dictionary<int, ParticipatorState>();
     }
 
-    public void RegisterPlayerCard(GameObject gameObject, BaseCardTemplate card, CardLocation location, int userId)
+    public ClientSideCard RegisterPlayerCard(GameObject gameObject, BaseCardTemplate card, CardLocation location, int userId)
     {
         var clientSideCard = new ClientSideCard()
         {
@@ -29,10 +29,10 @@ public class BoardManager : MonoBehaviour
             CurrentLocation = location
         };
         var partState = ParticipatorReferenceCollection[userId];
-        RegisterCard(clientSideCard, partState);
+        return RegisterCard(clientSideCard, partState);
     }
 
-    public void RegisterPlayerCard(GameObject gameObject, int cardTemplateId, CardLocation location, int userId)
+    public ClientSideCard RegisterPlayerCard(GameObject gameObject, int cardTemplateId, CardLocation location, int userId)
     {
         var clientSideCard = new ClientSideCard()
         {
@@ -41,10 +41,10 @@ public class BoardManager : MonoBehaviour
             CurrentLocation = location
         };
         var partState = ParticipatorReferenceCollection[userId];
-        RegisterCard(clientSideCard, partState);
+        return RegisterCard(clientSideCard, partState);
     }
 
-    public void RegisterCard(ClientSideCard card, ParticipatorState participatorState)
+    public ClientSideCard RegisterCard(ClientSideCard card, ParticipatorState participatorState)
     {
         card.ParticipatorState = participatorState;
         CardReferenceCollection.RegisterCardToGame(card);
@@ -56,6 +56,7 @@ public class BoardManager : MonoBehaviour
         {
             AiState.Deck.Add(card);
         }
+        return card;
     }
 
     public void RegisterPlayer(int userId)

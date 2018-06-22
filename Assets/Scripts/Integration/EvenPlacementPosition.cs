@@ -1,4 +1,4 @@
-﻿public enum EvenEncounterPlacementPosition
+﻿public enum EvenPlacementPosition
 {
     LeftLast,
     LeftFar,

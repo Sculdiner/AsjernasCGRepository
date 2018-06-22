@@ -26,6 +26,57 @@ public class BoardView : View
             //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
 
 
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(1).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 2);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(2).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
+
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 3);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(3).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
+            //PhotonEngine.AddToQueue(() =>
+            //{
+            //    HandSlotManager.HandPreviewOn = true;
+            //    HandSlotManager.ForceUpdatePositions();
+            //});
+
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 4);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(4).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
+
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 5);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(5).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
+
+            PhotonEngine.AddToQueue(() =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 6);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(6).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardToPosition(card,3);
+            });
+            //PhotonEngine.AddToQueue(() =>
+            //{
+            //    HandSlotManager.RemoveCard(3);
+            //});
+
+
             //PhotonEngine.AddToQueue(() =>
             //{
             //    var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
@@ -205,6 +256,7 @@ public class BoardView : View
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
     public HandVisual_Int HandPlacement;
+    public HandSlotManager HandSlotManager;
     public EncounterSlotManager EncounterSlotManager;
 
     //public Button AttackButton { get; set; }
