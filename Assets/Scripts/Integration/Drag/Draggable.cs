@@ -7,9 +7,10 @@ public class Draggable : MonoBehaviour
 
     private Vector3 pointerDisplace = Vector3.zero;
     private Vector3 displ;
-    private float dragDepth;
-    private float posX;
-    private float posZ;
+    private Vector3 pointerDisplacement;
+    private Vector3 transformScreen;
+    private Vector3 screenSpace;
+    private Vector3 offset;
 
     // Use this for initialization
     void Start()
@@ -22,22 +23,33 @@ public class Draggable : MonoBehaviour
     {
 
     }
-
+    
     void OnMouseDown()
     {
-        dragDepth = CameraPlane.CameraToPointDepth(Camera.main, transform.position);
+        //translate the cubes position from the world to Screen Point
+        screenSpace = Camera.main.WorldToScreenPoint(transform.position);
+
+        //calculate any difference between the cubes world position and the mouses Screen position converted to a world point  
+        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
+
     }
 
-    void OnMouseDrag()
+     void OnMouseDrag()
     {
-        //Vector3 mousePos = MouseInWorldCoords();
-        var screenMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var worldPos = CameraPlane.ScreenToWorldPlanePoint(Camera.main, dragDepth, screenMousePos);
-        transform.position = worldPos;
+
+        //keep track of the mouse position
+        var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
+
+        //convert the screen mouse position to world point and adjust with offset
+        var curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace) + offset;
+
+        //update the position of the object in the world
+        transform.position = curPosition;
     }
 
     void OnMouseUp()
     {
         //logic 
     }
+
 }

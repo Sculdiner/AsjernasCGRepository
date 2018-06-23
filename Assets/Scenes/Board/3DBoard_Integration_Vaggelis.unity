@@ -807,6 +807,8 @@ MonoBehaviour:
   HandPlacement: {fileID: 1887578975}
   HandSlotManager: {fileID: 0}
   EncounterSlotManager: {fileID: 0}
+  LeftPlayerAllySlotManager: {fileID: 0}
+  RightPlayerAllySlotManager: {fileID: 0}
 --- !u!4 &260827570
 Transform:
   m_ObjectHideFlags: 0
@@ -949,8 +951,8 @@ GameObject:
   - component: {fileID: 287311764}
   - component: {fileID: 287311763}
   - component: {fileID: 287311762}
-  - component: {fileID: 287311766}
   - component: {fileID: 287311761}
+  - component: {fileID: 287311766}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -1030,7 +1032,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 287311760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.571, y: 0.78, z: -1.096}
+  m_LocalPosition: {x: 0.57, y: 0.78, z: -0.58}
   m_LocalScale: {x: 0.8, y: 0.05, z: 1.2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1049,15 +1051,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_info:
     m_PitchInfo:
-      m_ForceMultiplier: 15
+      m_ForceMultiplier: 10
       m_MinDegrees: 30
       m_MaxDegrees: -30
-      m_RestSeconds: 0.5
+      m_RestSeconds: 1
     m_RollInfo:
-      m_ForceMultiplier: 15
+      m_ForceMultiplier: 10
       m_MinDegrees: 45
       m_MaxDegrees: -45
-      m_RestSeconds: 0.5
+      m_RestSeconds: 1
 --- !u!1 &302096083
 GameObject:
   m_ObjectHideFlags: 0
