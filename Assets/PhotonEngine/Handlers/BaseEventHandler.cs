@@ -23,7 +23,7 @@ public abstract class BaseEventHandler<TModel> : IEventHandler where TModel : cl
         }
         else if (ActionSyncType == UIActionSynchronizationType.CallbackSync)
         {
-            PhotonEngine.AddToQueue(() =>
+            PhotonEngine.AddToQueue("Callback", () =>
             {
                 OnHandleEvent(view, model);
             });

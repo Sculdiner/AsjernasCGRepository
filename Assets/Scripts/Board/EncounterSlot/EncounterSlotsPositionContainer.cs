@@ -10,7 +10,7 @@ using UnityEngine;
 public class EncounterSlotsPositionContainer : SerializedMonoBehaviour
 {
     [OdinSerialize]
-    public Dictionary<OddPlacementPosition, EncounterSlot> OddSlots;
+    public Dictionary<OddPlacementPosition, GameObject> OddSlots;
     [OdinSerialize]
-    public Dictionary<EvenPlacementPosition, EncounterSlot> EvenSlots;
+    public Dictionary<EvenPlacementPosition, GameObject> EvenSlots;
 }

@@ -97,13 +97,17 @@ public class HandSlotManager : MonoBehaviour
         {
             if (HandCards.Count > 0)
             {
-                currentRunningCardAnimation.OnComplete(() => { currentRunningCardAnimation = null; currentRunningCardAnimationsCardIds = new List<int>(); PhotonEngine.CompletedAction(); });
+                currentRunningCardAnimation.OnComplete(() =>
+                {
+                    //Debug.Log("Completed card running animation. Next action.");
+                    currentRunningCardAnimation = null; currentRunningCardAnimationsCardIds = new List<int>(); PhotonEngine.CompletedAction("Handslot");
+                });
             }
             else
             {
                 currentRunningCardAnimation = null;
                 currentRunningCardAnimationsCardIds = new List<int>();
-                PhotonEngine.CompletedAction();
+                PhotonEngine.CompletedAction("Handslot");
             }
         }
     }
@@ -178,14 +182,16 @@ public class HandSlotManager : MonoBehaviour
     public void ForceUpdatePositions()
     {
         //If there is an active card hand animation and the animation was sent by the server 
-        if (currentRunningCardAnimation != null && currentRunningCardAnimationWasSentByServer)
+        if (currentRunningCardAnimation != null && currentRunningCardAnimation.IsPlaying() && currentRunningCardAnimationWasSentByServer)
         {
             //Notify that the animation that will be played now, is sent by the user, so if he calls 'ForceUpdatePositions' in quick succession, he won't end up in this if statement again.
             currentRunningCardAnimationWasSentByServer = false;
+            currentRunningCardAnimation.OnComplete(() => { });
             currentRunningCardAnimation.Kill();
             //on purpose, the currentRunningCardAnimationsCardIds is not reset, so the forced update can play the animation speed as it was originaly supposed to do
             lock (positionUpdaterLocker)
             {
+                //Debug.Log("I killed a hand animation. I will call for photonengine.completedaction");
                 UpdatePositions(Ease.OutQuart, forcedHandUpdateTimeframe, true);
             }
         }
@@ -248,6 +254,7 @@ public class HandSlotManager : MonoBehaviour
     private void Event_UserHoveredOutOfHand()
     {
         HandPreviewOn = false;
+
         StartCoroutine(ExecuteAfterTime(0.20f, () =>
         {
             if (HandPreviewOn == true)
