@@ -29,7 +29,8 @@ public class BoardManager : MonoBehaviour
             CurrentLocation = location
         };
         var partState = ParticipatorReferenceCollection[userId];
-        return RegisterCard(clientSideCard, partState);
+        var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
+        return RegisterCard(clientSideCard, eventHandling, partState);
     }
 
     public ClientSideCard RegisterPlayerCard(GameObject gameObject, int cardTemplateId, CardLocation location, int userId)
@@ -41,12 +42,14 @@ public class BoardManager : MonoBehaviour
             CurrentLocation = location
         };
         var partState = ParticipatorReferenceCollection[userId];
-        return RegisterCard(clientSideCard, partState);
+        var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
+        return RegisterCard(clientSideCard, eventHandling, partState);
     }
 
-    public ClientSideCard RegisterCard(ClientSideCard card, ParticipatorState participatorState)
+    public ClientSideCard RegisterCard(ClientSideCard card, ClientSideCardEvents eventHandling, ParticipatorState participatorState)
     {
         card.ParticipatorState = participatorState;
+        card.Events = eventHandling;
         CardReferenceCollection.RegisterCardToGame(card);
         if (participatorState is PlayerState)
         {
