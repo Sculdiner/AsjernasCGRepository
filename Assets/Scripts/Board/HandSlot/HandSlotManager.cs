@@ -15,11 +15,17 @@ public class HandSlotManager : MonoBehaviour
     private object positionUpdaterLocker = new object();
     private Sequence currentRunningCardAnimation;
     private bool lastAnimationWasKilledByUser;
+    public bool AnimatingCard;
     private bool currentRunningCardAnimationWasSentByServer;
     private List<int> currentRunningCardAnimationsCardIds;
 
     private float forcedHandUpdateTimeframe = 0.35f;
     private float normalHandUpdateTimeframe = 0.85f;
+
+    private void Update()
+    {
+        AnimatingCard = currentRunningCardAnimation != null;
+    }
 
     private void Awake()
     {
@@ -93,21 +99,44 @@ public class HandSlotManager : MonoBehaviour
                 break;
         }
 
-        if (callbackOnEnd)
+
+        if (HandCards.Count > 0)
         {
-            if (HandCards.Count > 0)
+            if (callbackOnEnd)
             {
                 currentRunningCardAnimation.OnComplete(() =>
                 {
-                    //Debug.Log("Completed card running animation. Next action.");
-                    currentRunningCardAnimation = null; currentRunningCardAnimationsCardIds = new List<int>(); PhotonEngine.CompletedAction("Handslot");
+                    currentRunningCardAnimation = null;
+                    currentRunningCardAnimationsCardIds = new List<int>();
+                    currentRunningCardAnimationWasSentByServer = false;
+                    PhotonEngine.CompletedAction("Handslot");
                 });
+            }
+            else
+            {
+                currentRunningCardAnimation.OnComplete(() =>
+                {
+                    currentRunningCardAnimation = null;
+                    currentRunningCardAnimationsCardIds = new List<int>();
+                    currentRunningCardAnimationWasSentByServer = false;
+                });
+            }
+
+        }
+        else
+        {
+            if (callbackOnEnd)
+            {
+                currentRunningCardAnimation = null;
+                currentRunningCardAnimationsCardIds = new List<int>();
+                currentRunningCardAnimationWasSentByServer = false;
+                PhotonEngine.CompletedAction("Handslot");
             }
             else
             {
                 currentRunningCardAnimation = null;
                 currentRunningCardAnimationsCardIds = new List<int>();
-                PhotonEngine.CompletedAction("Handslot");
+                currentRunningCardAnimationWasSentByServer = false;
             }
         }
     }
@@ -163,16 +192,6 @@ public class HandSlotManager : MonoBehaviour
         }
     }
 
-    //private bool handpreviewenabledlastframe;
-    //private void Update()
-    //{
-    //    if (handpreviewenabledlastframe != HandPreviewOn)
-    //    {
-    //        handpreviewenabledlastframe = HandPreviewOn;
-    //        ForceUpdatePositions();
-    //    }
-    //}
-
     //Call this for hand hovering position changing
     //NOTE: This function is called by the user so we have to be carefull, to NOT call PhotonEngine.CompletedAction if the current animation beeing played was not from the server.
     //If there is an active animation sent by the server, we kill the animation, recalculate the positions, animate the cards to them, and then call PhotonEngine.CompletedAction.
@@ -181,29 +200,27 @@ public class HandSlotManager : MonoBehaviour
     //the currentRunningCardAnimation & currentRunningCardAnimationWasSentByServer bools help us achieve that
     public void ForceUpdatePositions()
     {
-        //If there is an active card hand animation and the animation was sent by the server 
-        if (currentRunningCardAnimation != null && currentRunningCardAnimation.IsPlaying() && currentRunningCardAnimationWasSentByServer)
+        lock (positionUpdaterLocker)
         {
-            //Notify that the animation that will be played now, is sent by the user, so if he calls 'ForceUpdatePositions' in quick succession, he won't end up in this if statement again.
-            currentRunningCardAnimationWasSentByServer = false;
-            currentRunningCardAnimation.OnComplete(() => { });
-            currentRunningCardAnimation.Kill();
-            //on purpose, the currentRunningCardAnimationsCardIds is not reset, so the forced update can play the animation speed as it was originaly supposed to do
-            lock (positionUpdaterLocker)
+            //If there is an active card hand animation and the animation was sent by the server 
+            if (currentRunningCardAnimation != null && currentRunningCardAnimationWasSentByServer)
             {
+                //Notify that the animation that will be played now, is sent by the user, so if he calls 'ForceUpdatePositions' in quick succession, he won't end up in this if statement again.
+                currentRunningCardAnimationWasSentByServer = false;
+                currentRunningCardAnimation.Kill();
+                //on purpose, the currentRunningCardAnimationsCardIds is not reset, so the forced update can play the animation speed as it was originaly supposed to do
+
                 //Debug.Log("I killed a hand animation. I will call for photonengine.completedaction");
                 UpdatePositions(Ease.OutQuart, forcedHandUpdateTimeframe, true);
             }
-        }
-        else
-        {
-            lock (positionUpdaterLocker)
+            else
             {
+
                 UpdatePositions(Ease.OutQuart, forcedHandUpdateTimeframe, false);
             }
         }
-
     }
+
 
     private void Move(ClientSideCard card, OddPlacementPosition oddPosition, Sequence seq, HandSlotPositionContainer handSlotContainer, Ease easingFunction, float animationCompletionTime, int indexInHand)
     {
