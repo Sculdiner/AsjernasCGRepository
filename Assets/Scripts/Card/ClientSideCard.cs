@@ -9,4 +9,7 @@ public class ClientSideCard
     public BaseCardTemplate CardStats { get; set; }
     public ParticipatorState ParticipatorState { get; set; }
     public CardLocation CurrentLocation { get; set; }
+    public bool IsUnderPlayerControl { get; set; }
+    public bool IsHovering { get; set; }
+    public Vector3 LastPosition { get; set; }
 }

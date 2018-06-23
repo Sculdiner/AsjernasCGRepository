@@ -188,6 +188,13 @@ public class BoardView : View
                 EncounterSlotManager.AddEncounterCardToPosition(BoardManager.GetCard(cardPrefab12), 3);
             });
 
+            PhotonEngine.AddToQueue("CardDraw", () =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 500);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(500).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
+
             _controller.SendClientReady();
         }
         catch (System.Exception ex)
@@ -281,7 +288,7 @@ public class BoardView : View
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
     public HandVisual_Int HandPlacement;
-    public HandSlotManager HandSlotManager;
+    public SimpleHandSlotManager HandSlotManager;
     public EncounterSlotManager EncounterSlotManager;
     public AllySlotManager LeftPlayerAllySlotManager;
     public AllySlotManager RightPlayerAllySlotManager;

@@ -30,6 +30,7 @@ public class BoardManager : MonoBehaviour
         };
         var partState = ParticipatorReferenceCollection[userId];
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
+        gameObject.GetComponent<Draggable>().ControllingCard = clientSideCard;
         return RegisterCard(clientSideCard, eventHandling, partState);
     }
 
@@ -43,6 +44,7 @@ public class BoardManager : MonoBehaviour
         };
         var partState = ParticipatorReferenceCollection[userId];
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
+        gameObject.GetComponent<Draggable>().ControllingCard = clientSideCard;
         return RegisterCard(clientSideCard, eventHandling, partState);
     }
 
@@ -50,6 +52,7 @@ public class BoardManager : MonoBehaviour
     {
         card.ParticipatorState = participatorState;
         card.Events = eventHandling;
+        card.Events.ControllingCard = card;
         CardReferenceCollection.RegisterCardToGame(card);
         if (participatorState is PlayerState)
         {

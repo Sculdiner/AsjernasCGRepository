@@ -6,40 +6,28 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class HandSlotManager : MonoBehaviour
+public class SimpleHandSlotManager : MonoBehaviour
 {
     public List<ClientSideCard> HandCards { get; set; }
     public HandSlotPositionContainer HandSlotContainerLow;
-    public HandSlotPositionContainer HandSlotContainerHigh;
-    public bool HandPreviewOn;
     private object positionUpdaterLocker = new object();
-    private Sequence currentRunningCardAnimation;
-    private bool lastAnimationWasKilledByUser;
-    public bool AnimatingCard;
-    private bool currentRunningCardAnimationWasSentByServer;
-    private List<int> currentRunningCardAnimationsCardIds;
-
-    private float forcedHandUpdateTimeframe = 0.35f;
     private float normalHandUpdateTimeframe = 0.85f;
 
     private void Update()
     {
-        AnimatingCard = currentRunningCardAnimation != null;
     }
 
     private void Awake()
     {
-        currentRunningCardAnimationsCardIds = new List<int>();
-        currentRunningCardAnimationWasSentByServer = true;
         HandCards = new List<ClientSideCard>();
     }
 
-    public void UpdatePositions(Ease easingFunction, float animationCompletionTime, bool callbackOnEnd)
+    public void UpdatePositions(Ease easingFunction, float animationCompletionTime)
     {
-        currentRunningCardAnimation = DOTween.Sequence();
+        var currentRunningCardAnimation = DOTween.Sequence();
         var container = HandSlotContainerLow;
-        if (HandPreviewOn)
-            container = HandSlotContainerHigh;
+        //if (HandPreviewOn)
+        //    container = HandSlotContainerHigh;
 
         switch (HandCards.Count)
         {
@@ -102,42 +90,15 @@ public class HandSlotManager : MonoBehaviour
 
         if (HandCards.Count > 0)
         {
-            if (callbackOnEnd)
+            currentRunningCardAnimation.OnComplete(() =>
             {
-                currentRunningCardAnimation.OnComplete(() =>
-                {
-                    currentRunningCardAnimation = null;
-                    currentRunningCardAnimationsCardIds = new List<int>();
-                    currentRunningCardAnimationWasSentByServer = false;
-                    PhotonEngine.CompletedAction("Handslot");
-                });
-            }
-            else
-            {
-                currentRunningCardAnimation.OnComplete(() =>
-                {
-                    currentRunningCardAnimation = null;
-                    currentRunningCardAnimationsCardIds = new List<int>();
-                    currentRunningCardAnimationWasSentByServer = false;
-                });
-            }
-
+                PhotonEngine.CompletedAction("Handslot");
+            });
         }
         else
         {
-            if (callbackOnEnd)
-            {
-                currentRunningCardAnimation = null;
-                currentRunningCardAnimationsCardIds = new List<int>();
-                currentRunningCardAnimationWasSentByServer = false;
-                PhotonEngine.CompletedAction("Handslot");
-            }
-            else
-            {
-                currentRunningCardAnimation = null;
-                currentRunningCardAnimationsCardIds = new List<int>();
-                currentRunningCardAnimationWasSentByServer = false;
-            }
+
+            PhotonEngine.CompletedAction("Handslot");
         }
     }
 
@@ -145,14 +106,11 @@ public class HandSlotManager : MonoBehaviour
     {
         lock (positionUpdaterLocker)
         {
-            currentRunningCardAnimationWasSentByServer = true;
             if (HandCards.Count < 8)
             {
                 HandCards.Add(clientSideCard);
                 ApplyFullHandDisplayHoverEvents(clientSideCard);
-                currentRunningCardAnimationsCardIds = new List<int>();
-                currentRunningCardAnimationsCardIds.Add(clientSideCard.CardStats.GeneratedCardId);
-                UpdatePositions(Ease.Linear, normalHandUpdateTimeframe, true);
+                UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
             }
         }
     }
@@ -161,13 +119,11 @@ public class HandSlotManager : MonoBehaviour
     {
         lock (positionUpdaterLocker)
         {
-            currentRunningCardAnimationWasSentByServer = true;
             if (HandCards.Count < 8)
             {
                 HandCards.Insert(index, clientSideCard);
                 ApplyFullHandDisplayHoverEvents(clientSideCard);
-                currentRunningCardAnimationsCardIds.Add(clientSideCard.CardStats.GeneratedCardId);
-                UpdatePositions(Ease.Linear, normalHandUpdateTimeframe, true);
+                UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
             }
         }
     }
@@ -176,59 +132,27 @@ public class HandSlotManager : MonoBehaviour
     {
         lock (positionUpdaterLocker)
         {
-            currentRunningCardAnimationWasSentByServer = true;
             var card = HandCards.FirstOrDefault(c => c.CardStats.GeneratedCardId == cardId);
             if (card == null)
                 return;
 
             HandCards.Remove(card);
             RemoveFullHandDisplayHoverEvents(card);
-            currentRunningCardAnimationsCardIds.Add(card.CardStats.GeneratedCardId);
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>
             {
                 card.CardViewObject.SetActive(false);
-                UpdatePositions(Ease.Linear, normalHandUpdateTimeframe, true);
+                UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
             });
         }
     }
 
-    //Call this for hand hovering position changing
-    //NOTE: This function is called by the user so we have to be carefull, to NOT call PhotonEngine.CompletedAction if the current animation beeing played was not from the server.
-    //If there is an active animation sent by the server, we kill the animation, recalculate the positions, animate the cards to them, and then call PhotonEngine.CompletedAction.
-    //If there is an active animation sent by the user, we just update the positions and animate the cards without calling PhotonEngine.CompletedAction, else the user would be able to control the
-    //queue of the actions by just hovering over the cards in hand quickly
-    //the currentRunningCardAnimation & currentRunningCardAnimationWasSentByServer bools help us achieve that
-    public void ForceUpdatePositions()
-    {
-        lock (positionUpdaterLocker)
-        {
-            //If there is an active card hand animation and the animation was sent by the server 
-            if (currentRunningCardAnimation != null && currentRunningCardAnimationWasSentByServer)
-            {
-                //Notify that the animation that will be played now, is sent by the user, so if he calls 'ForceUpdatePositions' in quick succession, he won't end up in this if statement again.
-                currentRunningCardAnimationWasSentByServer = false;
-                currentRunningCardAnimation.Kill();
-                //on purpose, the currentRunningCardAnimationsCardIds is not reset, so the forced update can play the animation speed as it was originaly supposed to do
-
-                //Debug.Log("I killed a hand animation. I will call for photonengine.completedaction");
-                UpdatePositions(Ease.OutQuart, forcedHandUpdateTimeframe, true);
-            }
-            else
-            {
-
-                UpdatePositions(Ease.OutQuart, forcedHandUpdateTimeframe, false);
-            }
-        }
-    }
-
-
     private void Move(ClientSideCard card, OddPlacementPosition oddPosition, Sequence seq, HandSlotPositionContainer handSlotContainer, Ease easingFunction, float animationCompletionTime, int indexInHand)
     {
+        if (card.IsUnderPlayerControl)
+            return;
+
         var cardTrans = card.CardViewObject;
-        if (currentRunningCardAnimationsCardIds.Contains(card.CardStats.GeneratedCardId))
-        {
-            animationCompletionTime = 0.85f;
-        }
+
         var yIndexAddition = (float)(indexInHand * (0.01));
         var originalPosition = handSlotContainer.OddSlots[oddPosition].gameObject.transform.position;
         var vector = new Vector3(originalPosition.x, originalPosition.y + yIndexAddition, originalPosition.z);
@@ -237,11 +161,11 @@ public class HandSlotManager : MonoBehaviour
 
     private void Move(ClientSideCard card, EvenPlacementPosition evenPosition, Sequence seq, HandSlotPositionContainer handSlotContainer, Ease easingFunction, float animationCompletionTime, int indexInHand)
     {
+        if (card.IsUnderPlayerControl)
+            return;
+
         var cardTrans = card.CardViewObject;
-        if (currentRunningCardAnimationsCardIds.Contains(card.CardStats.GeneratedCardId))
-        {
-            animationCompletionTime = 0.85f;
-        }
+
         var yIndexAddition = (float)(indexInHand * (0.01));
         var originalPosition = handSlotContainer.EvenSlots[evenPosition].gameObject.transform.position;
         var vector = new Vector3(originalPosition.x, originalPosition.y + yIndexAddition, originalPosition.z);
@@ -250,40 +174,40 @@ public class HandSlotManager : MonoBehaviour
 
     public void ApplyFullHandDisplayHoverEvents(ClientSideCard card)
     {
-        card.Events.OnMouseOverEventHandler += Event_UserHoveredOverHand;
-        card.Events.OnMouseExitEventHandler += Event_UserHoveredOutOfHand;
+        card.Events.OnMouseOverEventHandler += Event_UserHoveredOverCard;
+        card.Events.OnMouseExitEventHandler += Event_UserHoveredOutOfCard;
     }
 
     public void RemoveFullHandDisplayHoverEvents(ClientSideCard card)
     {
-        card.Events.OnMouseOverEventHandler -= Event_UserHoveredOverHand;
-        card.Events.OnMouseExitEventHandler -= Event_UserHoveredOutOfHand;
+        card.Events.OnMouseOverEventHandler -= Event_UserHoveredOverCard;
+        card.Events.OnMouseExitEventHandler -= Event_UserHoveredOutOfCard;
     }
 
-    private void Event_UserHoveredOverHand(ClientSideCard card)
+    private void Event_UserHoveredOverCard(ClientSideCard card)
     {
-        if (HandPreviewOn == true)
+        if (card.IsHovering)
             return;
-        HandPreviewOn = true;
-        ForceUpdatePositions();
+
+        card.IsHovering = true;
+        var currentPosition = card.CardViewObject.transform.position;
+        card.LastPosition = currentPosition;
+        var finalVector = new Vector3(currentPosition.x, currentPosition.y + 1.9f, currentPosition.z + 0.8f);
+        card.CardViewObject.transform.position = finalVector;// DOMove(finalVector, 0.1f);
     }
 
-    private void Event_UserHoveredOutOfHand(ClientSideCard card)
+    private void Event_UserHoveredOutOfCard(ClientSideCard card)
     {
-        HandPreviewOn = false;
+        if (!card.IsHovering)
+            return;
 
-        StartCoroutine(ExecuteAfterTime(0.20f, () =>
-        {
-            if (HandPreviewOn == true)
-                return;
-            HandPreviewOn = false;
-            ForceUpdatePositions();
-        }));
+        card.IsHovering = false;
+        card.CardViewObject.transform.position = card.LastPosition;//.DOMove(card.LastPosition, 0.1f);
     }
 
-    IEnumerator ExecuteAfterTime(float time, Action action)
-    {
-        yield return new WaitForSeconds(time);
-        action();
-    }
+    //IEnumerator ExecuteAfterTime(float time, Action action)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    action();
+    //}
 }

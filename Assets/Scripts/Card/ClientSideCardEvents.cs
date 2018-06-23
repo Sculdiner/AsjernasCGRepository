@@ -8,25 +8,27 @@ namespace Assets.Scripts.Card
 {
     public class ClientSideCardEvents : MonoBehaviour
     {
-        public Action OnMouseOverEventHandler;
-        public Action OnMouseExitEventHandler;
+        public Action<ClientSideCard> OnMouseOverEventHandler;
+        public Action<ClientSideCard> OnMouseExitEventHandler;
+
+        public ClientSideCard ControllingCard;
 
         public void Awake()
         {
-            OnMouseOverEventHandler = () => { };
-            OnMouseExitEventHandler = () => { };
+            OnMouseOverEventHandler = (c) => { };
+            OnMouseExitEventHandler = (c) => { };
         }
 
         void OnMouseOver()
         {
             if (OnMouseOverEventHandler != null)
-                OnMouseOverEventHandler();
+                OnMouseOverEventHandler(ControllingCard);
         }
 
         void OnMouseExit()
         {
             if (OnMouseExitEventHandler != null)
-                OnMouseExitEventHandler();
+                OnMouseExitEventHandler(ControllingCard);
         }
     }
 }

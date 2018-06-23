@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Draggable : MonoBehaviour
 {
-
+    public ClientSideCard ControllingCard { get; set; }
     private Vector3 pointerDisplace = Vector3.zero;
     private Vector3 displ;
     private Vector3 pointerDisplacement;
@@ -26,6 +26,7 @@ public class Draggable : MonoBehaviour
     
     void OnMouseDown()
     {
+        ControllingCard.IsUnderPlayerControl = true;
         //translate the cubes position from the world to Screen Point
         screenSpace = Camera.main.WorldToScreenPoint(transform.position);
 
@@ -49,6 +50,7 @@ public class Draggable : MonoBehaviour
 
     void OnMouseUp()
     {
+        ControllingCard.IsUnderPlayerControl = false;
         //logic 
     }
 
