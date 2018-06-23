@@ -30,19 +30,19 @@ public class BoardDebugger : MonoBehaviour
         return BoardManager.RegisterPlayerCard(prefab, MasterCardManager.GetCardManager(7).InitialTemplate, CardLocation.Hand, 1);
     }
 
-    public void EncounterCard()
-    {
-        PhotonEngine.AddToQueue(() =>
-        {
-            EncounterSlotManager.AddEncounterCardToASlot(GenerateCard());
-        });
-    }
+    //public void EncounterCard()
+    //{
+    //    PhotonEngine.AddToQueue(() =>
+    //    {
+    //        EncounterSlotManager.AddEncounterCardToASlot(GenerateCard());
+    //    });
+    //}
 
-    public void DrawCard()
-    {
-        PhotonEngine.AddToQueue(() =>
-        {
-            HandSlotManager.DrawNewCard(GenerateCard());
-        });
-    }
+    //public void DrawCard()
+    //{
+    //    PhotonEngine.AddToQueue(() =>
+    //    {
+    //        HandSlotManager.DrawNewCard(GenerateCard());
+    //    });
+    //}
 }

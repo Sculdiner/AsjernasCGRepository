@@ -41,7 +41,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     public void Initialize()
     {
-        ActionQueue = new Queue<Action>();
+        ActionQueue = new Queue<PhotonAction>();
         EventRoutingHandlerCollection.AddHandler(new LoginRoutingEventHandler());
         EventRoutingHandlerCollection.AddHandler(new MenuRoutingEventHandler());
         EventRoutingHandlerCollection.AddHandler(new GameRoutingEventHandler());
@@ -165,10 +165,17 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     #region QueueManager
 
-    private static Queue<Action> ActionQueue = new Queue<Action>();
-    public static void AddToQueue(Action actionToQueue)
+    private static Queue<PhotonAction> ActionQueue = new Queue<PhotonAction>();
+    public static void AddToQueue(PhotonAction actionToQueue)
     {
         ActionQueue.Enqueue(actionToQueue);
+        NextAction();
+    }
+
+    public static void AddToQueue(string callingName, Action actionToQueue)
+    {
+
+        ActionQueue.Enqueue(new PhotonAction() { Caller = callingName, Action = actionToQueue });
         NextAction();
     }
 
@@ -187,11 +194,18 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
             {
                 processingAction = true;
                 ActionQueue.Dequeue();
-                actionToInvoke();
+                //Debug.Log("Invoking " + actionToInvoke.Caller);
+                actionToInvoke.Action();
             }
         }
     }
 
+    public static void CompletedAction(string caller)
+    {
+        Debug.Log("completed action "+ caller);
+        processingAction = false;
+        NextAction();
+    }
     public static void CompletedAction()
     {
         processingAction = false;
@@ -199,4 +213,10 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
     }
 
     #endregion
+}
+
+public class PhotonAction
+{
+    public string Caller { get; set; }
+    public Action Action { get; set; }
 }

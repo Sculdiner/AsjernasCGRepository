@@ -80,11 +80,11 @@ public class EncounterSlotManager : MonoBehaviour
         }
         if (EncounterCards.Count >0)
         {
-            mySequence.OnComplete(() => { PhotonEngine.CompletedAction(); });
+            mySequence.OnComplete(() => { PhotonEngine.CompletedAction("Encounter"); });
         }
         else
         {
-            PhotonEngine.CompletedAction();
+            PhotonEngine.CompletedAction("Encounter");
         }
     }
 
@@ -130,11 +130,11 @@ public class EncounterSlotManager : MonoBehaviour
 
     private void Move(GameObject card, OddPlacementPosition oddPosition, Sequence seq)
     {
-        seq.Insert(0, card.transform.DOMove(SlotsContainer.OddSlots[oddPosition].GetMyWorldPosition(), 0.85f));
+        seq.Insert(0, card.transform.DOMove(SlotsContainer.OddSlots[oddPosition].transform.position, 0.85f));
     }
 
     private void Move(GameObject card, EvenPlacementPosition evenPosition, Sequence seq)
     {
-        seq.Insert(0, card.transform.DOMove(SlotsContainer.EvenSlots[evenPosition].GetMyWorldPosition(), 0.85f));
+        seq.Insert(0, card.transform.DOMove(SlotsContainer.EvenSlots[evenPosition].transform.position, 0.85f));
     }
 }
