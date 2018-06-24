@@ -10,15 +10,15 @@ public class DragCreatureOnTable_Int : DraggingActions {
     private VisualStates tempState;
     private OneCardManager manager;
 
-    public override bool CanDrag
-    {
-        get
-        {
-            // TODO : include full field check
-            //return base.CanDrag && manager.CanBePlayedNow;
-            return true;
-        }
-    }
+    //public override bool CanDrag
+    //{
+    //    get
+    //    {
+    //        // TODO : include full field check
+    //        //return base.CanDrag && manager.CanBePlayedNow;
+    //        return true;
+    //    }
+    //}
 
     void Awake()
     {
@@ -47,11 +47,10 @@ public class DragCreatureOnTable_Int : DraggingActions {
         if (DragSuccessful())
         {
             // determine table position
-            int tablePos = playerOwner.PArea.tableVisual.TablePosForNewCreature(Camera.main.ScreenToWorldPoint(
-                new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z - Camera.main.transform.position.z)).x);
+            //int tablePos = playerOwner.PArea.tableVisual.TablePosForNewCreature(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z - Camera.main.transform.position.z)).x);
             // Debug.Log("Table Pos for new Creature: " + tablePos.ToString());
             // play this card
-            playerOwner.PlayACreatureFromHand(GetComponent<IDHolder>().UniqueID, tablePos);
+            //playerOwner.PlayACreatureFromHand(GetComponent<IDHolder>().UniqueID, tablePos);
         }
         else
         {
@@ -59,16 +58,16 @@ public class DragCreatureOnTable_Int : DraggingActions {
             whereIsCard.SetHandSortingOrder();
             whereIsCard.VisualState = tempState;
             // Move this card back to its slot position
-            HandVisual PlayerHand = playerOwner.PArea.handVisual;
-            Vector3 oldCardPos = PlayerHand.slots.Children[savedHandSlot].transform.localPosition;
-            transform.DOLocalMove(oldCardPos, 1f);
+            //HandVisual PlayerHand = playerOwner.PArea.handVisual;
+            //Vector3 oldCardPos = PlayerHand.slots.Children[savedHandSlot].transform.localPosition;
+            //transform.DOLocalMove(oldCardPos, 1f);
         } 
     }
 
     protected override bool DragSuccessful()
     {
-        bool TableNotFull = (playerOwner.table.CreaturesOnTable.Count < 8);
-
-        return TableVisual.CursorOverSomeTable && TableNotFull;
+        //bool TableNotFull = (playerOwner.table.CreaturesOnTable.Count < 8);
+        //return TableVisual.CursorOverSomeTable && TableNotFull;
+        return true;
     }
 }

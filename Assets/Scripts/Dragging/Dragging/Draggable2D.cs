@@ -39,7 +39,7 @@ public class Draggable2D : MonoBehaviour {
 
     void OnMouseDown()
     {
-        if (da!=null && da.CanDrag)
+        if (da!=null)// && da.CanDrag)
         {
             dragging = true;
             // when we are dragging something, all previews should be off

@@ -6,16 +6,18 @@ using UnityEngine;
 public class Draggable : MonoBehaviour
 {
     public ClientSideCard ControllingCard { get; set; }
-    private Vector3 pointerDisplace = Vector3.zero;
-    private Vector3 displ;
-    private Vector3 pointerDisplacement;
-    private Vector3 transformScreen;
+    private DraggingActions actions;
     private Vector3 screenSpace;
     private Vector3 offset;
 
+    void Awake()
+    {
+
+    }
     // Use this for initialization
     void Start()
     {
+        actions = GetComponent<DraggingActions>();
         OnMouseUpEvents = () => { };
     }
 
@@ -39,6 +41,7 @@ public class Draggable : MonoBehaviour
     public void OnMouseDown()
     {
         ControllingCard.IsUnderPlayerControl = true;
+        actions.OnStartDrag();
         //translate the cubes position from the world to Screen Point
         screenSpace = Camera.main.WorldToScreenPoint(transform.position);
 
@@ -49,6 +52,7 @@ public class Draggable : MonoBehaviour
 
     public void OnMouseDrag()
     {
+        actions.OnDraggingInUpdate();
         //keep track of the mouse position
         var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
 
@@ -63,7 +67,7 @@ public class Draggable : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        
+
     }
 
     public void OnMouseUp()
@@ -73,6 +77,7 @@ public class Draggable : MonoBehaviour
         {
             OnMouseUpEvents.Invoke();
         }
+        actions.OnEndDrag();
         //logic 
     }
 

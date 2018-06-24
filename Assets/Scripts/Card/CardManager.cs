@@ -21,6 +21,8 @@ namespace Assets.Scripts.Card
         public Text ResourceCost;
         public BaseCardTemplate InitialTemplate;
 
+        public bool CanBePlayed() { return true; }
+
         public void SetInitialTemplate(BaseCardTemplate template)
         {
             InitialTemplate = template;
