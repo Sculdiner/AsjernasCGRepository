@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,84 +8,127 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class SimpleHandSlotManager : MonoBehaviour
+public class SimpleHandSlotManager : SerializedMonoBehaviour
 {
+    private enum CollidersPosition
+    {
+        Odd,
+        Even
+    }
+
     public List<ClientSideCard> HandCards { get; set; }
-    public HandSlotPositionContainer HandSlotContainerLow;
+    public HandSlotPositionContainer HandSlotPositionContainer;
     private object positionUpdaterLocker = new object();
     private float normalHandUpdateTimeframe = 0.85f;
+    private object cardPositionDictionaryLocker = new object();
+    [OdinSerialize]
+    public Dictionary<PlacementPosition, ClientSideCard> CurrentCardPositions { get; set; }
 
-    private void Update()
-    {
-    }
 
     private void Awake()
     {
         HandCards = new List<ClientSideCard>();
     }
 
+    private void ChangedEnabledColliders(CollidersPosition enabledColliders)
+    {
+        if (enabledColliders == CollidersPosition.Even)
+        {
+            foreach (var dictKey in HandSlotPositionContainer.EvenSlots.Keys)
+            {
+                HandSlotPositionContainer.EvenSlots[dictKey].CardGhostCollider.enabled = true;
+            }
+            foreach (var dictKey in HandSlotPositionContainer.OddSlots.Keys)
+            {
+                HandSlotPositionContainer.OddSlots[dictKey].CardGhostCollider.enabled = false;
+            }
+        }
+        else
+        {
+            foreach (var dictKey in HandSlotPositionContainer.OddSlots.Keys)
+            {
+                HandSlotPositionContainer.OddSlots[dictKey].CardGhostCollider.enabled = true;
+            }
+            foreach (var dictKey in HandSlotPositionContainer.EvenSlots.Keys)
+            {
+                HandSlotPositionContainer.EvenSlots[dictKey].CardGhostCollider.enabled = false;
+            }
+        }
+    }
+
     public void UpdatePositions(Ease easingFunction, float animationCompletionTime)
     {
         var currentRunningCardAnimation = DOTween.Sequence();
-        var container = HandSlotContainerLow;
         //if (HandPreviewOn)
         //    container = HandSlotContainerHigh;
+        lock (cardPositionDictionaryLocker)
+        {
+            CurrentCardPositions = new Dictionary<PlacementPosition, ClientSideCard>();
+        }
 
         switch (HandCards.Count)
         {
             case 0:
                 break;
             case 1:
-                Move(HandCards.First(), OddPlacementPosition.Middle, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
+                ChangedEnabledColliders(CollidersPosition.Odd);
+                MoveToOdd(HandCards.First(), PlacementPosition.OddMiddle, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
                 break;
             case 2:
-                Move(HandCards[0], EvenPlacementPosition.MiddleLeft, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
-                Move(HandCards[1], EvenPlacementPosition.MiddleRight, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 1);
+                ChangedEnabledColliders(CollidersPosition.Even);
+                MoveToEven(HandCards[0], PlacementPosition.EvenMiddleLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
+                MoveToEven(HandCards[1], PlacementPosition.EvenMiddleRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 1);
                 break;
             case 3:
-                Move(HandCards[0], OddPlacementPosition.MiddleLeft, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
-                Move(HandCards[1], OddPlacementPosition.Middle, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 1);
-                Move(HandCards[2], OddPlacementPosition.MiddleRight, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 2);
+                ChangedEnabledColliders(CollidersPosition.Odd);
+                MoveToOdd(HandCards[0], PlacementPosition.OddMiddleLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
+                MoveToOdd(HandCards[1], PlacementPosition.OddMiddle, currentRunningCardAnimation, easingFunction, animationCompletionTime, 1);
+                MoveToOdd(HandCards[2], PlacementPosition.OddMiddleRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 2);
                 break;
             case 4:
-                Move(HandCards[0], EvenPlacementPosition.Left, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
-                Move(HandCards[1], EvenPlacementPosition.MiddleLeft, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 1);
-                Move(HandCards[2], EvenPlacementPosition.MiddleRight, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 2);
-                Move(HandCards[3], EvenPlacementPosition.Right, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 3);
+                ChangedEnabledColliders(CollidersPosition.Even);
+                MoveToEven(HandCards[0], PlacementPosition.EvenLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
+                MoveToEven(HandCards[1], PlacementPosition.EvenMiddleLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 1);
+                MoveToEven(HandCards[2], PlacementPosition.EvenMiddleRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 2);
+                MoveToEven(HandCards[3], PlacementPosition.EvenRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 3);
                 break;
             case 5:
-                Move(HandCards[0], OddPlacementPosition.Left, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
-                Move(HandCards[1], OddPlacementPosition.MiddleLeft, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 1);
-                Move(HandCards[2], OddPlacementPosition.Middle, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 2);
-                Move(HandCards[3], OddPlacementPosition.MiddleRight, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 3);
-                Move(HandCards[4], OddPlacementPosition.Right, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 4);
+                ChangedEnabledColliders(CollidersPosition.Odd);
+                MoveToOdd(HandCards[0], PlacementPosition.OddLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
+                MoveToOdd(HandCards[1], PlacementPosition.OddMiddleLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 1);
+                MoveToOdd(HandCards[2], PlacementPosition.OddMiddle, currentRunningCardAnimation, easingFunction, animationCompletionTime, 2);
+                MoveToOdd(HandCards[3], PlacementPosition.OddMiddleRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 3);
+                MoveToOdd(HandCards[4], PlacementPosition.OddRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 4);
                 break;
             case 6:
-                Move(HandCards[0], EvenPlacementPosition.LeftFar, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
-                Move(HandCards[1], EvenPlacementPosition.Left, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 1);
-                Move(HandCards[2], EvenPlacementPosition.MiddleLeft, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 2);
-                Move(HandCards[3], EvenPlacementPosition.MiddleRight, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 3);
-                Move(HandCards[4], EvenPlacementPosition.Right, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 4);
-                Move(HandCards[5], EvenPlacementPosition.RightFar, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 5);
+                ChangedEnabledColliders(CollidersPosition.Even);
+                MoveToEven(HandCards[0], PlacementPosition.EvenLeftFar, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
+                MoveToEven(HandCards[1], PlacementPosition.EvenLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 1);
+                MoveToEven(HandCards[2], PlacementPosition.EvenMiddleLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 2);
+                MoveToEven(HandCards[3], PlacementPosition.EvenMiddleRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 3);
+                MoveToEven(HandCards[4], PlacementPosition.EvenRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 4);
+                MoveToEven(HandCards[5], PlacementPosition.EvenRightFar, currentRunningCardAnimation, easingFunction, animationCompletionTime, 5);
                 break;
             case 7:
-                Move(HandCards[0], OddPlacementPosition.LeftFar, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
-                Move(HandCards[1], OddPlacementPosition.Left, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 1);
-                Move(HandCards[2], OddPlacementPosition.MiddleLeft, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 2);
-                Move(HandCards[3], OddPlacementPosition.Middle, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 3);
-                Move(HandCards[4], OddPlacementPosition.MiddleRight, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 4);
-                Move(HandCards[5], OddPlacementPosition.Right, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 5);
-                Move(HandCards[6], OddPlacementPosition.RightFar, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 6);
+                ChangedEnabledColliders(CollidersPosition.Odd);
+                MoveToOdd(HandCards[0], PlacementPosition.OddLeftFar, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
+                MoveToOdd(HandCards[1], PlacementPosition.OddLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 1);
+                MoveToOdd(HandCards[2], PlacementPosition.OddMiddleLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 2);
+                MoveToOdd(HandCards[3], PlacementPosition.OddMiddle, currentRunningCardAnimation, easingFunction, animationCompletionTime, 3);
+                MoveToOdd(HandCards[4], PlacementPosition.OddMiddleRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 4);
+                MoveToOdd(HandCards[5], PlacementPosition.OddRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 5);
+                MoveToOdd(HandCards[6], PlacementPosition.OddRightFar, currentRunningCardAnimation, easingFunction, animationCompletionTime, 6);
                 break;
             case 8:
-                Move(HandCards[0], EvenPlacementPosition.LeftLast, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 0);
-                Move(HandCards[1], EvenPlacementPosition.LeftFar, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 1);
-                Move(HandCards[2], EvenPlacementPosition.Left, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 2);
-                Move(HandCards[3], EvenPlacementPosition.MiddleLeft, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 3);
-                Move(HandCards[4], EvenPlacementPosition.MiddleRight, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 4);
-                Move(HandCards[5], EvenPlacementPosition.Right, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 5);
-                Move(HandCards[6], EvenPlacementPosition.RightFar, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 6);
-                Move(HandCards[7], EvenPlacementPosition.RightLast, currentRunningCardAnimation, container, easingFunction, animationCompletionTime, 7);
+                ChangedEnabledColliders(CollidersPosition.Even);
+                MoveToEven(HandCards[0], PlacementPosition.EvenLeftLast, currentRunningCardAnimation, easingFunction, animationCompletionTime, 0);
+                MoveToEven(HandCards[1], PlacementPosition.EvenLeftFar, currentRunningCardAnimation, easingFunction, animationCompletionTime, 1);
+                MoveToEven(HandCards[2], PlacementPosition.EvenLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 2);
+                MoveToEven(HandCards[3], PlacementPosition.EvenMiddleLeft, currentRunningCardAnimation, easingFunction, animationCompletionTime, 3);
+                MoveToEven(HandCards[4], PlacementPosition.EvenMiddleRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 4);
+                MoveToEven(HandCards[5], PlacementPosition.EvenRight, currentRunningCardAnimation, easingFunction, animationCompletionTime, 5);
+                MoveToEven(HandCards[6], PlacementPosition.EvenRightFar, currentRunningCardAnimation, easingFunction, animationCompletionTime, 6);
+                MoveToEven(HandCards[7], PlacementPosition.EvenRightLast, currentRunningCardAnimation, easingFunction, animationCompletionTime, 7);
                 break;
         }
 
@@ -108,8 +153,11 @@ public class SimpleHandSlotManager : MonoBehaviour
         {
             if (HandCards.Count < 8)
             {
+                clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Add(clientSideCard);
-                ApplyFullHandDisplayHoverEvents(clientSideCard);
+                //ApplyFullHandDisplayHoverEvents(clientSideCard);
                 UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
             }
         }
@@ -121,8 +169,11 @@ public class SimpleHandSlotManager : MonoBehaviour
         {
             if (HandCards.Count < 8)
             {
+                clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Insert(index, clientSideCard);
-                ApplyFullHandDisplayHoverEvents(clientSideCard);
+                //ApplyFullHandDisplayHoverEvents(clientSideCard);
                 UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
             }
         }
@@ -137,7 +188,7 @@ public class SimpleHandSlotManager : MonoBehaviour
                 return;
 
             HandCards.Remove(card);
-            RemoveFullHandDisplayHoverEvents(card);
+            //RemoveFullHandDisplayHoverEvents(card);
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>
             {
                 card.CardViewObject.SetActive(false);
@@ -146,64 +197,84 @@ public class SimpleHandSlotManager : MonoBehaviour
         }
     }
 
-    private void Move(ClientSideCard card, OddPlacementPosition oddPosition, Sequence seq, HandSlotPositionContainer handSlotContainer, Ease easingFunction, float animationCompletionTime, int indexInHand)
+    private void MoveToOdd(ClientSideCard card, PlacementPosition oddPosition, Sequence seq, Ease easingFunction, float animationCompletionTime, int indexInHand)
     {
+        lock (cardPositionDictionaryLocker)
+        {
+            CurrentCardPositions.Add(oddPosition, card);
+        }
+
         if (card.IsUnderPlayerControl)
             return;
 
         var cardTrans = card.CardViewObject;
 
         var yIndexAddition = (float)(indexInHand * (0.01));
-        var originalPosition = handSlotContainer.OddSlots[oddPosition].gameObject.transform.position;
+        var originalPosition = HandSlotPositionContainer.OddSlots[oddPosition].GetMyWorldPosition();
         var vector = new Vector3(originalPosition.x, originalPosition.y + yIndexAddition, originalPosition.z);
         seq.Insert(0, cardTrans.transform.DOMove(vector, animationCompletionTime));
     }
 
-    private void Move(ClientSideCard card, EvenPlacementPosition evenPosition, Sequence seq, HandSlotPositionContainer handSlotContainer, Ease easingFunction, float animationCompletionTime, int indexInHand)
+    private void MoveToEven(ClientSideCard card, PlacementPosition evenPosition, Sequence seq, Ease easingFunction, float animationCompletionTime, int indexInHand)
     {
+        lock (cardPositionDictionaryLocker)
+        {
+            CurrentCardPositions.Add(evenPosition, card);
+        }
+
         if (card.IsUnderPlayerControl)
             return;
 
         var cardTrans = card.CardViewObject;
 
         var yIndexAddition = (float)(indexInHand * (0.01));
-        var originalPosition = handSlotContainer.EvenSlots[evenPosition].gameObject.transform.position;
+        var originalPosition = HandSlotPositionContainer.EvenSlots[evenPosition].GetMyWorldPosition();
         var vector = new Vector3(originalPosition.x, originalPosition.y + yIndexAddition, originalPosition.z);
         seq.Insert(0, cardTrans.transform.DOMove(vector, animationCompletionTime));
     }
 
-    public void ApplyFullHandDisplayHoverEvents(ClientSideCard card)
+    public ClientSideCard GetCardInPosition(PlacementPosition position)
     {
-        card.Events.OnMouseOverEventHandler += Event_UserHoveredOverCard;
-        card.Events.OnMouseExitEventHandler += Event_UserHoveredOutOfCard;
+        lock (cardPositionDictionaryLocker)
+        {
+            if (CurrentCardPositions.ContainsKey(position))
+                return CurrentCardPositions[position];
+            return null;
+        }
     }
 
-    public void RemoveFullHandDisplayHoverEvents(ClientSideCard card)
-    {
-        card.Events.OnMouseOverEventHandler -= Event_UserHoveredOverCard;
-        card.Events.OnMouseExitEventHandler -= Event_UserHoveredOutOfCard;
-    }
+    //public void ApplyFullHandDisplayHoverEvents(ClientSideCard card)
+    //{
+    //    card.Events.OnMouseOverEventHandler += Event_UserHoveredOverCard;
+    //    card.Events.OnMouseExitEventHandler += Event_UserHoveredOutOfCard;
+    //}
 
-    private void Event_UserHoveredOverCard(ClientSideCard card)
-    {
-        if (card.IsHovering)
-            return;
+    //public void RemoveFullHandDisplayHoverEvents(ClientSideCard card)
+    //{
+    //    card.Events.OnMouseOverEventHandler -= Event_UserHoveredOverCard;
+    //    card.Events.OnMouseExitEventHandler -= Event_UserHoveredOutOfCard;
+    //}
 
-        card.IsHovering = true;
-        var currentPosition = card.CardViewObject.transform.position;
-        card.LastPosition = currentPosition;
-        var finalVector = new Vector3(currentPosition.x, currentPosition.y + 1.9f, currentPosition.z + 0.8f);
-        card.CardViewObject.transform.position = finalVector;// DOMove(finalVector, 0.1f);
-    }
+    //private void Event_UserHoveredOverCard(ClientSideCard card)
+    //{
+    //    if (card.IsHovering)
+    //        return;
 
-    private void Event_UserHoveredOutOfCard(ClientSideCard card)
-    {
-        if (!card.IsHovering)
-            return;
+    //    card.IsHovering = true;
+    //    var currentPosition = card.CardViewObject.transform.position;
+    //    card.LastPosition = currentPosition;
+    //    var finalVector = new Vector3(currentPosition.x, 2.78f, currentPosition.z + 0.8f);
+    //    card.CardViewObject.transform.position = finalVector;// DOMove(finalVector, 0.1f);
+    //}
 
-        card.IsHovering = false;
-        card.CardViewObject.transform.position = card.LastPosition;//.DOMove(card.LastPosition, 0.1f);
-    }
+    //private void Event_UserHoveredOutOfCard(ClientSideCard card)
+    //{
+    //    if (!card.IsHovering)
+    //        return;
+
+    //    card.IsHovering = false;
+    //    card.CardViewObject.transform.position = card.LastPosition;//.DOMove(card.LastPosition, 0.1f);
+    //}
 
     //IEnumerator ExecuteAfterTime(float time, Action action)
     //{

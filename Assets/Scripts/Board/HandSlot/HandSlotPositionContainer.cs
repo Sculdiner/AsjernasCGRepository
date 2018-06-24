@@ -9,7 +9,7 @@ using UnityEngine;
 public class HandSlotPositionContainer : SerializedMonoBehaviour
 {
     [OdinSerialize]
-    public Dictionary<OddPlacementPosition, GameObject> OddSlots;
+    public Dictionary<PlacementPosition, HandSlotWithCollider> OddSlots;
     [OdinSerialize]
-    public Dictionary<EvenPlacementPosition, GameObject> EvenSlots;
+    public Dictionary<PlacementPosition, HandSlotWithCollider> EvenSlots;
 }
