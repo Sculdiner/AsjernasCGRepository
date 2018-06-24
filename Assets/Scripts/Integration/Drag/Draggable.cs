@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class Draggable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        OnMouseUpEvents = () => { };
     }
 
     // Update is called once per frame
@@ -23,8 +24,19 @@ public class Draggable : MonoBehaviour
     {
 
     }
-    
-    void OnMouseDown()
+
+    public void ExternallyTriggerMouseDown()
+    {
+        Debug.Log("externally triggered mouse down");
+        ControllingCard.IsUnderPlayerControl = true;
+        //translate the cubes position from the world to Screen Point
+        screenSpace = Camera.main.WorldToScreenPoint(transform.position);
+
+        //calculate any difference between the cubes world position and the mouses Screen position converted to a world point  
+        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
+    }
+
+    public void OnMouseDown()
     {
         ControllingCard.IsUnderPlayerControl = true;
         //translate the cubes position from the world to Screen Point
@@ -35,9 +47,8 @@ public class Draggable : MonoBehaviour
 
     }
 
-     void OnMouseDrag()
+    public void OnMouseDrag()
     {
-
         //keep track of the mouse position
         var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
 
@@ -48,9 +59,20 @@ public class Draggable : MonoBehaviour
         transform.position = curPosition;
     }
 
+    public Action OnMouseUpEvents;
+
+    public void OnMouseEnter()
+    {
+        
+    }
+
     void OnMouseUp()
     {
         ControllingCard.IsUnderPlayerControl = false;
+        if (OnMouseUpEvents != null)
+        {
+            OnMouseUpEvents.Invoke();
+        }
         //logic 
     }
 

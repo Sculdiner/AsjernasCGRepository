@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
+using System.Runtime.InteropServices;
+using UnityEngine.EventSystems;
+using System.Collections;
+using Assets.Scripts.InteropScripts;
+using UnityEngine.UI;
 
 public class HandSlotWithCollider : MonoBehaviour
 {
@@ -47,7 +51,7 @@ public class HandSlotWithCollider : MonoBehaviour
         //{
         //    var asd = "";
         //}
-        card.CardViewObject.transform.DOMove(GetHoveringPosition(),0.1f);
+        card.CardViewObject.transform.DOMove(GetHoveringPosition(), 0.1f);
     }
 
     private void OnMouseDown()
@@ -57,13 +61,29 @@ public class HandSlotWithCollider : MonoBehaviour
             return;
         clickedOnCard = true;
         card.CardViewObject.GetComponent<BoxCollider>().enabled = true;
-        card.CardViewObject.GetComponent<DragRotator>().enabled = true;
-        card.CardViewObject.GetComponent<Draggable>().enabled = true;
+        var draggableComponent = card.CardViewObject.GetComponent<Draggable>();
+        draggableComponent.OnMouseUpEvents += () =>
+        {
+            card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.1f);
+        };
+        draggableComponent.OnMouseEnter();
+        draggableComponent.OnMouseDown();
+        
+        //card.CardViewObject.GetComponent<DragRotator>().enabled = true;
+        //var draggableComponent = card.CardViewObject.GetComponent<Draggable>();
+        //draggableComponent.enabled = true;
+        //draggableComponent.ExternallyTriggerMouseDown();
     }
 
     private void OnMouseDrag()
     {
+        var card = GetAttachedCard();
+        if (card == null)
+            return;
+
         clickedOnCard = true;
+        card.CardViewObject.GetComponent<BoxCollider>().enabled = true;
+        GetAttachedCard().CardViewObject.GetComponent<Draggable>().OnMouseDrag();
     }
 
     private void OnMouseUp()
@@ -86,5 +106,4 @@ public class HandSlotWithCollider : MonoBehaviour
 
         card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.1f);
     }
-
 }
