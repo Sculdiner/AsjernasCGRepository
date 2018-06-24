@@ -60,9 +60,23 @@ public class SimpleHandSlotManager : SerializedMonoBehaviour
     public void UpdatePositions(Ease easingFunction, float animationCompletionTime)
     {
         var currentRunningCardAnimation = DOTween.Sequence();
-       
+
         lock (cardPositionDictionaryLocker)
         {
+            if (CurrentCardPositions != null && CurrentCardPositions.Any())
+            {
+                foreach (var posKey in CurrentCardPositions.Keys)
+                {
+                    if (HandSlotPositionContainer.EvenSlots.ContainsKey(posKey))
+                    {
+                        HandSlotPositionContainer.EvenSlots[posKey].ResetPositionToNormal();
+                    }
+                    else if (HandSlotPositionContainer.OddSlots.ContainsKey(posKey))
+                    {
+                        HandSlotPositionContainer.OddSlots[posKey].ResetPositionToNormal();
+                    }
+                }
+            }
             CurrentCardPositions = new Dictionary<PlacementPosition, ClientSideCard>();
         }
 
@@ -203,6 +217,11 @@ public class SimpleHandSlotManager : SerializedMonoBehaviour
         {
             CurrentCardPositions.Add(oddPosition, card);
         }
+
+        if (card.IsHovering)
+        {
+            return;
+        }   
 
         if (card.IsUnderPlayerControl)
             return;

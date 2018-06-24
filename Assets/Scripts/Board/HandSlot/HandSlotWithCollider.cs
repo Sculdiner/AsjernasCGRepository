@@ -52,23 +52,31 @@ public class HandSlotWithCollider : MonoBehaviour
         //{
         //    var asd = "";
         //}
-        card.CardViewObject.transform.DOMove(GetHoveringPosition(), 0.1f).SetEase(Ease.OutBack, 0.5f, 0);//.OnComplete(AnimationOnEnd);
+        card.IsHovering = true;
+        card.CardViewObject.transform.position = GetHoveringPosition();
+        AnimationOnEnd(card);
+        //var tween = card.CardViewObject.transform.DOMove(GetHoveringPosition(), 0.1f).SetEase(Ease.OutBack, 0.5f, 0).OnComplete(AnimationOnEnd);
+        //card.DoTweenTweening = tween;
     }
+    private void AnimationOnEnd()
+    {
+        var card = GetAttachedCard();
+        if (card == null)
+            return;
 
-    //private void AnimationOnEnd()
-    //{
-    //    var card = GetAttachedCard();
-    //    if (card == null)
-    //        return;
-    //    var sequance = DOTween.Sequence();
-    //    sequance.SetId(card.CardStats.GeneratedCardId);
-    //    card.DoTweenSequence = sequance;
-    //    var hov = GetHoveringPosition().z;
-    //    sequance.Append(card.CardViewObject.transform.DOMoveZ(hov + 0.025f, 1f)).SetEase(Ease.OutCirc, 0.5f, 0);
-    //    sequance.Append(card.CardViewObject.transform.DOMoveZ(hov + 0.005f, 1f));
-    //    sequance.Append(card.CardViewObject.transform.DOMoveZ(hov - 0.030f, 1f)).SetEase(Ease.InSine, 0.5f, 0);
-    //    sequance.OnComplete(() => { card.DoTweenSequence = null; });
-    //}
+        AnimationOnEnd(card);
+    }
+    private void AnimationOnEnd(ClientSideCard card)
+    {
+        card.DoTweenTweening = null;
+        var sequance = DOTween.Sequence();
+        card.DoTweenSequence = sequance;
+        var hov = GetHoveringPosition();
+        sequance.Append(card.CardViewObject.transform.DOMove(hov + new Vector3(0, 0, 0.025f), 1f));// SetEase(Ease.OutCirc, 0.5f, 0);
+        sequance.Append(card.CardViewObject.transform.DOMove(hov + new Vector3(0, 0, 0.05f), 1f));
+        sequance.Append(card.CardViewObject.transform.DOMove(hov - new Vector3(0, 0, 0.03f), 4f));//.SetEase(Ease.InCubic, 0.5f, 0);
+        sequance.OnComplete(() => { card.DoTweenSequence = null; });
+    }
 
     private void OnMouseDown()
     {
@@ -76,10 +84,19 @@ public class HandSlotWithCollider : MonoBehaviour
         if (card == null)
             return;
         clickedOnCard = true;
-        card.CardViewObject.GetComponent<BoxCollider>().enabled = true;
+        card.KillTweens();
+        var colliderComp = card.CardViewObject.GetComponent<BoxCollider>();
+        var dragRotatorComp = card.CardViewObject.GetComponent<DragRotator>();
+        colliderComp.enabled = true;
+        dragRotatorComp.enabled = true;
         var draggableComponent = card.CardViewObject.GetComponent<Draggable>();
         draggableComponent.OnMouseUpEvents += () =>
         {
+            dragRotatorComp.enabled = false;
+            card.IsHovering = false;
+            colliderComp.enabled = false;
+            dragRotatorComp.enabled = false;
+            card.KillTweens();
             card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.15f);
         };
         draggableComponent.OnMouseEnter();
@@ -98,7 +115,7 @@ public class HandSlotWithCollider : MonoBehaviour
             return;
 
         clickedOnCard = true;
-        card.CardViewObject.GetComponent<BoxCollider>().enabled = true;
+        card.CardViewObject.GetComponent<BoxCollider>().enabled = true; //TODO remove?
         GetAttachedCard().CardViewObject.GetComponent<Draggable>().OnMouseDrag();
     }
 
@@ -119,10 +136,41 @@ public class HandSlotWithCollider : MonoBehaviour
         var card = GetAttachedCard();
         if (card == null)
             return;
-
-        //var killed = DOTween.Kill(card.CardStats.GeneratedCardId);
-        //Debug.Log(killed);
+        
+        card.CardViewObject.GetComponent<DragRotator>().enabled = false;
+        card.IsHovering = false;
+        card.KillTweens();
 
         card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.15f).SetEase(Ease.OutQuad, 0.5f, 0);
     }
+
+    public void ResetPositionToNormal()
+    {
+        var card = GetAttachedCard();
+        if (card == null)
+            return;
+
+        ResetPositionToNormal(card);
+    }
+    public void ResetPositionToNormal(ClientSideCard card)
+    {
+        clickedOnCard = false;
+        card.IsHovering = false;
+        card.CardViewObject.GetComponent<DragRotator>().enabled = false;
+        card.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+        card.KillTweens();
+        card.CardViewObject.transform.position = GetMyWorldPosition();
+    }
+
+    //public void ResetPositionToNormal(ClientSideCard card)
+    //{
+    //    clickedOnCard = false;
+
+    //    if (card.IsHovering)
+    //    {
+    //        card.IsHovering = false;
+    //        card.CardViewObject.transform.position = GetMyWorldPosition();
+    //    }
+    //    card.KillTweens();
+    //}
 }

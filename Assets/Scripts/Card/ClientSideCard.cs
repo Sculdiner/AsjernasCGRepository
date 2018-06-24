@@ -16,4 +16,19 @@ public class ClientSideCard
 
     public Sequence DoTweenSequence { get; set; }
     public Tween DoTweenTweening { get; set; }
+
+    public void KillTweens()
+    {
+        if (DoTweenTweening != null)
+        {
+            DoTweenTweening.Kill();
+            DoTweenTweening = null;
+        }
+
+        if (DoTweenSequence != null)
+        {
+            DoTweenSequence.Kill();
+            DoTweenSequence = null;
+        }
+    }
 }
