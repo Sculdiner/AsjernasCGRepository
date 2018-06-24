@@ -18,6 +18,7 @@ public class SimpleHandSlotManager : SerializedMonoBehaviour
 
     public List<ClientSideCard> HandCards { get; set; }
     public HandSlotPositionContainer HandSlotPositionContainer;
+    public HandSlotPreviewPositionContainer HandSlotPreviewPositionContainer;
     private object positionUpdaterLocker = new object();
     private float normalHandUpdateTimeframe = 0.85f;
     private object cardPositionDictionaryLocker = new object();
@@ -59,8 +60,7 @@ public class SimpleHandSlotManager : SerializedMonoBehaviour
     public void UpdatePositions(Ease easingFunction, float animationCompletionTime)
     {
         var currentRunningCardAnimation = DOTween.Sequence();
-        //if (HandPreviewOn)
-        //    container = HandSlotContainerHigh;
+       
         lock (cardPositionDictionaryLocker)
         {
             CurrentCardPositions = new Dictionary<PlacementPosition, ClientSideCard>();
@@ -242,43 +242,4 @@ public class SimpleHandSlotManager : SerializedMonoBehaviour
             return null;
         }
     }
-
-    //public void ApplyFullHandDisplayHoverEvents(ClientSideCard card)
-    //{
-    //    card.Events.OnMouseOverEventHandler += Event_UserHoveredOverCard;
-    //    card.Events.OnMouseExitEventHandler += Event_UserHoveredOutOfCard;
-    //}
-
-    //public void RemoveFullHandDisplayHoverEvents(ClientSideCard card)
-    //{
-    //    card.Events.OnMouseOverEventHandler -= Event_UserHoveredOverCard;
-    //    card.Events.OnMouseExitEventHandler -= Event_UserHoveredOutOfCard;
-    //}
-
-    //private void Event_UserHoveredOverCard(ClientSideCard card)
-    //{
-    //    if (card.IsHovering)
-    //        return;
-
-    //    card.IsHovering = true;
-    //    var currentPosition = card.CardViewObject.transform.position;
-    //    card.LastPosition = currentPosition;
-    //    var finalVector = new Vector3(currentPosition.x, 2.78f, currentPosition.z + 0.8f);
-    //    card.CardViewObject.transform.position = finalVector;// DOMove(finalVector, 0.1f);
-    //}
-
-    //private void Event_UserHoveredOutOfCard(ClientSideCard card)
-    //{
-    //    if (!card.IsHovering)
-    //        return;
-
-    //    card.IsHovering = false;
-    //    card.CardViewObject.transform.position = card.LastPosition;//.DOMove(card.LastPosition, 0.1f);
-    //}
-
-    //IEnumerator ExecuteAfterTime(float time, Action action)
-    //{
-    //    yield return new WaitForSeconds(time);
-    //    action();
-    //}
 }

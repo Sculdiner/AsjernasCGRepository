@@ -66,7 +66,7 @@ public class Draggable : MonoBehaviour
         
     }
 
-    void OnMouseUp()
+    public void OnMouseUp()
     {
         ControllingCard.IsUnderPlayerControl = false;
         if (OnMouseUpEvents != null)

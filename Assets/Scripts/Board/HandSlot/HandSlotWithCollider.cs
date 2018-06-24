@@ -7,7 +7,6 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 using UnityEngine.EventSystems;
 using System.Collections;
-using Assets.Scripts.InteropScripts;
 using UnityEngine.UI;
 
 public class HandSlotWithCollider : MonoBehaviour
@@ -33,11 +32,13 @@ public class HandSlotWithCollider : MonoBehaviour
 
     public Vector3 GetHoveringPosition()
     {
-        var myPos = GetMyWorldPosition();
-        //x is constrained based on the mouse position (screen to world space)
-        //var worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-        //return new Vector3(worldMousePosition.x, myPos.y + 3f, myPos.z + 1.3f);
-        return new Vector3(myPos.x, myPos.y + 3f, myPos.z + 1.3f);
+        return HandSlotManager.HandSlotPreviewPositionContainer.Slots[PlacementPosition].position;
+
+        //var myPos = GetMyWorldPosition();
+        ////x is constrained based on the mouse position (screen to world space)
+        ////var worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+        ////return new Vector3(worldMousePosition.x, myPos.y + 3f, myPos.z + 1.3f);
+        //return new Vector3(myPos.x, myPos.y + 3f, myPos.z + 1.3f);
     }
 
     private void OnMouseEnter()
@@ -68,7 +69,7 @@ public class HandSlotWithCollider : MonoBehaviour
         };
         draggableComponent.OnMouseEnter();
         draggableComponent.OnMouseDown();
-        
+
         //card.CardViewObject.GetComponent<DragRotator>().enabled = true;
         //var draggableComponent = card.CardViewObject.GetComponent<Draggable>();
         //draggableComponent.enabled = true;

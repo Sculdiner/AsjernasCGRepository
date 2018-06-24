@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4883105720887968}
   - component: {fileID: 114410910744770160}
   m_Layer: 0
-  m_Name: HandPlacementNew
+  m_Name: HandPlacementNew 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

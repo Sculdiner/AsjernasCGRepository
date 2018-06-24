@@ -59,6 +59,18 @@ public class BoardView : View
                 var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(5).InitialTemplate, CardLocation.Hand, 1);
                 HandSlotManager.AddCardLast(card);
             });
+            PhotonEngine.AddToQueue("CardDraw", () =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 905);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(905).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
+            PhotonEngine.AddToQueue("CardDraw", () =>
+            {
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 906);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(906).InitialTemplate, CardLocation.Hand, 1);
+                HandSlotManager.AddCardLast(card);
+            });
             //PhotonEngine.AddToQueue("RemoveCard", () =>
             //{
             //    HandSlotManager.RemoveCard(3);
