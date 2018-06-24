@@ -52,8 +52,23 @@ public class HandSlotWithCollider : MonoBehaviour
         //{
         //    var asd = "";
         //}
-        card.CardViewObject.transform.DOMove(GetHoveringPosition(), 0.1f);
+        card.CardViewObject.transform.DOMove(GetHoveringPosition(), 0.1f).SetEase(Ease.OutBack, 0.5f, 0);//.OnComplete(AnimationOnEnd);
     }
+
+    //private void AnimationOnEnd()
+    //{
+    //    var card = GetAttachedCard();
+    //    if (card == null)
+    //        return;
+    //    var sequance = DOTween.Sequence();
+    //    sequance.SetId(card.CardStats.GeneratedCardId);
+    //    card.DoTweenSequence = sequance;
+    //    var hov = GetHoveringPosition().z;
+    //    sequance.Append(card.CardViewObject.transform.DOMoveZ(hov + 0.025f, 1f)).SetEase(Ease.OutCirc, 0.5f, 0);
+    //    sequance.Append(card.CardViewObject.transform.DOMoveZ(hov + 0.005f, 1f));
+    //    sequance.Append(card.CardViewObject.transform.DOMoveZ(hov - 0.030f, 1f)).SetEase(Ease.InSine, 0.5f, 0);
+    //    sequance.OnComplete(() => { card.DoTweenSequence = null; });
+    //}
 
     private void OnMouseDown()
     {
@@ -65,7 +80,7 @@ public class HandSlotWithCollider : MonoBehaviour
         var draggableComponent = card.CardViewObject.GetComponent<Draggable>();
         draggableComponent.OnMouseUpEvents += () =>
         {
-            card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.1f);
+            card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.15f);
         };
         draggableComponent.OnMouseEnter();
         draggableComponent.OnMouseDown();
@@ -105,6 +120,9 @@ public class HandSlotWithCollider : MonoBehaviour
         if (card == null)
             return;
 
-        card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.1f);
+        //var killed = DOTween.Kill(card.CardStats.GeneratedCardId);
+        //Debug.Log(killed);
+
+        card.CardViewObject.transform.DOMove(GetMyWorldPosition(), 0.15f).SetEase(Ease.OutQuad, 0.5f, 0);
     }
 }
