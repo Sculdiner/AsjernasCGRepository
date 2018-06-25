@@ -6,6 +6,7 @@ using UnityEngine;
 public class ClientSideCard
 {
     public GameObject CardViewObject { get; set; }
+    public CardManager CardManager { get; set; }
     public ClientSideCardEvents Events {get;set;}
     public BaseCardTemplate CardStats { get; set; }
     public ParticipatorState ParticipatorState { get; set; }

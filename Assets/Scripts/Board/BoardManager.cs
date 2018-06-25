@@ -26,8 +26,11 @@ public class BoardManager : MonoBehaviour
         {
             CardStats = card,
             CardViewObject = gameObject,
-            CurrentLocation = location
+            CurrentLocation = location,
+            CardManager = gameObject.GetComponent<CardManager>()
         };
+        clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
+
         var partState = ParticipatorReferenceCollection[userId];
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
         gameObject.GetComponent<Draggable>().ControllingCard = clientSideCard;
@@ -42,6 +45,7 @@ public class BoardManager : MonoBehaviour
             CardViewObject = gameObject,
             CurrentLocation = location
         };
+        clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
         var partState = ParticipatorReferenceCollection[userId];
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
         gameObject.GetComponent<Draggable>().ControllingCard = clientSideCard;

@@ -17,7 +17,7 @@ public class Draggable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        actions = GetComponent<DraggingActions>();
+        //actions = GetComponent<DraggingActions>();
         OnMouseUpEvents = () => { };
     }
 
@@ -41,7 +41,7 @@ public class Draggable : MonoBehaviour
     public void OnMouseDown()
     {
         ControllingCard.IsUnderPlayerControl = true;
-        actions.OnStartDrag();
+        //actions.OnStartDrag();
         //translate the cubes position from the world to Screen Point
         screenSpace = Camera.main.WorldToScreenPoint(transform.position);
 
@@ -52,7 +52,7 @@ public class Draggable : MonoBehaviour
 
     public void OnMouseDrag()
     {
-        actions.OnDraggingInUpdate();
+        //actions.OnDraggingInUpdate();
         //keep track of the mouse position
         var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
 
@@ -77,7 +77,7 @@ public class Draggable : MonoBehaviour
         {
             OnMouseUpEvents.Invoke();
         }
-        actions.OnEndDrag();
+        //actions.OnEndDrag();
         //logic 
     }
 
