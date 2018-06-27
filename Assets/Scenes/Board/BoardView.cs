@@ -83,7 +83,7 @@ public class BoardView : View
             // });
 
 
-            ////Left ally
+            //Left ally
             //PhotonEngine.AddToQueue("AllyPlay", () =>
             // {
             //     var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 7);

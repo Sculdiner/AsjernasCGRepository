@@ -93,6 +93,10 @@ public class AllySlotManager : MonoBehaviour
         {
             if (AllyCards.Count < 8)
             {
+                clientSideCard.CardViewObject.GetComponent<CardHandHelperComponent>().enabled = false;
+                var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
+                allyComp.ReferencedCard = clientSideCard;
+                allyComp.enabled = true;
                 AllyCards.Add(clientSideCard);
                 UpdatePositions();
             }
@@ -105,6 +109,10 @@ public class AllySlotManager : MonoBehaviour
         {
             if (AllyCards.Count < 8)
             {
+                clientSideCard.CardViewObject.GetComponent<CardHandHelperComponent>().enabled = false;
+                var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
+                allyComp.ReferencedCard = clientSideCard;
+                allyComp.enabled = true;
                 AllyCards.Insert(index, clientSideCard);
                 UpdatePositions();
             }
@@ -118,6 +126,8 @@ public class AllySlotManager : MonoBehaviour
             var card = AllyCards.FirstOrDefault(c => c.CardStats.GeneratedCardId == cardId);
             if (card == null)
                 return;
+
+            card.CardViewObject.GetComponent<CardAllyHelperComponent>().enabled =false;
 
             AllyCards.Remove(card);
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>

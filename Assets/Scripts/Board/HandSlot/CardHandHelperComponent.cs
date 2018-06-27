@@ -8,11 +8,7 @@ using UnityEngine;
 public class CardHandHelperComponent : MonoBehaviour
 {
     public ClientSideCard Card { get; set; }
-    public SimpleHandSlotManagerV2 HandSlotManager;
-    private void Awake()
-    {
-
-    }
+    public SimpleHandSlotManagerV2 HandSlotManager { get; set; }
     private bool clickedOnCard;
     private Vector3 handPosition;
     private Quaternion handRotation;
@@ -26,15 +22,22 @@ public class CardHandHelperComponent : MonoBehaviour
     {
         previewPosition = previewPos;
     }
-
+    void Start()
+    {
+    }
     #region "Hovering"
 
     //Enable Hovering
     private void OnMouseEnter()
     {
-        Debug.Log("MouseEnter");
-        if (HandSlotManager.ActiveCard != null)
+        //Debug.Log("MouseEnter");
+        if (HandSlotManager?.ActiveCard != null)
             return;
+
+        if (!Card.IsDragging)
+        {
+            Card.CardViewObject.GetComponent<Draggable>().enabled = true;
+        }
 
         if (!Card.IsHovering)
         {
@@ -51,7 +54,12 @@ public class CardHandHelperComponent : MonoBehaviour
     //Disable Hovering
     private void OnMouseExit()
     {
-        Debug.Log("MouseExit");
+        //Debug.Log("MouseExit");
+
+        if (!Card.IsDragging)
+        {
+            Card.CardViewObject.GetComponent<Draggable>().enabled = false;
+        }
 
         if (Card.IsHovering)
         {
@@ -91,6 +99,7 @@ public class CardHandHelperComponent : MonoBehaviour
     //Start play interaction
     public void OnMouseDown()
     {
+        Card.IsDragging = true;
         Card.CardViewObject.GetComponent<DragRotator>().enabled = true;
         HandSlotManager.ActiveCard = Card;
 
@@ -102,22 +111,33 @@ public class CardHandHelperComponent : MonoBehaviour
 
 
         Card.CardManager.CardVisual.Visual.enabled = true;
+       // Card.CardViewObject.layer = 2;
         Card.CardViewObject.transform.position = handPosition;
         Card.CardViewObject.transform.rotation = handRotation;
+
+        BoardManager.OnCursorEntersCard += OnOverlappedCard;
+    }
+
+    public void OnOverlappedCard(ClientSideCard card)
+    {
+        //Debug.Log("I moused over a card");
     }
 
     //Stop play interaction
     private void OnMouseUp()
     {
-        Debug.Log("MouseUp");
+        BoardManager.OnCursorEntersCard -= OnOverlappedCard;
+        //Debug.Log("MouseUp");
+        Card.IsDragging = false;
         Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
 
         if (HandSlotManager.ActiveCard != null)
             HandSlotManager.ActiveCard = null;
 
         Card.KillTweens();
-
-        Card.CardViewObject.transform.DOMove(handPosition, 0.35f).OnComplete(()=> {
+        Card.CardViewObject.layer = 0;
+        Card.CardViewObject.transform.DOMove(handPosition, 0.35f).OnComplete(() =>
+        {
             Card.CardViewObject.transform.rotation = handRotation;
         });
         //Card.CardManager.PreviewVisual.gameObject.transform.position = previewPosition;
@@ -127,8 +147,11 @@ public class CardHandHelperComponent : MonoBehaviour
     //Will not animate
     public void ResetPositionToNormal_Immediate()
     {
+        Card.CardViewObject.layer = 0;
         clickedOnCard = false;
         Card.IsHovering = false;
+        Card.IsDragging = false;
+        Card.CardViewObject.GetComponent<Draggable>().enabled = false;
         Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
         //card.CardViewObject.GetComponent<BoxCollider>().enabled = false;
         Card.KillTweens();

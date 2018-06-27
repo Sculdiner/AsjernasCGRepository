@@ -9,7 +9,8 @@ public class Draggable : MonoBehaviour
     private DraggingActions actions;
     private Vector3 screenSpace;
     private Vector3 offset;
-
+    public BoardManager BoardManager;
+    private bool IsOverATarget;
     void Awake()
     {
 
@@ -21,21 +22,60 @@ public class Draggable : MonoBehaviour
         OnMouseUpEvents = () => { };
     }
 
+    public ClientSideCard TargetedCard;
+
     // Update is called once per frame
     void Update()
     {
+        //Debug.DrawLine(transform.position, t, Color.green);
 
-    }
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        var hits = Physics.RaycastAll(ray, 30f);
 
-    public void ExternallyTriggerMouseDown()
-    {
-        Debug.Log("externally triggered mouse down");
-        ControllingCard.IsUnderPlayerControl = true;
-        //translate the cubes position from the world to Screen Point
-        screenSpace = Camera.main.WorldToScreenPoint(transform.position);
+        if (TargetedCard!=null)
+        {
+            Debug.DrawLine(ray.origin, TargetedCard.CardViewObject.transform.position, Color.green);
+        }
 
-        //calculate any difference between the cubes world position and the mouses Screen position converted to a world point  
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
+        if (hits.Length > 0)
+        {
+            //if (!IsOverATarget)
+            //{
+                //We have not saved a card. Check if the hits collided with a valid target
+                for (int i = 0; i < hits.Length; i++)
+                {
+
+                    var card = BoardManager.GetCard(hits[i]);
+                    if (card != null && card.CardStats.GeneratedCardId != ControllingCard.CardStats.GeneratedCardId)
+                    {
+                        //IsOverATarget = true;
+                        TargetedCard = card;
+                        Debug.Log("hit card " + TargetedCard.CardStats.GeneratedCardId);
+                        return;
+                    }
+                }
+                if (TargetedCard != null)
+                {
+                    Debug.Log("exited card " + TargetedCard.CardStats.GeneratedCardId);
+                    TargetedCard = null;
+                }
+                //has stoped hovering over the saved card (or never was)
+            //    IsOverATarget = false;
+            //}
+            //else
+            //{
+            //    //continues to hover over the saved card. do nothing (we can trigger "OnHovering")
+            //}
+        }
+
+        //RaycastHit hit;
+        ////Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //var origin = new Vector3(target.x, target.y + 300, target.z);
+        //if (Physics.Raycast(origin, target, out hit))
+        //{ // if something hit...
+        //    Debug.DrawLine(origin, target, Color.green);
+        //    //print("Clicked on " + hit.transform.name); // print its name
+        //}
     }
 
     public void OnMouseDown()

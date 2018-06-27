@@ -1,6 +1,7 @@
 ﻿using AsjernasCG.Common.BusinessModels.CardModels;
 using AsjernasCG.Common.EventModels.Game;
 using Assets.Scripts.Card;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -281,6 +282,9 @@ public class BoardManager : MonoBehaviour
     {
         return CurrentUserPlayerState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand).ToList();
     }
+
+    public static Action<ClientSideCard> OnCursorEntersCard;
+    public static Action<ClientSideCard> OnCursorExitsCard;
 }
 
 

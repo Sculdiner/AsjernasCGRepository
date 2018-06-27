@@ -13,6 +13,7 @@ public class ClientSideCard
     public CardLocation CurrentLocation { get; set; }
     public bool IsUnderPlayerControl { get; set; }
     public bool IsHovering { get; set; }
+    public bool IsDragging { get; set; }
     public Vector3 LastPosition { get; set; }
 
     public Sequence DoTweenSequence { get; set; }
