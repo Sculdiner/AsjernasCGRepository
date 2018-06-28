@@ -12,6 +12,16 @@ public class Draggable : MonoBehaviour
     public BoardManager BoardManager;
     private bool IsOverATarget;
     private int CardLayerMask;
+
+    public void SetAction<T>() where T: DraggingActions
+    {
+        //what to do if the set action is called while a dragging operation takes place
+        actions?.KillCurrentActions();
+        var action = (T)Activator.CreateInstance(typeof(T), ControllingCard);
+        actions = action;
+        //we will encounter the problem where the card dragging type is instansiated ON the mouse so the mouse enter will not trigger!!!! maybe trigger it manually: OnMouseEnter()
+    }
+
     void Awake()
     {
 
@@ -29,87 +39,48 @@ public class Draggable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.DrawLine(transform.position, t, Color.green);
+        actions?.OnDraggingInUpdate();
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hits = Physics.RaycastAll(ray, 30f, CardLayerMask);
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //var hits = Physics.RaycastAll(ray, 30f, CardLayerMask);
 
-        if (TargetedCard != null)
-        {
-            Debug.DrawLine(ray.origin, TargetedCard.CardViewObject.transform.position, Color.green);
-        }
-        for (int i = 0; i < hits.Length; i++)
-        {
-            RaycastHit hit = hits[i];
-            Debug.DrawLine(ray.origin, hit.transform.position, Color.cyan);
-        }
+        //if (TargetedCard != null)
+        //{
+        //    Debug.DrawLine(ray.origin, TargetedCard.CardViewObject.transform.position, Color.green);
+        //}
+        //for (int i = 0; i < hits.Length; i++)
+        //{
+        //    RaycastHit hit = hits[i];
+        //    Debug.DrawLine(ray.origin, hit.transform.position, Color.cyan);
+        //}
 
-        if (hits.Length > 0)
-        {
-            //We have not saved a card. Check if the hits collided with a valid target
-            for (int i = 0; i < hits.Length; i++)
-            {
+        //if (hits.Length > 0)
+        //{
+        //    //We have not saved a card. Check if the hits collided with a valid target
+        //    for (int i = 0; i < hits.Length; i++)
+        //    {
 
-                var card = BoardManager.GetCard(hits[i]);
-                if (card != null && card.CardStats.GeneratedCardId != ControllingCard.CardStats.GeneratedCardId)
-                {
-                    if (TargetedCard != card)
-                    {
-                        //mouse enter
-                    }
-                    //IsOverATarget = true;
-                    TargetedCard = card;
-                    Debug.Log("hit card " + TargetedCard.CardStats.GeneratedCardId);
-                    return;
-                }
-            }  
-        }
-        if (TargetedCard != null)
-        {
-            //mouse exit
-            Debug.Log("exited card " + TargetedCard.CardStats.GeneratedCardId);
-            TargetedCard = null;
-        }
+        //        var card = BoardManager.GetCard(hits[i]);
+        //        if (card != null && card.CardStats.GeneratedCardId != ControllingCard.CardStats.GeneratedCardId)
+        //        {
+        //            if (TargetedCard != card)
+        //            {
+        //                //mouse enter
+        //            }
+        //            //IsOverATarget = true;
+        //            TargetedCard = card;
+        //            Debug.Log("hit card " + TargetedCard.CardStats.GeneratedCardId);
+        //            return;
+        //        }
+        //    }
+        //}
+        //if (TargetedCard != null)
+        //{
+        //    //mouse exit
+        //    Debug.Log("exited card " + TargetedCard.CardStats.GeneratedCardId);
+        //    TargetedCard = null;
+        //}
     }
-
-    //void Update()
-    //{
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    var hits = Physics.RaycastAll(ray, 30f);
-
-    //    if (TargetedCard != null)
-    //    {
-    //        Debug.DrawLine(ray.origin, TargetedCard.CardViewObject.transform.position, Color.green);
-    //    }
-
-    //    if (hits.Length > 0)
-    //    {
-    //        //We have not saved a card. Check if the hits collided with a valid target
-    //        for (int i = 0; i < hits.Length; i++)
-    //        {
-    //            Debug.DrawLine(ray.origin, hits[i].transform.position, Color.green);
-    //            var card = BoardManager.GetCard(hits[i]);
-    //            if (card != null && card.CardStats.GeneratedCardId != ControllingCard.CardStats.GeneratedCardId)
-    //            {
-
-    //                if (TargetedCard != card)
-    //                {
-    //                    //mouse enter TODO: on mouse exit event here
-    //                }
-    //                TargetedCard = card;
-    //                Debug.Log("hit card " + TargetedCard.CardStats.GeneratedCardId);
-    //                //return;
-    //            }
-    //        }
-    //        //if (TargetedCard != null)
-    //        //{
-    //        //    //mouse exit TODO: on mouse exit event here
-    //        //    Debug.Log("exited card " + TargetedCard.CardStats.GeneratedCardId);
-    //        //    TargetedCard = null;
-    //        //}
-    //    }
-    //}
-
 
     public void OnMouseDown()
     {
@@ -150,7 +121,7 @@ public class Draggable : MonoBehaviour
         {
             OnMouseUpEvents.Invoke();
         }
-        //actions.OnEndDrag();
+        actions.OnEndDrag();
         //logic 
     }
 

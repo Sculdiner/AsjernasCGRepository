@@ -21,10 +21,10 @@ TagManager:
   - 
   - PostProcessing
   - RaycastEligibleTargets
-  - 
-  - 
-  - 
-  - 
+  - AllyPlayArea
+  - EncounterArea
+  - QuestArea
+  - HeroArea
   - 
   - 
   - 

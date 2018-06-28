@@ -58,7 +58,7 @@ public class BoardManager : MonoBehaviour
         card.ParticipatorState = participatorState;
         card.Events = eventHandling;
         card.Events.ControllingCard = card;
-        //card.CardViewObject.GetComponent<Draggable>().BoardManager = this;
+        card.CardViewObject.GetComponent<Draggable>().BoardManager = this;
         card.CardViewObject.name = card.CardStats.GeneratedCardId.ToString();
         CardReferenceCollection.RegisterCardToGame(card);
         if (participatorState is PlayerState)
@@ -76,9 +76,17 @@ public class BoardManager : MonoBehaviour
     {
         var state = new PlayerState() { UserId = userId };
         if (userId == PhotonEngine.UserId)
+        {
+            var ownFollowerArea = GameObject.Find("RightPlayerAllySlotContainer");
             CurrentUserPlayerState = state;
+            ((AllySlotManager)ownFollowerArea.GetComponent<AllySlotManager>()).OwningPlayer = state;
+        }
         else
+        {
+            var teammateArea = GameObject.Find("LeftPlayerAllySlotContainer");
+            ((AllySlotManager)teammateArea.GetComponent<AllySlotManager>()).OwningPlayer = state;
             TeammatePlayerState = state;
+        }
         ParticipatorReferenceCollection.Add(userId, state);
     }
 

@@ -13,6 +13,7 @@ public class CardHandHelperComponent : MonoBehaviour
     private Vector3 handPosition;
     private Quaternion handRotation;
     private Vector3 previewPosition;
+    public bool ComponentEnabled;
     public void StoreDesignatedHandPositionAndRotation(Vector3 handPosition, Quaternion handRotation)
     {
         this.handPosition = handPosition;
@@ -123,36 +124,41 @@ public class CardHandHelperComponent : MonoBehaviour
     //Stop play interaction
     private void OnMouseUp()
     {
-        BoardManager.OnCursorEntersCard -= OnOverlappedCard;
-        //Debug.Log("MouseUp");
-        Card.IsDragging = false;
-        Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
-
-        if (HandSlotManager.ActiveCard != null)
-            HandSlotManager.ActiveCard = null;
-
-        Card.KillTweens();
-        Card.CardViewObject.transform.DOMove(handPosition, 0.35f).OnComplete(() =>
+        if (ComponentEnabled)
         {
-            Card.CardViewObject.transform.rotation = handRotation;
-        });
-        //Card.CardManager.PreviewVisual.gameObject.transform.position = previewPosition;
+            BoardManager.OnCursorEntersCard -= OnOverlappedCard;
+            //Debug.Log("MouseUp");
+            Card.IsDragging = false;
+            Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
+
+            if (HandSlotManager.ActiveCard != null)
+                HandSlotManager.ActiveCard = null;
+
+            Card.KillTweens();
+            Card.CardViewObject.transform.DOMove(handPosition, 0.35f).OnComplete(() =>
+            {
+                Card.CardViewObject.transform.rotation = handRotation;
+            });
+        }
     }
     #endregion
 
     //Will not animate
     public void ResetPositionToNormal_Immediate()
     {
-        clickedOnCard = false;
-        Card.IsHovering = false;
-        Card.IsDragging = false;
-        Card.CardViewObject.GetComponent<Draggable>().enabled = false;
-        Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
-        //card.CardViewObject.GetComponent<BoxCollider>().enabled = false;
-        Card.KillTweens();
-        Card.CardManager.PreviewVisual.Visual.enabled = false;
-        Card.CardManager.CardVisual.Visual.enabled = true;
-        Card.CardViewObject.transform.position = handPosition;
-        Card.CardViewObject.transform.rotation = handRotation;
+        if (ComponentEnabled)
+        {
+            clickedOnCard = false;
+            Card.IsHovering = false;
+            Card.IsDragging = false;
+            Card.CardViewObject.GetComponent<Draggable>().enabled = false;
+            Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
+            //card.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+            Card.KillTweens();
+            Card.CardManager.PreviewVisual.Visual.enabled = false;
+            Card.CardManager.CardVisual.Visual.enabled = true;
+            Card.CardViewObject.transform.position = handPosition;
+            Card.CardViewObject.transform.rotation = handRotation;
+        }
     }
 }

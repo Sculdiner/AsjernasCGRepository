@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class AllySlotManager : MonoBehaviour
 {
+    public PlayerState OwningPlayer;
+    public bool IsCurrentPlayerArea()
+    {
+        return OwningPlayer.UserId == PhotonEngine.UserId;
+    }
     public List<ClientSideCard> AllyCards { get; set; }
     public AllySlotPositionContainer SlotContainer;
     private object positionUpdaterLocker = new object();
