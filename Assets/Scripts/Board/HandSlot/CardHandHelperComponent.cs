@@ -108,10 +108,7 @@ public class CardHandHelperComponent : MonoBehaviour
         Card.IsHovering = false;
 
         Card.CardManager.PreviewVisual.Visual.enabled = false;
-
-
         Card.CardManager.CardVisual.Visual.enabled = true;
-       // Card.CardViewObject.layer = 2;
         Card.CardViewObject.transform.position = handPosition;
         Card.CardViewObject.transform.rotation = handRotation;
 
@@ -135,7 +132,6 @@ public class CardHandHelperComponent : MonoBehaviour
             HandSlotManager.ActiveCard = null;
 
         Card.KillTweens();
-        Card.CardViewObject.layer = 0;
         Card.CardViewObject.transform.DOMove(handPosition, 0.35f).OnComplete(() =>
         {
             Card.CardViewObject.transform.rotation = handRotation;
@@ -147,7 +143,6 @@ public class CardHandHelperComponent : MonoBehaviour
     //Will not animate
     public void ResetPositionToNormal_Immediate()
     {
-        Card.CardViewObject.layer = 0;
         clickedOnCard = false;
         Card.IsHovering = false;
         Card.IsDragging = false;

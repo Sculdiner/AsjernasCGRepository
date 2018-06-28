@@ -44,6 +44,7 @@ public class MasterCardManager : MonoBehaviour
     {
         var cardTemplate = GetNewCardInstance(cardTemplateId);
         var prefab = (GameObject)Instantiate(CardTemplatePrefab);
+        prefab.layer = LayerMask.NameToLayer("RaycastEligibleTargets");
         var cardManager = prefab.GetComponent<CardManager>();
         cardTemplate.GeneratedCardId = generatedCardId;
         cardManager.SetInitialTemplate(cardTemplate);

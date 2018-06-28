@@ -58,6 +58,8 @@ public class BoardManager : MonoBehaviour
         card.ParticipatorState = participatorState;
         card.Events = eventHandling;
         card.Events.ControllingCard = card;
+        //card.CardViewObject.GetComponent<Draggable>().BoardManager = this;
+        card.CardViewObject.name = card.CardStats.GeneratedCardId.ToString();
         CardReferenceCollection.RegisterCardToGame(card);
         if (participatorState is PlayerState)
         {

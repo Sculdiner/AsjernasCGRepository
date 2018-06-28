@@ -11,6 +11,7 @@ public class Draggable : MonoBehaviour
     private Vector3 offset;
     public BoardManager BoardManager;
     private bool IsOverATarget;
+    private int CardLayerMask;
     void Awake()
     {
 
@@ -19,6 +20,7 @@ public class Draggable : MonoBehaviour
     void Start()
     {
         //actions = GetComponent<DraggingActions>();
+        CardLayerMask = LayerMask.GetMask("RaycastEligibleTargets");
         OnMouseUpEvents = () => { };
     }
 
@@ -30,11 +32,16 @@ public class Draggable : MonoBehaviour
         //Debug.DrawLine(transform.position, t, Color.green);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hits = Physics.RaycastAll(ray, 30f);
+        var hits = Physics.RaycastAll(ray, 30f, CardLayerMask);
 
         if (TargetedCard != null)
         {
             Debug.DrawLine(ray.origin, TargetedCard.CardViewObject.transform.position, Color.green);
+        }
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+            Debug.DrawLine(ray.origin, hit.transform.position, Color.cyan);
         }
 
         if (hits.Length > 0)
@@ -55,14 +62,13 @@ public class Draggable : MonoBehaviour
                     Debug.Log("hit card " + TargetedCard.CardStats.GeneratedCardId);
                     return;
                 }
-            }
-            if (TargetedCard != null)
-            {
-                //mouse exit
-                Debug.Log("exited card " + TargetedCard.CardStats.GeneratedCardId);
-                TargetedCard = null;
-            }
-         
+            }  
+        }
+        if (TargetedCard != null)
+        {
+            //mouse exit
+            Debug.Log("exited card " + TargetedCard.CardStats.GeneratedCardId);
+            TargetedCard = null;
         }
     }
 
