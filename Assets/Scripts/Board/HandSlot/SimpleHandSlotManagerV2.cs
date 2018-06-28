@@ -155,8 +155,10 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
                 clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
+                clientSideCard.CardManager.CardHandHelperComponent.ComponentEnabled = true;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
                 clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
+
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Add(clientSideCard);
                 //ApplyFullHandDisplayHoverEvents(clientSideCard);
@@ -173,6 +175,7 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
                 clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
+                clientSideCard.CardManager.CardHandHelperComponent.ComponentEnabled = true;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
                 clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
@@ -192,6 +195,21 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
                 return;
 
             HandCards.Remove(card);
+            card.CardManager.CardHandHelperComponent.ComponentEnabled = false;
+            UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
+        }
+    }
+
+    public void RemoveCardToDiscard(int cardId)
+    {
+        lock (positionUpdaterLocker)
+        {
+            var card = HandCards.FirstOrDefault(c => c.CardStats.GeneratedCardId == cardId);
+            if (card == null)
+                return;
+
+            HandCards.Remove(card);
+            card.CardManager.CardHandHelperComponent.ComponentEnabled = false;
             //RemoveFullHandDisplayHoverEvents(card);
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>
             {

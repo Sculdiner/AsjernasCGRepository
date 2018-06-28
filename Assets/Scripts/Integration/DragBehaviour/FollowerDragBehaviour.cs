@@ -13,7 +13,6 @@ namespace Assets.Scripts.Integration.DragBehaviour
     {
         public int Layer => LayerMask.NameToLayer("AllyPlayArea");
         public GameObject TargetedArea { get; private set; }
-        public ClientSideCard ClientSideCard;
         private AllySlotManager PlacementTarget;
 
         public FollowerCastDragBehaviour(ClientSideCard card) : base(card)
@@ -25,22 +24,26 @@ namespace Assets.Scripts.Integration.DragBehaviour
             //Debug.DrawLine(transform.position, t, Color.green);
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitObject;
-            var hit = Physics.Raycast(ray, out hitObject, 30f, Layer);
-
+            //RaycastHit hitObject;
+            //var hit = Physics.RaycastAll(ray, out hitObject, 30f, Layer);
+            var hits = Physics.RaycastAll(ray, 30f);//, Layer);
             if (TargetedArea != null)
             {
                 Debug.DrawLine(ray.origin, TargetedArea.transform.position, Color.magenta);
             }
 
             //getcomponent ally play area to find the play area manager and it's owner
-            if (hit)
+            if (hits.Length > 0)
             {
-                var slotComponent = hitObject.transform.gameObject.GetComponent<AllySlotManager>();
-                if (slotComponent.IsCurrentPlayerArea())
+                var hitLayer = hits.ToList()?.FirstOrDefault(s => s.transform.gameObject.layer == Layer);
+                var slotComponent = hitLayer?.transform?.gameObject.GetComponent<AllySlotManager>();
+                if (slotComponent !=null)
                 {
-                    PlacementTarget = slotComponent;
-                    return;
+                    if (slotComponent.IsCurrentPlayerArea())
+                    {
+                        PlacementTarget = slotComponent;
+                        return;
+                    }
                 }
             }
             //Debug.Info("asdasd");
@@ -68,7 +71,9 @@ namespace Assets.Scripts.Integration.DragBehaviour
         {
             if (PlacementTarget != null)
             {
-                PlacementTarget.AddAllyCardLast(ClientSideCard);
+                ReferencedCard.CardManager.CardHandHelperComponent.HandSlotManager.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
+                PlacementTarget.AddAllyCardLast(ReferencedCard);
+                ReferencedCard.CardManager.CardHandHelperComponent.ComponentEnabled = false;
             }
         }
 

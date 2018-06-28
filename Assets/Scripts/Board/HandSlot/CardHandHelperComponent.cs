@@ -124,15 +124,17 @@ public class CardHandHelperComponent : MonoBehaviour
     //Stop play interaction
     private void OnMouseUp()
     {
+        if (HandSlotManager.ActiveCard != null)
+            HandSlotManager.ActiveCard = null;
+
+        Card.IsDragging = false;
+
         if (ComponentEnabled)
         {
             BoardManager.OnCursorEntersCard -= OnOverlappedCard;
             //Debug.Log("MouseUp");
-            Card.IsDragging = false;
+            
             Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
-
-            if (HandSlotManager.ActiveCard != null)
-                HandSlotManager.ActiveCard = null;
 
             Card.KillTweens();
             Card.CardViewObject.transform.DOMove(handPosition, 0.35f).OnComplete(() =>

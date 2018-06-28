@@ -14,6 +14,7 @@ public class Draggable : MonoBehaviour
     public BoardManager BoardManager;
     private bool IsOverATarget;
     private int CardLayerMask;
+    public string DraggingActionName;
 
     public void SetAction<T>() where T : DraggingActions
     {
@@ -21,6 +22,7 @@ public class Draggable : MonoBehaviour
         actions?.KillCurrentActions();
         var action = (T)Activator.CreateInstance(typeof(T), ControllingCard);
         actions = action;
+        DraggingActionName = actions.ToString();
         //we will encounter the problem where the card dragging type is instansiated ON the mouse so the mouse enter will not trigger!!!! maybe trigger it manually: OnMouseEnter()
     }
 
@@ -122,7 +124,7 @@ public class Draggable : MonoBehaviour
         //calculate any difference between the cubes world position and the mouses Screen position converted to a world point  
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
 
-        actions.OnStartDrag();
+        actions?.OnStartDrag();
     }
 
     public void OnMouseDrag()
@@ -135,8 +137,8 @@ public class Draggable : MonoBehaviour
 
         //update the position of the object in the world
         transform.position = curPosition;
-
-        actions.OnDraggingInUpdate();
+        Debug.Log($"OnMouseDrag: {ControllingCard.CardStats.GeneratedCardId}");
+        actions?.OnDraggingInUpdate();
     }
 
     public Action OnMouseUpEvents;
@@ -154,7 +156,7 @@ public class Draggable : MonoBehaviour
             OnMouseUpEvents.Invoke();
         }
         actions.OnEndDrag();
-        actions?.KillCurrentActions();
+        //actions?.KillCurrentActions();
         //logic 
     }
 

@@ -171,7 +171,8 @@ GameObject:
   - component: {fileID: 4243021072856114}
   - component: {fileID: 114420625489093732}
   - component: {fileID: 114339313016857952}
-  m_Layer: 0
+  - component: {fileID: 65039847883466728}
+  m_Layer: 10
   m_Name: LeftPlayerAllySlotContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +204,8 @@ GameObject:
   - component: {fileID: 4316385818031746}
   - component: {fileID: 114382006962016144}
   - component: {fileID: 114678667063809992}
-  m_Layer: 0
+  - component: {fileID: 65654758076403816}
+  m_Layer: 10
   m_Name: RightPlayerAllySlotContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,6 +509,30 @@ Transform:
   m_Father: {fileID: 4316385818031746}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!65 &65039847883466728
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468356627310880}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4725871, y: 1, z: 0.42197123}
+  m_Center: {x: -0.26370645, y: 0, z: -0.15889306}
+--- !u!65 &65654758076403816
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1729417792674702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.50082636, y: 10.17015, z: 0.39664897}
+  m_Center: {x: 0.24958682, y: 4.5850754, z: -0.16049135}
 --- !u!114 &114339313016857952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -540,8 +566,14 @@ MonoBehaviour:
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EqualityComparer`1+DefaultComparer[[OddPlacementPosition,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[OddPlacementPosition,
         Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -596,8 +628,14 @@ MonoBehaviour:
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.EqualityComparer`1+DefaultComparer[[EvenPlacementPosition,
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[EvenPlacementPosition,
         Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -715,8 +753,14 @@ MonoBehaviour:
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EqualityComparer`1+DefaultComparer[[OddPlacementPosition,
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[OddPlacementPosition,
         Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -771,8 +815,14 @@ MonoBehaviour:
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 3|System.Collections.Generic.EqualityComparer`1+DefaultComparer[[EvenPlacementPosition,
+      Data: 3|System.Collections.Generic.EnumEqualityComparer`1[[EvenPlacementPosition,
         Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
