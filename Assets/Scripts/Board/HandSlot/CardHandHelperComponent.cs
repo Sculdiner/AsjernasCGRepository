@@ -10,10 +10,9 @@ public class CardHandHelperComponent : MonoBehaviour
     public ClientSideCard Card { get; set; }
     public SimpleHandSlotManagerV2 HandSlotManager { get; set; }
     private bool clickedOnCard;
-    private Vector3 handPosition;
-    private Quaternion handRotation;
-    private Vector3 previewPosition;
-    public bool ComponentEnabled;
+    public Vector3 handPosition;
+    public Quaternion handRotation;
+    public Vector3 previewPosition;
     public void StoreDesignatedHandPositionAndRotation(Vector3 handPosition, Quaternion handRotation)
     {
         this.handPosition = handPosition;
@@ -59,11 +58,12 @@ public class CardHandHelperComponent : MonoBehaviour
 
         if (!Card.IsDragging)
         {
-            Card.CardViewObject.GetComponent<Draggable>().enabled = false;
+            //Card.CardViewObject.GetComponent<Draggable>().enabled = false;
         }
 
         if (Card.IsHovering)
         {
+            Debug.Log("OnMouseExit. Card.IsHovering = true");
             Card.KillTweens();
 
             Card.IsHovering = false;
@@ -78,6 +78,10 @@ public class CardHandHelperComponent : MonoBehaviour
             });
             Card.CardViewObject.transform.rotation = handRotation;
             //Card.CardManager.PreviewVisual.gameObject.transform.position = previewPosition;
+        }
+        else
+        {
+            Debug.Log("OnMouseExit. Card.IsHovering = false");
         }
     }
 
@@ -95,72 +99,19 @@ public class CardHandHelperComponent : MonoBehaviour
 
     #endregion
 
-    #region "Play interaction"
-
-    //Start play interaction
-    public void OnMouseDown()
+    //Will not animate
+    public void ResetPositionToNormal_Immediate()
     {
-        Card.IsDragging = true;
-        Card.CardViewObject.GetComponent<DragRotator>().enabled = true;
-        HandSlotManager.ActiveCard = Card;
-
-        Card.KillTweens();
-
+        clickedOnCard = false;
         Card.IsHovering = false;
-
+        Card.IsDragging = false;
+        //Card.CardViewObject.GetComponent<Draggable>().enabled = false;
+        Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
+        //card.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+        Card.KillTweens();
         Card.CardManager.PreviewVisual.Visual.enabled = false;
         Card.CardManager.CardVisual.Visual.enabled = true;
         Card.CardViewObject.transform.position = handPosition;
         Card.CardViewObject.transform.rotation = handRotation;
-
-        BoardManager.OnCursorEntersCard += OnOverlappedCard;
-    }
-
-    public void OnOverlappedCard(ClientSideCard card)
-    {
-        //Debug.Log("I moused over a card");
-    }
-
-    //Stop play interaction
-    private void OnMouseUp()
-    {
-        if (HandSlotManager.ActiveCard != null)
-            HandSlotManager.ActiveCard = null;
-
-        Card.IsDragging = false;
-
-        if (ComponentEnabled)
-        {
-            BoardManager.OnCursorEntersCard -= OnOverlappedCard;
-            //Debug.Log("MouseUp");
-            
-            Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
-
-            Card.KillTweens();
-            Card.CardViewObject.transform.DOMove(handPosition, 0.35f).OnComplete(() =>
-            {
-                Card.CardViewObject.transform.rotation = handRotation;
-            });
-        }
-    }
-    #endregion
-
-    //Will not animate
-    public void ResetPositionToNormal_Immediate()
-    {
-        if (ComponentEnabled)
-        {
-            clickedOnCard = false;
-            Card.IsHovering = false;
-            Card.IsDragging = false;
-            Card.CardViewObject.GetComponent<Draggable>().enabled = false;
-            Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
-            //card.CardViewObject.GetComponent<BoxCollider>().enabled = false;
-            Card.KillTweens();
-            Card.CardManager.PreviewVisual.Visual.enabled = false;
-            Card.CardManager.CardVisual.Visual.enabled = true;
-            Card.CardViewObject.transform.position = handPosition;
-            Card.CardViewObject.transform.rotation = handRotation;
-        }
     }
 }

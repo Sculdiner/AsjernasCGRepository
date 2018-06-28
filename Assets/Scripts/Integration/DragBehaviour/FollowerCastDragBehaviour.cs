@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Assets.Scripts.Integration.DragBehaviour
     //FollowerBoardDragBehaviour
     public class FollowerCastDragBehaviour : DraggingActions
     {
-        public int Layer => LayerMask.NameToLayer("AllyPlayArea");
+        public int Layer => LayerMask.GetMask("AllyPlayArea");
         public GameObject TargetedArea { get; private set; }
         private AllySlotManager PlacementTarget;
 
@@ -26,18 +27,18 @@ namespace Assets.Scripts.Integration.DragBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             //RaycastHit hitObject;
             //var hit = Physics.RaycastAll(ray, out hitObject, 30f, Layer);
-            var hits = Physics.RaycastAll(ray, 30f);//, Layer);
+            var hits = Physics.RaycastAll(ray, 30f, Layer);
             if (TargetedArea != null)
             {
                 Debug.DrawLine(ray.origin, TargetedArea.transform.position, Color.magenta);
             }
 
             //getcomponent ally play area to find the play area manager and it's owner
-            if (hits.Length > 0)
+            if (hits.Length == 1)
             {
-                var hitLayer = hits.ToList()?.FirstOrDefault(s => s.transform.gameObject.layer == Layer);
-                var slotComponent = hitLayer?.transform?.gameObject.GetComponent<AllySlotManager>();
-                if (slotComponent !=null)
+                var hitLayer = hits[0];
+                var slotComponent = hitLayer.transform.gameObject.GetComponent<AllySlotManager>();
+                if (slotComponent != null)
                 {
                     if (slotComponent.IsCurrentPlayerArea())
                     {
@@ -46,39 +47,50 @@ namespace Assets.Scripts.Integration.DragBehaviour
                     }
                 }
             }
-            //Debug.Info("asdasd");
             PlacementTarget = null;
-            //var card = BoardManager.GetCard(hits[i]);
-            //if (card != null && card.CardStats.GeneratedCardId != ControllingCard.CardStats.GeneratedCardId)
-            //{
-            //    if (TargetedCard != card)
-            //    {
-            //        //mouse enter
-            //    }
-            //    //IsOverATarget = true;
-            //    TargetedCard = card;
-            //    Debug.Log("hit card " + TargetedCard.CardStats.GeneratedCardId);
-            //}
-            //if (TargetedCard != null)
-            //{
-            //    //mouse exit
-            //    Debug.Log("exited card " + TargetedCard.CardStats.GeneratedCardId);
-            //    TargetedCard = null;
-            //}
+
         }
 
         public override void OnEndDrag()
         {
+            ReferencedCard.IsDragging = false;
+            var handHelper = ReferencedCard.CardManager.CardHandHelperComponent;
+            if (handHelper.HandSlotManager.ActiveCard != null)
+                handHelper.HandSlotManager.ActiveCard = null;
+
             if (PlacementTarget != null)
             {
                 ReferencedCard.CardManager.CardHandHelperComponent.HandSlotManager.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
+                //operation and dissolve.
+                //boardmanager to validate play
                 PlacementTarget.AddAllyCardLast(ReferencedCard);
-                ReferencedCard.CardManager.CardHandHelperComponent.ComponentEnabled = false;
+            }
+            else
+            {
+                ReferencedCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+                ReferencedCard.KillTweens();
+                ReferencedCard.CardViewObject.transform.DOMove(handHelper.handPosition, 0.35f).OnComplete(() =>
+                {
+                    ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
+                });
             }
         }
 
         public override void OnStartDrag()
         {
+            var handHelper = ReferencedCard.CardManager.CardHandHelperComponent;
+
+            ReferencedCard.IsDragging = true;
+            ReferencedCard.IsHovering = false;
+            ReferencedCard.CardViewObject.GetComponent<DragRotator>().enabled = true;
+            handHelper.HandSlotManager.ActiveCard = ReferencedCard;
+
+            ReferencedCard.KillTweens();
+
+            ReferencedCard.CardManager.PreviewVisual.Visual.enabled = false;
+            ReferencedCard.CardManager.CardVisual.Visual.enabled = true;
+            ReferencedCard.CardViewObject.transform.position = handHelper.handPosition;
+            ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
         }
 
         public override bool DragSuccessful()

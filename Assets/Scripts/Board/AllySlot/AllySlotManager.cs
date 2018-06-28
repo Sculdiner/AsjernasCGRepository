@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Assets.Scripts.Integration.DragBehaviour;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,10 +100,12 @@ public class AllySlotManager : MonoBehaviour
             if (AllyCards.Count < 8)
             {
                 clientSideCard.CardViewObject.GetComponent<CardHandHelperComponent>().enabled = false;
-                var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
-                allyComp.ReferencedCard = clientSideCard;
-                allyComp.enabled = true;
+                //var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
+                //allyComp.ReferencedCard = clientSideCard;
+                //allyComp.enabled = true;
                 AllyCards.Add(clientSideCard);
+                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerBoardDragBehaviour>();
+                //set followerboarddragbehavior draggingaction
                 UpdatePositions();
             }
         }
@@ -119,6 +122,7 @@ public class AllySlotManager : MonoBehaviour
                 allyComp.ReferencedCard = clientSideCard;
                 allyComp.enabled = true;
                 AllyCards.Insert(index, clientSideCard);
+                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerBoardDragBehaviour>();
                 UpdatePositions();
             }
         }

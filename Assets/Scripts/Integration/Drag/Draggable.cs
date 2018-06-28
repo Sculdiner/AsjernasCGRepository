@@ -73,7 +73,7 @@ public class Draggable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        actions?.OnDraggingInUpdate();
+        //actions?.OnDraggingInUpdate();
 
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //var hits = Physics.RaycastAll(ray, 30f, CardLayerMask);
@@ -155,7 +155,7 @@ public class Draggable : MonoBehaviour
         {
             OnMouseUpEvents.Invoke();
         }
-        actions.OnEndDrag();
+        actions?.OnEndDrag();
         //actions?.KillCurrentActions();
         //logic 
     }

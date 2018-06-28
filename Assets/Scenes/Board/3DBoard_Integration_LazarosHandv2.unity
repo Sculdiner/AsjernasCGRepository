@@ -2534,7 +2534,6 @@ GameObject:
   - component: {fileID: 905487593}
   - component: {fileID: 905487592}
   - component: {fileID: 905487591}
-  - component: {fileID: 905487590}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -2542,18 +2541,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &905487590
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 905487589}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &905487591
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2619,7 +2606,6 @@ GameObject:
   - component: {fileID: 914598597}
   - component: {fileID: 914598596}
   - component: {fileID: 914598595}
-  - component: {fileID: 914598594}
   m_Layer: 0
   m_Name: Backgroud
   m_TagString: Untagged
@@ -2627,18 +2613,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
   m_IsActive: 1
---- !u!65 &914598594
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 914598593}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &914598595
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7395,7 +7369,6 @@ GameObject:
   - component: {fileID: 2050959599}
   - component: {fileID: 2050959598}
   - component: {fileID: 2050959597}
-  - component: {fileID: 2050959596}
   m_Layer: 0
   m_Name: PlayArea
   m_TagString: Untagged
@@ -7403,18 +7376,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &2050959596
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2050959595}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2050959597
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10556,12 +10517,16 @@ Prefab:
     - target: {fileID: 65654758076403816, guid: c560da247f4133f4ebd591b5e79f303b,
         type: 2}
       propertyPath: m_Size.y
-      value: 26.25835
+      value: 1.7750502
       objectReference: {fileID: 0}
     - target: {fileID: 65654758076403816, guid: c560da247f4133f4ebd591b5e79f303b,
         type: 2}
       propertyPath: m_Center.y
-      value: 12.629175
+      value: 0.38752556
+      objectReference: {fileID: 0}
+    - target: {fileID: 4316385818031746, guid: c560da247f4133f4ebd591b5e79f303b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -6.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c560da247f4133f4ebd591b5e79f303b, type: 2}

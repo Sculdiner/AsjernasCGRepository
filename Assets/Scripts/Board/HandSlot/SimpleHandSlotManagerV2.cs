@@ -155,9 +155,8 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
                 clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
-                clientSideCard.CardManager.CardHandHelperComponent.ComponentEnabled = true;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
-                clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
+                //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
 
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Add(clientSideCard);
@@ -175,9 +174,8 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
                 clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
-                clientSideCard.CardManager.CardHandHelperComponent.ComponentEnabled = true;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
-                clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
+                //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Insert(index, clientSideCard);
                 //ApplyFullHandDisplayHoverEvents(clientSideCard);
@@ -195,7 +193,24 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
                 return;
 
             HandCards.Remove(card);
-            card.CardManager.CardHandHelperComponent.ComponentEnabled = false;
+            PlacementPosition? cardPosition = null;
+            lock (cardPositionDictionaryLocker)
+            {
+                foreach (var posKey in CurrentCardPositions.Keys)
+                {
+                    if (CurrentCardPositions[posKey].CardStats.GeneratedCardId == card.CardStats.GeneratedCardId)
+                    {
+                        cardPosition = posKey;
+                        break;
+                    }
+                    
+                }
+                if (cardPosition.HasValue)
+                {
+                    CurrentCardPositions.Remove(cardPosition.Value);
+                }
+            }
+            
             UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
         }
     }
@@ -209,7 +224,6 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
                 return;
 
             HandCards.Remove(card);
-            card.CardManager.CardHandHelperComponent.ComponentEnabled = false;
             //RemoveFullHandDisplayHoverEvents(card);
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>
             {
