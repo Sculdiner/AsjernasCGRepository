@@ -154,7 +154,9 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             if (HandCards.Count < 8)
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+                clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Add(clientSideCard);
                 //ApplyFullHandDisplayHoverEvents(clientSideCard);
@@ -170,7 +172,9 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             if (HandCards.Count < 8)
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+                clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Insert(index, clientSideCard);
                 //ApplyFullHandDisplayHoverEvents(clientSideCard);

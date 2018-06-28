@@ -60,8 +60,9 @@ GameObject:
   - component: {fileID: 114170589794136314}
   - component: {fileID: 114221341394053098}
   - component: {fileID: 114949368211996352}
-  - component: {fileID: 114623021177079928}
-  m_Layer: 5
+  - component: {fileID: 114848198613033588}
+  - component: {fileID: 114048239545147360}
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,6 +280,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114048239545147360
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719015079336544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f6e390ac896ca4a96837287ed03507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114170589794136314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,7 +343,7 @@ MonoBehaviour:
   Power: {fileID: 0}
   Health: {fileID: 0}
   ResourceCost: {fileID: 0}
-  CardHandHelperComponent: {fileID: 114623021177079928}
+  CardHandHelperComponent: {fileID: 114048239545147360}
   CardVisual: {fileID: 114803130215891982}
   PreviewVisual: {fileID: 114571680599235654}
   BoardVisual: {fileID: 114586742508783436}
@@ -359,18 +371,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Visual: {fileID: 23628997620360414}
---- !u!114 &114623021177079928
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1719015079336544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4f6e390ac896ca4a96837287ed03507, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HandSlotManager: {fileID: 0}
 --- !u!114 &114803130215891982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -383,6 +383,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Visual: {fileID: 23534946994974926}
+--- !u!114 &114848198613033588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719015079336544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edfb5a77fee50a4ebb2fb8fc8f51388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114949368211996352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -394,3 +405,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ae3d834ac10f24e83cd7884e4f71dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoardManager: {fileID: 0}
