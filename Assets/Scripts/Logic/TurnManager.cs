@@ -4,7 +4,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 // this class will take care of switching turns and counting down time until the turn expires
-public class TurnManager : MonoBehaviour {
+public class TurnManager : MonoBehaviour
+{
 
     private RopeTimer timer;
 
@@ -35,7 +36,7 @@ public class TurnManager : MonoBehaviour {
             }
             // remove highlights for opponent.
             whoseTurn.otherPlayer.HighlightPlayableCards(true);
-                
+
         }
     }
 
@@ -64,7 +65,7 @@ public class TurnManager : MonoBehaviour {
             p.TransmitInfoAboutPlayerToVisual();
             p.PArea.PDeck.CardsInDeck = p.deck.cards.Count;
             // move both portraits to the center
-            p.PArea.Portrait.transform.position = p.PArea.handVisual.OtherCardDrawSourceTransform.position;
+         //   p.PArea.Portrait.transform.position = p.PArea.handVisual.OtherCardDrawSourceTransform.position;
         }
 
         Sequence s = DOTween.Sequence();
@@ -74,17 +75,17 @@ public class TurnManager : MonoBehaviour {
         s.OnComplete(() =>
             {
                 // determine who starts the game.
-                int rnd = Random.Range(0,2);  // 2 is exclusive boundary
+                int rnd = Random.Range(0, 2);  // 2 is exclusive boundary
                 // Debug.Log(Player.Players.Length);
                 Player whoGoesFirst = Player.Players[rnd];
                 // Debug.Log(whoGoesFirst);
                 Player whoGoesSecond = whoGoesFirst.otherPlayer;
                 // Debug.Log(whoGoesSecond);
-         
+
                 // draw 4 cards for first player and 5 for second player
                 int initDraw = 4;
                 for (int i = 0; i < initDraw; i++)
-                {            
+                {
                     // second player draws a card
                     whoGoesSecond.DrawACard(true);
                     // first player draws a card

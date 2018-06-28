@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AsjernasCG.Common.BusinessModels.CardModels;
+using Assets.Scripts.Integration.DragBehaviour;
 using UnityEngine;
 
 public class Draggable : MonoBehaviour
@@ -13,7 +15,7 @@ public class Draggable : MonoBehaviour
     private bool IsOverATarget;
     private int CardLayerMask;
 
-    public void SetAction<T>() where T: DraggingActions
+    public void SetAction<T>() where T : DraggingActions
     {
         //what to do if the set action is called while a dragging operation takes place
         actions?.KillCurrentActions();
@@ -29,9 +31,39 @@ public class Draggable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //actions = GetComponent<DraggingActions>();
         CardLayerMask = LayerMask.GetMask("RaycastEligibleTargets");
         OnMouseUpEvents = () => { };
+        switch (ControllingCard.CardStats.CardType)
+        {
+            case CardType.Follower:
+                SetAction<FollowerCastDragBehaviour>();
+                break;
+            //case CardType.Equipment:
+            //    break;
+            //case CardType.Ability:
+            //    break;
+            //case CardType.Event:
+            //    break;
+            //case CardType.Character:
+            //    break;
+            //case CardType.Action:
+            //    break;
+            //case CardType.Location:
+            //    break;
+            //case CardType.Minion:
+            //    break;
+            //case CardType.Resource:
+            //    break;
+            //case CardType.Quest:
+            //    break;
+            //case CardType.Objective:
+            //    break;
+            //case CardType.Enviromental:
+            //    break;
+            default:
+                SetAction<FollowerCastDragBehaviour>();
+                break;
+        }
     }
 
     public ClientSideCard TargetedCard;
@@ -85,18 +117,16 @@ public class Draggable : MonoBehaviour
     public void OnMouseDown()
     {
         ControllingCard.IsUnderPlayerControl = true;
-        //actions.OnStartDrag();
         //translate the cubes position from the world to Screen Point
         screenSpace = Camera.main.WorldToScreenPoint(transform.position);
-
         //calculate any difference between the cubes world position and the mouses Screen position converted to a world point  
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
 
+        actions.OnStartDrag();
     }
 
     public void OnMouseDrag()
     {
-        //actions.OnDraggingInUpdate();
         //keep track of the mouse position
         var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
 
@@ -105,6 +135,8 @@ public class Draggable : MonoBehaviour
 
         //update the position of the object in the world
         transform.position = curPosition;
+
+        actions.OnDraggingInUpdate();
     }
 
     public Action OnMouseUpEvents;
@@ -122,6 +154,7 @@ public class Draggable : MonoBehaviour
             OnMouseUpEvents.Invoke();
         }
         actions.OnEndDrag();
+        actions?.KillCurrentActions();
         //logic 
     }
 

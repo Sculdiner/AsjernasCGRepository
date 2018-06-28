@@ -124,7 +124,7 @@ public class Player : MonoBehaviour, ICharacter
     {
         if (deck.cards.Count > 0)
         {
-            if (hand.CardsInHand.Count < PArea.handVisual.slots.Children.Length)
+            if (hand.CardsInHand.Count < 1)// PArea.handVisual.slots.Children.Length)
             {
                 // 1) save index to place a visual card into visual hand
                 int indexToPlaceACard = hand.CardsInHand.Count;
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour, ICharacter
 
     public void DrawACoin()
     {
-        if (hand.CardsInHand.Count < PArea.handVisual.slots.Children.Length)
+        if (hand.CardsInHand.Count < 1)//PArea.handVisual.slots.Children.Length)
         {
             // 1) logic: add card to hand
             CardLogic newCard = new CardLogic(GlobalSettings.Instance.CoinCard);

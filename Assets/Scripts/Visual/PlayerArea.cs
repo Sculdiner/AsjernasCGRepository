@@ -9,7 +9,7 @@ public class PlayerArea : MonoBehaviour
     public bool ControlsON = true;
     public PlayerDeckVisual PDeck;
     public ManaPoolVisual ManaBar;
-    public HandVisual handVisual;
+    //public HandVisual handVisual;
     public PlayerPortraitVisual Portrait;
     public HeroPowerButton HeroPower;
     public EndTurnButton EndTurnButton;

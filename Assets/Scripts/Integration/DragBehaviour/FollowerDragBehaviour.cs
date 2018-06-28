@@ -76,10 +76,15 @@ namespace Assets.Scripts.Integration.DragBehaviour
         {
         }
 
-        protected override bool DragSuccessful()
+        public override bool DragSuccessful()
         {
             //what are thoooooooose
             return true;
+        }
+
+        public override void KillCurrentActions()
+        {
+
         }
     }
 }

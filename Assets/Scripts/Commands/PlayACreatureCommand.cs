@@ -19,9 +19,9 @@ public class PlayACreatureCommand : Command
     public override void StartCommandExecution()
     {
         // remove and destroy the card in hand 
-        HandVisual PlayerHand = p.PArea.handVisual;
+        //HandVisual PlayerHand = p.PArea.handVisual;
         GameObject card = IDHolder.GetGameObjectWithID(cl.UniqueCardID);
-        PlayerHand.RemoveCard(card);
+      //  PlayerHand.RemoveCard(card);
         GameObject.Destroy(card);
         // enable Hover Previews Back
         HoverPreview.PreviewsAllowed = true;

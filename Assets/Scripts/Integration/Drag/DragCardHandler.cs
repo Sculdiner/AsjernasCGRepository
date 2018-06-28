@@ -9,11 +9,16 @@ public class DragCardHandler : DraggingActions
     private BoardManager BoardManager;
     private CardManager CardManager;
 
+    public DragCardHandler(ClientSideCard card) : base(card)
+    {
+
+    }
+
     // Use this for initialization
     void Start()
     {
-        BoardManager = GetComponent<BoardManager>();
-        CardManager = GetComponent<CardManager>();
+        //BoardManager = GetComponent<BoardManager>();
+        //CardManager = GetComponent<CardManager>();
     }
 
     // Update is called once per frame
@@ -68,10 +73,13 @@ public class DragCardHandler : DraggingActions
     }
 
     //check for drag area or invalid target of targetted spell and return truefalse to OnEndDrag
-    protected override bool DragSuccessful()
+    public override bool DragSuccessful()
     {
         //dummy
-        return true;       
+        return true;
     }
 
+    public override void KillCurrentActions()
+    {
+    }
 }

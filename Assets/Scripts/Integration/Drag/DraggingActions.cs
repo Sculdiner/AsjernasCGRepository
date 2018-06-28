@@ -15,10 +15,8 @@ public abstract class DraggingActions
 
     public abstract void OnDraggingInUpdate();
 
-    protected abstract bool DragSuccessful();
-    
-    public void KillCurrentActions() //abstract
-    {
+    public abstract bool DragSuccessful();
 
-    }
+    public abstract void KillCurrentActions();
+
 }
