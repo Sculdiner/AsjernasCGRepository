@@ -30,7 +30,10 @@ public class BoardManager : MonoBehaviour
             CurrentLocation = location,
             CardManager = gameObject.GetComponent<CardManager>()
         };
-        clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
+        if (location == CardLocation.Hand)
+        {
+            clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
+        }
 
         var partState = ParticipatorReferenceCollection[userId];
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();

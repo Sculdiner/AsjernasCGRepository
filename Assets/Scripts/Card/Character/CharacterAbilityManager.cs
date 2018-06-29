@@ -11,7 +11,9 @@ public class CharacterAbilityManager : SerializedMonoBehaviour
     public Transform PositionSlot1;
     public Transform PositionSlot2;
 
-    public List<AbilityCardManager> Abilities = new List<AbilityCardManager>();
+    public Material DefaultAbilityMaterial;
+
+    public List<ClientSideCard> Abilities = new List<ClientSideCard>();
 
     public void UpdatePositions()
     {
@@ -31,8 +33,20 @@ public class CharacterAbilityManager : SerializedMonoBehaviour
         }
     }
 
-    public void Move(AbilityCardManager allyCardManager, Transform position)
+
+    public void AddAbility(ClientSideCard abilityToAdd)
     {
-        allyCardManager.transform.position = position.position;
+        abilityToAdd.CardManager.CardVisual.Visual.enabled = false;
+        abilityToAdd.CardManager.PreviewVisual.Visual.enabled = false;
+        abilityToAdd.CardManager.BoardVisual.Visual.enabled = true;
+
+        Abilities.Add(abilityToAdd);
+        UpdatePositions();
+    }
+
+    public void Move(ClientSideCard abilityCardManager, Transform position)
+    {
+
+       // abilityCardManager.transform.position = position.position;
     }
 }

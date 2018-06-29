@@ -11,5 +11,8 @@ public class CharacterManager : MonoBehaviour
     public CharacterEquipmentManager CharacterEquipmentManager;
     public CharacterAbilityManager CharacterAbilityManager;
 
-
+    private void Awake()
+    {
+        //Debug.Log(this.)
+    }
 }

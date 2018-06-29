@@ -44,7 +44,6 @@ public class CardHandHelperComponent : MonoBehaviour
             Card.IsHovering = true;
 
             Card.CardManager.CardVisual.Visual.enabled = false;
-
             Card.CardManager.PreviewVisual.Visual.enabled = true;
             Card.CardManager.PreviewVisual.gameObject.transform.position = previewPosition;
             AnimationOnEnd(Card);

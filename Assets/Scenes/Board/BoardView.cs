@@ -320,6 +320,7 @@ public class BoardView : View
     public EncounterSlotManager EncounterSlotManager;
     public AllySlotManager LeftPlayerAllySlotManager;
     public AllySlotManager RightPlayerAllySlotManager;
+    public CharacterSlotManager CharacterSlotManager;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class EquipmentCardManager : MonoBehaviour
+public class AbilitySlot : MonoBehaviour
 {
-    public ClientSideCard Card;
+    public Transform SlotTransform;
+    public BoxCollider BoxColliderInformation;
 }

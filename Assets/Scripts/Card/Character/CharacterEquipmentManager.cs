@@ -12,7 +12,7 @@ public class CharacterEquipmentManager : SerializedMonoBehaviour
     [OdinSerialize]
     public Dictionary<PlacementPosition, Transform> PositionalSlots;
 
-    private List<EquipmentCardManager> Equipments = new List<EquipmentCardManager>();
+    private List<ClientSideCard> Equipments = new List<ClientSideCard>();
 
     public void UpdatePositions()
     {
@@ -38,9 +38,9 @@ public class CharacterEquipmentManager : SerializedMonoBehaviour
     }
 
 
-    public void SetCardPositionSlot(EquipmentCardManager cardManager, PlacementPosition position)
+    public void SetCardPositionSlot(ClientSideCard cardManager, PlacementPosition position)
     {
         var slot = PositionalSlots[position];
-        cardManager.transform.position = slot.position;
+        //cardManager.transform.position = slot.position;
     }
 }
