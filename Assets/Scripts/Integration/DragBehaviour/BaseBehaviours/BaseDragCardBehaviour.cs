@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using AsjernasCG.Common.BusinessModels.CardModels;
 using UnityEngine;
 
-public class BaseDragCardBehaviour : DraggingActions
+public abstract class BaseDragCardBehaviour : DraggingActions
 {
     public ClientSideCard ControllingCard { get; set; }
     private GameObject Card { get; set; }

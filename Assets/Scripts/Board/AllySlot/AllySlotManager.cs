@@ -103,7 +103,7 @@ public class AllySlotManager : MonoBehaviour
                 //allyComp.ReferencedCard = clientSideCard;
                 //allyComp.enabled = true;
                 AllyCards.Add(clientSideCard);
-                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerDragBehaviour>();
+                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerTargetingBehaviour>();
                 //set followerboarddragbehavior draggingaction
                 UpdatePositions();
             }

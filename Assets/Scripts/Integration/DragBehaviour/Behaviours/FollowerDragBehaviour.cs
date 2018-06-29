@@ -17,6 +17,7 @@ public class FollowerDragBehaviour : BaseDragCardBehaviour
 
     public FollowerDragBehaviour(ClientSideCard card) : base(card)
     {
+      
     }
 
     public override void OnDraggingInUpdate()

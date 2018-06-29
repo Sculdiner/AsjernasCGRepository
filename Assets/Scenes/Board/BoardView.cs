@@ -19,12 +19,14 @@ public class BoardView : View
         //var model = BoardTransitionHelper.Instance.GameInitializationModel;
         BoardManager.RegisterPlayer(1);
         BoardManager.RegisterPlayer(2);
-
-        //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
         RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1001, CardTemplateId = 3 });
         RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1002, CardTemplateId = 4 });
         RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
         RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1004, CardTemplateId = 4 });
+
+
+        //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
+
         //RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
         //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
         //RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
