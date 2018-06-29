@@ -40,20 +40,11 @@ public class BoardManager : MonoBehaviour
 
     public ClientSideCard RegisterPlayerCard(GameObject gameObject, int cardTemplateId, CardLocation location, int userId)
     {
-        var clientSideCard = new ClientSideCard()
-        {
-            CardStats = MasterCardManager.GetNewCardInstance(cardTemplateId),
-            CardViewObject = gameObject,
-            CurrentLocation = location
-        };
-        clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
-        var partState = ParticipatorReferenceCollection[userId];
-        var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
-        gameObject.GetComponent<Draggable>().ControllingCard = clientSideCard;
-        return RegisterCard(clientSideCard, eventHandling, partState);
+        var cardInstance = MasterCardManager.GetNewCardInstance(cardTemplateId);
+        return RegisterPlayerCard(gameObject, cardInstance, location, userId);
     }
 
-    public ClientSideCard RegisterCard(ClientSideCard card, ClientSideCardEvents eventHandling, ParticipatorState participatorState)
+    private ClientSideCard RegisterCard(ClientSideCard card, ClientSideCardEvents eventHandling, ParticipatorState participatorState)
     {
         card.ParticipatorState = participatorState;
         card.Events = eventHandling;
