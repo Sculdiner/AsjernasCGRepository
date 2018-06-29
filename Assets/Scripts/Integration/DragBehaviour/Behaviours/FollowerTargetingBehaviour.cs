@@ -8,17 +8,18 @@ using UnityEngine;
 
 //FollowerCastDragBehaviour
 //FollowerBoardDragBehaviour
-public class FollowerBoardDragBehaviour : DraggingActions
+public class FollowerTargetingBehaviour : BaseTargetingCardBehaviour
 {
     public int Layer => LayerMask.GetMask("RaycastEligibleTargets");
     public GameObject TargetedArea { get; private set; }
 
-    public FollowerBoardDragBehaviour(ClientSideCard card) : base(card)
+    public FollowerTargetingBehaviour(ClientSideCard card) : base(card)
     {
     }
 
     public override void OnDraggingInUpdate()
     {
+        base.OnDraggingInUpdate();
         //Debug.DrawLine(transform.position, t, Color.green);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -49,6 +50,7 @@ public class FollowerBoardDragBehaviour : DraggingActions
 
     public override void OnEndDrag()
     {
+        base.OnEndDrag();
         //ReferencedCard.IsDragging = false;
         //var handHelper = ReferencedCard.CardManager.CardHandHelperComponent;
         //if (handHelper.HandSlotManager.ActiveCard != null)
@@ -74,6 +76,7 @@ public class FollowerBoardDragBehaviour : DraggingActions
 
     public override void OnStartDrag()
     {
+        base.OnStartDrag();
         //var handHelper = ReferencedCard.CardManager.CardHandHelperComponent;
 
         //ReferencedCard.IsDragging = true;

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Integration.DragBehaviour;
-using DG.Tweening;
+﻿using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,7 +103,7 @@ public class AllySlotManager : MonoBehaviour
                 //allyComp.ReferencedCard = clientSideCard;
                 //allyComp.enabled = true;
                 AllyCards.Add(clientSideCard);
-                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerBoardDragBehaviour>();
+                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerDragBehaviour>();
                 //set followerboarddragbehavior draggingaction
                 UpdatePositions();
             }
@@ -122,7 +121,7 @@ public class AllySlotManager : MonoBehaviour
                 allyComp.ReferencedCard = clientSideCard;
                 allyComp.enabled = true;
                 AllyCards.Insert(index, clientSideCard);
-                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerBoardDragBehaviour>();
+                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerDragBehaviour>();
                 UpdatePositions();
             }
         }
