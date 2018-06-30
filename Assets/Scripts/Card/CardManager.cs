@@ -20,9 +20,8 @@ public class CardManager : MonoBehaviour
     public Text ResourceCost;
     public BaseCardTemplate InitialTemplate;
     public CardHandHelperComponent CardHandHelperComponent;
-    public CardVisualComponent CardVisual;
-    public CardVisualComponent PreviewVisual;
-    public CardVisualComponent BoardVisual;
+    public VisualStateManager VisualStateManager;
+
     public bool CanBePlayed() { return true; }
 
     public void SetInitialTemplate(BaseCardTemplate template)

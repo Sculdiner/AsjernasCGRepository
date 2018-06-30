@@ -43,9 +43,8 @@ public class CardHandHelperComponent : MonoBehaviour
         {
             Card.IsHovering = true;
 
-            Card.CardManager.CardVisual.Visual.enabled = false;
-            Card.CardManager.PreviewVisual.Visual.enabled = true;
-            Card.CardManager.PreviewVisual.gameObject.transform.position = previewPosition;
+            Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Preview);
+            Card.CardManager.VisualStateManager.State.gameObject.transform.position = previewPosition;
             AnimationOnEnd(Card);
         }
     }
@@ -68,10 +67,9 @@ public class CardHandHelperComponent : MonoBehaviour
             Card.IsHovering = false;
 
             //Card.CardViewObject.transform.position = handPosition;
-            Card.CardManager.PreviewVisual.gameObject.transform.DOMove(handPosition, 0.15f).SetEase(Ease.OutQuad, 0.5f, 0).OnComplete(() =>
+            Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(handPosition, 0.15f).SetEase(Ease.OutQuad, 0.5f, 0).OnComplete(() =>
             {
-                Card.CardManager.PreviewVisual.enabled = false;
-                Card.CardManager.CardVisual.Visual.enabled = true;
+                Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
                 Card.CardViewObject.transform.position = handPosition;
                 Card.CardViewObject.transform.rotation = handRotation;
             });
@@ -90,9 +88,9 @@ public class CardHandHelperComponent : MonoBehaviour
         card.DoTweenTweening = null;
         var sequance = DOTween.Sequence();
         card.DoTweenSequence = sequance;
-        sequance.Append(Card.CardManager.PreviewVisual.gameObject.transform.DOMove(previewPosition + new Vector3(0, 0, 0.025f), 1f));// SetEase(Ease.OutCirc, 0.5f, 0);
-        sequance.Append(Card.CardManager.PreviewVisual.gameObject.transform.DOMove(previewPosition + new Vector3(0, 0, 0.05f), 1f));
-        sequance.Append(Card.CardManager.PreviewVisual.gameObject.transform.DOMove(previewPosition - new Vector3(0, 0, 0.03f), 4f));//.SetEase(Ease.InCubic, 0.5f, 0);
+        sequance.Append(Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(previewPosition + new Vector3(0, 0, 0.025f), 1f));// SetEase(Ease.OutCirc, 0.5f, 0);
+        sequance.Append(Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(previewPosition + new Vector3(0, 0, 0.05f), 1f));
+        sequance.Append(Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(previewPosition - new Vector3(0, 0, 0.03f), 4f));//.SetEase(Ease.InCubic, 0.5f, 0);
         sequance.OnComplete(() => { card.DoTweenSequence = null; });
     }
 
@@ -108,8 +106,7 @@ public class CardHandHelperComponent : MonoBehaviour
         Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
         //card.CardViewObject.GetComponent<BoxCollider>().enabled = false;
         Card.KillTweens();
-        Card.CardManager.PreviewVisual.Visual.enabled = false;
-        Card.CardManager.CardVisual.Visual.enabled = true;
+        Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
         Card.CardViewObject.transform.position = handPosition;
         Card.CardViewObject.transform.rotation = handRotation;
     }

@@ -90,8 +90,8 @@ public class FollowerDragBehaviour : BaseDragCardBehaviour
 
         ReferencedCard.KillTweens();
 
-        ReferencedCard.CardManager.PreviewVisual.Visual.enabled = false;
-        ReferencedCard.CardManager.CardVisual.Visual.enabled = true;
+        ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+        
         ReferencedCard.CardViewObject.transform.position = handHelper.handPosition;
         ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
     }

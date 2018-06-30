@@ -36,9 +36,7 @@ public class CharacterAbilityManager : SerializedMonoBehaviour
 
     public void AddAbility(ClientSideCard abilityToAdd)
     {
-        abilityToAdd.CardManager.CardVisual.Visual.enabled = false;
-        abilityToAdd.CardManager.PreviewVisual.Visual.enabled = false;
-        abilityToAdd.CardManager.BoardVisual.Visual.enabled = true;
+        abilityToAdd.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Ability);
 
         Abilities.Add(abilityToAdd);
         UpdatePositions();
