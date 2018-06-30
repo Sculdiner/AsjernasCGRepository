@@ -31,6 +31,7 @@ public abstract class BaseDragCardBehaviour : DraggingActions
     //glow targets etc depending on card type and targetting types
     public override void OnStartDrag()
     {
+        ControllingCard.KillTweens();
         ControllingCard.IsUnderPlayerControl = true;
         //translate the cubes position from the world to Screen Point
         screenSpace = Camera.main.WorldToScreenPoint(Card.transform.position);

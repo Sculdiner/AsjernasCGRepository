@@ -15,7 +15,12 @@ public class BoardManager : MonoBehaviour
     private PlayerState TeammatePlayerState;
     private AIState AiState;
     public CameraShake CameraShake;
-
+    public static BoardManager Instance;
+    public ClientSideCard ActiveCard;
+    public void Start()
+    {
+        Instance = this;
+    }
 
     public BoardManager()
     {
@@ -29,13 +34,13 @@ public class BoardManager : MonoBehaviour
         {
             CardStats = card,
             CardViewObject = gameObject,
-            CurrentLocation = location,
             CardManager = gameObject.GetComponent<CardManager>()
         };
-        if (location == CardLocation.Hand)
-        {
-            clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
-        }
+        clientSideCard.SetLocation(location);
+        //if (location == CardLocation.Hand)
+        //{
+        //    clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
+        //}
 
         var partState = ParticipatorReferenceCollection[userId];
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
@@ -54,7 +59,6 @@ public class BoardManager : MonoBehaviour
         card.ParticipatorState = participatorState;
         card.Events = eventHandling;
         card.Events.ControllingCard = card;
-        card.CardViewObject.GetComponent<Draggable>().BoardManager = this;
         card.CardViewObject.name = card.CardStats.GeneratedCardId.ToString();
         CardReferenceCollection.RegisterCardToGame(card);
         if (participatorState is PlayerState)

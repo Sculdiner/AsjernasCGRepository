@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public enum CardVisualState
 {
+    None = -1,
     Card = 0,
     Preview = 1,
     Follower = 2,

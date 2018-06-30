@@ -32,33 +32,12 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
         HandCards = new List<ClientSideCard>();
     }
 
-    //private void ChangedEnabledColliders(CollidersPosition enabledColliders)
-    //{
-    //    if (enabledColliders == CollidersPosition.Even)
-    //    {
-    //        foreach (var dictKey in HandSlotPositionContainer.EvenSlots.Keys)
-    //        {
-    //            HandSlotPositionContainer.EvenSlots[dictKey].CardGhostCollider.enabled = true;
-    //        }
-    //        foreach (var dictKey in HandSlotPositionContainer.OddSlots.Keys)
-    //        {
-    //            HandSlotPositionContainer.OddSlots[dictKey].CardGhostCollider.enabled = false;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        foreach (var dictKey in HandSlotPositionContainer.OddSlots.Keys)
-    //        {
-    //            HandSlotPositionContainer.OddSlots[dictKey].CardGhostCollider.enabled = true;
-    //        }
-    //        foreach (var dictKey in HandSlotPositionContainer.EvenSlots.Keys)
-    //        {
-    //            HandSlotPositionContainer.EvenSlots[dictKey].CardGhostCollider.enabled = false;
-    //        }
-    //    }
-    //}
+    public void RefreshHandPositions(Ease easingFunction, float animationCompletionTime)
+    {
+        UpdatePositions(easingFunction, animationCompletionTime, false);
+    }
 
-    public void UpdatePositions(Ease easingFunction, float animationCompletionTime)
+    private void UpdatePositions(Ease easingFunction, float animationCompletionTime, bool nextActionOnEnd = true)
     {
         var currentRunningCardAnimation = DOTween.Sequence();
 
@@ -68,7 +47,7 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             {
                 foreach (var posKey in CurrentCardPositions.Keys)
                 {
-                    CurrentCardPositions[posKey].CardManager.CardHandHelperComponent.ResetPositionToNormal_Immediate();
+                    CurrentCardPositions[posKey].HoverComponent.ForceKillHover();// CardHandHelperComponent.ResetPositionToNormal_Immediate();
                 }
             }
             CurrentCardPositions = new Dictionary<PlacementPosition, ClientSideCard>();
@@ -132,18 +111,20 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
                 break;
         }
 
-
-        if (HandCards.Count > 0)
+        if (nextActionOnEnd)
         {
-            currentRunningCardAnimation.OnComplete(() =>
+            if (HandCards.Count > 0)
             {
-                PhotonEngine.CompletedAction("Handslot");
-            });
-        }
-        else
-        {
+                currentRunningCardAnimation.OnComplete(() =>
+                {
+                    PhotonEngine.CompletedAction("Handslot");
+                });
+            }
+            else
+            {
 
-            PhotonEngine.CompletedAction("Handslot");
+                PhotonEngine.CompletedAction("Handslot");
+            }
         }
     }
 
@@ -154,7 +135,7 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             if (HandCards.Count < 8)
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
-                clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
+                //clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
 
@@ -173,7 +154,7 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             if (HandCards.Count < 8)
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
-                clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
+                //clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
@@ -253,9 +234,9 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
         var yIndexAddition = (float)(indexInHand * (0.01));
         var originalPosition = HandSlotPositionContainer.OddSlots[oddPosition].position;
         var vector = new Vector3(originalPosition.x, originalPosition.y + yIndexAddition, originalPosition.z);
-        card.CardManager.CardHandHelperComponent.StoreDesignatedHandPositionAndRotation(vector, Quaternion.Euler(Vector3.zero));
-        card.CardManager.CardHandHelperComponent.StoreDesignatedPreviewPosition(HandSlotPreviewPositionContainer.Slots[oddPosition].position);
-        seq.Insert(0, cardTrans.transform.DOMove(vector, animationCompletionTime));
+        card.HoverComponent.ForcePreHoveringPositionAndRotation(vector, Quaternion.Euler(Vector3.zero));
+        card.HoverComponent.ForceHoveringPositionAndRotation(HandSlotPreviewPositionContainer.Slots[oddPosition].position, Quaternion.Euler(Vector3.zero));
+        seq.Insert(0, cardTrans.transform.DOMove(vector, animationCompletionTime).OnComplete(()=> { cardTrans.transform.rotation = Quaternion.Euler(Vector3.zero); }));
     }
 
     private void MoveToEven(ClientSideCard card, PlacementPosition evenPosition, Sequence seq, Ease easingFunction, float animationCompletionTime, int indexInHand)
@@ -273,9 +254,9 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
         var yIndexAddition = (float)(indexInHand * (0.01));
         var originalPosition = HandSlotPositionContainer.EvenSlots[evenPosition].position;
         var vector = new Vector3(originalPosition.x, originalPosition.y + yIndexAddition, originalPosition.z);
-        card.CardManager.CardHandHelperComponent.StoreDesignatedHandPositionAndRotation(vector, Quaternion.Euler(Vector3.zero));
-        card.CardManager.CardHandHelperComponent.StoreDesignatedPreviewPosition(HandSlotPreviewPositionContainer.Slots[evenPosition].position);
-        seq.Insert(0, cardTrans.transform.DOMove(vector, animationCompletionTime));
+        card.HoverComponent.ForcePreHoveringPositionAndRotation(vector, Quaternion.Euler(Vector3.zero));
+        card.HoverComponent.ForceHoveringPositionAndRotation(HandSlotPreviewPositionContainer.Slots[evenPosition].position, Quaternion.Euler(Vector3.zero));
+        seq.Insert(0, cardTrans.transform.DOMove(vector, animationCompletionTime).OnComplete(() => { cardTrans.transform.rotation = Quaternion.Euler(Vector3.zero); }));
     }
 
     public ClientSideCard GetCardInPosition(PlacementPosition position)

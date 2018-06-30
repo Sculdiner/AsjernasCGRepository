@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class EventDragBehaviour : BaseDragCardBehaviour
+
+public class EventTargetingBehaviour : BaseTargetingCardBehaviour
 {
-    public EventDragBehaviour(ClientSideCard card) : base(card)
+    public EventTargetingBehaviour(ClientSideCard card) : base(card)
     {
     }
 
@@ -28,11 +29,17 @@ public class EventDragBehaviour : BaseDragCardBehaviour
     public override void OnEndDrag()
     {
         base.OnEndDrag();
+        ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
     }
 
     public override void OnStartDrag()
     {
         base.OnStartDrag();
+        ReferencedCard.IsDragging = true;
+        ReferencedCard.IsHovering = false;
+        BoardManager.Instance.ActiveCard = ReferencedCard;
+        ReferencedCard.HoverComponent.ForceKillHover();
+        ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
     }
 }
 

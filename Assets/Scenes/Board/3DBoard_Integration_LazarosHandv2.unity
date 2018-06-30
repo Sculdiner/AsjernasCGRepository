@@ -871,8 +871,8 @@ MonoBehaviour:
   Power: {fileID: 0}
   Health: {fileID: 0}
   ResourceCost: {fileID: 0}
-  CardHandHelperComponent: {fileID: 0}
   VisualStateManager: {fileID: 0}
+  TargetingGizmo: {fileID: 0}
 --- !u!1 &260827568
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +907,6 @@ MonoBehaviour:
   MasterCardManager: {fileID: 917470793}
   BoardManager: {fileID: 731265203}
   HandPlacement: {fileID: 1887578975}
-  HandSlotManager: {fileID: 0}
   HandSlotManagerV2: {fileID: 2039626691}
   EncounterSlotManager: {fileID: 1603375312}
   LeftPlayerAllySlotManager: {fileID: 1787777553}
@@ -3985,6 +3984,7 @@ MonoBehaviour:
   Player1Character2Manager: {fileID: 119161624}
   Player2Character1Manager: {fileID: 1134942484}
   Player2Character2Manager: {fileID: 1452953829}
+  EquipmentInitialPosition: {fileID: 0}
 --- !u!114 &1187032242
 MonoBehaviour:
   m_ObjectHideFlags: 0

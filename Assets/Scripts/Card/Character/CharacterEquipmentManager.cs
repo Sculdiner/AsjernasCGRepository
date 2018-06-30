@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
+using DG.Tweening;
 using EZCameraShake;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
@@ -43,10 +44,11 @@ public class CharacterEquipmentManager : SerializedMonoBehaviour
     {
         if (Equipments.Count < 3)
         {
-            Destroy(equipment.CardViewObject.gameObject.GetComponent<CardHandHelperComponent>());
+            equipment.SetLocation(CardLocation.PlayArea);
             Destroy(equipment.CardViewObject.gameObject.GetComponent<DragRotator>());
             Destroy(equipment.CardViewObject.gameObject.GetComponent<Draggable>());
-            equipment.CardManager.CardHandHelperComponent.HandSlotManager.RemoveCard(equipment.CardStats.GeneratedCardId);
+
+            BoardView.Instance.HandSlotManagerV2.RemoveCard(equipment.CardStats.GeneratedCardId);
             equipment.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Equipment);
             equipment.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
             Equipments.Add(equipment);

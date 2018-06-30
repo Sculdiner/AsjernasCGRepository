@@ -9,8 +9,11 @@ using UnityEngine.UI;
 
 public class BoardView : View
 {
+    public static BoardView Instance;
+
     private void Start()
     {
+        Instance = this;
         Controller = new BoardController(this);
         //try
         //{
@@ -33,19 +36,22 @@ public class BoardView : View
 
         PhotonEngine.AddToQueue("CardDraw", () =>
          {
-             var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 1);
+             //Event with target
+             var cardPrefab = MasterCardManager.GenerateCardPrefab(10, 1);
              var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(1).InitialTemplate, CardLocation.Hand, 1);
              HandSlotManagerV2.AddCardLast(card);
          });
         PhotonEngine.AddToQueue("CardDraw", () =>
         {
-            var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 2);
+            //Follower
+            var cardPrefab = MasterCardManager.GenerateCardPrefab(2, 2);
             var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(2).InitialTemplate, CardLocation.Hand, 1);
             HandSlotManagerV2.AddCardLast(card);
         });
 
         PhotonEngine.AddToQueue("CardDraw", () =>
         {
+            //Equipemnt
             var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 3);
             var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(3).InitialTemplate, CardLocation.Hand, 1);
             HandSlotManagerV2.AddCardLast(card);
@@ -53,6 +59,7 @@ public class BoardView : View
 
         PhotonEngine.AddToQueue("CardDraw", () =>
         {
+            //Equipemnt
             var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 4);
             var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(4).InitialTemplate, CardLocation.Hand, 1);
             HandSlotManagerV2.AddCardLast(card);
@@ -60,6 +67,7 @@ public class BoardView : View
 
         PhotonEngine.AddToQueue("CardDraw", () =>
         {
+            //Equipemnt
             var cardPrefab = MasterCardManager.GenerateCardPrefab(1, 5);
             var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(5).InitialTemplate, CardLocation.Hand, 1);
             HandSlotManagerV2.AddCardLast(card);
@@ -67,7 +75,7 @@ public class BoardView : View
 
         PhotonEngine.AddToQueue("Equipemnt", () =>
         {
-            var card = BoardManager.GetCard(5);
+            var card = BoardManager.GetCard(3);
             CharacterSlotManager.Player1Character1Manager.CharacterEquipmentManager.AddEquipment(card);
         });
 
@@ -78,7 +86,7 @@ public class BoardView : View
         });
         PhotonEngine.AddToQueue("Equipemnt", () =>
         {
-            var card = BoardManager.GetCard(3);
+            var card = BoardManager.GetCard(5);
             CharacterSlotManager.Player1Character1Manager.CharacterEquipmentManager.AddEquipment(card);
         });
         //PhotonEngine.AddToQueue("CardDraw", () =>
@@ -304,12 +312,10 @@ public class BoardView : View
     private CharacterManager RegisterStartingCharacter(int userId, DetailedCardModel character)
     {
         var obj = MasterCardManager.GenerateCardPrefab(character.CardTemplateId, character.GeneratedCardId);
-        Destroy(obj.GetComponent<CardHandHelperComponent>());
         Destroy(obj.GetComponent<DragRotator>());
         var cardTemplate = obj.GetComponent<CardManager>().InitialTemplate;
         var clientSideCharacterCard = BoardManager.RegisterPlayerCard(obj, cardTemplate, CardLocation.PlayArea, userId);
         var characterManager = CharacterSlotManager.InitializeCharacter(clientSideCharacterCard);
-        GameObject.Destroy(characterManager.GetComponent<CardHandHelperComponent>());
         return characterManager;
     }
 
@@ -336,7 +342,6 @@ public class BoardView : View
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
     public HandVisual_Int HandPlacement;
-    public SimpleHandSlotManager HandSlotManager;
     public SimpleHandSlotManagerV2 HandSlotManagerV2;
     public EncounterSlotManager EncounterSlotManager;
     public AllySlotManager LeftPlayerAllySlotManager;
