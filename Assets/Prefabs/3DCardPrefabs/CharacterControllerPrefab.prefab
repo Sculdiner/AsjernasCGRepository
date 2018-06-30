@@ -308,7 +308,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870669416237920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.045, y: -0.625, z: 0.07}
+  m_LocalPosition: {x: 1.953, y: -0.588, z: -1.855}
   m_LocalScale: {x: 0.8, y: 0.02, z: 1.2}
   m_Children:
   - {fileID: 4259472216977774}
@@ -855,12 +855,7 @@ MonoBehaviour:
   Health: {fileID: 0}
   ResourceCost: {fileID: 0}
   CardHandHelperComponent: {fileID: 0}
-  CardVisual: {fileID: 0}
-  PreviewVisual: {fileID: 0}
-  BoardVisual: {fileID: 0}
-  EquipmentVisual: {fileID: 0}
-  AbilityVisual: {fileID: 0}
-  CharacterVisual: {fileID: 0}
+  VisualStateManager: {fileID: 0}
 --- !u!114 &114649554648833522
 MonoBehaviour:
   m_ObjectHideFlags: 1

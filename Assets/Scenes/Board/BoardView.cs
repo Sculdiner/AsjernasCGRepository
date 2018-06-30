@@ -161,12 +161,12 @@ public class BoardView : View
         //     RightPlayerAllySlotManager.AddAllyCardToPosition(card, 1);
         // });
 
-        //PhotonEngine.AddToQueue("EncounterCard", () =>
-        //{
-        //    var cardPrefab7 = MasterCardManager.GenerateCardPrefab(1, 107);
-        //    BoardManager.RegisterPlayerCard(cardPrefab7, MasterCardManager.GetCardManager(107).InitialTemplate, CardLocation.Hand, 1);
-        //    EncounterSlotManager.AddEncounterCardToASlot(BoardManager.GetCard(cardPrefab7));
-        //});
+        PhotonEngine.AddToQueue("EncounterCard", () =>
+        {
+            var cardPrefab7 = MasterCardManager.GenerateCardPrefab(1, 107);
+            BoardManager.RegisterPlayerCard(cardPrefab7, MasterCardManager.GetCardManager(107).InitialTemplate, CardLocation.Hand, 1);
+            EncounterSlotManager.AddEncounterCardToASlot(BoardManager.GetCard(cardPrefab7));
+        });
         //PhotonEngine.AddToQueue("EncounterCard", () =>
         //{
         //    var cardPrefab8 = MasterCardManager.GenerateCardPrefab(1, 108);
