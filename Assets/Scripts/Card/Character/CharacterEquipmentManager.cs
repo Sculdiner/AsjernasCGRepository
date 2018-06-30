@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿using DG.Tweening;
+using EZCameraShake;
+using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System;
 using System.Collections.Generic;
@@ -10,37 +12,82 @@ using UnityEngine;
 public class CharacterEquipmentManager : SerializedMonoBehaviour
 {
     [OdinSerialize]
-    public Dictionary<PlacementPosition, Transform> PositionalSlots;
+    public Dictionary<PlacementPosition, BoxCollider> PositionalSlots;
 
     private List<ClientSideCard> Equipments = new List<ClientSideCard>();
 
-    public void UpdatePositions()
+    public void UpdatePositions(bool newEquipmentAdded)
     {
         switch (Equipments.Count)
         {
             case 0:
                 break;
             case 1:
-                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft);
+                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, newEquipmentAdded);
                 break;
             case 2:
-                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft);
-                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle);
+                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, false);
+                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle, newEquipmentAdded);
                 break;
             case 3:
-                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft);
-                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle);
-                SetCardPositionSlot(Equipments[2], PlacementPosition.OddMiddleRight);
+                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, false);
+                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle, false);
+                SetCardPositionSlot(Equipments[2], PlacementPosition.OddMiddleRight, newEquipmentAdded);
                 break;
             default:
                 break;
         }
     }
 
+    public bool AddEquipment(ClientSideCard equipment)
+    {
+        if (Equipments.Count < 3)
+        {
+            Destroy(equipment.CardViewObject.gameObject.GetComponent<CardHandHelperComponent>());
+            Destroy(equipment.CardViewObject.gameObject.GetComponent<DragRotator>());
+            Destroy(equipment.CardViewObject.gameObject.GetComponent<Draggable>());
+            equipment.CardManager.CardHandHelperComponent.HandSlotManager.RemoveCard(equipment.CardStats.GeneratedCardId);
+            equipment.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Equipment);
+            equipment.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
+            Equipments.Add(equipment);
+            UpdatePositions(true);
+            
+            return true;
+        }
+        return false;
+    }
 
-    public void SetCardPositionSlot(ClientSideCard cardManager, PlacementPosition position)
+    public bool RemoveEquipment(int equipmentGeneratedCardId)
+    {
+        var eq = Equipments.FirstOrDefault(s => s.CardStats.GeneratedCardId == equipmentGeneratedCardId);
+        if (eq == null)
+            return false;
+        Equipments.Remove(eq);
+        eq.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+        eq.CardViewObject.SetActive(false);
+        var boxCollider = eq.CardViewObject.GetComponent<BoxCollider>();
+        boxCollider.center = new Vector3(0, 0, 0);
+        boxCollider.size = new Vector3(1, 1, 1);
+        UpdatePositions(false);
+        return true;
+    }
+
+    private void SetCardPositionSlot(ClientSideCard cardManager, PlacementPosition position, bool tween)
     {
         var slot = PositionalSlots[position];
-        //cardManager.transform.position = slot.position;
+        if (tween)
+        {
+            cardManager.CardViewObject.transform.DOMove(slot.transform.position, 1f).SetEase(Ease.InExpo).OnComplete(() =>
+            {
+                CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
+            });
+        }
+        else
+        {
+            cardManager.CardViewObject.transform.position = slot.transform.position;
+        }
+        var boxCollider = cardManager.CardViewObject.GetComponent<BoxCollider>();
+        boxCollider.center = new Vector3(slot.center.x, slot.center.y, slot.center.z);
+        boxCollider.size = new Vector3(slot.size.x, slot.size.y, slot.size.z);
     }
 }

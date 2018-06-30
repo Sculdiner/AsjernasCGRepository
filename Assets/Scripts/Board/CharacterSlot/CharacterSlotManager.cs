@@ -7,8 +7,47 @@ using UnityEngine;
 
 public class CharacterSlotManager : MonoBehaviour
 {
-    public Transform Player1CharacterLeft;
-    public Transform Player1CharacterRight;
-    public Transform Player2CharacterLeft;
-    public Transform Player2CharacterRight;
+    public CharacterManager Player1Character1Manager;
+    public CharacterManager Player1Character2Manager;
+    public CharacterManager Player2Character1Manager;
+    public CharacterManager Player2Character2Manager;
+    public Transform EquipmentInitialPosition;
+
+    public CharacterManager InitializeCharacter(ClientSideCard card)
+    {
+        if (Player1Character1Manager.CardManager == null)
+        {
+            Player1Character1Manager.CardManager = card.CardManager;
+            SetCharacterPosition(Player1Character1Manager);
+            return Player1Character1Manager;
+        }
+        else if (Player1Character2Manager.CardManager == null)
+        {
+            Player1Character2Manager.CardManager = card.CardManager;
+            SetCharacterPosition(Player1Character2Manager);
+            return Player1Character2Manager;
+        }
+        else if (Player2Character1Manager.CardManager == null)
+        {
+            Player2Character1Manager.CardManager = card.CardManager;
+            SetCharacterPosition(Player2Character1Manager);
+            return Player2Character1Manager;
+        }
+        else if (Player2Character2Manager.CardManager == null)
+        {
+            Player2Character2Manager.CardManager = card.CardManager;
+            SetCharacterPosition(Player2Character2Manager);
+            return Player2Character2Manager;
+        }
+        else
+        {
+            throw new Exception();
+        }
+    }
+
+    public void SetCharacterPosition(CharacterManager character)
+    {
+        character.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Character);
+        character.CardManager.transform.position = character.transform.position;
+    }
 }

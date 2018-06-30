@@ -8,11 +8,26 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public CardManager CardManager;
+    public BoxCollider ColliderInformation;
     public CharacterEquipmentManager CharacterEquipmentManager;
     public CharacterAbilityManager CharacterAbilityManager;
 
-    private void Awake()
+    public void SetCharacter(ClientSideCard card)
     {
-        //Debug.Log(this.)
+        card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Character);
+        card.CardViewObject.transform.position = this.gameObject.transform.position;
+        CardManager = card.CardManager;
+
+        CardManager.CharacterManager = this;
+    }
+
+    public bool SetEquipment(ClientSideCard equipment)
+    {
+        return CharacterEquipmentManager.AddEquipment(equipment);
+    }
+
+    public bool SetAbility(ClientSideCard ability)
+    {
+        return false;
     }
 }

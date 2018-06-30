@@ -21,7 +21,7 @@ public class CardManager : MonoBehaviour
     public BaseCardTemplate InitialTemplate;
     public CardHandHelperComponent CardHandHelperComponent;
     public VisualStateManager VisualStateManager;
-
+    public CharacterManager CharacterManager { get; set; }
     public bool CanBePlayed() { return true; }
 
     public void SetInitialTemplate(BaseCardTemplate template)

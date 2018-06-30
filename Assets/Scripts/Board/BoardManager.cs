@@ -14,6 +14,8 @@ public class BoardManager : MonoBehaviour
     private PlayerState CurrentUserPlayerState;
     private PlayerState TeammatePlayerState;
     private AIState AiState;
+    public CameraShake CameraShake;
+
 
     public BoardManager()
     {

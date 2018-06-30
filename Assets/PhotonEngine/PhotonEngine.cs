@@ -1,5 +1,6 @@
 ﻿using AsjernasCG.Common.ClientEventCodes;
 using ExitGames.Client.Photon;
+using EZCameraShake;
 using System;
 using System.Collections;
 using System.Collections.Generic;
