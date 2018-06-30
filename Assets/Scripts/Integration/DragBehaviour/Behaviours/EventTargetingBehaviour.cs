@@ -24,6 +24,7 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
     public override void OnDraggingInUpdate()
     {
         base.OnDraggingInUpdate();
+
     }
 
     public override void OnEndDrag()

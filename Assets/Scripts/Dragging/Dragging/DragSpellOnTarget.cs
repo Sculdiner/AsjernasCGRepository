@@ -2,7 +2,8 @@
 //using System.Collections;
 //using DG.Tweening;
 
-//public class DragSpellOnTarget : DraggingActions {
+//public class DragSpellOnTarget : DraggingActions
+//{
 
 //    public TargetingOptions Targets = TargetingOptions.AllCharacters;
 //    private SpriteRenderer sr;
@@ -37,16 +38,16 @@
 //        // This code only draws the arrow
 //        Vector3 notNormalized = transform.position - transform.parent.position;
 //        Vector3 direction = notNormalized.normalized;
-//        float distanceToTarget = (direction*2.3f).magnitude;
+//        float distanceToTarget = (direction * 2.3f).magnitude;
 //        if (notNormalized.magnitude > distanceToTarget)
 //        {
 //            // draw a line between the creature and the target
-//            lr.SetPositions(new Vector3[]{ transform.parent.position, transform.position - direction*2.3f });
+//            lr.SetPositions(new Vector3[] { transform.parent.position, transform.position - direction * 2.3f });
 //            lr.enabled = true;
 
 //            // position the end of the arrow between near the target.
 //            triangleSR.enabled = true;
-//            triangleSR.transform.position = transform.position - 1.5f*direction;
+//            triangleSR.transform.position = transform.position - 1.5f * direction;
 
 //            // proper rotarion of arrow end
 //            float rot_z = Mathf.Atan2(notNormalized.y, notNormalized.x) * Mathf.Rad2Deg;
@@ -66,9 +67,9 @@
 //        Target = null;
 //        RaycastHit[] hits;
 //        // TODO: raycast here anyway, store the results in 
-//        hits = Physics.RaycastAll(origin: Camera.main.transform.position, 
-//            direction: (-Camera.main.transform.position + this.transform.position).normalized, 
-//            maxDistance: 30f) ;
+//        hits = Physics.RaycastAll(origin: Camera.main.transform.position,
+//            direction: (-Camera.main.transform.position + this.transform.position).normalized,
+//            maxDistance: 30f);
 
 //        foreach (RaycastHit h in hits)
 //        {
@@ -89,7 +90,7 @@
 //        if (Target != null)
 //        {
 //            // determine an owner of this card
-//            Player owner = null; 
+//            Player owner = null;
 //            if (tag.Contains("Low"))
 //                owner = GlobalSettings.Instance.LowPlayer;
 //            else
@@ -99,7 +100,7 @@
 //            int targetID = Target.GetComponent<IDHolder>().UniqueID;
 //            switch (Targets)
 //            {
-//                case TargetingOptions.AllCharacters: 
+//                case TargetingOptions.AllCharacters:
 //                    owner.PlayASpellFromHand(GetComponentInParent<IDHolder>().UniqueID, targetID);
 //                    targetValid = true;
 //                    break;

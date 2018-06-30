@@ -36,14 +36,18 @@ public class Draggable : MonoBehaviour
         switch (ControllingCard.CardStats.CardType)
         {
             case CardType.Follower:
-                SetAction<FollowerDragBehaviour>();
+                //SetAction<FollowerDragBehaviour>();
                 break;
             //case CardType.Equipment:
             //    break;
             //case CardType.Ability:
             //    break;
-            //case CardType.Event:
-            //    break;
+            case CardType.Event:
+                if (ControllingCard.CardStats.CastType == CardCastType.Field)
+                    SetAction<EventDragBehaviour>();
+                else if (ControllingCard.CardStats.CastType == CardCastType.Target)
+                    SetAction<EventTargetingBehaviour>();
+                break;
             //case CardType.Character:
             //    break;
             //case CardType.Action:
@@ -61,7 +65,8 @@ public class Draggable : MonoBehaviour
             //case CardType.Enviromental:
             //    break;
             default:
-                SetAction<FollowerDragBehaviour>();
+                SetAction<EventTargetingBehaviour>();
+                //SetAction<FollowerDragBehaviour>();
                 break;
         }
     }
