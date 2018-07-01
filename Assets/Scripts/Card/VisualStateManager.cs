@@ -41,6 +41,15 @@ public class VisualStateManager : MonoBehaviour
     {
         switch (newState)
         {
+            case CardVisualState.None:
+                Preview.Hide();
+                Follower.Hide();
+                Equipment.Hide();
+                Ability.Hide();
+                Character.Hide();
+                Card.Hide();
+                _state = Card;
+                return Card;
             case CardVisualState.Card:
                 Preview.Hide();
                 Follower.Hide();

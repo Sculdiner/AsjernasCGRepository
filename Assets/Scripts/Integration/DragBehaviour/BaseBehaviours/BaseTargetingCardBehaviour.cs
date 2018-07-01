@@ -8,15 +8,30 @@ using UnityEngine;
 
 public class BaseTargetingCardBehaviour : DraggingActions
 {
-    public ClientSideCard ControllingCard { get; set; }
-    private GameObject Card { get; set; }
+    private LineRenderer TargetingGizmo;
     private Vector3 screenSpace;
-    protected LineRenderer Lr { get; set; }
     public BaseTargetingCardBehaviour(ClientSideCard card) : base(card)
     {
-        ControllingCard = card;
-        Card = card.CardViewObject;
-        Lr = Card.GetComponentInChildren<LineRenderer>();
+        TargetingGizmo = card.CardManager.TargetingGizmo;
+    }
+
+    public override void OnStartDrag()
+    {
+        TargetingGizmo.enabled = true;
+        screenSpace = Camera.main.WorldToScreenPoint(ReferencedCard.CardViewObject.transform.position);
+        TargetingGizmo.SetPosition(0, ReferencedCard.CardViewObject.transform.position);
+        TargetingGizmo.SetPosition(1, ReferencedCard.CardViewObject.transform.position);
+    }
+
+    public override void OnDraggingInUpdate()
+    {
+        var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
+        TargetingGizmo.SetPosition(1, Camera.main.ScreenToWorldPoint(curScreenSpace));
+    }
+
+    public override void OnEndDrag()
+    {
+        TargetingGizmo.enabled = false;
     }
 
     public override bool DragSuccessful()
@@ -26,29 +41,6 @@ public class BaseTargetingCardBehaviour : DraggingActions
 
     public override void KillCurrentActions()
     {
-
-    }
-
-    public override void OnDraggingInUpdate()
-    {
-        var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z);
-        var curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace);
-        Lr.SetPositions(new Vector3[] { curPosition });
-    }
-
-    public override void OnEndDrag()
-    {
-        RaycastHit[] hits;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        hits = Physics.RaycastAll(ray, 30f, LayerMask.GetMask("RaycastEligibleTargets"));
-    }
-
-    public override void OnStartDrag()
-    {
-        ControllingCard.IsUnderPlayerControl = true;
-        screenSpace = Camera.main.WorldToScreenPoint(Card.transform.position);
-        ApplyDelayAndDissolve();
-
     }
 
     //this may be handled by the effect itself instead

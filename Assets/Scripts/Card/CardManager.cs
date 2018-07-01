@@ -19,8 +19,9 @@ public class CardManager : MonoBehaviour
     public Text Health;
     public Text ResourceCost;
     public BaseCardTemplate InitialTemplate;
-    public CardHandHelperComponent CardHandHelperComponent;
+    //public CardHandHelperComponent CardHandHelperComponent;
     public VisualStateManager VisualStateManager;
+    public LineRenderer TargetingGizmo;
     public CharacterManager CharacterManager { get; set; }
     public bool CanBePlayed() { return true; }
 

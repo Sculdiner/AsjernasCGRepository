@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class EventDragBehaviour : BaseDragCardBehaviour
+public class EventCastDragBehaviour : BaseDragCardBehaviour
 {
-    public EventDragBehaviour(ClientSideCard card) : base(card)
+    public EventCastDragBehaviour(ClientSideCard card) : base(card)
     {
     }
 

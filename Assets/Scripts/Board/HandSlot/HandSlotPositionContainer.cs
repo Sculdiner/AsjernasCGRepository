@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class HandSlotPositionContainer : SerializedMonoBehaviour
-{
-    [OdinSerialize]
-    public Dictionary<PlacementPosition, HandSlotWithCollider> OddSlots;
-    [OdinSerialize]
-    public Dictionary<PlacementPosition, HandSlotWithCollider> EvenSlots;
-}
+//public class HandSlotPositionContainer : SerializedMonoBehaviour
+//{
+//    [OdinSerialize]
+//    public Dictionary<PlacementPosition, HandSlotWithCollider> OddSlots;
+//    [OdinSerialize]
+//    public Dictionary<PlacementPosition, HandSlotWithCollider> EvenSlots;
+//}

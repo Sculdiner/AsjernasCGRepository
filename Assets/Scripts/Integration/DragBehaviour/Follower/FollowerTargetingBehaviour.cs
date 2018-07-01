@@ -15,11 +15,7 @@ public class FollowerTargetingBehaviour : BaseTargetingCardBehaviour
 
     public FollowerTargetingBehaviour(ClientSideCard card) : base(card)
     {
-        var comp = card.CardViewObject.GetComponent<CardHandHelperComponent>();
-        if (comp!=null)
-        {
-            GameObject.Destroy(comp);
-        }
+
     }
 
     public override void OnDraggingInUpdate()

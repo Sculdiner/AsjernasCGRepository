@@ -9,13 +9,13 @@ using UnityEngine;
 
 //FollowerCastDragBehaviour
 //FollowerBoardDragBehaviour
-public class FollowerDragBehaviour : BaseDragCardBehaviour
+public class FollowerCastDragBehaviour : BaseDragCardBehaviour
 {
     public int Layer => LayerMask.GetMask("AllyPlayArea");
     public GameObject TargetedArea { get; private set; }
     private AllySlotManager PlacementTarget;
 
-    public FollowerDragBehaviour(ClientSideCard card) : base(card)
+    public FollowerCastDragBehaviour(ClientSideCard card) : base(card)
     {
       
     }
@@ -56,13 +56,12 @@ public class FollowerDragBehaviour : BaseDragCardBehaviour
     {
         base.OnEndDrag();
         ReferencedCard.IsDragging = false;
-        var handHelper = ReferencedCard.CardManager.CardHandHelperComponent;
-        if (handHelper.HandSlotManager.ActiveCard != null)
-            handHelper.HandSlotManager.ActiveCard = null;
+        var handHelper = BoardView.Instance.HandSlotManagerV2;
+        BoardManager.Instance.ActiveCard = null;
 
         if (PlacementTarget != null)
         {
-            ReferencedCard.CardManager.CardHandHelperComponent.HandSlotManager.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
+            handHelper.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
             //operation and dissolve.
             //boardmanager to validate play
             PlacementTarget.AddAllyCardLast(ReferencedCard);
@@ -71,29 +70,29 @@ public class FollowerDragBehaviour : BaseDragCardBehaviour
         {
             ReferencedCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
             ReferencedCard.KillTweens();
-            ReferencedCard.CardViewObject.transform.DOMove(handHelper.handPosition, 0.35f).OnComplete(() =>
-            {
-                ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
-            });
+            handHelper.RefreshHandPositions(Ease.Linear, .35f);
+            //ReferencedCard.CardViewObject.transform.DOMove(handHelper.handPosition, 0.35f).OnComplete(() =>
+            //{
+            //    ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
+            //});
         }
     }
 
     public override void OnStartDrag()
     {
         base.OnStartDrag();
-        var handHelper = ReferencedCard.CardManager.CardHandHelperComponent;
 
         ReferencedCard.IsDragging = true;
         ReferencedCard.IsHovering = false;
         ReferencedCard.CardViewObject.GetComponent<DragRotator>().enabled = true;
-        handHelper.HandSlotManager.ActiveCard = ReferencedCard;
-
-        ReferencedCard.KillTweens();
+        BoardManager.Instance.ActiveCard = ReferencedCard;
 
         ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
-        
-        ReferencedCard.CardViewObject.transform.position = handHelper.handPosition;
-        ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
+
+        ReferencedCard.HoverComponent.ForceKillHover();
+
+        //ReferencedCard.CardViewObject.transform.position = handHelper.handPosition;
+        //ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
     }
 
     public override bool DragSuccessful()

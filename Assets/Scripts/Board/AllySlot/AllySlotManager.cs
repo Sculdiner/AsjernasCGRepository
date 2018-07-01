@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,10 +99,10 @@ public class AllySlotManager : MonoBehaviour
         {
             if (AllyCards.Count < 8)
             {
-                clientSideCard.CardViewObject.GetComponent<CardHandHelperComponent>().enabled = false;
                 //var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
                 //allyComp.ReferencedCard = clientSideCard;
                 //allyComp.enabled = true;
+                clientSideCard.SetLocation(CardLocation.PlayArea);
                 AllyCards.Add(clientSideCard);
                 clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerTargetingBehaviour>();
                 //set followerboarddragbehavior draggingaction
@@ -116,12 +117,12 @@ public class AllySlotManager : MonoBehaviour
         {
             if (AllyCards.Count < 8)
             {
-                clientSideCard.CardViewObject.GetComponent<CardHandHelperComponent>().enabled = false;
+                clientSideCard.SetLocation(CardLocation.PlayArea);
                 var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
                 allyComp.ReferencedCard = clientSideCard;
                 allyComp.enabled = true;
                 AllyCards.Insert(index, clientSideCard);
-                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerDragBehaviour>();
+                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerCastDragBehaviour>();
                 UpdatePositions();
             }
         }
