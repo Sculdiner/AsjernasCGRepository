@@ -69,4 +69,10 @@ public class DragRotator : MonoBehaviour
         //logic for hand or collider on board/target
     }
 
+
+    public void DisableRotator()
+    {
+        Reset();
+        this.enabled = false;
+    }
 }

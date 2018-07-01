@@ -16,6 +16,7 @@ public class CharacterEquipmentManager : SerializedMonoBehaviour
     public Dictionary<PlacementPosition, BoxCollider> PositionalSlots;
 
     private List<ClientSideCard> Equipments = new List<ClientSideCard>();
+    private readonly object equipmentLocker = new object();
 
     public void UpdatePositions(bool newEquipmentAdded)
     {
@@ -42,36 +43,42 @@ public class CharacterEquipmentManager : SerializedMonoBehaviour
 
     public bool AddEquipment(ClientSideCard equipment)
     {
-        if (Equipments.Count < 3)
+        lock (equipmentLocker)
         {
-            equipment.SetLocation(CardLocation.PlayArea);
-            Destroy(equipment.CardViewObject.gameObject.GetComponent<DragRotator>());
-            Destroy(equipment.CardViewObject.gameObject.GetComponent<Draggable>());
+            if (Equipments.Count < 3)
+            {
+                equipment.CardViewObject.GetComponent<Draggable>().SetAction<NoDragBehaviour>();
+                equipment.SetLocation(CardLocation.PlayArea);
+                equipment.CardViewObject.gameObject.GetComponent<DragRotator>().DisableRotator();
 
-            BoardView.Instance.HandSlotManagerV2.RemoveCard(equipment.CardStats.GeneratedCardId);
-            equipment.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Equipment);
-            equipment.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
-            Equipments.Add(equipment);
-            UpdatePositions(true);
-            
-            return true;
+                BoardView.Instance.HandSlotManagerV2.RemoveCard(equipment.CardStats.GeneratedCardId);
+                equipment.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Equipment);
+                equipment.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
+                Equipments.Add(equipment);
+                UpdatePositions(true);
+
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     public bool RemoveEquipment(int equipmentGeneratedCardId)
     {
-        var eq = Equipments.FirstOrDefault(s => s.CardStats.GeneratedCardId == equipmentGeneratedCardId);
-        if (eq == null)
-            return false;
-        Equipments.Remove(eq);
-        eq.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
-        eq.CardViewObject.SetActive(false);
-        var boxCollider = eq.CardViewObject.GetComponent<BoxCollider>();
-        boxCollider.center = new Vector3(0, 0, 0);
-        boxCollider.size = new Vector3(1, 1, 1);
-        UpdatePositions(false);
-        return true;
+        lock (equipmentLocker)
+        {
+            var eq = Equipments.FirstOrDefault(s => s.CardStats.GeneratedCardId == equipmentGeneratedCardId);
+            if (eq == null)
+                return false;
+            Equipments.Remove(eq);
+            eq.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+            eq.CardViewObject.SetActive(false);
+            var boxCollider = eq.CardViewObject.GetComponent<BoxCollider>();
+            boxCollider.center = new Vector3(0, 0, 0);
+            boxCollider.size = new Vector3(1, 1, 1);
+            UpdatePositions(false);
+            return true;
+        }
     }
 
     private void SetCardPositionSlot(ClientSideCard cardManager, PlacementPosition position, bool tween)

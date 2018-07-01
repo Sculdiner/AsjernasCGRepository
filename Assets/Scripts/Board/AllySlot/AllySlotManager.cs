@@ -103,6 +103,7 @@ public class AllySlotManager : MonoBehaviour
                 //allyComp.ReferencedCard = clientSideCard;
                 //allyComp.enabled = true;
                 clientSideCard.SetLocation(CardLocation.PlayArea);
+                clientSideCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Follower);
                 AllyCards.Add(clientSideCard);
                 clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerTargetingBehaviour>();
                 //set followerboarddragbehavior draggingaction
@@ -118,6 +119,7 @@ public class AllySlotManager : MonoBehaviour
             if (AllyCards.Count < 8)
             {
                 clientSideCard.SetLocation(CardLocation.PlayArea);
+                clientSideCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Follower);
                 var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
                 allyComp.ReferencedCard = clientSideCard;
                 allyComp.enabled = true;

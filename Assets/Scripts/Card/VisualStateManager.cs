@@ -8,7 +8,7 @@ using UnityEngine;
 public class VisualStateManager : MonoBehaviour
 {
     public Material CardImage;
-
+    public CardManager ControllingCardManager;
     public CardVisualComponent Card;
     public CardVisualComponent Preview;
     public CardVisualComponent Follower;
@@ -17,7 +17,7 @@ public class VisualStateManager : MonoBehaviour
     public CardVisualComponent Character;
 
     private CardVisualComponent _state;
-    public CardVisualComponent State { get { return _state; } }
+    public CardVisualComponent CurrentState { get { return _state; } }
 
     public void Awake()
     {
@@ -37,8 +37,9 @@ public class VisualStateManager : MonoBehaviour
     }
 
 
-    public CardVisualComponent ChangeVisual(CardVisualState newState)
+    public void ChangeVisual(CardVisualState newState)
     {
+        Debug.Log($"Switching visual to: {newState.ToString()}");
         switch (newState)
         {
             case CardVisualState.None:
@@ -49,7 +50,7 @@ public class VisualStateManager : MonoBehaviour
                 Character.Hide();
                 Card.Hide();
                 _state = Card;
-                return Card;
+                break;
             case CardVisualState.Card:
                 Preview.Hide();
                 Follower.Hide();
@@ -58,7 +59,7 @@ public class VisualStateManager : MonoBehaviour
                 Character.Hide();
                 Card.Show();
                 _state = Card;
-                return Card;
+                break;
             case CardVisualState.Preview:
                 Card.Hide();
                 Preview.Show();
@@ -67,7 +68,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability.Hide();
                 Character.Hide();
                 _state = Preview;
-                return Preview;
+                break;
             case CardVisualState.Follower:
                 Card.Hide();
                 Preview.Hide();
@@ -76,7 +77,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability.Hide();
                 Character.Hide();
                 _state = Follower;
-                return Follower;
+                break;
             case CardVisualState.Ability:
                 Card.Hide();
                 Preview.Hide();
@@ -85,7 +86,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability.Show();
                 Character.Hide();
                 _state = Ability;
-                return Ability;
+                break;
             case CardVisualState.Equipment:
                 Card.Hide();
                 Preview.Hide();
@@ -94,7 +95,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability.Hide();
                 Character.Hide();
                 _state = Equipment;
-                return Equipment;
+                break;
             case CardVisualState.Character:
                 Card.Hide();
                 Preview.Hide();
@@ -103,9 +104,10 @@ public class VisualStateManager : MonoBehaviour
                 Ability.Hide();
                 Character.Show();
                 _state = Character;
-                return Character;
+                break;
             default:
                 throw new Exception();
         }
+        CurrentState.UpdateVisual(ControllingCardManager.Template);
     }
 }

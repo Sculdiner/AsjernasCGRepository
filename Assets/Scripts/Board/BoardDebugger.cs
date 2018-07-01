@@ -27,7 +27,7 @@ public class BoardDebugger : MonoBehaviour
     {
         var id = GetNewPrefabId();
         var prefab = MasterCardManager.GenerateCardPrefab(1, id);
-        return BoardManager.RegisterPlayerCard(prefab, MasterCardManager.GetCardManager(7).InitialTemplate, CardLocation.Hand, 1);
+        return BoardManager.RegisterPlayerCard(prefab, MasterCardManager.GetCardManager(7).Template, CardLocation.Hand, 1);
     }
 
     //public void EncounterCard()
