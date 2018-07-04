@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +19,15 @@ public class HandHoverBehaviour : HoverActions
         {
             Card.KillTweens();
 
-            Card.IsHovering = false;
-
-            Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(PreHoverPosition.Value, 0.15f).SetEase(Ease.OutQuad, 0.5f, 0).OnComplete(() =>
+            Card.CardManager.VisualStateManager.CurrentState.gameObject.transform.DOMove(PreHoverPosition.Value, 0.15f).SetEase(Ease.OutQuad, 0.5f, 0).OnComplete(() =>
             {
-                Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
-                Card.CardViewObject.transform.position = PreHoverPosition.Value;
-                Card.CardViewObject.transform.rotation = PreHoverRotation.Value;
+                if (Card.CurrentLocation == CardLocation.Hand && Card.IsHovering)
+                {
+                    Card.IsHovering = false;
+                    Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+                    Card.CardViewObject.transform.position = PreHoverPosition.Value;
+                    Card.CardViewObject.transform.rotation = PreHoverRotation.Value;
+                }
             });
             Card.CardViewObject.transform.rotation = PreHoverRotation.Value;
         }
@@ -40,20 +43,24 @@ public class HandHoverBehaviour : HoverActions
             Card.IsHovering = true;
 
             Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Preview);
-            Card.CardManager.VisualStateManager.State.gameObject.transform.position = HoverPosition.Value;
+            Card.CardManager.VisualStateManager.CurrentState.gameObject.transform.position = HoverPosition.Value;
             AnimationOnEnd();
         }
     }
 
+    //Changes visual to card
     public override void OnImmediateKill()
     {
         Card.IsHovering = false;
-        Card.IsDragging = false;    
-        Card.CardViewObject.GetComponent<DragRotator>().enabled = false;
+        Card.IsDragging = false;
+        Card.CardViewObject.GetComponent<DragRotator>().DisableRotator();
         Card.KillTweens();
-        Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
-        Card.CardViewObject.transform.position = PreHoverPosition.Value;
-        Card.CardViewObject.transform.rotation = PreHoverRotation.Value;
+        if (Card.CurrentLocation == CardLocation.Hand)
+        {
+            Card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+        }
+        //Card.CardViewObject.transform.position = PreHoverPosition.Value;
+        //Card.CardViewObject.transform.rotation = PreHoverRotation.Value;
     }
 
     private void AnimationOnEnd()
@@ -61,9 +68,9 @@ public class HandHoverBehaviour : HoverActions
         Card.DoTweenTweening = null;
         var sequance = DOTween.Sequence();
         Card.DoTweenSequence = sequance;
-        sequance.Append(Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(HoverPosition.Value + new Vector3(0, 0, 0.025f), 1f));// SetEase(Ease.OutCirc, 0.5f, 0);
-        sequance.Append(Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(HoverPosition.Value + new Vector3(0, 0, 0.05f), 1f));
-        sequance.Append(Card.CardManager.VisualStateManager.State.gameObject.transform.DOMove(HoverPosition.Value - new Vector3(0, 0, 0.03f), 4f));//.SetEase(Ease.InCubic, 0.5f, 0);
+        sequance.Append(Card.CardManager.VisualStateManager.CurrentState.gameObject.transform.DOMove(HoverPosition.Value + new Vector3(0, 0, 0.025f), 1f));// SetEase(Ease.OutCirc, 0.5f, 0);
+        sequance.Append(Card.CardManager.VisualStateManager.CurrentState.gameObject.transform.DOMove(HoverPosition.Value + new Vector3(0, 0, 0.05f), 1f));
+        sequance.Append(Card.CardManager.VisualStateManager.CurrentState.gameObject.transform.DOMove(HoverPosition.Value - new Vector3(0, 0, 0.03f), 4f));//.SetEase(Ease.InCubic, 0.5f, 0);
         sequance.OnComplete(() => { Card.DoTweenSequence = null; });
     }
 }

@@ -8,7 +8,7 @@ public class ClientSideCard
     public GameObject CardViewObject { get; set; }
     public CardManager CardManager { get; set; }
     public ClientSideCardEvents Events { get; set; }
-    public BaseCardTemplate CardStats { get; set; }
+    public ClientCardTemplate CardStats { get; set; }
     public ParticipatorState ParticipatorState { get; set; }
     public CardLocation CurrentLocation { get; private set; }
     public bool IsUnderPlayerControl { get; set; }
@@ -16,20 +16,26 @@ public class ClientSideCard
     public bool IsDragging { get; set; }
     public Vector3 LastPosition { get; set; }
     public Hoverable HoverComponent { get; set; }
-    public void SetLocation(CardLocation location)
+    /// <summary>
+    /// IMPORTANT: the following forces the card to CardVisual if the location is set to hand
+    /// </summary>
+    /// <param name="location"></param>
+    public void SetLocation(CardLocation location) 
     {
+        CurrentLocation = location;
+
         if (HoverComponent == null)
         {
             HoverComponent = CardViewObject.gameObject.AddComponent<Hoverable>();
             HoverComponent.ControllingCard = this;
         }
+        //warning: the following forces the card to CardVisual if the location is Hand
+        HoverComponent.ForceKillHover();
 
         if (location == CardLocation.Hand)
             HoverComponent.SetAction<HandHoverBehaviour>();
         else
             HoverComponent.SetAction<BoardHoverBehaviour>();
-
-        CurrentLocation = location;
     }
     public Sequence DoTweenSequence { get; set; }
     public Tween DoTweenTweening { get; set; }

@@ -17,20 +17,11 @@ public abstract class BaseDragCardBehaviour : DraggingActions
         Card = card.CardViewObject;
     }
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
     //Called in OnMouseDown of Draggable
     //glow targets etc depending on card type and targetting types
     public override void OnStartDrag()
     {
+        ControllingCard.CardViewObject.GetComponent<DragRotator>().enabled = true;
         ControllingCard.KillTweens();
         ControllingCard.IsUnderPlayerControl = true;
         //translate the cubes position from the world to Screen Point
@@ -57,6 +48,7 @@ public abstract class BaseDragCardBehaviour : DraggingActions
     //called in OnMouseUp in Draggable
     public override void OnEndDrag()
     {
+        ControllingCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
         ControllingCard.IsUnderPlayerControl = false;
         if (DragSuccessful())
         {

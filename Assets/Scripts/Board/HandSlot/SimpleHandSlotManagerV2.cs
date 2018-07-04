@@ -136,7 +136,7 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
                 //clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
-                clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
 
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
@@ -155,7 +155,7 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
             {
                 //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
                 //clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
-                clientSideCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+                clientSideCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 HandCards.Insert(index, clientSideCard);

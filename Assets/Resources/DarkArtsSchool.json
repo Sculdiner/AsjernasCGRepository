@@ -6,18 +6,23 @@
     "CardText": "Encounter a random discarded minion, with 1 HP remaining. Gain progress equal to it's Threat Level.", //It gains 'Undead', we don't need to type this here
     "Traits": "Event",
     "Colors": [ "Black" ],
-    "CardImage": "speakwithdead.jpg",
+    "ImagePath": "speakwithdead",
     "Quantity": 2
   },
   { "CardTemplateId":1,
-    "CardName": "Dusk Scion's Skull",
+    "CardName": "Scion's Skull",
     "CardType": 1,
     "BaseResourceCost": 0,
     "CardText": "Whenever attached character kills a minion, lose durability equal to it's Power. On Death: Summon Dusk Scion",
     "Durability": "8",
     "Traits": "Equipment - Item",
     "Colors": [ "Black" ],
-    "CardImage": "duskscionskull.jpg",
+    "ImagePath": "duskscionskull",
+	
+	"CastType" : 2,
+	"CastTargetOwningType" : 1,
+	"CastValidTargets" : [0],
+	
     "Quantity": 1
   },
   { "CardTemplateId":2,
@@ -30,7 +35,7 @@
     "Traits": "Ally - Follower",
     "Threat": 10,
     "Colors": [ "Black" ],
-    "CardImage": "dusk_scion.jpg",
+    "ImagePath": "dusk_scion",
     "DontIncludeInMainDeck": true,
     "IsGeneratedByCard": "Dusk Scion's Skull"
   },
@@ -45,7 +50,7 @@
     "Flags": ["Arcane"],
     "Colors": [ "Black" ],
     "Setup": true,
-    "CardImage": "Arastel.jpg"
+    "ImagePath": "Arastel"
   },
   { "CardTemplateId":4,
     "CardName": "Nizoth, Rotten Prince",
@@ -58,7 +63,7 @@
     "Flags": [],
     "Colors": [ "Black" ],
     "Setup": true,
-    "CardImage": "Nizzoth.jpg"
+    "ImagePath": "Nizzoth"
   },
   //{ "CardTemplateId":0,
   //  "CardName": "Golden Thread",
@@ -74,7 +79,7 @@
     "CardText": "The first time each round a minion dies, you may discard a card and draw 1.",
     "Traits": "Equipment - Item",
     "Colors": [ "Black" ],
-    "CardImage": "deathseer.jpg",
+    "ImagePath": "deathseer",
     "Quantity": 2
   },
   { "CardTemplateId":6,
@@ -86,7 +91,7 @@
     "CardText": "If you have discarded more than 5 Black cards Bone Blade gains Indestructible (attacking doesn't cause durability loss).",
     "Traits": "Equipment - Item",
     "Colors": [ "Black" ],
-    "CardImage": "bone_blade.jpg",
+    "ImagePath": "bone_blade",
     "Quantity": 1
   },
   { "CardTemplateId":7,
@@ -96,7 +101,7 @@
     "CardText": "Whenever you discard a card, heal 1 from the lowest health character.",
     "Traits": "Equipment - Item",
     "Colors": [ "Black" ],
-    "CardImage": "cauldronofblood.jpg",
+    "ImagePath": "cauldronofblood",
     "Quantity": 2
   },
   { "CardTemplateId":8,
@@ -110,7 +115,7 @@
     "CardText": "On Entry:  Discard a card. On Death: Return the discarded card to your hand.",
     "Traits": "Ally - Follower",
     "Colors": [ "Black" ],
-    "CardImage": "pact_imp.jpg",
+    "ImagePath": "pact_imp",
     "Quantity": 2
   },
   { "CardTemplateId":9,
@@ -122,7 +127,7 @@
     "CardText": "Whenever equipped character deals damage to a minion, it gets -1 Initiative. It can't attack him this turn.",
     "Traits": "Equipment - Weapon",
     "Colors": [ "Black" ],
-    "CardImage": "whip_of_obedience.jpg",
+    "ImagePath": "whip_of_obedience",
     "Quantity": 2
   },
   { "CardTemplateId":10,
@@ -132,7 +137,10 @@
     "CardText": "Set aside target (note: non-boss) minion. Discard the first card of the encounter deck.",
     "Traits": "Event - Spell",
     "Colors": [ "Black" ],
-    "CardImage": "disintegrate.jpg",
+    "ImagePath": "disintegrate",
+	"CastTargetOwningType" : 0,
+	"CardCastType":0,
+	"CastValidTargets" : [8],
     "Quantity": 1
   },
   { "CardTemplateId":11,
@@ -142,7 +150,7 @@
     "CardText": "On Entry: Discard a card. At the end of the turn reduce it's cost by 1. Cast it when it costs 0 and discard this.",
     "Traits": "Equipment - Item",
     "Colors": [ "Black" ],
-    "CardImage": "phylactery.jpg",
+    "ImagePath": "phylactery",
     "Quantity": 2
   },
   //{ "CardTemplateId":0,
@@ -161,7 +169,7 @@
     "Cooldown": 2,
     "Traits": "Ability",
     "Colors": [ "Black" ],
-    "CardImage": "lesser_summoning.jpg",
+    "ImagePath": "lesser_summoning",
     "Quantity": 2
   },
   { "CardTemplateId":13,
@@ -174,7 +182,7 @@
     "Traits": "Ally - Follower",
     "Colors": [ "Black" ],
     "IsGeneratedByCard": "Lesser Summoning Circle",
-    "CardImage": "hellimp.jpg",
+    "ImagePath": "hellimp",
     "Quantity": 2
   },
   { "CardTemplateId":14,
@@ -185,7 +193,7 @@
     "CardText": "Set target minion's initiative at 0. Gain 1 Health.",
     "Traits": "Ability - Hex",
     "Colors": [ "Black" ],
-    "CardImage": "wither.jpg",
+    "ImagePath": "wither",
     "Quantity": 2
   },
   { "CardTemplateId":15,
@@ -195,7 +203,7 @@
     "CardText": "Discard target Ally and summon a Black 2/1 Abomination Follower with 0 Init.",
     "Traits": "Event",
     "Colors": [ "Black" ],
-    "CardImage": "abominate.jpg",
+    "ImagePath": "abominate",
     "Quantity": 2
   },
   { "CardTemplateId":16,
@@ -209,7 +217,7 @@
     "Colors": [ "Black" ],
     "IsGeneratedByCard": "Abominate",
     "DontIncludeInMainDeck": true,
-    "CardImage": "abomination_effect.jpg"
+    "ImagePath": "abomination_effect"
   },
   { "CardTemplateId":17,
     "CardName": "Witch Brew",
@@ -218,7 +226,7 @@
     "CardText": "Target character gains +1 Initiative and +1 attack till the end of the turn and gains 1 Health. Costs 1 less for each Witch Brew in your discard pile.",
     "Traits": "Event - Brew",
     "Colors": [ "Black" ],
-    "CardImage": "witch_brew.jpg",
+    "ImagePath": "witch_brew",
     "Quantity": 2
   },
   { "CardTemplateId":18,
@@ -230,7 +238,7 @@
     "CardText": "If equipped character kills a minion, Scythe of the Pact gets +1 Attack.",
     "Traits": "Equipment - Weapon Pact",
     "Colors": [ "Black" ],
-    "CardImage": "scytheofthepact.jpg",
+    "ImagePath": "scytheofthepact",
     "Quantity": 2
   },
   { "CardTemplateId":19,
@@ -241,7 +249,39 @@
     "CardText": "Deal 1 damage when attacked this turn. Heals have no effect this turn.",
     "Traits": "Ability - Hex",
     "Colors": [ "Black" ],
-    "CardImage": "desecrate.jpg",
+    "ImagePath": "desecrate",
     "Quantity": 1
+  },
+  {
+	"CardTemplateId": 20,
+	"CardName":"Hatred Claws",
+  	"CastType" : 2,
+	"CardType": 1,
+	"CastTargetOwningType" : 1,
+	"CastValidTargets" : [0],
+	"ImagePath":"claws_of_hatred"
+  },
+  
+  { "CardTemplateId":21,
+    "CardName": "Shadow",
+    "CardType": 3,
+    "BaseResourceCost": 8,
+    "Power": "6",
+    "Health": "6",
+    "CardText": "Discard this at the end of the turn.",
+    "Traits": "Ally - Follower",
+    "Threat": 10,
+    "Colors": [ "Black" ],
+    "ImagePath": "shadow_servant",
+    "DontIncludeInMainDeck": true,
+    "IsGeneratedByCard": "Dusk Scion's Skull"
+  },
+  
+  { "CardTemplateId":109,
+    "CardName": "Skeleton Archer",
+    "CardType": 8,
+    "CardText": "",
+	"ImagePath": "skeletonarcher",
+    "Quantity": 2
   }
 ]

@@ -14,10 +14,9 @@ public class BoardManager : MonoBehaviour
     private PlayerState CurrentUserPlayerState;
     private PlayerState TeammatePlayerState;
     private AIState AiState;
-    public CameraShake CameraShake;
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
-    public void Start()
+    public void Awake()
     {
         Instance = this;
     }
@@ -26,9 +25,10 @@ public class BoardManager : MonoBehaviour
     {
         CardReferenceCollection = new BoardCardReferenceCollection();
         ParticipatorReferenceCollection = new Dictionary<int, ParticipatorState>();
+        AiState = new AIState();
     }
 
-    public ClientSideCard RegisterPlayerCard(GameObject gameObject, BaseCardTemplate card, CardLocation location, int userId)
+    public ClientSideCard RegisterEncounterCard(GameObject gameObject, ClientCardTemplate card, CardLocation location)
     {
         var clientSideCard = new ClientSideCard()
         {
@@ -37,14 +37,37 @@ public class BoardManager : MonoBehaviour
             CardManager = gameObject.GetComponent<CardManager>()
         };
         clientSideCard.SetLocation(location);
-        //if (location == CardLocation.Hand)
-        //{
-        //    clientSideCard.CardManager.CardHandHelperComponent.Card = clientSideCard;
-        //}
+
+        var partState = AiState;
+        var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
+       
+        Destroy(gameObject.GetComponent<Draggable>());
+        Debug.Log("Destroyed draggable component because the card is controlled by the AI");
+
+        return RegisterCard(clientSideCard, eventHandling, partState);
+    }
+
+    public ClientSideCard RegisterPlayerCard(GameObject gameObject, ClientCardTemplate card, CardLocation location, int userId)
+    {
+        var clientSideCard = new ClientSideCard()
+        {
+            CardStats = card,
+            CardViewObject = gameObject,
+            CardManager = gameObject.GetComponent<CardManager>()
+        };
+        clientSideCard.SetLocation(location);
 
         var partState = ParticipatorReferenceCollection[userId];
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
-        gameObject.GetComponent<Draggable>().ControllingCard = clientSideCard;
+
+        if (userId == PhotonEngine.UserId)
+            gameObject.GetComponent<Draggable>().ControllingCard = clientSideCard;
+        else
+        {
+            Destroy(gameObject.GetComponent<Draggable>());
+            Debug.Log("Destroyed draggable component because the card is not of the current player");
+        }
+
         return RegisterCard(clientSideCard, eventHandling, partState);
     }
 
@@ -109,7 +132,7 @@ public class BoardManager : MonoBehaviour
         if (component == null)
             return null;
 
-        var generatedCardId = (component as CardManager).InitialTemplate.GeneratedCardId;
+        var generatedCardId = (component as CardManager).Template.GeneratedCardId;
         return GetCard(generatedCardId);
     }
 
@@ -167,6 +190,19 @@ public class BoardManager : MonoBehaviour
                 break;
         }
         return false;
+    }
+
+    public List<ClientSideCard> FindValidAttackTargetsOnBoard(ClientSideCard card)
+    {
+        var validTargetsList = new List<ClientSideCard>();
+
+        if (card.CardStats.CardType == CardType.Character || card.CardStats.CardType == CardType.Follower)
+        {
+            var minions = AiState.Deck.Where(s => s.CurrentLocation == CardLocation.PlayArea && s.CardStats.CardType == CardType.Minion);
+            if (minions!=null && minions.Any())
+                validTargetsList.AddRange(minions);
+        }
+        return validTargetsList;
     }
 
     public List<ClientSideCard> FindValidTargetsOnBoard(ClientSideCard card)

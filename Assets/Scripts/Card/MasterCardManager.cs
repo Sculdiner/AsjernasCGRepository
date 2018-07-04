@@ -18,19 +18,19 @@ public class MasterCardManager : MonoBehaviour
 
     public void LoadCards()
     {
-        var desCards = JsonConvert.DeserializeObject<List<BaseCardTemplate>>(CardTemplates.text);
+        var desCards = JsonConvert.DeserializeObject<List<ClientCardTemplate>>(CardTemplates.text);
         foreach (var card in desCards)
             CardTemplateCollection.Add(card.CardTemplateId, Newtonsoft.Json.JsonConvert.SerializeObject(card));
     }
 
-    public BaseCardTemplate GetNewCardInstance(int cardTemplateId)
+    public ClientCardTemplate GetNewCardInstance(int cardTemplateId)
     {
         if (CardTemplateCollection.ContainsKey(cardTemplateId))
-            return JsonConvert.DeserializeObject<BaseCardTemplate>(CardTemplateCollection[cardTemplateId]);
+            return JsonConvert.DeserializeObject<ClientCardTemplate>(CardTemplateCollection[cardTemplateId]);
         return null;
     }
 
-    //public GameObject GenerateCardPrefab(BaseCardTemplate cardTemplate, int generatedCardId)
+    //public GameObject GenerateCardPrefab(ClientCardTemplate cardTemplate, int generatedCardId)
     //{
     //    var prefab = (GameObject)Instantiate(CardTemplatePrefab);
     //    var cardManager = prefab.GetComponent<CardManager>();
@@ -48,9 +48,9 @@ public class MasterCardManager : MonoBehaviour
         prefab.layer = LayerMask.NameToLayer("RaycastEligibleTargets");
         var cardManager = prefab.GetComponent<CardManager>();
         cardTemplate.GeneratedCardId = generatedCardId;
-        cardManager.SetInitialTemplate(cardTemplate);
         //cardManager.UpdateCardView(cardTemplate);
         Cards.Add(generatedCardId, cardManager);
+        cardManager.SetInitialTemplate(cardTemplate);
         return prefab;
     }
 

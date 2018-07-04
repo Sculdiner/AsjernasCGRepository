@@ -68,7 +68,7 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
         }
         else
         {
-            ReferencedCard.CardViewObject.GetComponent<DragRotator>().enabled = false;
+            ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
             ReferencedCard.KillTweens();
             handHelper.RefreshHandPositions(Ease.Linear, .35f);
             //ReferencedCard.CardViewObject.transform.DOMove(handHelper.handPosition, 0.35f).OnComplete(() =>
@@ -80,16 +80,16 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
 
     public override void OnStartDrag()
     {
+        ReferencedCard.HoverComponent.ForceKillHover();
+
         base.OnStartDrag();
 
         ReferencedCard.IsDragging = true;
         ReferencedCard.IsHovering = false;
-        ReferencedCard.CardViewObject.GetComponent<DragRotator>().enabled = true;
         BoardManager.Instance.ActiveCard = ReferencedCard;
 
         ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
 
-        ReferencedCard.HoverComponent.ForceKillHover();
 
         //ReferencedCard.CardViewObject.transform.position = handHelper.handPosition;
         //ReferencedCard.CardViewObject.transform.rotation = handHelper.handRotation;
