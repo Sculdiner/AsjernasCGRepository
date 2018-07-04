@@ -1,0 +1,29 @@
+﻿[
+  {
+    "CardTemplateId": 109,
+    "CardName": "Skeleton Archer 1",
+    "CardType": 8,
+    "CardText": "",
+    "ImagePath": "skeletonarcher",
+    "Quantity": 20,
+    "DeckThreatLevel": 1
+  },
+  {
+    "CardTemplateId": 109,
+    "CardName": "Skeleton Archer 2",
+    "CardType": 8,
+    "CardText": "",
+    "ImagePath": "skeletonarcher",
+    "Quantity": 20,
+    "DeckThreatLevel": 2
+  },
+  {
+    "CardTemplateId": 109,
+    "CardName": "Skeleton Archer 3",
+    "CardType": 8,
+    "CardText": "",
+    "ImagePath": "skeletonarcher",
+    "Quantity": 20,
+    "DeckThreatLevel": 3
+  }
+]

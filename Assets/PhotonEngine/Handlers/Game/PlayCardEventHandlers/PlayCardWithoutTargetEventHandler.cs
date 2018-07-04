@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using AsjernasCG.Common.ClientEventCodes;
 using AsjernasCG.Common.EventModels.Game;
+using AsjernasCG.Common.BusinessModels.CardModels;
+
 public class PlayCardWithoutTargetEventHandler<TModel> : BaseEventHandler<TModel> where TModel : DetailedCardModel
 {
     public override byte EventCode
@@ -15,6 +17,10 @@ public class PlayCardWithoutTargetEventHandler<TModel> : BaseEventHandler<TModel
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        var card = BoardManager.Instance.GetCard(model.GeneratedCardId);
+        if (card.CardStats.CardType == CardType.Follower)
+        {
+
+        }
     }
 }

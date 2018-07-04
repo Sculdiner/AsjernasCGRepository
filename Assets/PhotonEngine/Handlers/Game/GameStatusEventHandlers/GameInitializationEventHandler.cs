@@ -17,6 +17,6 @@ public class GameInitializationEventHandler<TModel> : BaseEventHandler<TModel> w
     {
         BoardTransitionHelper.InitializeInstance();
         BoardTransitionHelper.Instance.StoreGameInformation(model);
-        view.ChangeScene("LazGameScene");
+        view.ChangeScene("3DBoard_Integration_LazarosHandv2");
     }
 }

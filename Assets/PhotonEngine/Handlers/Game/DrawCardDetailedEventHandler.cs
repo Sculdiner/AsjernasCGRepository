@@ -24,12 +24,18 @@ public class DrawCardDetailedEventHandler<TModel> : BaseEventHandler<TModel> whe
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        var cardPrefab =  (view as BoardView).MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
-        (view as BoardView).BoardManager.RegisterPlayerCard(cardPrefab, model.CardTemplateId, AsjernasCG.Common.BusinessModels.CardModels.CardLocation.Hand, model.OwnerId);
-        //cardPrefab
-
-
-        view.LogInfo("Draw Card. id:" + model.GeneratedCardId);
-        view.MessageBoxManager.ShowMessage("Draw Card. id:" + model.GeneratedCardId);
+        //PhotonEngine.AddToQueue("CardDraw", () =>
+        //{
+            var boardView = (view as BoardView);
+            view.LogInfo($"id: {model.GeneratedCardId} |||| {Newtonsoft.Json.JsonConvert.SerializeObject(model)}");
+            var cardPrefab = boardView.MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
+            var ccc = boardView.BoardManager.RegisterPlayerCard(cardPrefab, cardPrefab.GetComponent<CardManager>().Template, AsjernasCG.Common.BusinessModels.CardModels.CardLocation.Hand, model.OwnerId);
+            if (PhotonEngine.UserId == model.OwnerId)
+            {
+                boardView.HandSlotManagerV2.AddCardLast(ccc);
+            }
+        //});
+        //view.LogInfo("Draw Card. id:" + model.GeneratedCardId);
+        //view.MessageBoxManager.ShowMessage("Draw Card. id:" + model.GeneratedCardId);
     }
 }

@@ -19,9 +19,16 @@ public abstract class BaseRoutingEventHandler : IEventRoutingHandler
 
     public void HandleEvent(View view, Dictionary<byte, object> parameters)
     {
-        SubEventHandlerCollection
+        try
+        {
+            SubEventHandlerCollection
             .GetHandler((byte)parameters[(byte)PacketCodeType.PacketSubRouting])
             .HandleEvent(view, parameters[(byte)PacketCodeType.PacketParameters] as string);
+        }
+        catch (System.Exception ex)
+        {
 
+            
+        }
     }
 }

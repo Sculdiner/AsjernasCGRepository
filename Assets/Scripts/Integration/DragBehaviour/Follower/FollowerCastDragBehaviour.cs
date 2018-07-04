@@ -61,6 +61,8 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
 
         if (PlacementTarget != null)
         {
+
+            (BoardView.Instance.Controller as BoardController).Play_CardWithoutTarget(ReferencedCard.CardStats.GeneratedCardId);
             handHelper.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
             //operation and dissolve.
             //boardmanager to validate play

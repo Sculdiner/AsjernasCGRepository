@@ -35,9 +35,7 @@
     "Traits": "Ally - Follower",
     "Threat": 10,
     "Colors": [ "Black" ],
-    "ImagePath": "dusk_scion",
-    "DontIncludeInMainDeck": true,
-    "IsGeneratedByCard": "Dusk Scion's Skull"
+    "ImagePath": "dusk_scion"
   },
   { "CardTemplateId":3,
     "CardName": "Arastel, Spell Weaver",
