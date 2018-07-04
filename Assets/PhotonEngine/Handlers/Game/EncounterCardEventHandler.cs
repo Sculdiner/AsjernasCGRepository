@@ -1,8 +1,14 @@
-﻿using AsjernasCG.Common.ClientEventCodes;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
+using AsjernasCG.Common.ClientEventCodes;
 using AsjernasCG.Common.EventModels.Game;
 
 public class EncounterCardEventHandler<TModel> : BaseEventHandler<TModel> where TModel : DetailedCardModel
 {
+    public EncounterCardEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.CallbackSync;
+    }
+
     public override byte EventCode
     {
         get
@@ -13,6 +19,12 @@ public class EncounterCardEventHandler<TModel> : BaseEventHandler<TModel> where 
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        //(view as BoardView).EncounterCard()
+        //PhotonEngine.AddToQueue("Encounter", () =>
+        //{
+            var boardView = view as BoardView;
+            var cardPrefab = boardView.MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
+            var ccc = boardView.BoardManager.RegisterEncounterCard(cardPrefab, boardView.MasterCardManager.GetCardManager(model.GeneratedCardId).Template, CardLocation.PlayArea);
+            boardView.EncounterSlotManager.AddEncounterCardToASlot(ccc);
+        //});
     }
 }
