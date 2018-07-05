@@ -70,6 +70,7 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
             }
             else
             {
+                ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
                 (BoardView.Instance.Controller as BoardController).Play_CardWithoutTarget(ReferencedCard.CardStats.GeneratedCardId);
             }
         }

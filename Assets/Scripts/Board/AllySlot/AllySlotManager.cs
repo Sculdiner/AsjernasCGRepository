@@ -105,7 +105,10 @@ public class AllySlotManager : MonoBehaviour
                 clientSideCard.SetLocation(CardLocation.PlayArea);
                 clientSideCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Follower);
                 AllyCards.Add(clientSideCard);
-                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerTargetingBehaviour>();
+                var draggableComponent = clientSideCard.CardManager.GetComponent<Draggable>();
+                if (draggableComponent != null)
+                    draggableComponent.SetAction<FollowerTargetingBehaviour>();
+
                 //set followerboarddragbehavior draggingaction
                 UpdatePositions();
             }
@@ -124,7 +127,9 @@ public class AllySlotManager : MonoBehaviour
                 allyComp.ReferencedCard = clientSideCard;
                 allyComp.enabled = true;
                 AllyCards.Insert(index, clientSideCard);
-                clientSideCard.CardManager.GetComponent<Draggable>().SetAction<FollowerCastDragBehaviour>();
+                var draggableComponent = clientSideCard.CardManager.GetComponent<Draggable>();
+                if (draggableComponent != null)
+                    draggableComponent.SetAction<FollowerCastDragBehaviour>();
                 UpdatePositions();
             }
         }
@@ -138,7 +143,7 @@ public class AllySlotManager : MonoBehaviour
             if (card == null)
                 return;
 
-            card.CardViewObject.GetComponent<CardAllyHelperComponent>().enabled =false;
+            card.CardViewObject.GetComponent<CardAllyHelperComponent>().enabled = false;
 
             AllyCards.Remove(card);
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>
