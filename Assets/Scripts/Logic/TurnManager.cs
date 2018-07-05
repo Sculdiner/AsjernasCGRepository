@@ -53,7 +53,7 @@ public class TurnManager : MonoBehaviour
 
     public void OnGameStart()
     {
-        //Debug.Log("In TurnManager.OnGameStart()");
+        ////Debug.Log("In TurnManager.OnGameStart()");
         CardLogic.CardsCreatedThisGame.Clear();
         CreatureLogic.CreaturesCreatedThisGame.Clear();
 
@@ -76,11 +76,11 @@ public class TurnManager : MonoBehaviour
             {
                 // determine who starts the game.
                 int rnd = Random.Range(0, 2);  // 2 is exclusive boundary
-                // Debug.Log(Player.Players.Length);
+                // //Debug.Log(Player.Players.Length);
                 Player whoGoesFirst = Player.Players[rnd];
-                // Debug.Log(whoGoesFirst);
+                // //Debug.Log(whoGoesFirst);
                 Player whoGoesSecond = whoGoesFirst.otherPlayer;
-                // Debug.Log(whoGoesSecond);
+                // //Debug.Log(whoGoesSecond);
 
                 // draw 4 cards for first player and 5 for second player
                 int initDraw = 4;

@@ -57,7 +57,7 @@
 //        if (dragging)
 //        { 
 //            Vector3 mousePos = MouseInWorldCoords();
-//            //Debug.Log(mousePos);
+//            ////Debug.Log(mousePos);
 //            transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
 //            da.OnDraggingInUpdate();
 //        }
@@ -79,7 +79,7 @@
 //    private Vector3 MouseInWorldCoords()
 //    {
 //        var screenMousePos = Input.mousePosition;
-//        //Debug.Log(screenMousePos);
+//        ////Debug.Log(screenMousePos);
 //        screenMousePos.z = zDisplacement;
 //        return Camera.main.ScreenToWorldPoint(screenMousePos);
 //    }

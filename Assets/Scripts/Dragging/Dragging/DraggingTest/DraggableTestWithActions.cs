@@ -44,7 +44,7 @@ public class DraggableTestWithActions : MonoBehaviour {
         { 
             Vector3 mousePos = MouseInWorldCoords();
             da.OnDraggingInUpdate();
-            //Debug.Log(mousePos);
+            ////Debug.Log(mousePos);
             transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);   
         }
     }
@@ -62,7 +62,7 @@ public class DraggableTestWithActions : MonoBehaviour {
     private Vector3 MouseInWorldCoords()
     {
         var screenMousePos = Input.mousePosition;
-        //Debug.Log(screenMousePos);
+        ////Debug.Log(screenMousePos);
         screenMousePos.z = zDisplacement;
         return Camera.main.ScreenToWorldPoint(screenMousePos);
     }

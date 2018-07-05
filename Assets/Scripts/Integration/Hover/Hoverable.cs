@@ -36,6 +36,8 @@ public class Hoverable : MonoBehaviour
 
     public void ForceHoveringPositionAndRotation(Vector3 position, Quaternion rotation)
     {
+        BoardView.Instance.MessageBoxManager.ShowMessage($"{position.x}, {position.y}, {position.z}");
+        ////Debug.Log($"Forced hover position: {position.x}, {position.y}, {position.z}");
         actions?.StoreHoverPositionAndRotation(position, rotation);
     }
 

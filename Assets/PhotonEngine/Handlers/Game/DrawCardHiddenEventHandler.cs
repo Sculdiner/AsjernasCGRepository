@@ -20,6 +20,6 @@ public class DrawCardHiddenEventHandler<TModel> : BaseEventHandler<TModel> where
     public override void OnHandleEvent(View view, TModel model)
     {
         view.LogInfo("Draw Hidden. id:" + model.GeneratedCardId);
-        view.MessageBoxManager.ShowMessage("Draw Hidden. id:" + model.GeneratedCardId);
+        //view.MessageBoxManager.ShowMessage("Draw Hidden. id:" + model.GeneratedCardId);
     }
 }

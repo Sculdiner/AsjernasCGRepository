@@ -108,7 +108,7 @@ public class HandVisual_Int : MonoBehaviour
             });
             slotToRemove.Status = HandItemStatus.WaitingToBePlayed;
 
-            Debug.Log("removed " + cardGeneratedId);
+            //Debug.Log("removed " + cardGeneratedId);
         }
     }
 
@@ -261,7 +261,7 @@ public class HandVisual_Int : MonoBehaviour
         Sequence s = DOTween.Sequence();
         if (!fast)
         {
-            // Debug.Log ("Not fast!!!");
+            // //Debug.Log ("Not fast!!!");
             s.Append(card.transform.DOMove(DrawPreviewSpot.position, 0.6f));
             //if (TakeCardsOpenly)
             //    s.Insert(0f, card.transform.DORotate(Vector3.zero, 1f));

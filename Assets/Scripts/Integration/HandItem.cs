@@ -7,7 +7,7 @@ public class HandItem : MonoBehaviour
 
     public Vector3 GetMyWorldPosition()
     {
-        //Debug.Log("my world position: " + this.gameObject.transform.position);
+        ////Debug.Log("my world position: " + this.gameObject.transform.position);
         //return transform.TransformPoint(this.gameObject.transform.position);
         return transform.position;
     }

@@ -15,13 +15,13 @@ public class CardAllyHelperComponent : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        //Debug.Log("You moused over card");
+        ////Debug.Log("You moused over card");
         BoardManager.OnCursorEntersCard?.Invoke(ReferencedCard);
     }
 
     private void OnMouseExit()
     {
-        //Debug.Log("You exited card");
+        ////Debug.Log("You exited card");
         BoardManager.OnCursorExitsCard?.Invoke(ReferencedCard);
     }
 }

@@ -123,7 +123,7 @@ public class TableVisual : MonoBehaviour
             if (MouseX < slots.Children[i].transform.position.x && MouseX > slots.Children[i + 1].transform.position.x)
                 return i + 1;
         }
-        Debug.Log("Suspicious behavior. Reached end of TablePosForNewCreature method. Returning 0");
+        //Debug.Log("Suspicious behavior. Reached end of TablePosForNewCreature method. Returning 0");
         return 0;
     }
 

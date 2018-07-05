@@ -55,7 +55,7 @@ public class AITurnMaker: TurnMaker {
                     {
                         p.PlayASpellFromHand(c, null);
                         InsertDelay(1.5f);
-                        //Debug.Log("Card: " + c.ca.name + " can be played");
+                        ////Debug.Log("Card: " + c.ca.name + " can be played");
                         return true;
                     }                        
                 }
@@ -68,7 +68,7 @@ public class AITurnMaker: TurnMaker {
                 }
 
             }
-            //Debug.Log("Card: " + c.ca.name + " can NOT be played");
+            ////Debug.Log("Card: " + c.ca.name + " can NOT be played");
         }
         return false;
     }
@@ -80,7 +80,7 @@ public class AITurnMaker: TurnMaker {
             // use HP
             p.UseHeroPower();
             InsertDelay(1.5f);
-            //Debug.Log("AI used hero power");
+            ////Debug.Log("AI used hero power");
             return true;
         }
         return false;
@@ -103,7 +103,7 @@ public class AITurnMaker: TurnMaker {
                     cl.GoFace();
                 
                 InsertDelay(1f);
-                //Debug.Log("AI attacked with creature");
+                ////Debug.Log("AI attacked with creature");
                 return true;
             }
         }

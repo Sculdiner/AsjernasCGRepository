@@ -20,7 +20,7 @@ public class ManaPoolVisual : MonoBehaviour
 
         set
         {
-            //Debug.Log("Changed total mana to: " + value);
+            ////Debug.Log("Changed total mana to: " + value);
 
             if (value > Crystals.Length)
                 totalCrystals = Crystals.Length;
@@ -52,7 +52,7 @@ public class ManaPoolVisual : MonoBehaviour
 
         set
         {
-            //Debug.Log("Changed mana this turn to: " + value);
+            ////Debug.Log("Changed mana this turn to: " + value);
 
             if (value > totalCrystals)
                 availableCrystals = totalCrystals;

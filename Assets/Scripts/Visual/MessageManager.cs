@@ -22,7 +22,7 @@ public class MessageManager : MonoBehaviour
 
     IEnumerator ShowMessageCoroutine(string Message, float Duration, Command com)
     {
-        //Debug.Log("Showing some message. Duration: " + Duration);
+        ////Debug.Log("Showing some message. Duration: " + Duration);
         MessageText.text = Message;
         MessagePanel.SetActive(true);
 

@@ -14,7 +14,7 @@ public class ClientSideCard
     public bool IsUnderPlayerControl { get; set; }
     public bool IsHovering { get; set; }
     public bool IsDragging { get; set; }
-    public Vector3 LastPosition { get; set; }
+    public Vector3? LastPosition { get; set; }
     public Hoverable HoverComponent { get; set; }
     /// <summary>
     /// IMPORTANT: the following forces the card to CardVisual if the location is set to hand

@@ -71,7 +71,7 @@ namespace EZCameraShake
             if (instanceList.TryGetValue(name, out c))
                 return c;
 
-            Debug.LogError("CameraShake " + name + " not found!");
+            //Debug.LogError("CameraShake " + name + " not found!");
 
             return null;
         }

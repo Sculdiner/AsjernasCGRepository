@@ -344,11 +344,12 @@ public class BoardView : View
         return Camera.main.ScreenToWorldPoint(obj.transform.position);
     }
 
+
+
     public GameObject PlayArea;
     public FriendListViewManager FriendListViewManager;
     public MasterCardManager MasterCardManager;
     public BoardManager BoardManager;
-    public HandVisual_Int HandPlacement;
     public SimpleHandSlotManagerV2 HandSlotManagerV2;
     public EncounterSlotManager EncounterSlotManager;
     public AllySlotManager LeftPlayerAllySlotManager;

@@ -210,7 +210,7 @@
 //                currentRunningCardAnimation.Kill();
 //                //on purpose, the currentRunningCardAnimationsCardIds is not reset, so the forced update can play the animation speed as it was originaly supposed to do
 
-//                //Debug.Log("I killed a hand animation. I will call for photonengine.completedaction");
+//                ////Debug.Log("I killed a hand animation. I will call for photonengine.completedaction");
 //                UpdatePositions(Ease.OutQuart, forcedHandUpdateTimeframe, true);
 //            }
 //            else

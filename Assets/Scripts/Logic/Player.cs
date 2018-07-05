@@ -42,7 +42,7 @@ public class Player : MonoBehaviour, ICharacter
             manaLeft = value;
             //PArea.ManaBar.AvailableCrystals = manaLeft;
             new UpdateManaCrystalsCommand(this, ManaThisTurn, manaLeft).AddToQueue();
-            //Debug.Log(ManaLeft);
+            ////Debug.Log(ManaLeft);
             if (TurnManager.Instance.whoseTurn == this)
                 HighlightPlayableCards();
         }
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour, ICharacter
     public virtual void OnTurnStart()
     {
         // add one mana crystal to the pool;
-        Debug.Log("In ONTURNSTART for " + gameObject.name);
+        //Debug.Log("In ONTURNSTART for " + gameObject.name);
         usedHeroPowerThisTurn = false;
         ManaThisTurn++;
         ManaLeft = ManaThisTurn;
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour, ICharacter
                 CardLogic newCard = new CardLogic(deck.cards[0]);
                 newCard.owner = this;
                 hand.CardsInHand.Add(newCard);
-                // Debug.Log(hand.CardsInHand.Count);
+                // //Debug.Log(hand.CardsInHand.Count);
                 // 3) logic: remove the card from the deck
                 deck.cards.RemoveAt(0);
                 // 4) create a command
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour, ICharacter
             playedCard.effect.ActivateEffect(playedCard.ca.specialSpellAmount, target);
         else
         {
-            Debug.LogWarning("No effect found on card " + playedCard.ca.name);
+            //Debug.LogWarning("No effect found on card " + playedCard.ca.name);
         }
         // no matter what happens, move this card to PlayACardSpot
         new PlayASpellCardCommand(this, playedCard).AddToQueue();
@@ -206,10 +206,10 @@ public class Player : MonoBehaviour, ICharacter
 
     public void PlayACreatureFromHand(CardLogic playedCard, int tablePos)
     {
-        Debug.Log(ManaLeft);
-        Debug.Log(playedCard.CurrentManaCost);
+        //Debug.Log(ManaLeft);
+        //Debug.Log(playedCard.CurrentManaCost);
         ManaLeft -= playedCard.CurrentManaCost;
-        Debug.Log("Mana Left after played a creature: " + ManaLeft);
+        //Debug.Log("Mana Left after played a creature: " + ManaLeft);
         // create a new creature object and add it to Table
         CreatureLogic newCreature = new CreatureLogic(this, playedCard.ca);
         table.CreaturesOnTable.Insert(tablePos, newCreature);
@@ -233,7 +233,7 @@ public class Player : MonoBehaviour, ICharacter
     // METHODS TO SHOW GLOW HIGHLIGHTS
     public void HighlightPlayableCards(bool removeAllHighlights = false)
     {
-        //Debug.Log("HighlightPlayable remove: "+ removeAllHighlights);
+        ////Debug.Log("HighlightPlayable remove: "+ removeAllHighlights);
         foreach (CardLogic cl in hand.CardsInHand)
         {
             GameObject g = IDHolder.GetGameObjectWithID(cl.UniqueCardID);
@@ -266,7 +266,7 @@ public class Player : MonoBehaviour, ICharacter
         }
         else
         {
-            Debug.LogWarning("Check hero power name for character " + charAsset.ClassName);
+            //Debug.LogWarning("Check hero power name for character " + charAsset.ClassName);
         }
     }
 
