@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1782313, g: 0.22316095, b: 0.3052201, a: 1}
+  m_IndirectSpecularColor: {r: 0.17823103, g: 0.22316064, b: 0.30521944, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -894,7 +894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9ce2c5c97fb3b41962f03178dfc718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsArtistDebug: 0
+  IsArtistDebug: 1
   MessageBoxManager: {fileID: 751189069}
   PlayArea: {fileID: 0}
   FriendListViewManager: {fileID: 0}
