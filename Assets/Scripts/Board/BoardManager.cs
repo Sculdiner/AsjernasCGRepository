@@ -95,20 +95,20 @@ public class BoardManager : MonoBehaviour
         return card;
     }
 
-    public void RegisterPlayer(int userId)
+    public void RegisterPlayer(int userId, AllySlotManager allySlotManager)
     {
         var state = new PlayerState() { UserId = userId };
         if (userId == PhotonEngine.UserId)
         {
-            var ownFollowerArea = GameObject.Find("RightPlayerAllySlotContainer");
             CurrentUserPlayerState = state;
-            ((AllySlotManager)ownFollowerArea.GetComponent<AllySlotManager>()).OwningPlayer = state;
+            allySlotManager.OwningPlayer = state;
+            CurrentUserPlayerState.AllySlotManager = allySlotManager;
         }
         else
         {
-            var teammateArea = GameObject.Find("LeftPlayerAllySlotContainer");
-            ((AllySlotManager)teammateArea.GetComponent<AllySlotManager>()).OwningPlayer = state;
+            allySlotManager.OwningPlayer = state;
             TeammatePlayerState = state;
+            TeammatePlayerState.AllySlotManager = allySlotManager;
         }
         ParticipatorReferenceCollection.Add(userId, state);
     }
@@ -327,6 +327,16 @@ public class BoardManager : MonoBehaviour
     public List<ClientSideCard> GetMyHand()
     {
         return CurrentUserPlayerState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand).ToList();
+    }
+
+    public PlayerState GetPlayerStateById(int userId)
+    {
+        return ParticipatorReferenceCollection[userId] as PlayerState;
+    }
+
+    public PlayerState GetCurrentUserPlayerState()
+    {
+        return CurrentUserPlayerState;
     }
 
     public static Action<ClientSideCard> OnCursorEntersCard;

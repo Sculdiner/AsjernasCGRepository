@@ -59,14 +59,19 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
         var handHelper = BoardView.Instance.HandSlotManagerV2;
         BoardManager.Instance.ActiveCard = null;
 
-        if (PlacementTarget != null)
+        if (PlacementTarget != null && PlacementTarget.OwningPlayer.UserId == BoardManager.Instance.GetCurrentUserPlayerState().UserId)
         {
-
-            (BoardView.Instance.Controller as BoardController).Play_CardWithoutTarget(ReferencedCard.CardStats.GeneratedCardId);
-            handHelper.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
-            //operation and dissolve.
-            //boardmanager to validate play
-            PlacementTarget.AddAllyCardLast(ReferencedCard);
+            if (BoardView.Instance.IsArtistDebug)
+            {
+                handHelper.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
+                //operation and dissolve.
+                //boardmanager to validate play
+                PlacementTarget.AddAllyCardLast(ReferencedCard);
+            }
+            else
+            {
+                (BoardView.Instance.Controller as BoardController).Play_CardWithoutTarget(ReferencedCard.CardStats.GeneratedCardId);
+            }
         }
         else
         {

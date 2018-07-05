@@ -19,12 +19,9 @@ public class EncounterCardEventHandler<TModel> : BaseEventHandler<TModel> where 
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        //PhotonEngine.AddToQueue("Encounter", () =>
-        //{
-            var boardView = view as BoardView;
-            var cardPrefab = boardView.MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
-            var ccc = boardView.BoardManager.RegisterEncounterCard(cardPrefab, boardView.MasterCardManager.GetCardManager(model.GeneratedCardId).Template, CardLocation.PlayArea);
-            boardView.EncounterSlotManager.AddEncounterCardToASlot(ccc);
-        //});
+        var boardView = view as BoardView;
+        var cardPrefab = boardView.MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
+        var ccc = boardView.BoardManager.RegisterEncounterCard(cardPrefab, boardView.MasterCardManager.GetCardManager(model.GeneratedCardId).Template, CardLocation.PlayArea);
+        boardView.EncounterSlotManager.AddEncounterCardToASlot(ccc);
     }
 }

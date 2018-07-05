@@ -27,7 +27,6 @@ public class DrawCardDetailedEventHandler<TModel> : BaseEventHandler<TModel> whe
         //PhotonEngine.AddToQueue("CardDraw", () =>
         //{
             var boardView = (view as BoardView);
-            view.LogInfo($"id: {model.GeneratedCardId} |||| {Newtonsoft.Json.JsonConvert.SerializeObject(model)}");
             var cardPrefab = boardView.MasterCardManager.GenerateCardPrefab(model.CardTemplateId, model.GeneratedCardId);
             var ccc = boardView.BoardManager.RegisterPlayerCard(cardPrefab, cardPrefab.GetComponent<CardManager>().Template, AsjernasCG.Common.BusinessModels.CardModels.CardLocation.Hand, model.OwnerId);
             if (PhotonEngine.UserId == model.OwnerId)

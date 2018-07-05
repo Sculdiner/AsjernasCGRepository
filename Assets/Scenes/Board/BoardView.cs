@@ -20,8 +20,8 @@ public class BoardView : View
         MasterCardManager.LoadCards();
         if (IsArtistDebug)
         {
-            BoardManager.RegisterPlayer(1);
-            BoardManager.RegisterPlayer(2);
+            BoardManager.RegisterPlayer(1, LeftPlayerAllySlotManager);
+            BoardManager.RegisterPlayer(2, RightPlayerAllySlotManager);
             RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1001, CardTemplateId = 3 });
             RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1002, CardTemplateId = 4 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
@@ -233,8 +233,8 @@ public class BoardView : View
         else
         {
             var model = BoardTransitionHelper.Instance.GameInitializationModel;
-            BoardManager.RegisterPlayer(model.Player1Model.PlayerId);
-            BoardManager.RegisterPlayer(model.Player2Model.PlayerId);
+            BoardManager.RegisterPlayer(model.Player1Model.PlayerId, LeftPlayerAllySlotManager);
+            BoardManager.RegisterPlayer(model.Player2Model.PlayerId, RightPlayerAllySlotManager);
 
             RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
             RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
