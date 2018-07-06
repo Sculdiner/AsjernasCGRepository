@@ -16,7 +16,7 @@ public class DealDamageCommand : Command {
 
     public override void StartCommandExecution()
     {
-        Debug.Log("In deal damage command!");
+        //Debug.Log("In deal damage command!");
 
         GameObject target = IDHolder.GetGameObjectWithID(targetID);
         if (targetID == GlobalSettings.Instance.LowPlayer.PlayerID || targetID == GlobalSettings.Instance.TopPlayer.PlayerID)

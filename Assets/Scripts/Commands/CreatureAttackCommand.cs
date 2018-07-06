@@ -26,7 +26,7 @@ public class CreatureAttackCommand : Command
     {
         GameObject Attacker = IDHolder.GetGameObjectWithID(AttackerUniqueID);
 
-        //Debug.Log(TargetUniqueID);
+        ////Debug.Log(TargetUniqueID);
         Attacker.GetComponent<CreatureAttackVisual>().AttackTarget(TargetUniqueID, DamageTakenByTarget, DamageTakenByAttacker, AttackerHealthAfter, TargetHealthAfter);
     }
 }

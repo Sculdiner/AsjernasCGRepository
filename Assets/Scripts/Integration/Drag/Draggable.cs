@@ -10,6 +10,22 @@ public class Draggable : MonoBehaviour
     private DraggingActions actions;
     public string DraggingActionName;
 
+    private bool AllowDrag()
+    {
+        var activeCharacter = BoardManager.Instance.ActiveCharacterManager;
+        if (BoardManager.Instance.ActiveCharacterManager != null)
+        {
+            var id = activeCharacter.CardManager.Template.GeneratedCardId;
+            var card = BoardManager.Instance.GetCard(id);
+            if (card != null && card.ParticipatorState is PlayerState)
+            {
+                if ((card.ParticipatorState as PlayerState).UserId == PhotonEngine.UserId)
+                    return true;
+            }
+        }
+        return false;
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -56,18 +72,26 @@ public class Draggable : MonoBehaviour
 
     public void OnMouseDown()
     {
-        actions?.OnStartDrag();
+        if (AllowDrag())
+        {
+            actions?.OnStartDrag();
+        }
     }
 
     public void OnMouseDrag()
     {
-
-        actions?.OnDraggingInUpdate();
+        if (AllowDrag())
+        {
+            actions?.OnDraggingInUpdate();
+        }
     }
 
     public void OnMouseUp()
     {
-        actions?.OnEndDrag();
+        if (AllowDrag())
+        {
+            actions?.OnEndDrag();
+        }
     }
 
 }

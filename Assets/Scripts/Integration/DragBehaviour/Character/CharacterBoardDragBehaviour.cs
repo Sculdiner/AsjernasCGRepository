@@ -40,10 +40,18 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
 
     public override void OnSuccessfullTargetAcquisition(CardManager acquiredTarget)
     {
-        var seq = DOTween.Sequence();
-        seq.Append(ReferencedCard.CardViewObject.transform.DOMove(acquiredTarget.transform.position, 0.3f)); //go in
-        seq.Append(ReferencedCard.CardViewObject.transform.DOMove(PreDragPosition.Value, 1.5f).SetEase(Ease.InOutQuint)); //return
-        seq.OnComplete(() => { ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator(); }); //disable the rotator when you arrive
+        if (BoardView.Instance.IsArtistDebug)
+        {
+            var seq = DOTween.Sequence();
+            seq.Append(ReferencedCard.CardViewObject.transform.DOMove(acquiredTarget.transform.position, 0.3f)); //go in
+            seq.Append(ReferencedCard.CardViewObject.transform.DOMove(PreDragPosition.Value, 1.5f).SetEase(Ease.InOutQuint)); //return
+            seq.OnComplete(() => { ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator(); }); //disable the rotator when you arrive
+        }
+        else
+        {
+            ReferencedCard.LastPosition = PreDragPosition.Value;
+            (BoardView.Instance.Controller as BoardController).Attack(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
+        }
     }
 
     public override void OnNonSuccessfullTargetAcquisition()

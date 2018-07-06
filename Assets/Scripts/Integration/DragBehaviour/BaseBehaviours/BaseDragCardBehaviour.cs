@@ -42,7 +42,7 @@ public abstract class BaseDragCardBehaviour : DraggingActions
 
         //update the position of the object in the world
         Card.transform.position = curPosition;
-        Debug.Log($"OnMouseDrag: {ControllingCard.CardStats.GeneratedCardId}");
+        //Debug.Log($"OnMouseDrag: {ControllingCard.CardStats.GeneratedCardId}");
     }
 
     //called in OnMouseUp in Draggable

@@ -38,7 +38,7 @@ public class BetterCardRotation : MonoBehaviour {
             if (h.collider == col)
                 passedThroughColliderOnCard = true;
         }
-        //Debug.Log("TotalHits: " + hits.Length); 
+        ////Debug.Log("TotalHits: " + hits.Length); 
         if (passedThroughColliderOnCard!= showingBack)
         {
             // something changed

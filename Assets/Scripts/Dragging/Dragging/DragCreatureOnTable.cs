@@ -48,7 +48,7 @@
 //        {
 //            // determine table position
 //            //int tablePos = playerOwner.PArea.tableVisual.TablePosForNewCreature(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z - Camera.main.transform.position.z)).x);
-//            // Debug.Log("Table Pos for new Creature: " + tablePos.ToString());
+//            // //Debug.Log("Table Pos for new Creature: " + tablePos.ToString());
 //            // play this card
 //            //playerOwner.PlayACreatureFromHand(GetComponent<IDHolder>().UniqueID, tablePos);
 //        }

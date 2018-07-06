@@ -30,7 +30,7 @@
 //    //Enable Hovering
 //    private void OnMouseEnter()
 //    {
-//        //Debug.Log("MouseEnter");
+//        ////Debug.Log("MouseEnter");
 //        if (HandSlotManager?.ActiveCard != null)
 //            return;
 
@@ -52,7 +52,7 @@
 //    //Disable Hovering
 //    private void OnMouseExit()
 //    {
-//        //Debug.Log("MouseExit");
+//        ////Debug.Log("MouseExit");
 
 //        if (!Card.IsDragging)
 //        {
@@ -61,7 +61,7 @@
 
 //        if (Card.IsHovering)
 //        {
-//            Debug.Log("OnMouseExit. Card.IsHovering = true");
+//            //Debug.Log("OnMouseExit. Card.IsHovering = true");
 //            Card.KillTweens();
 
 //            Card.IsHovering = false;
@@ -78,7 +78,7 @@
 //        }
 //        else
 //        {
-//            Debug.Log("OnMouseExit. Card.IsHovering = false");
+//            //Debug.Log("OnMouseExit. Card.IsHovering = false");
 //        }
 //    }
 

@@ -106,7 +106,7 @@ public class AllySlotManager : MonoBehaviour
                 clientSideCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Follower);
                 AllyCards.Add(clientSideCard);
                 var draggableComponent = clientSideCard.CardManager.GetComponent<Draggable>();
-                if (draggableComponent != null)
+                if (draggableComponent != null && PhotonEngine.UserId == (clientSideCard.ParticipatorState as PlayerState).UserId)
                     draggableComponent.SetAction<FollowerTargetingBehaviour>();
 
                 //set followerboarddragbehavior draggingaction
@@ -128,7 +128,7 @@ public class AllySlotManager : MonoBehaviour
                 allyComp.enabled = true;
                 AllyCards.Insert(index, clientSideCard);
                 var draggableComponent = clientSideCard.CardManager.GetComponent<Draggable>();
-                if (draggableComponent != null)
+                if (draggableComponent != null && PhotonEngine.UserId == (clientSideCard.ParticipatorState as PlayerState).UserId)
                     draggableComponent.SetAction<FollowerCastDragBehaviour>();
                 UpdatePositions();
             }

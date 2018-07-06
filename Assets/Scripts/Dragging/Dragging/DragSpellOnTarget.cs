@@ -159,7 +159,7 @@
 //                    }
 //                    break;
 //                default:
-//                    Debug.LogWarning("Reached default case in DragSpellOnTarget! Suspicious behaviour!!");
+//                    //Debug.LogWarning("Reached default case in DragSpellOnTarget! Suspicious behaviour!!");
 //                    break;
 //            }
 //        }

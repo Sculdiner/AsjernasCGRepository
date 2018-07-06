@@ -57,11 +57,13 @@ public class BoardController : ViewController
 
     public void Pass()
     {
+        _view.BoardManager.ClearActiveCharacterSlot();
         SendOperation(new PassOperationHelper<EmptyModel>(new EmptyModel()), true, 0, false);
     }
 
     public void Attack(int sourceId, int targetId)
     {
+        _view.BoardManager.ClearActiveCharacterSlot();
         SendOperation(new AttackOperationHelper<AttackModel>(new AttackModel()
         {
             AttackingCard = sourceId,
@@ -71,6 +73,7 @@ public class BoardController : ViewController
 
     public void Quest(int questingCardId)
     {
+        _view.BoardManager.ClearActiveCharacterSlot();
         SendOperation(new QuestOperationHelper<IntegerModel>(new IntegerModel()
         {
             Value = questingCardId

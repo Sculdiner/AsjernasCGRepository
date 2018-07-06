@@ -43,29 +43,29 @@ public abstract class View : MonoBehaviour, IView
 
     public void LogDebug(string message)
     {
-        Debug.Log(message);
+        //Debug.Log(message);
     }
 
     public void LogError(Exception exception)
     {
-        Debug.LogError(exception.ToString());
+        //Debug.LogError(exception.ToString());
     }
 
     public void LogError(string message)
     {
-        Debug.LogError(message);
+        //Debug.LogError(message);
     }
 
     public void LogInfo(string message)
     {
-        Debug.Log(message);
+        //Debug.Log(message);
     }
 
     public void Disconnected(string message)
     {
         if (!string.IsNullOrEmpty(message))
         {
-            Debug.Log(message);
+            //Debug.Log(message);
         }
 
         if (Application.loadedLevel != 0)

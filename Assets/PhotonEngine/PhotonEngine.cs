@@ -195,7 +195,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
             {
                 processingAction = true;
                 ActionQueue.Dequeue();
-                //Debug.Log("Invoking " + actionToInvoke.Caller);
+                ////Debug.Log("Invoking " + actionToInvoke.Caller);
                 actionToInvoke.Action();
             }
         }
@@ -203,7 +203,7 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     public static void CompletedAction(string caller)
     {
-        Debug.Log("completed action "+ caller);
+        //Debug.Log("completed action "+ caller);
         processingAction = false;
         NextAction();
     }

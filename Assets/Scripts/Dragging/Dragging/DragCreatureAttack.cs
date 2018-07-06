@@ -113,12 +113,12 @@
 //        if (Target != null)
 //        {
 //            int targetID = Target.GetComponent<IDHolder>().UniqueID;
-//            Debug.Log("Target ID: " + targetID);
+//            //Debug.Log("Target ID: " + targetID);
 //            if (targetID == GlobalSettings.Instance.LowPlayer.PlayerID || targetID == GlobalSettings.Instance.TopPlayer.PlayerID)
 //            {
 //                // attack character
-//                Debug.Log("Attacking " + Target);
-//                Debug.Log("TargetID: " + targetID);
+//                //Debug.Log("Attacking " + Target);
+//                //Debug.Log("TargetID: " + targetID);
 //                CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].GoFace();
 //                targetValid = true;
 //            }
@@ -127,7 +127,7 @@
 //                // if targeted creature is still alive, attack creature
 //                targetValid = true;
 //                CreatureLogic.CreaturesCreatedThisGame[GetComponentInParent<IDHolder>().UniqueID].AttackCreatureWithID(targetID);
-//                Debug.Log("Attacking " + Target);
+//                //Debug.Log("Attacking " + Target);
 //            }
 
 //        }

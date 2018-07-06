@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour
     private AIState AiState;
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
+    public CharacterManager ActiveCharacterManager { get; set; }
     public void Awake()
     {
         Instance = this;
@@ -42,7 +43,7 @@ public class BoardManager : MonoBehaviour
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
        
         Destroy(gameObject.GetComponent<Draggable>());
-        Debug.Log("Destroyed draggable component because the card is controlled by the AI");
+        //Debug.Log("Destroyed draggable component because the card is controlled by the AI");
 
         return RegisterCard(clientSideCard, eventHandling, partState);
     }
@@ -65,7 +66,7 @@ public class BoardManager : MonoBehaviour
         else
         {
             Destroy(gameObject.GetComponent<Draggable>());
-            Debug.Log("Destroyed draggable component because the card is not of the current player");
+            //Debug.Log("Destroyed draggable component because the card is not of the current player");
         }
 
         return RegisterCard(clientSideCard, eventHandling, partState);
@@ -208,6 +209,8 @@ public class BoardManager : MonoBehaviour
     public List<ClientSideCard> FindValidTargetsOnBoard(ClientSideCard card)
     {
         var validTargetsList = new List<ClientSideCard>();
+        if (!card.CardStats.CastTargetOwningType.HasValue)
+            return validTargetsList;
 
         switch (card.CardStats.CastTargetOwningType.Value)
         {
@@ -337,6 +340,11 @@ public class BoardManager : MonoBehaviour
     public PlayerState GetCurrentUserPlayerState()
     {
         return CurrentUserPlayerState;
+    }
+
+    public void ClearActiveCharacterSlot()
+    {
+        ActiveCharacterManager = null;
     }
 
     public static Action<ClientSideCard> OnCursorEntersCard;

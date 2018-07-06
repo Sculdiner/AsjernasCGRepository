@@ -39,7 +39,7 @@ public class VisualStateManager : MonoBehaviour
 
     public void ChangeVisual(CardVisualState newState)
     {
-        Debug.Log($"Switching visual to: {newState.ToString()}");
+        ////Debug.Log($"Switching visual to: {newState.ToString()}");
         switch (newState)
         {
             case CardVisualState.None:

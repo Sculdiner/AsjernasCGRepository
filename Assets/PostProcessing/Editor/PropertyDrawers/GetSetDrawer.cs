@@ -24,8 +24,9 @@ namespace UnityEditor.PostProcessing
                 var type = parent.GetType();
                 var info = type.GetProperty(attribute.name);
 
-                if (info == null)
-                    Debug.LogError("Invalid property name \"" + attribute.name + "\"");
+                if (info == null) {
+                    //Debug.LogError("Invalid property name \"" + attribute.name + "\"");
+                }
                 else
                     info.SetValue(parent, fieldInfo.GetValue(parent), null);
 

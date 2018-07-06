@@ -155,7 +155,7 @@
 //        Sequence s = DOTween.Sequence();
 //        if (!fast)
 //        {
-//            // Debug.Log ("Not fast!!!");
+//            // //Debug.Log ("Not fast!!!");
 //            s.Append(card.transform.DOMove(DrawPreviewSpot.position, GlobalSettings.Instance.CardTransitionTime));
 //            if (TakeCardsOpenly)
 //                s.Insert(0f, card.transform.DORotate(Vector3.zero, GlobalSettings.Instance.CardTransitionTime));
@@ -179,7 +179,7 @@
 //    // this method will be called when the card arrived to hand 
 //    void ChangeLastCardStatusToInHand(GameObject card, WhereIsTheCardOrCreature w)
 //    {
-//        //Debug.Log("Changing state to Hand for card: " + card.gameObject.name);
+//        ////Debug.Log("Changing state to Hand for card: " + card.gameObject.name);
 //        if (owner == AreaPosition.Low)
 //            w.VisualState = VisualStates.LowHand;
 //        else

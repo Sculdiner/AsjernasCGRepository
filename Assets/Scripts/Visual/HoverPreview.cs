@@ -22,7 +22,7 @@ public class HoverPreview : MonoBehaviour
 
         set
         {
-            //Debug.Log("Hover Previews Allowed is now: " + value);
+            ////Debug.Log("Hover Previews Allowed is now: " + value);
             _PreviewsAllowed = value;
             if (!_PreviewsAllowed)
                 StopAllPreviews();
