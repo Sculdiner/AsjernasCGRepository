@@ -50,4 +50,9 @@ public class EquipmentCastDragBehaviour : BaseTargetingCardBehaviour
         ReferencedCard.KillTweens();
         handHelper.RefreshHandPositions(Ease.Linear, .35f);
     }
+
+    public override bool AllowInSetup()
+    {
+        return true;
+    }
 }

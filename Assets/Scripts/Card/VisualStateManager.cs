@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HighlightingSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,19 @@ public class VisualStateManager : MonoBehaviour
         return Preview;
     }
 
+    public void Hightlight()
+    {
+        var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
+        if (highlighter != null)
+            highlighter.tween = true;
+    }
+
+    public void EndHighlight()
+    {
+        var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
+        if (highlighter != null)
+            highlighter.tween = false;
+    }
 
     public void ChangeVisual(CardVisualState newState)
     {

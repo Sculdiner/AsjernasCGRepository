@@ -60,4 +60,9 @@ public class FollowerTargetingBehaviour : BaseTargetingCardBehaviour
     {
         return targetValidationMethod;
     }
+
+    public override bool AllowInSetup()
+    {
+        return false;
+    }
 }

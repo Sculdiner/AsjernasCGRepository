@@ -10,6 +10,11 @@ public class EventCastDragBehaviour : BaseDragCardBehaviour
     {
     }
 
+    public override bool AllowInSetup()
+    {
+        return true;
+    }
+
     public override bool DragSuccessful()
     {
         return base.DragSuccessful();

@@ -60,5 +60,10 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
     {
         return targetValidationMethod;
     }
+
+    public override bool AllowInSetup()
+    {
+        return true;
+    }
 }
 

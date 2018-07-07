@@ -9,11 +9,13 @@ public class CharacterManager : MonoBehaviour
 {
     public CardManager CardManager;
     public BoxCollider ColliderInformation;
+    public ClientSideCard ClientSideCard;
     public CharacterEquipmentManager CharacterEquipmentManager;
     public CharacterAbilityManager CharacterAbilityManager;
 
     public void SetCharacter(ClientSideCard card)
     {
+        ClientSideCard = card;
         card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Character);
         card.CardViewObject.transform.position = this.gameObject.transform.position;
         CardManager = card.CardManager;

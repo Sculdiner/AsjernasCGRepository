@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour
     private AIState AiState;
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
+    public PlayerState ActiveSetupSlotPlayer { get; private set; }
     public CharacterManager ActiveCharacterManager { get; set; }
     public void Awake()
     {
@@ -41,7 +42,7 @@ public class BoardManager : MonoBehaviour
 
         var partState = AiState;
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
-       
+
         Destroy(gameObject.GetComponent<Draggable>());
         //Debug.Log("Destroyed draggable component because the card is controlled by the AI");
 
@@ -200,7 +201,7 @@ public class BoardManager : MonoBehaviour
         if (card.CardStats.CardType == CardType.Character || card.CardStats.CardType == CardType.Follower)
         {
             var minions = AiState.Deck.Where(s => s.CurrentLocation == CardLocation.PlayArea && s.CardStats.CardType == CardType.Minion);
-            if (minions!=null && minions.Any())
+            if (minions != null && minions.Any())
                 validTargetsList.AddRange(minions);
         }
         return validTargetsList;
@@ -347,6 +348,38 @@ public class BoardManager : MonoBehaviour
         ActiveCharacterManager = null;
     }
 
+    public void SetupSlotActivated(int playerId)
+    {
+        TurnStatus = TurnStatus.Setup;
+        if (playerId == PhotonEngine.UserId)
+        {
+            BoardView.Instance.TurnMessenger.Show("Your Setup");
+        }
+        else
+        {
+            BoardView.Instance.TurnMessenger.Show("Teammate's Setup");
+        }
+        ActiveSetupSlotPlayer = GetPlayerStateById(playerId);
+    }
+
+    public void ActivateInitiativeSlot(int cardId)
+    {
+        var card = GetCard(cardId);
+        //the slot is of the current user
+        if (card.ParticipatorState is PlayerState && ((PlayerState)card.ParticipatorState).UserId == PhotonEngine.UserId)
+        {
+
+        }
+
+        //TurnStatus = TurnStatus.Encounter;
+        //ActiveCharacterManager?.CardManager.VisualStateManager.EndHighlight();
+        //ActiveCharacterManager = GetCard(characterId).CardManager.CharacterManager;
+        //ActiveCharacterManager?.CardManager.VisualStateManager.Hightlight();
+        //BoardView.Instance.TurnMessenger.Show(ActiveCharacterManager?.ClientSideCard.CardStats.CardName);
+    }
+
+
+    public TurnStatus TurnStatus = TurnStatus.PreGameStart;
     public static Action<ClientSideCard> OnCursorEntersCard;
     public static Action<ClientSideCard> OnCursorExitsCard;
 }

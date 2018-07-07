@@ -1,5 +1,6 @@
 ﻿using AsjernasCG.Common.ClientEventCodes;
 using AsjernasCG.Common.OperationModels.BasicModels;
+using HighlightingSystem;
 using UnityEngine;
 
 public class PlayableInitiativeSlotActivatedEventHandler<TModel> : BaseEventHandler<TModel> where TModel : IntegerModel
@@ -15,8 +16,8 @@ public class PlayableInitiativeSlotActivatedEventHandler<TModel> : BaseEventHand
     public override void OnHandleEvent(View view, TModel model)
     {
         var boardview = (view as BoardView);
-        var activeSlot = boardview;
-        boardview.BoardManager.ActiveCharacterManager = boardview.BoardManager.GetCard(model.Value).CardManager.CharacterManager;
+        //boardview.BoardManager.ActivatePlayableSlot(model.Value);
+        
         Debug.Log($"Active character initiative slot: {boardview.BoardManager.ActiveCharacterManager.CardManager.Template.CardName}");
     }
 }

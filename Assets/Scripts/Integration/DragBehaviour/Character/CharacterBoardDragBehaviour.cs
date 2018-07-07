@@ -64,4 +64,9 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
     {
         return targetValidationMethod;
     }
+
+    public override bool AllowInSetup()
+    {
+        return false;
+    }
 }

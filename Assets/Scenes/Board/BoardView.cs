@@ -26,7 +26,7 @@ public class BoardView : View
             RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1002, CardTemplateId = 4 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1004, CardTemplateId = 4 });
-
+            TurnMessenger.Show("Your turn");
             PhotonEngine.AddToQueue("CardDraw", () =>
             {
                 //Event with target
@@ -355,6 +355,7 @@ public class BoardView : View
     public AllySlotManager LeftPlayerAllySlotManager;
     public AllySlotManager RightPlayerAllySlotManager;
     public CharacterSlotManager CharacterSlotManager;
+    public TurnMessenger TurnMessenger;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

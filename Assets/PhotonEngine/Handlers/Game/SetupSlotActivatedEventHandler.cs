@@ -13,6 +13,10 @@ public class SetupSlotActivatedEventHandler<TModel> : BaseEventHandler<TModel> w
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        var boardview = (view as BoardView);
+        boardview.BoardManager.SetupSlotActivated(model.Value);
+        //boardview.BoardManager.ActiveCharacterManager?.CardManager.VisualStateManager.EndHighlight();
+        //boardview.BoardManager.ActiveCharacterManager = boardview.BoardManager.GetCard(model.Value).CardManager.CharacterManager;
+        //boardview.BoardManager.ActiveCharacterManager?.CardManager.VisualStateManager.Hightlight();
     }
 }

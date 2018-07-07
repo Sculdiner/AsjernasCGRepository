@@ -113,5 +113,10 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
     {
 
     }
+
+    public override bool AllowInSetup()
+    {
+        return true;
+    }
 }
 

@@ -12,7 +12,9 @@ public class Draggable : MonoBehaviour
 
     private bool AllowDrag()
     {
-        var activeCharacter = BoardManager.Instance.ActiveCharacterManager;
+        var boardManager = BoardManager.Instance;
+        
+        var activeCharacter = boardManager.ActiveCharacterManager;
         if (BoardManager.Instance.ActiveCharacterManager != null)
         {
             var id = activeCharacter.CardManager.Template.GeneratedCardId;
@@ -72,9 +74,23 @@ public class Draggable : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (AllowDrag())
+        if (actions != null)
         {
-            actions?.OnStartDrag();
+            if (BoardManager.Instance.TurnStatus == TurnStatus.Setup)
+            {
+                if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)
+                {
+                    actions.OnStartDrag();
+                }
+                else
+                {
+                    //"it's not your setup turn";
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 

@@ -8,7 +8,7 @@ public abstract class DraggingActions
     {
         ReferencedCard = card;
     }
-
+    public abstract bool AllowInSetup();
     public Vector3? PreDragPosition { get; set; }
 
     public abstract void OnStartDrag();

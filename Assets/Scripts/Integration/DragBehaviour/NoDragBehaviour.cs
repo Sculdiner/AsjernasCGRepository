@@ -11,6 +11,11 @@ public class NoDragBehaviour : DraggingActions
     {
     }
 
+    public override bool AllowInSetup()
+    {
+        return false;
+    }
+
     public override bool DragSuccessful()
     {
         return true;
