@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AsjernasCG.Common.BusinessModels.CardModels;
 using UnityEngine;
 
@@ -13,19 +14,20 @@ public class Draggable : MonoBehaviour
     private bool AllowDrag()
     {
         var boardManager = BoardManager.Instance;
-        
-        var activeCharacter = boardManager.ActiveCharacterManager;
-        if (BoardManager.Instance.ActiveCharacterManager != null)
-        {
-            var id = activeCharacter.CardManager.Template.GeneratedCardId;
-            var card = BoardManager.Instance.GetCard(id);
-            if (card != null && card.ParticipatorState is PlayerState)
-            {
-                if ((card.ParticipatorState as PlayerState).UserId == PhotonEngine.UserId)
-                    return true;
-            }
-        }
-        return false;
+
+        return boardManager.CurrentActiveInitiativeSlots.Any(s => s.CardManager.Template.GeneratedCardId == ControllingCard.CardManager.Template.GeneratedCardId);
+        //var activeCharacter = boardManager.ActiveCharacterManager;
+        //if (BoardManager.Instance.ActiveCharacterManager != null)
+        //{
+        //    var id = activeCharacter.CardManager.Template.GeneratedCardId;
+        //    var card = BoardManager.Instance.GetCard(id);
+        //    if (card != null && card.ParticipatorState is PlayerState)
+        //    {
+        //        if ((card.ParticipatorState as PlayerState).UserId == PhotonEngine.UserId)
+        //            return true;
+        //    }
+        //}
+        //return false;
     }
 
     // Use this for initialization
@@ -89,24 +91,73 @@ public class Draggable : MonoBehaviour
             }
             else
             {
-
+                if (AllowDrag())
+                {
+                    actions.OnStartDrag();
+                }
             }
         }
     }
 
+    private bool dragStarted = false;
+
     public void OnMouseDrag()
     {
-        if (AllowDrag())
+        if (dragStarted)
         {
             actions?.OnDraggingInUpdate();
+        }
+        else
+        {
+            if (actions != null)
+            {
+                if (BoardManager.Instance.TurnStatus == TurnStatus.Setup)
+                {
+                    if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)
+                    {
+                        dragStarted = true;
+                        actions.OnDraggingInUpdate();
+                    }
+                    else
+                    {
+                        //"it's not your setup turn";
+                    }
+                }
+                else
+                {
+                    if (AllowDrag())
+                    {
+                        dragStarted = true;
+                        actions.OnDraggingInUpdate();
+                    }
+                }
+            }
         }
     }
 
     public void OnMouseUp()
     {
-        if (AllowDrag())
+        dragStarted = false;
+        if (actions != null)
         {
-            actions?.OnEndDrag();
+            if (BoardManager.Instance.TurnStatus == TurnStatus.Setup)
+            {
+                if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)
+                {
+                    actions.OnEndDrag();
+                }
+                else
+                {
+                    //"it's not your setup turn";
+                }
+            }
+            else
+            {
+                if (AllowDrag())
+                {
+                    actions.OnEndDrag();
+                }
+            }
         }
     }
 

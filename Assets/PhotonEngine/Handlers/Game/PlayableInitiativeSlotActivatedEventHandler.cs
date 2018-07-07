@@ -16,7 +16,7 @@ public class PlayableInitiativeSlotActivatedEventHandler<TModel> : BaseEventHand
     public override void OnHandleEvent(View view, TModel model)
     {
         var boardview = (view as BoardView);
-        //boardview.BoardManager.ActivatePlayableSlot(model.Value);
+        boardview.BoardManager.ActivateInitiativeSlot(model.Value);
         
         Debug.Log($"Active character initiative slot: {boardview.BoardManager.ActiveCharacterManager.CardManager.Template.CardName}");
     }

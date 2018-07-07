@@ -16,6 +16,8 @@ public class VisualStateManager : MonoBehaviour
     public CardVisualComponent Equipment;
     public CardVisualComponent Ability;
     public CardVisualComponent Character;
+    public ParticleSystem DissolvePlayParticleSystem;
+    public ParticleSystem SmokePlayParticleSystem;
 
     private CardVisualComponent _state;
     public CardVisualComponent CurrentState { get { return _state; } }

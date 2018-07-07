@@ -23,7 +23,7 @@ public class AllySlotManager : MonoBehaviour
 
     //public List<EncounterSlot>
 
-    public void UpdatePositions()
+    public void UpdatePositions(bool hasNewMember)
     {
         Sequence mySequence = DOTween.Sequence();
         switch (AllyCards.Count)
@@ -85,7 +85,14 @@ public class AllySlotManager : MonoBehaviour
         }
         if (AllyCards.Count > 0)
         {
-            mySequence.OnComplete(() => { PhotonEngine.CompletedAction("Ally"); });
+            mySequence.OnComplete(() =>
+            {
+                PhotonEngine.CompletedAction("Ally");
+                if (hasNewMember)
+                {
+                    AllyCards.Last().CardManager.VisualStateManager.SmokePlayParticleSystem.Play();
+                }
+            });
         }
         else
         {
@@ -110,7 +117,7 @@ public class AllySlotManager : MonoBehaviour
                     draggableComponent.SetAction<FollowerTargetingBehaviour>();
 
                 //set followerboarddragbehavior draggingaction
-                UpdatePositions();
+                UpdatePositions(true);
             }
         }
     }
@@ -130,7 +137,7 @@ public class AllySlotManager : MonoBehaviour
                 var draggableComponent = clientSideCard.CardManager.GetComponent<Draggable>();
                 if (draggableComponent != null && PhotonEngine.UserId == (clientSideCard.ParticipatorState as PlayerState).UserId)
                     draggableComponent.SetAction<FollowerCastDragBehaviour>();
-                UpdatePositions();
+                UpdatePositions(true);
             }
         }
     }
@@ -149,7 +156,7 @@ public class AllySlotManager : MonoBehaviour
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>
             {
                 card.CardViewObject.SetActive(false);
-                UpdatePositions();
+                UpdatePositions(false);
             });
         }
     }

@@ -26,7 +26,8 @@ public class BoardView : View
             RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1002, CardTemplateId = 4 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1004, CardTemplateId = 4 });
-            TurnMessenger.Show("Your turn");
+            BoardManager.SetupSlotActivated(1);
+            BoardManager.ActivateInitiativeSlot(1001);
             PhotonEngine.AddToQueue("CardDraw", () =>
             {
                 //Event with target

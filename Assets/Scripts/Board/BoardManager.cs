@@ -350,6 +350,7 @@ public class BoardManager : MonoBehaviour
 
     public void SetupSlotActivated(int playerId)
     {
+        CurrentActiveInitiativeSlots.Clear();
         TurnStatus = TurnStatus.Setup;
         if (playerId == PhotonEngine.UserId)
         {
@@ -362,15 +363,23 @@ public class BoardManager : MonoBehaviour
         ActiveSetupSlotPlayer = GetPlayerStateById(playerId);
     }
 
+    public List<ClientSideCard> CurrentActiveInitiativeSlots = new List<ClientSideCard>();
+
     public void ActivateInitiativeSlot(int cardId)
     {
+        CurrentActiveInitiativeSlots.Clear();
         var card = GetCard(cardId);
+        BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
+        CurrentActiveInitiativeSlots.Add(card);
         //the slot is of the current user
         if (card.ParticipatorState is PlayerState && ((PlayerState)card.ParticipatorState).UserId == PhotonEngine.UserId)
         {
-
+            var hand = card.ParticipatorState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
+            if (hand!=null && hand.Any())
+            {
+                CurrentActiveInitiativeSlots.AddRange(hand);
+            }
         }
-
         //TurnStatus = TurnStatus.Encounter;
         //ActiveCharacterManager?.CardManager.VisualStateManager.EndHighlight();
         //ActiveCharacterManager = GetCard(characterId).CardManager.CharacterManager;

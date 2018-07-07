@@ -61,6 +61,7 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
 
         if (PlacementTarget != null && PlacementTarget.OwningPlayer.UserId == BoardManager.Instance.GetCurrentUserPlayerState().UserId)
         {
+            ReferencedCard.CardManager.VisualStateManager.DissolvePlayParticleSystem.Play(true);
             if (BoardView.Instance.IsArtistDebug)
             {
                 handHelper.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
