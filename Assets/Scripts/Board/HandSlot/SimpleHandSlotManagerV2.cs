@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
+public class SimpleHandSlotManagerV2 : PositionalSlotManager
 {
     private enum CollidersPosition
     {
@@ -140,6 +140,8 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
 
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
+                clientSideCard.CardManager.SlotManager?.RemoveSlot(clientSideCard.CardStats.GeneratedCardId);
+                clientSideCard.CardManager.SlotManager = this;
                 HandCards.Add(clientSideCard);
                 //ApplyFullHandDisplayHoverEvents(clientSideCard);
                 UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
@@ -147,25 +149,25 @@ public class SimpleHandSlotManagerV2 : SerializedMonoBehaviour
         }
     }
 
-    public void AddCardToPosition(ClientSideCard clientSideCard, int index)
-    {
-        lock (positionUpdaterLocker)
-        {
-            if (HandCards.Count < 8)
-            {
-                //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
-                //clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
-                clientSideCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
-                //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
-                //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
-                HandCards.Insert(index, clientSideCard);
-                //ApplyFullHandDisplayHoverEvents(clientSideCard);
-                UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
-            }
-        }
-    }
+    //public void AddCardToPosition(ClientSideCard clientSideCard, int index)
+    //{
+    //    lock (positionUpdaterLocker)
+    //    {
+    //        if (HandCards.Count < 8)
+    //        {
+    //            //clientSideCard.CardViewObject.GetComponent<BoxCollider>().enabled = false;
+    //            //clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
+    //            clientSideCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
+    //            //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
+    //            //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
+    //            HandCards.Insert(index, clientSideCard);
+    //            //ApplyFullHandDisplayHoverEvents(clientSideCard);
+    //            UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
+    //        }
+    //    }
+    //}
 
-    public void RemoveCard(int cardId)
+    public override void RemoveSlot(int cardId)
     {
         lock (positionUpdaterLocker)
         {

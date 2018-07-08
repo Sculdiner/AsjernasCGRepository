@@ -31,7 +31,7 @@ public class PlayCardWithoutTargetEventHandler<TModel> : BaseEventHandler<TModel
         }
         if (card.CardStats.CardType == CardType.Follower)
         {
-            boardView.HandSlotManagerV2.RemoveCard(model.GeneratedCardId);
+            //boardView.HandSlotManagerV2.RemoveCard(model.GeneratedCardId);
             boardView.BoardManager.GetPlayerStateById(model.OwnerId)?.AllySlotManager.AddAllyCardLast(card);
         }
     }

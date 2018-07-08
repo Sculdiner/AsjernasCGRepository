@@ -19,7 +19,11 @@ public abstract class BaseEventHandler<TModel> : IEventHandler where TModel : cl
             OnHandleEvent(view, model);
         else if (ActionSyncType == UIActionSynchronizationType.SerialSync)
         {
-            OnHandleEvent(view, model);
+            PhotonEngine.AddToQueue("SerialSyncCallback", () =>
+            {
+                OnHandleEvent(view, model);
+                PhotonEngine.CompletedAction();
+            });
         }
         else if (ActionSyncType == UIActionSynchronizationType.CallbackSync)
         {

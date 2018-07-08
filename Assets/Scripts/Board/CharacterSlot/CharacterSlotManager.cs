@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class CharacterSlotManager : MonoBehaviour
+public class CharacterSlotManager : PositionalSlotManager
 {
     public CharacterManager Player1Character1Manager;
     public CharacterManager Player1Character2Manager;
@@ -47,6 +47,11 @@ public class CharacterSlotManager : MonoBehaviour
         {
             throw new Exception();
         }
+    }
+
+    public override void RemoveSlot(int cardId)
+    {
+        
     }
 
     public void SetCharacterPosition(CharacterManager character)

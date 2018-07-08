@@ -24,7 +24,7 @@ public class TurnMessenger : MonoBehaviour
         RibbonObject.SetActive(true);
         var seq = DOTween.Sequence();
         seq.Append(RibbonObject.transform.DOScale(ScaleVector, 0.4f));
-        seq.Append(RibbonObject.transform.DOScale(ScaleVector, 0.8f));
+        seq.Append(RibbonObject.transform.DOScale(ScaleVector, 1.2f));
         seq.Append(RibbonObject.transform.DOScale(0, 0.4f));
         seq.OnComplete(() => { RibbonObject.SetActive(false); });
     }

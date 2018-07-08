@@ -15,6 +15,7 @@ public class CardManager : MonoBehaviour
     public VisualStateManager VisualStateManager;
     public LineRenderer TargetingGizmo;
     public Canvas TargetingRectangle;
+    public PositionalSlotManager SlotManager { get; set; }
     public CharacterManager CharacterManager { get; set; }
 
     public bool CanBePlayed() { return true; }

@@ -651,7 +651,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   PositionSlot1: {fileID: 4200847639484440}
-  PositionSlot2: {fileID: 4230748143585704}
+  PositionSlot2: {fileID: 4707140784669910}
   DefaultAbilityMaterial: {fileID: 2100000, guid: a7e05252eed11d84e9e25074f1d7bbb4,
     type: 2}
 --- !u!114 &114198519423453824
@@ -681,7 +681,10 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 65235893997907106}
+    - {fileID: 65577371832020102}
+    - {fileID: 65111967311384666}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -714,8 +717,8 @@ MonoBehaviour:
       Entry: 3
       Data: 10
     - Name: 
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -726,8 +729,8 @@ MonoBehaviour:
       Entry: 3
       Data: 11
     - Name: 
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -738,8 +741,8 @@ MonoBehaviour:
       Entry: 3
       Data: 12
     - Name: 
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 2
     - Name: 
       Entry: 8
       Data: 

@@ -64,7 +64,7 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
             ReferencedCard.CardManager.VisualStateManager.DissolvePlayParticleSystem.Play(true);
             if (BoardView.Instance.IsArtistDebug)
             {
-                handHelper.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
+                //handHelper.RemoveCard(ReferencedCard.CardStats.GeneratedCardId);
                 //operation and dissolve.
                 //boardmanager to validate play
                 PlacementTarget.AddAllyCardLast(ReferencedCard);

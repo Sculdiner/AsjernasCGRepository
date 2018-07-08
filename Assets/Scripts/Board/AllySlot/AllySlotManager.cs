@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class AllySlotManager : MonoBehaviour
+public class AllySlotManager : PositionalSlotManager
 {
     public PlayerState OwningPlayer;
     public bool IsCurrentPlayerArea()
@@ -109,6 +109,8 @@ public class AllySlotManager : MonoBehaviour
                 //var allyComp = clientSideCard.CardViewObject.GetComponent<CardAllyHelperComponent>();
                 //allyComp.ReferencedCard = clientSideCard;
                 //allyComp.enabled = true;
+                clientSideCard.CardManager.SlotManager?.RemoveSlot(clientSideCard.CardStats.GeneratedCardId);
+                clientSideCard.CardManager.SlotManager = this;
                 clientSideCard.SetLocation(CardLocation.PlayArea);
                 clientSideCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Follower);
                 AllyCards.Add(clientSideCard);
@@ -142,7 +144,7 @@ public class AllySlotManager : MonoBehaviour
         }
     }
 
-    public void RemoveAllyCard(int cardId)
+    public override void RemoveSlot(int cardId)
     {
         lock (positionUpdaterLocker)
         {

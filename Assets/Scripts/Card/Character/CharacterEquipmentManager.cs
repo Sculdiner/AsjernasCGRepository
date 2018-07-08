@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class CharacterEquipmentManager : SerializedMonoBehaviour
+public class CharacterEquipmentManager : PositionalSlotManager
 {
     [OdinSerialize]
     public Dictionary<PlacementPosition, BoxCollider> PositionalSlots;
@@ -51,7 +51,9 @@ public class CharacterEquipmentManager : SerializedMonoBehaviour
                 equipment.SetLocation(CardLocation.PlayArea);
                 equipment.CardViewObject.gameObject.GetComponent<DragRotator>().DisableRotator();
 
-                BoardView.Instance.HandSlotManagerV2.RemoveCard(equipment.CardStats.GeneratedCardId);
+                equipment.CardManager.SlotManager?.RemoveSlot(equipment.CardStats.GeneratedCardId);
+                equipment.CardManager.SlotManager = this;
+                
                 equipment.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Equipment);
                 equipment.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
                 Equipments.Add(equipment);
@@ -63,21 +65,20 @@ public class CharacterEquipmentManager : SerializedMonoBehaviour
         }
     }
 
-    public bool RemoveEquipment(int equipmentGeneratedCardId)
+    public override void RemoveSlot(int equipmentGeneratedCardId)
     {
         lock (equipmentLocker)
         {
             var eq = Equipments.FirstOrDefault(s => s.CardStats.GeneratedCardId == equipmentGeneratedCardId);
             if (eq == null)
-                return false;
+                return;
             Equipments.Remove(eq);
-            eq.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+            eq.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
             eq.CardViewObject.SetActive(false);
-            var boxCollider = eq.CardViewObject.GetComponent<BoxCollider>();
-            boxCollider.center = new Vector3(0, 0, 0);
-            boxCollider.size = new Vector3(1, 1, 1);
+            //var boxCollider = eq.CardViewObject.GetComponent<BoxCollider>();
+            //boxCollider.center = new Vector3(0, 0, 0);
+            //boxCollider.size = new Vector3(1, 1, 1);
             UpdatePositions(false);
-            return true;
         }
     }
 

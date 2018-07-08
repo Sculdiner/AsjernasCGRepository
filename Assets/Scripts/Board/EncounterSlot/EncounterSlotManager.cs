@@ -6,7 +6,7 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class EncounterSlotManager : MonoBehaviour
+public class EncounterSlotManager : PositionalSlotManager
 {
     public List<ClientSideCard> EncounterCards { get; set; }
     public EncounterSlotsPositionContainer SlotsContainer;
@@ -94,39 +94,26 @@ public class EncounterSlotManager : MonoBehaviour
         {
             if (EncounterCards.Count < 8)
             {
+                clientSideCard.CardManager.SlotManager?.RemoveSlot(clientSideCard.CardStats.GeneratedCardId);
+                clientSideCard.CardManager.SlotManager = this;
                 EncounterCards.Add(clientSideCard);
                 UpdatePositions();
             }
         }
     }
 
-    public void AddEncounterCardToPosition(ClientSideCard clientSideCard, int index)
-    {
-        lock (positionUpdaterLocker)
-        {
-            if (EncounterCards.Count < 8)
-            {
-                EncounterCards.Insert(index, clientSideCard);
-                UpdatePositions();
-            }
-        }
-    }
+    //public void AddEncounterCardToPosition(ClientSideCard clientSideCard, int index)
+    //{
+    //    lock (positionUpdaterLocker)
+    //    {
+    //        if (EncounterCards.Count < 8)
+    //        {
+    //            EncounterCards.Insert(index, clientSideCard);
+    //            UpdatePositions();
+    //        }
+    //    }
+    //}
 
-    public void RemoveEncounterCard(int cardId)
-    {
-        lock (positionUpdaterLocker)
-        {
-            var card = EncounterCards.FirstOrDefault(c => c.CardStats.GeneratedCardId == cardId);
-            if (card == null)
-                return;
-
-            EncounterCards.Remove(card);
-            card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(()=> {
-                card.CardViewObject.SetActive(false);
-                UpdatePositions();
-            });
-        }
-    }
 
     private void Move(GameObject card, OddPlacementPosition oddPosition, Sequence seq)
     {
@@ -136,5 +123,21 @@ public class EncounterSlotManager : MonoBehaviour
     private void Move(GameObject card, EvenPlacementPosition evenPosition, Sequence seq)
     {
         seq.Insert(0, card.transform.DOMove(SlotsContainer.EvenSlots[evenPosition].transform.position, 0.85f));
+    }
+
+    public override void RemoveSlot(int cardId)
+    {
+        lock (positionUpdaterLocker)
+        {
+            var card = EncounterCards.FirstOrDefault(c => c.CardStats.GeneratedCardId == cardId);
+            if (card == null)
+                return;
+
+            EncounterCards.Remove(card);
+            card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() => {
+                card.CardViewObject.SetActive(false);
+                UpdatePositions();
+            });
+        }
     }
 }

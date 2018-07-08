@@ -17,7 +17,7 @@ public class BoardManager : MonoBehaviour
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
     public PlayerState ActiveSetupSlotPlayer { get; private set; }
-    public CharacterManager ActiveCharacterManager { get; set; }
+    public ClientSideCard ActiveInitiativeCard { get; set; }
     public void Awake()
     {
         Instance = this;
@@ -345,7 +345,7 @@ public class BoardManager : MonoBehaviour
 
     public void ClearActiveCharacterSlot()
     {
-        ActiveCharacterManager = null;
+        ActiveInitiativeCard = null;
     }
 
     public void SetupSlotActivated(int playerId)
@@ -367,26 +367,43 @@ public class BoardManager : MonoBehaviour
 
     public void ActivateInitiativeSlot(int cardId)
     {
+        TurnStatus = TurnStatus.Encounter;
+        ActiveInitiativeCard?.CardManager.VisualStateManager.EndHighlight();
         CurrentActiveInitiativeSlots.Clear();
         var card = GetCard(cardId);
-        BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
         CurrentActiveInitiativeSlots.Add(card);
         //the slot is of the current user
         if (card.ParticipatorState is PlayerState && ((PlayerState)card.ParticipatorState).UserId == PhotonEngine.UserId)
         {
+            BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
+            ActiveInitiativeCard = card;
+            ActiveInitiativeCard?.CardManager.VisualStateManager.Hightlight();
+            BoardView.Instance.TurnButton.FlipToPass();
+
             var hand = card.ParticipatorState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
-            if (hand!=null && hand.Any())
-            {
+            if (hand != null && hand.Any())
                 CurrentActiveInitiativeSlots.AddRange(hand);
-            }
         }
-        //TurnStatus = TurnStatus.Encounter;
-        //ActiveCharacterManager?.CardManager.VisualStateManager.EndHighlight();
-        //ActiveCharacterManager = GetCard(characterId).CardManager.CharacterManager;
-        //ActiveCharacterManager?.CardManager.VisualStateManager.Hightlight();
-        //BoardView.Instance.TurnMessenger.Show(ActiveCharacterManager?.ClientSideCard.CardStats.CardName);
+        else
+        {
+            ActiveInitiativeCard = null;
+        }
     }
 
+    public void Pass()
+    {
+        ActiveInitiativeCard?.CardManager.VisualStateManager.EndHighlight();
+        (BoardView.Instance.Controller as BoardController).Pass();
+    }
+
+    public void RemoveCardFromPlay(int cardId)
+    {
+        var card = GetCard(cardId);
+        if (card != null)
+        {
+            card.CardManager.SlotManager?.RemoveSlot(cardId);
+        }
+    }
 
     public TurnStatus TurnStatus = TurnStatus.PreGameStart;
     public static Action<ClientSideCard> OnCursorEntersCard;

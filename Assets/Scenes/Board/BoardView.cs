@@ -27,7 +27,7 @@ public class BoardView : View
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1004, CardTemplateId = 4 });
             BoardManager.SetupSlotActivated(1);
-            BoardManager.ActivateInitiativeSlot(1001);
+            
             PhotonEngine.AddToQueue("CardDraw", () =>
             {
                 //Event with target
@@ -65,6 +65,12 @@ public class BoardView : View
                 var cardPrefab = MasterCardManager.GenerateCardPrefab(20, 5);
                 var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(5).Template, CardLocation.Hand, 1);
                 HandSlotManagerV2.AddCardLast(card);
+            });
+
+            PhotonEngine.AddToQueue("", () =>
+            {
+                BoardManager.ActivateInitiativeSlot(1001);
+                PhotonEngine.CompletedAction();
             });
 
             //PhotonEngine.AddToQueue("Equipemnt", () =>
@@ -357,6 +363,7 @@ public class BoardView : View
     public AllySlotManager RightPlayerAllySlotManager;
     public CharacterSlotManager CharacterSlotManager;
     public TurnMessenger TurnMessenger;
+    public TurnButton TurnButton;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

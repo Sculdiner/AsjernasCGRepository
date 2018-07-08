@@ -30,7 +30,7 @@ public class GameRoutingEventHandler : BaseRoutingEventHandler
         _subEventHandlerCollection.AddHandler(new EncounterCardEventHandler<DetailedCardModel>());
         _subEventHandlerCollection.AddHandler(new GameEndEventHandler<GameEndWithRewardsModel>());
         _subEventHandlerCollection.AddHandler(new InitiativeSlotsEventHandler<InitiativeSlotsModel>());
-        _subEventHandlerCollection.AddHandler(new PlayableInitiativeSlotActivatedEventHandler<IntegerModel>());
+        _subEventHandlerCollection.AddHandler(new InitiativeSlotActivatedEventHandler<IntegerModel>());
         _subEventHandlerCollection.AddHandler(new ResourceChangeEventHandler<ResourceChangeModel>());
         _subEventHandlerCollection.AddHandler(new ResourceChangeBatchEventHandler<List<ResourceChangeModel>>());
         _subEventHandlerCollection.AddHandler(new RoundStartEventHandler<RoundStartModel>());

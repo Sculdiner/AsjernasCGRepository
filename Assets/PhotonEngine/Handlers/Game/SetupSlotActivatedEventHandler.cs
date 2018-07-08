@@ -3,6 +3,11 @@ using AsjernasCG.Common.OperationModels.BasicModels;
 
 public class SetupSlotActivatedEventHandler<TModel> : BaseEventHandler<TModel> where TModel : IntegerModel
 {
+    public SetupSlotActivatedEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.SerialSync;
+    }
+
     public override byte EventCode
     {
         get
