@@ -364,6 +364,7 @@ public class BoardView : View
     public CharacterSlotManager CharacterSlotManager;
     public TurnMessenger TurnMessenger;
     public TurnButton TurnButton;
+    public InitiativeSlotManager InitiativeManager;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

@@ -1165,7 +1165,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1743619457214136}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.994, y: 0.459, z: 0.107329264}
+  m_LocalPosition: {x: 3.7, y: 1.129, z: -0.31987536}
   m_LocalScale: {x: 0.7, y: 0.019999996, z: 1}
   m_Children:
   - {fileID: 4743903254074528}
@@ -2094,8 +2094,8 @@ MonoBehaviour:
   Text: {fileID: 0}
   Image: {fileID: 114874836711639658}
   Cost: {fileID: 0}
-  Power: {fileID: 0}
-  Health: {fileID: 0}
+  Power: {fileID: 114559400457234062}
+  Health: {fileID: 114086725267157046}
 --- !u!114 &114117667520031440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2139,8 +2139,8 @@ MonoBehaviour:
   Text: {fileID: 0}
   Image: {fileID: 114617923341746094}
   Cost: {fileID: 0}
-  Power: {fileID: 0}
-  Health: {fileID: 0}
+  Power: {fileID: 114846113923476560}
+  Health: {fileID: 114724049573973702}
 --- !u!114 &114137261976742990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2364,11 +2364,11 @@ MonoBehaviour:
   Visual: {fileID: 1160681376679042}
   VisualState: 1
   Name: {fileID: 114140150255304624}
-  Text: {fileID: 0}
+  Text: {fileID: 114932973140211026}
   Image: {fileID: 114234019569093718}
-  Cost: {fileID: 0}
-  Power: {fileID: 0}
-  Health: {fileID: 0}
+  Cost: {fileID: 114747769131008854}
+  Power: {fileID: 114020473834989440}
+  Health: {fileID: 114527524738389620}
 --- !u!114 &114191840779886346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3117,11 +3117,11 @@ MonoBehaviour:
   Visual: {fileID: 1467303140057890}
   VisualState: 0
   Name: {fileID: 114996721127572482}
-  Text: {fileID: 0}
+  Text: {fileID: 114563515583061268}
   Image: {fileID: 114978544350444602}
-  Cost: {fileID: 0}
-  Power: {fileID: 0}
-  Health: {fileID: 0}
+  Cost: {fileID: 114344932604642204}
+  Power: {fileID: 114216580058221938}
+  Health: {fileID: 114370840941096994}
 --- !u!114 &114523413609291216
 MonoBehaviour:
   m_ObjectHideFlags: 1

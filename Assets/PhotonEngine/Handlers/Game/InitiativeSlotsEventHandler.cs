@@ -13,6 +13,7 @@ public class InitiativeSlotsEventHandler<TModel> : BaseEventHandler<TModel> wher
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        var boardView = view as BoardView;
+        boardView.InitiativeManager.SetInitiativeSlot(model.InitiativeSlots);
     }
 }

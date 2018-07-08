@@ -36,6 +36,7 @@ public class GameRoutingEventHandler : BaseRoutingEventHandler
         _subEventHandlerCollection.AddHandler(new RoundStartEventHandler<RoundStartModel>());
         _subEventHandlerCollection.AddHandler(new EncounterStartEventHandler<EmptyModel>());
         _subEventHandlerCollection.AddHandler(new SetupSlotActivatedEventHandler<IntegerModel>());
+        _subEventHandlerCollection.AddHandler(new RemoveCardEventHelperEventHandler<IntegerModel>());
     }
     public override ClientEventGroupCode RegisteredEventGroupCode
     {

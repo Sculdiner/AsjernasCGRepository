@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9ce2c5c97fb3b41962f03178dfc718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsArtistDebug: 1
+  IsArtistDebug: 0
   MessageBoxManager: {fileID: 751189069}
   PlayArea: {fileID: 0}
   FriendListViewManager: {fileID: 0}
@@ -1110,6 +1110,7 @@ MonoBehaviour:
   CharacterSlotManager: {fileID: 1181264178}
   TurnMessenger: {fileID: 1266157445}
   TurnButton: {fileID: 888512864}
+  InitiativeManager: {fileID: 785063566}
 --- !u!4 &260827570
 Transform:
   m_ObjectHideFlags: 0
@@ -5480,6 +5481,105 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d39559b25a261847a1f328ae9fe829a, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &785063552 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1741431182445112, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063553 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4267640681946412, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063554 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4559130852241168, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063555 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4028722263658502, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063556 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4099677852205496, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063557 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4640395500035752, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063558 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4586251366998738, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063559 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4161860734935396, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063560 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4041571406487958, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063561 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4049547004160854, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063562 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4912330808798332, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063563 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4258549847116068, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063564 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4097341373817852, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!4 &785063565 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4300551361850722, guid: 9d39559b25a261847a1f328ae9fe829a,
+    type: 2}
+  m_PrefabInternal: {fileID: 785063551}
+--- !u!114 &785063566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 785063552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef9745f487b4e04d9a2614e66a23810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitiativeSlotPrefab: {fileID: 114003738464664312, guid: c194266b480da2b4baa4eff23b8d9aea,
+    type: 2}
+  SlotPositions:
+  - {fileID: 785063565}
+  - {fileID: 785063564}
+  - {fileID: 785063563}
+  - {fileID: 785063562}
+  - {fileID: 785063561}
+  - {fileID: 785063560}
+  - {fileID: 785063559}
+  - {fileID: 785063558}
+  - {fileID: 785063557}
+  - {fileID: 785063556}
+  - {fileID: 785063555}
+  - {fileID: 785063554}
+  - {fileID: 785063553}
+  CurrentSlots: []
+  BoardManager: {fileID: 731265203}
 --- !u!1 &867283980
 GameObject:
   m_ObjectHideFlags: 0
