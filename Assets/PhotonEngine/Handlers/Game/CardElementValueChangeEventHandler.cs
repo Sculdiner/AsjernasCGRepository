@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class CardElementValueChangeEventHandler<TModel> : BaseEventHandler<TModel> where TModel : CardElementValueChange
 {
+    public CardElementValueChangeEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.SerialSync;
+    }
+
     public override byte EventCode
     {
         get
@@ -16,6 +21,7 @@ public class CardElementValueChangeEventHandler<TModel> : BaseEventHandler<TMode
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        var boardview = view as BoardView;
+        boardview.BoardManager.GetCard(model.CardGeneratedId);
     }
 }

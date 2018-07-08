@@ -3,6 +3,11 @@ using AsjernasCG.Common.EventModels.Game;
 
 public class InitiativeSlotsEventHandler<TModel> : BaseEventHandler<TModel> where TModel : InitiativeSlotsModel
 {
+    public InitiativeSlotsEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.SerialSync;
+    }
+
     public override byte EventCode
     {
         get

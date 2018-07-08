@@ -15,4 +15,9 @@ public class BoardCardReferenceCollection
             return RegisteredCards[uniqueCardId];
         return null;
     }
+
+    public int GetCardCount()
+    {
+        return RegisteredCards.Count;
+    }
 }

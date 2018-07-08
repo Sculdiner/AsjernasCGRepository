@@ -6,14 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 public class RemoveCardEventHelperEventHandler<TModel> : BaseEventHandler<TModel> where TModel : IntegerModel
 {
+    public RemoveCardEventHelperEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.SerialSync;
+    }
+
     public override byte EventCode
     {
         get
         {
-            return (byte)ClientGameEventCode.ResourceChangeBatch;
+            return (byte)ClientGameEventCode.RemoveCardFromBoard;
         }
     }
 
@@ -21,5 +25,6 @@ public class RemoveCardEventHelperEventHandler<TModel> : BaseEventHandler<TModel
     {
         var boardView = view as BoardView;
         boardView.BoardManager.RemoveCardFromPlay(model.Value);
+        boardView.InitiativeManager.RemoveSlot(model.Value);
     }
 }

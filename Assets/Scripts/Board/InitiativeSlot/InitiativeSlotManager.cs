@@ -13,15 +13,43 @@ public class InitiativeSlotManager : MonoBehaviour
     public BoardManager BoardManager;
     public void SetInitiativeSlot(List<int> cards)
     {
+        foreach (var item in CurrentSlots)
+            DestroyImmediate(item);
+
+        CurrentSlots.Clear();
+
         foreach (var item in cards)
         {
             var card = BoardManager.GetCard(item);
+            if (card == null)
+            {
+                Debug.Log($"can't find init slot for card with id:{item}. Current card count: {BoardManager.DEBUG_SHOWCARDCOUNT()}");
+                continue;
+            }
+            else
+            {
+                Debug.Log($"found init slot for card with id:{item}. Current card count: {BoardManager.DEBUG_SHOWCARDCOUNT()}");
+            }
+                
             var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;
             newSlot.SetCardInfo(card);
             CurrentSlots.Add(newSlot);
         }
         UpdatePositions();
     }
+
+
+    public void RemoveSlot(int cardId)
+    {
+        var card = CurrentSlots?.FirstOrDefault(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
+        if (card!= null)
+        {
+            CurrentSlots.Remove(card);
+            DestroyImmediate(card);
+            UpdatePositions();
+        }
+    }
+
     public void SetInitiativeSlot(ClientSideCard card)
     {
         var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;

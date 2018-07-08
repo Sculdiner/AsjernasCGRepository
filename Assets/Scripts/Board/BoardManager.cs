@@ -120,6 +120,11 @@ public class BoardManager : MonoBehaviour
         return CardReferenceCollection.GetCard(cardId);
     }
 
+    public int DEBUG_SHOWCARDCOUNT()
+    {
+        return CardReferenceCollection.GetCardCount();
+    }
+
     public ClientSideCard GetCard(RaycastHit collidingObject)
     {
         var collidedObject = collidingObject.transform.gameObject;

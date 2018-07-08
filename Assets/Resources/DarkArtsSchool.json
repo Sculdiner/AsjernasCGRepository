@@ -280,6 +280,7 @@
     "CardType": 8,
     "CardText": "",
 	"ImagePath": "skeletonarcher",
-    "Quantity": 2
+	"Power" : 2,
+	"Health" : 4
   }
 ]

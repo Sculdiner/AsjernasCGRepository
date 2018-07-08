@@ -31,6 +31,23 @@ public class CardVisualComponent : MonoBehaviour
         {
             Image.texture = Resources.Load($"Images/{template.ImagePath}") as Texture2D;
         }
+        if (Power!=null)
+        {
+            Power.text = template.Power?.ToString();
+        }
+        if (Health != null)
+        {
+            Health.text = template.Health?.ToString();
+        }
+        if (Cost != null)
+        {
+            Cost.text = template.BaseResourceCost?.ToString();
+        }
+
+        if (Text != null)
+        {
+            Text.text = template.CardText;
+        }
     }
 
     public void Hide()
