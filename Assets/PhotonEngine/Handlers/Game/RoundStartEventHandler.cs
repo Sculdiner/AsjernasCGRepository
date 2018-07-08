@@ -3,6 +3,11 @@ using AsjernasCG.Common.EventModels.Game;
 
 public class RoundStartEventHandler<TModel> : BaseEventHandler<TModel> where TModel : RoundStartModel
 {
+    public RoundStartEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.SerialSync;
+    }
+
     public override byte EventCode
     {
         get

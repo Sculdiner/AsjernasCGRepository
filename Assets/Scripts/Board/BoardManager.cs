@@ -350,6 +350,7 @@ public class BoardManager : MonoBehaviour
 
     public void ClearActiveCharacterSlot()
     {
+        ActiveInitiativeCard?.CardManager.VisualStateManager.EndHighlight();
         ActiveInitiativeCard = null;
     }
 
