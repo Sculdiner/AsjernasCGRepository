@@ -13,10 +13,14 @@ public class BoardHoverBehaviour : HoverActions
 
     public override void OnHoverEnd()
     {
+        Card.CardManager.VisualStateManager.EndPreviewAndRetainOriginalState();
     }
 
     public override void OnHoverStart()
     {
+        var viewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.VisualStateManager.CurrentState.transform.position + new Vector3(1.5f, 0, 0.2f));
+        Card.CardManager.VisualStateManager.PreviewAndRetainOriginalState();
+        Card.CardManager.VisualStateManager.Preview.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(viewportPoint.x, viewportPoint.y, 4f));
         //var plane = GameObject.Find("HoverHelperPlane");
         //plane.GetComponent<BoxCollider>().enabled = true;
         //var cardToScreen = Camera.main.WorldToScreenPoint(Card.CardViewObject.transform.position);
@@ -32,5 +36,6 @@ public class BoardHoverBehaviour : HoverActions
 
     public override void OnImmediateKill()
     {
+        Card.CardManager.VisualStateManager.EndPreviewAndRetainOriginalState();
     }
 }

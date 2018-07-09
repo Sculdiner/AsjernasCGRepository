@@ -94,6 +94,7 @@ public class EncounterSlotManager : PositionalSlotManager
         {
             if (EncounterCards.Count < 8)
             {
+                clientSideCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Follower);
                 clientSideCard.CardManager.SlotManager?.RemoveSlot(clientSideCard.CardStats.GeneratedCardId);
                 clientSideCard.CardManager.SlotManager = this;
                 EncounterCards.Add(clientSideCard);

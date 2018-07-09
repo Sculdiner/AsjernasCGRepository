@@ -29,6 +29,7 @@ public class VisualStateManager : MonoBehaviour
 
     public CardVisualComponent PreviewAndRetainOriginalState()
     {
+        Preview.UpdateVisual(ControllingCardManager.Template);
         Preview.Show();
         return Preview;
     }
