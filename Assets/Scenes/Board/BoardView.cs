@@ -26,6 +26,8 @@ public class BoardView : View
             RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1002, CardTemplateId = 4 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1004, CardTemplateId = 4 });
+
+            BoardManager.SetQuest(10001,99099);
             BoardManager.SetupSlotActivated(1);
             
             PhotonEngine.AddToQueue("CardDraw", () =>
@@ -365,6 +367,7 @@ public class BoardView : View
     public TurnMessenger TurnMessenger;
     public TurnButton TurnButton;
     public InitiativeSlotManager InitiativeManager;
+    public QuestManager QuestManager;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

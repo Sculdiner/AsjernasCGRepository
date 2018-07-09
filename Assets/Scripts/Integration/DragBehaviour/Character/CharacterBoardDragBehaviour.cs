@@ -13,7 +13,8 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
     public CharacterBoardDragBehaviour(ClientSideCard card) : base(card)
     {
         Layer = LayerMask.GetMask("RaycastEligibleTargets");
-        targetValidationMethod = BoardManager.Instance.FindValidAttackTargetsOnBoard;
+        targetValidationMethod = BoardManager.Instance.FindValidAttackOrQuestTargetsOnBoard;
+        //targetValidationMethod += BoardManager.Instance.FindValidQuestingTargetsOnBoard;
     }
 
 
@@ -30,12 +31,23 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
 
     public override void OnAcquiredNewTarget(CardManager target)
     {
-        TargetedCard.OnStartBeingTargetedForAttack(ReferencedCard);
+        if (target.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Minion)
+        {
+            TargetedCard.OnStartBeingTargetedForAttack(ReferencedCard);
+        }
+        else if (target.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Quest)
+        {
+            var manager = BoardManager.Instance.GetQuestManager();
+            manager.Highlighter.tween = true;
+        }
+
     }
 
     public override void OnLoseTarget()
     {
         TargetedCard.OnStopBeingTargetedForAttack(ReferencedCard);
+        var manager = BoardManager.Instance.GetQuestManager();
+        manager.Highlighter.tween = false;
     }
 
     public override void OnSuccessfullTargetAcquisition(CardManager acquiredTarget)

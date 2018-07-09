@@ -283,4 +283,13 @@
 	"Power" : 2,
 	"Health" : 4
   }
+  ,
+  {
+	"CardTemplateId":10001,
+	"CardName":"Test Quest",
+	"CardType": 11,
+	"CardText" : "Your quest starts here...",
+	"QuestObjectiveTarget" : 7
+	
+  }
 ]

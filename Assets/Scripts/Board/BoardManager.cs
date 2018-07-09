@@ -199,6 +199,29 @@ public class BoardManager : MonoBehaviour
         return false;
     }
 
+    public List<ClientSideCard> FindValidAttackOrQuestTargetsOnBoard(ClientSideCard card)
+    {
+        var validTargetsList = new List<ClientSideCard>();
+
+        if (card.CardStats.CardType == CardType.Character || card.CardStats.CardType == CardType.Follower)
+        {
+            var minions = AiState.Deck.Where(s => s.CurrentLocation == CardLocation.PlayArea && s.CardStats.CardType == CardType.Minion);
+            if (minions != null && minions.Any())
+                validTargetsList.AddRange(minions);
+        }
+
+        if (card.CardStats.CardType == CardType.Character)
+        {
+            var currentQuest = GetQuestManager().CurrentQuest;
+            if (currentQuest != null)
+            {
+                validTargetsList.Add(currentQuest);
+            }
+        }
+
+        return validTargetsList;
+    }
+
     public List<ClientSideCard> FindValidAttackTargetsOnBoard(ClientSideCard card)
     {
         var validTargetsList = new List<ClientSideCard>();
@@ -209,6 +232,22 @@ public class BoardManager : MonoBehaviour
             if (minions != null && minions.Any())
                 validTargetsList.AddRange(minions);
         }
+        return validTargetsList;
+    }
+
+    public List<ClientSideCard> FindValidQuestingTargetsOnBoard(ClientSideCard card)
+    {
+        var validTargetsList = new List<ClientSideCard>();
+
+        if (card.CardStats.CardType == CardType.Character)
+        {
+            var currentQuest = GetQuestManager().CurrentQuest;
+            if (currentQuest != null)
+            {
+                validTargetsList.Add(currentQuest);
+            }
+        }
+
         return validTargetsList;
     }
 
@@ -409,6 +448,28 @@ public class BoardManager : MonoBehaviour
         {
             card.CardManager.SlotManager?.RemoveSlot(cardId);
         }
+    }
+
+    public QuestManager GetQuestManager()
+    {
+        return BoardView.Instance.QuestManager;
+    }
+
+    public void SetQuest(int cardTemplateId, int generatedCardId)
+    {
+        var questcardPrefab = MasterCardManager.GenerateCardPrefab(cardTemplateId, generatedCardId);
+        var cardManager = MasterCardManager.GetCardManager(generatedCardId);
+        var template = cardManager.Template;
+        var clientSideCard = new ClientSideCard()
+        {
+            CardStats = template,
+            CardViewObject = gameObject,
+            CardManager = cardManager,
+            Events = new ClientSideCardEvents()
+        };
+        RegisterCard(clientSideCard, clientSideCard.Events, AiState);
+        cardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+        GetQuestManager().SetQuest(clientSideCard);
     }
 
     public TurnStatus TurnStatus = TurnStatus.PreGameStart;
