@@ -20,6 +20,7 @@ public class CardVisualComponent : MonoBehaviour
     public TMP_Text Cost;
     public TMP_Text Power;
     public TMP_Text Health;
+    public TMP_Text Cooldown;
 
     public void UpdateVisual(ClientCardTemplate template)
     {
@@ -48,6 +49,10 @@ public class CardVisualComponent : MonoBehaviour
         {
             Text.text = template.CardText;
         }
+        //if (Cooldown !=null)
+        //{
+        //    Cooldown.text = template.Co
+        //}
     }
 
     public void Hide()

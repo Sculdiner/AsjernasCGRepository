@@ -159,7 +159,7 @@
   //  "Traits": "Event",
   //  "Colors": [ "Black" ]
   //},
-  { "CardTemplateId":12,
+ { "CardTemplateId":12,
     "CardName": "Lesser Summoning Circle",
     "CardType": 2,
     "BaseResourceCost": 3,
@@ -167,8 +167,11 @@
     "Cooldown": 2,
     "Traits": "Ability",
     "Colors": [ "Black" ],
-    "ImagePath": "lesser_summoning",
-    "Quantity": 2
+    "CardImage": "lesser_summoning",
+	"CastType" : 2,
+	"CastTargetOwningType" : 1,
+	"CastValidTargets" : [0],
+	"ImagePath":"lesser_summoning"
   },
   { "CardTemplateId":13,
     "CardName": "Hell Imp",

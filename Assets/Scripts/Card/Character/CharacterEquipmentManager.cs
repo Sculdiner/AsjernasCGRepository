@@ -90,11 +90,13 @@ public class CharacterEquipmentManager : PositionalSlotManager
             cardManager.CardViewObject.transform.DOMove(slot.transform.position, 1f).SetEase(Ease.InExpo).OnComplete(() =>
             {
                 CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
+                PhotonEngine.CompletedAction();
             });
         }
         else
         {
             cardManager.CardViewObject.transform.position = slot.transform.position;
+            PhotonEngine.CompletedAction();
         }
         var boxCollider = cardManager.CardViewObject.GetComponent<BoxCollider>();
         boxCollider.center = new Vector3(slot.center.x, slot.center.y, slot.center.z);

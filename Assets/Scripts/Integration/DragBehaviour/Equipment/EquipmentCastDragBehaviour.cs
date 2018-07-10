@@ -38,7 +38,16 @@ public class EquipmentCastDragBehaviour : BaseTargetingCardBehaviour
 
     public override void OnSuccessfullTargetAcquisition(CardManager acquiredTarget)
     {
-        acquiredTarget.CharacterManager.CharacterEquipmentManager.AddEquipment(ReferencedCard);
+        var boardView = BoardView.Instance;
+        var controller = boardView.Controller as BoardController;
+        if (boardView.IsArtistDebug)
+        {
+            acquiredTarget.CharacterManager.CharacterEquipmentManager.AddEquipment(ReferencedCard);
+        }
+        else
+        {
+            controller.Play_AttachmentCardWithoutTarget(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
+        }
     }
 
     public override void OnNonSuccessfullTargetAcquisition()

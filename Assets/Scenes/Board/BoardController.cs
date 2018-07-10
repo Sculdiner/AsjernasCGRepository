@@ -55,6 +55,23 @@ public class BoardController : ViewController
         }), true, 0, false);
     }
 
+    public void ActivateAbilityWithTarget(int cardId, int targetId)
+    {
+        SendOperation(new AsjernasCG.Common.OperationHelpers.Game.AbilityCastWithTargetOperationHelper<TargetedCastModel>(new TargetedCastModel()
+        {
+            CastSourceId = cardId,
+            TargetId = targetId
+        }), true, 0, false);
+    }
+
+    public void ActivateAbilityWithoutTarget(int cardId)
+    {
+        SendOperation(new AbilityCastWithoutTargetOperationHelper<IntegerModel>(new IntegerModel()
+        {
+            Value = cardId
+        }), true, 0, false);
+    }
+
     public void Pass()
     {
         _view.BoardManager.ClearActiveCharacterSlot();
@@ -80,5 +97,5 @@ public class BoardController : ViewController
         }), true, 0, false);
     }
 
-   
+
 }

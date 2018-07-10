@@ -69,6 +69,22 @@ public class BoardView : View
                 HandSlotManagerV2.AddCardLast(card);
             });
 
+            PhotonEngine.AddToQueue("CardDraw", () =>
+            {
+                //Ability
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(12, 9019232);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(9019232).Template, CardLocation.Hand, 1);
+                HandSlotManagerV2.AddCardLast(card);
+            });
+
+            PhotonEngine.AddToQueue("CardDraw", () =>
+            {
+                //Ability
+                var cardPrefab = MasterCardManager.GenerateCardPrefab(12, 9019233);
+                var card = BoardManager.RegisterPlayerCard(cardPrefab, MasterCardManager.GetCardManager(9019233).Template, CardLocation.Hand, 1);
+                HandSlotManagerV2.AddCardLast(card);
+            });
+
             PhotonEngine.AddToQueue("", () =>
             {
                 BoardManager.ActivateInitiativeSlot(1001);
