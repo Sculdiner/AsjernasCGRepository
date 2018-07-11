@@ -1,0 +1,440 @@
+fileFormatVersion: 2
+guid: 0f35267ef6b221a4da3d0d959484ac7b
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: ATTACK
+    100002: ATTACK001
+    100004: ATTACK002
+    100006: ATTACK003
+    100008: Box002
+    100010: Box003
+    100012: Box004
+    100014: Box005
+    100016: Box006
+    100018: Box007
+    100020: Box008
+    100022: Box009
+    100024: Box010
+    100026: Box012
+    100028: Box013
+    100030: Box014
+    100032: Box015
+    100034: Box016
+    100036: Box017
+    100038: Box018
+    100040: Box019
+    100042: Box020
+    100044: Box021
+    100046: Box022
+    100048: Box023
+    100050: Box024
+    100052: Box025
+    100054: Box026
+    100056: Box027
+    100058: Box028
+    100060: Box029
+    100062: Box030
+    100064: Box031
+    100066: Box032
+    100068: CARD
+    100070: CARD001
+    100072: CARD002
+    100074: CARD003
+    100076: ChamferBox001
+    100078: ChamferBox002
+    100080: ChamferBox003
+    100082: ChamferBox004
+    100084: ChamferBox005
+    100086: ChamferBox006
+    100088: ChamferBox007
+    100090: ChamferBox008
+    100092: Circle
+    100094: Circle 1
+    100096: Circle 2
+    100098: Circle001
+    100100: Circle002
+    100102: Circle003
+    100104: Circle004
+    100106: Circle005
+    100108: Circle006
+    100110: Circle007
+    100112: Daylight001
+    100114: Line001
+    100116: Line002
+    100118: Line003
+    100120: Line004
+    100122: Plane001
+    100124: plant pink001
+    100126: plant pink005
+    100128: Polyline
+    100130: Polyline 1
+    100132: Polyline 2
+    100134: Polyline 3
+    100136: Polyline 4
+    100138: Polyline001
+    100140: Polyline002
+    100142: Polyline003
+    100144: Polyline004
+    100146: Sky002
+    100148: stem_plant pink001
+    100150: stem_plant pink005
+    100152: Sun002
+    100154: //RootNode
+    400000: ATTACK
+    400002: ATTACK001
+    400004: ATTACK002
+    400006: ATTACK003
+    400008: Box002
+    400010: Box003
+    400012: Box004
+    400014: Box005
+    400016: Box006
+    400018: Box007
+    400020: Box008
+    400022: Box009
+    400024: Box010
+    400026: Box012
+    400028: Box013
+    400030: Box014
+    400032: Box015
+    400034: Box016
+    400036: Box017
+    400038: Box018
+    400040: Box019
+    400042: Box020
+    400044: Box021
+    400046: Box022
+    400048: Box023
+    400050: Box024
+    400052: Box025
+    400054: Box026
+    400056: Box027
+    400058: Box028
+    400060: Box029
+    400062: Box030
+    400064: Box031
+    400066: Box032
+    400068: CARD
+    400070: CARD001
+    400072: CARD002
+    400074: CARD003
+    400076: ChamferBox001
+    400078: ChamferBox002
+    400080: ChamferBox003
+    400082: ChamferBox004
+    400084: ChamferBox005
+    400086: ChamferBox006
+    400088: ChamferBox007
+    400090: ChamferBox008
+    400092: Circle
+    400094: Circle 1
+    400096: Circle 2
+    400098: Circle001
+    400100: Circle002
+    400102: Circle003
+    400104: Circle004
+    400106: Circle005
+    400108: Circle006
+    400110: Circle007
+    400112: Daylight001
+    400114: Line001
+    400116: Line002
+    400118: Line003
+    400120: Line004
+    400122: Plane001
+    400124: plant pink001
+    400126: plant pink005
+    400128: Polyline
+    400130: Polyline 1
+    400132: Polyline 2
+    400134: Polyline 3
+    400136: Polyline 4
+    400138: Polyline001
+    400140: Polyline002
+    400142: Polyline003
+    400144: Polyline004
+    400146: Sky002
+    400148: stem_plant pink001
+    400150: stem_plant pink005
+    400152: Sun002
+    400154: //RootNode
+    2100000: 01 - Default
+    2100002: No Name
+    2100004: 03 - Default
+    2100006: 02 - Default
+    2100008: 06 - Default
+    2100010: 'Material #15537'
+    2100012: 'Material #15538'
+    2100014: 'Material #15536'
+    2300000: Box002
+    2300002: Box003
+    2300004: Box004
+    2300006: Box005
+    2300008: Box006
+    2300010: Box007
+    2300012: Box008
+    2300014: Box009
+    2300016: Box010
+    2300018: Box013
+    2300020: Box014
+    2300022: Box015
+    2300024: Box016
+    2300026: Box017
+    2300028: Box018
+    2300030: Box019
+    2300032: Box020
+    2300034: Box021
+    2300036: Box022
+    2300038: Box023
+    2300040: Box024
+    2300042: Box025
+    2300044: Box026
+    2300046: Box027
+    2300048: Box028
+    2300050: Box029
+    2300052: Box030
+    2300054: Box031
+    2300056: Box032
+    2300058: ChamferBox001
+    2300060: ChamferBox002
+    2300062: ChamferBox003
+    2300064: ChamferBox004
+    2300066: ChamferBox005
+    2300068: ChamferBox006
+    2300070: ChamferBox007
+    2300072: ChamferBox008
+    2300074: Circle 2
+    2300076: Circle001
+    2300078: Circle002
+    2300080: Circle003
+    2300082: Circle004
+    2300084: Circle005
+    2300086: Circle006
+    2300088: Circle007
+    2300090: Line001
+    2300092: Line002
+    2300094: Line003
+    2300096: Line004
+    2300098: Plane001
+    2300100: plant pink001
+    2300102: plant pink005
+    2300104: Polyline
+    2300106: Polyline 1
+    2300108: Polyline 2
+    2300110: Polyline 4
+    2300112: Polyline001
+    2300114: Polyline002
+    2300116: Polyline003
+    2300118: Polyline004
+    2300120: stem_plant pink001
+    2300122: stem_plant pink005
+    3300000: Box002
+    3300002: Box003
+    3300004: Box004
+    3300006: Box005
+    3300008: Box006
+    3300010: Box007
+    3300012: Box008
+    3300014: Box009
+    3300016: Box010
+    3300018: Box013
+    3300020: Box014
+    3300022: Box015
+    3300024: Box016
+    3300026: Box017
+    3300028: Box018
+    3300030: Box019
+    3300032: Box020
+    3300034: Box021
+    3300036: Box022
+    3300038: Box023
+    3300040: Box024
+    3300042: Box025
+    3300044: Box026
+    3300046: Box027
+    3300048: Box028
+    3300050: Box029
+    3300052: Box030
+    3300054: Box031
+    3300056: Box032
+    3300058: ChamferBox001
+    3300060: ChamferBox002
+    3300062: ChamferBox003
+    3300064: ChamferBox004
+    3300066: ChamferBox005
+    3300068: ChamferBox006
+    3300070: ChamferBox007
+    3300072: ChamferBox008
+    3300074: Circle 2
+    3300076: Circle001
+    3300078: Circle002
+    3300080: Circle003
+    3300082: Circle004
+    3300084: Circle005
+    3300086: Circle006
+    3300088: Circle007
+    3300090: Line001
+    3300092: Line002
+    3300094: Line003
+    3300096: Line004
+    3300098: Plane001
+    3300100: plant pink001
+    3300102: plant pink005
+    3300104: Polyline
+    3300106: Polyline 1
+    3300108: Polyline 2
+    3300110: Polyline 4
+    3300112: Polyline001
+    3300114: Polyline002
+    3300116: Polyline003
+    3300118: Polyline004
+    3300120: stem_plant pink001
+    3300122: stem_plant pink005
+    4300000: Plane001
+    4300002: Polyline
+    4300004: Polyline
+    4300006: Circle
+    4300008: Polyline
+    4300010: Box002
+    4300012: Circle001
+    4300014: Circle002
+    4300016: Circle003
+    4300018: Circle004
+    4300020: Circle005
+    4300022: Circle006
+    4300024: Circle007
+    4300026: Polyline001
+    4300028: Box003
+    4300030: Box004
+    4300032: Box005
+    4300034: ChamferBox001
+    4300036: Line001
+    4300038: Box008
+    4300040: Box007
+    4300042: Polyline
+    4300044: Box006
+    4300046: Box013
+    4300048: Box010
+    4300050: Box009
+    4300052: Box017
+    4300054: Box018
+    4300056: Box019
+    4300058: Box014
+    4300060: Box015
+    4300062: Box016
+    4300064: Line002
+    4300066: Polyline002
+    4300068: Box023
+    4300070: Box024
+    4300072: Box025
+    4300074: Box020
+    4300076: Box021
+    4300078: Box022
+    4300080: Line003
+    4300082: Polyline003
+    4300084: Box029
+    4300086: Box030
+    4300088: Box031
+    4300090: Box026
+    4300092: Box027
+    4300094: Box028
+    4300096: Line004
+    4300098: Polyline004
+    4300100: Box032
+    4300102: ChamferBox002
+    4300104: ChamferBox003
+    4300106: ChamferBox004
+    4300108: ChamferBox005
+    4300110: ChamferBox006
+    4300112: ChamferBox007
+    4300114: plant pink001
+    4300116: stem_plant pink001
+    4300118: plant pink005
+    4300120: stem_plant pink005
+    4300122: ChamferBox008
+    7400000: Take 001
+    9500000: //RootNode
+    10800000: Sky002
+    10800002: Sun002
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
