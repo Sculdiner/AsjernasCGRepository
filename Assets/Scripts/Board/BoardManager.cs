@@ -472,6 +472,12 @@ public class BoardManager : MonoBehaviour
         GetQuestManager().SetQuest(clientSideCard);
     }
 
+    public void ChangeResources(int userId, int resources)
+    {
+        var player = GetPlayerStateById(userId);
+        player.Resources = resources;
+    }
+
     public TurnStatus TurnStatus = TurnStatus.PreGameStart;
     public static Action<ClientSideCard> OnCursorEntersCard;
     public static Action<ClientSideCard> OnCursorExitsCard;

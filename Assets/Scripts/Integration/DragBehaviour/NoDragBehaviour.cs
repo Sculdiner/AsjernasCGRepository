@@ -21,15 +21,16 @@ public class NoDragBehaviour : DraggingActions
         return true;
     }
 
-    public override void KillCurrentActions()
-    {
-    }
 
     public override void OnDraggingInUpdate()
     {
     }
 
     public override void OnEndDrag()
+    {
+    }
+
+    public override void OnForceCancelAction()
     {
     }
 

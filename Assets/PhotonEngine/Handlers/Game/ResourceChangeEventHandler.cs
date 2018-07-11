@@ -13,6 +13,7 @@ public class ResourceChangeEventHandler<TModel> : BaseEventHandler<TModel> where
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        var board = view as BoardView;
+        board.BoardManager.ChangeResources(model.UserId, model.Value);
     }
 }

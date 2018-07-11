@@ -110,14 +110,13 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
         return true;
     }
 
-    public override void KillCurrentActions()
-    {
-
-    }
-
     public override bool AllowInSetup()
     {
         return true;
+    }
+
+    public override void OnCancelAction()
+    {
     }
 }
 

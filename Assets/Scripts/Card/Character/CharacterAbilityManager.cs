@@ -19,21 +19,30 @@ public class CharacterAbilityManager : PositionalSlotManager
 
     public List<ClientSideCard> Abilities = new List<ClientSideCard>();
 
-    public void UpdatePositions(bool newEquipmentAdded)
+    public void UpdatePositions(bool newEquipmentAdded, bool callbackOnEnd)
     {
+        var sequence = DOTween.Sequence();
         switch (Abilities.Count)
         {
             case 0:
                 break;
             case 1:
-                Move(Abilities[0], PositionSlot1, newEquipmentAdded);
+                Move(Abilities[0], PositionSlot1, newEquipmentAdded, sequence);
                 break;
             case 2:
-                Move(Abilities[0], PositionSlot1, false);
-                Move(Abilities[1], PositionSlot2, newEquipmentAdded);
+                Move(Abilities[0], PositionSlot1, false, sequence);
+                Move(Abilities[1], PositionSlot2, newEquipmentAdded, sequence);
                 break;
             default:
                 break;
+        }
+
+        if (callbackOnEnd)
+        {
+            sequence.OnComplete(() =>
+            {
+                PhotonEngine.CompletedAction();
+            });
         }
     }
 
@@ -56,25 +65,21 @@ public class CharacterAbilityManager : PositionalSlotManager
                 abilityToAdd.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
 
                 Abilities.Add(abilityToAdd);
-                UpdatePositions(true);
+                UpdatePositions(true, true);
             }
         }
     }
 
-    public void Move(ClientSideCard abilityCardManager, Transform trans, bool isNew)
+    public void Move(ClientSideCard abilityCardManager, Transform trans, bool isNew, Sequence sequence)
     {
         if (isNew)
         {
-            abilityCardManager.CardViewObject.transform.DOMove(trans.position, 1f).SetEase(Ease.InExpo).OnComplete(() =>
-            {
-                CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
-                PhotonEngine.CompletedAction();
-            });
+            sequence.Insert(0, abilityCardManager.CardViewObject.transform.DOMove(trans.position, 1f).SetEase(Ease.InExpo));
+            sequence.InsertCallback(1f, () => { CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f); });
         }
         else
         {
             abilityCardManager.CardViewObject.transform.position = trans.position;
-            PhotonEngine.CompletedAction();
         }
     }
 
@@ -92,7 +97,7 @@ public class CharacterAbilityManager : PositionalSlotManager
             //var boxCollider = eq.CardViewObject.GetComponent<BoxCollider>();
             //boxCollider.center = new Vector3(0, 0, 0);
             //boxCollider.size = new Vector3(1, 1, 1);
-            UpdatePositions(false);
+            UpdatePositions(false, false);
         }
     }
 }

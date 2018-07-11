@@ -18,7 +18,7 @@ public class EncounterSlotManager : PositionalSlotManager
 
     //public List<EncounterSlot>
 
-    public void UpdatePositions()
+    public void UpdatePositions(bool callbackOnEnd)
     {
         Sequence mySequence = DOTween.Sequence();
         switch (EncounterCards.Count)
@@ -78,13 +78,16 @@ public class EncounterSlotManager : PositionalSlotManager
                 Move(EncounterCards[7].CardViewObject, EvenPlacementPosition.RightLast, mySequence);
                 break;
         }
-        if (EncounterCards.Count >0)
+        if (callbackOnEnd)
         {
-            mySequence.OnComplete(() => { PhotonEngine.CompletedAction("Encounter"); });
-        }
-        else
-        {
-            PhotonEngine.CompletedAction("Encounter");
+            if (EncounterCards.Count > 0)
+            {
+                mySequence.OnComplete(() => { PhotonEngine.CompletedAction("Encounter"); });
+            }
+            else
+            {
+                PhotonEngine.CompletedAction("Encounter");
+            }
         }
     }
 
@@ -98,7 +101,7 @@ public class EncounterSlotManager : PositionalSlotManager
                 clientSideCard.CardManager.SlotManager?.RemoveSlot(clientSideCard.CardStats.GeneratedCardId);
                 clientSideCard.CardManager.SlotManager = this;
                 EncounterCards.Add(clientSideCard);
-                UpdatePositions();
+                UpdatePositions(true);
             }
         }
     }
@@ -137,7 +140,7 @@ public class EncounterSlotManager : PositionalSlotManager
             EncounterCards.Remove(card);
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() => {
                 card.CardViewObject.SetActive(false);
-                UpdatePositions();
+                UpdatePositions(false);
             });
         }
     }

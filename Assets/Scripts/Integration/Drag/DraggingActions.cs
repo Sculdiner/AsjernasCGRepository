@@ -19,6 +19,5 @@ public abstract class DraggingActions
 
     public abstract bool DragSuccessful();
 
-    public abstract void KillCurrentActions();
-
+    public abstract void OnForceCancelAction();
 }

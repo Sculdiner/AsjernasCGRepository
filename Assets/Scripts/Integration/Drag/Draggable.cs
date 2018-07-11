@@ -67,7 +67,7 @@ public class Draggable : MonoBehaviour
     public void SetAction<T>() where T : DraggingActions
     {
         //what to do if the set action is called while a dragging operation takes place
-        actions?.KillCurrentActions();
+        actions?.OnForceCancelAction();
         var action = (T)Activator.CreateInstance(typeof(T), ControllingCard);
         actions = action;
         DraggingActionName = actions.ToString();

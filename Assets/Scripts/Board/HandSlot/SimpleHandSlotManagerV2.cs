@@ -194,7 +194,7 @@ public class SimpleHandSlotManagerV2 : PositionalSlotManager
                 }
             }
             
-            UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
+            UpdatePositions(Ease.Linear, normalHandUpdateTimeframe, false);
         }
     }
 

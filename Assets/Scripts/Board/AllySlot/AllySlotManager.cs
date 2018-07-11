@@ -23,7 +23,7 @@ public class AllySlotManager : PositionalSlotManager
 
     //public List<EncounterSlot>
 
-    public void UpdatePositions(bool hasNewMember)
+    public void UpdatePositions(bool hasNewMember, bool callbackOnEnd)
     {
         Sequence mySequence = DOTween.Sequence();
         switch (AllyCards.Count)
@@ -87,7 +87,8 @@ public class AllySlotManager : PositionalSlotManager
         {
             mySequence.OnComplete(() =>
             {
-                PhotonEngine.CompletedAction("Ally");
+                if (callbackOnEnd)
+                    PhotonEngine.CompletedAction("Ally");
                 if (hasNewMember)
                 {
                     AllyCards.Last().CardManager.VisualStateManager.SmokePlayParticleSystem.Play();
@@ -96,7 +97,8 @@ public class AllySlotManager : PositionalSlotManager
         }
         else
         {
-            PhotonEngine.CompletedAction("Ally");
+            if (callbackOnEnd)
+                PhotonEngine.CompletedAction("Ally");
         }
     }
 
@@ -119,7 +121,7 @@ public class AllySlotManager : PositionalSlotManager
                     draggableComponent.SetAction<FollowerTargetingBehaviour>();
 
                 //set followerboarddragbehavior draggingaction
-                UpdatePositions(true);
+                UpdatePositions(true, true);
             }
         }
     }
@@ -139,7 +141,7 @@ public class AllySlotManager : PositionalSlotManager
                 var draggableComponent = clientSideCard.CardManager.GetComponent<Draggable>();
                 if (draggableComponent != null && PhotonEngine.UserId == (clientSideCard.ParticipatorState as PlayerState).UserId)
                     draggableComponent.SetAction<FollowerCastDragBehaviour>();
-                UpdatePositions(true);
+                UpdatePositions(true, true);
             }
         }
     }
@@ -158,7 +160,7 @@ public class AllySlotManager : PositionalSlotManager
             card.CardViewObject.transform.DOMove(new Vector3(-2.47f, 0.05f, 5.2f), 1f).OnComplete(() =>
             {
                 card.CardViewObject.SetActive(false);
-                UpdatePositions(false);
+                UpdatePositions(false, false);
             });
         }
     }

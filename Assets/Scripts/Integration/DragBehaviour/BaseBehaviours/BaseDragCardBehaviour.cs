@@ -65,7 +65,10 @@ public abstract class BaseDragCardBehaviour : DraggingActions
         return true;
     }
 
-    public override void KillCurrentActions()
+    public override void OnForceCancelAction()
     {
+        ControllingCard.IsUnderPlayerControl = false;
+        OnCancelAction();
     }
+    public abstract void OnCancelAction();
 }

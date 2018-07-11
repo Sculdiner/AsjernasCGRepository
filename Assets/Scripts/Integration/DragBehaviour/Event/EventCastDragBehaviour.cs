@@ -20,9 +20,8 @@ public class EventCastDragBehaviour : BaseDragCardBehaviour
         return base.DragSuccessful();
     }
 
-    public override void KillCurrentActions()
+    public override void OnCancelAction()
     {
-        base.KillCurrentActions();
     }
 
     public override void OnDraggingInUpdate()

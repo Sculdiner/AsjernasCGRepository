@@ -1,6 +1,7 @@
 ﻿using AsjernasCG.Common;
 using AsjernasCG.Common.ClientEventCodes;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public abstract class BaseRoutingEventHandler : IEventRoutingHandler
 {
@@ -19,16 +20,16 @@ public abstract class BaseRoutingEventHandler : IEventRoutingHandler
 
     public void HandleEvent(View view, Dictionary<byte, object> parameters)
     {
-        try
-        {
+        //try
+        //{
             SubEventHandlerCollection
             .GetHandler((byte)parameters[(byte)PacketCodeType.PacketSubRouting])
             .HandleEvent(view, parameters[(byte)PacketCodeType.PacketParameters] as string);
-        }
-        catch (System.Exception ex)
-        {
-
+        //}
+        //catch (System.Exception ex)
+        //{
             
-        }
+            
+        //}
     }
 }

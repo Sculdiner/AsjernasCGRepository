@@ -111,6 +111,10 @@ public abstract class BaseTargetingCardBehaviour : DraggingActions
                 OnNonSuccessfullTargetAcquisition();
             }
         }
+        else
+        {
+            OnNonSuccessfullTargetAcquisition();
+        }
         ReferencedCard.IsDragging = false;
         BoardManager.Instance.ActiveCard = null;
     }
@@ -120,8 +124,12 @@ public abstract class BaseTargetingCardBehaviour : DraggingActions
         return true;
     }
 
-    public override void KillCurrentActions()
+    public override void OnForceCancelAction()
     {
+        TargetingGizmo.enabled = false;
+        ReferencedCard.IsDragging = false;
+        BoardManager.Instance.ActiveCard = null;
+        OnNonSuccessfullTargetAcquisition();
     }
 
     public abstract void OnAcquiredNewTarget(CardManager target);

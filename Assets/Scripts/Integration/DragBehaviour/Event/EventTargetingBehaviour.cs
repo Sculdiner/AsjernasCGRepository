@@ -21,10 +21,6 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
         return base.DragSuccessful();
     }
 
-    public override void KillCurrentActions()
-    {
-        base.KillCurrentActions();
-    }
 
     public override void OnAcquiredNewTarget(CardManager target)
     {
@@ -48,7 +44,32 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
 
     public override void OnSuccessfullTargetAcquisition(CardManager acquiredTarget)
     {
-        ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+        var boardManager = BoardManager.Instance;
+        var boardView = BoardView.Instance;
+        if (boardView.IsArtistDebug)
+        {
+            //ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+            var targetTransform = GameObject.Find("OpponentPlayedCardold").transform;
+
+            var sequence = DOTween.Sequence();
+            ReferencedCard.CardManager.VisualStateManager.DeactivatePreview();
+            ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+            sequence.Insert(0, ReferencedCard.CardViewObject.transform.DOMove(targetTransform.position, 1f));
+            sequence.Insert(0, ReferencedCard.CardViewObject.transform.DORotate(targetTransform.rotation.eulerAngles, 1f));
+            sequence.Insert(0, ReferencedCard.CardViewObject.transform.DOScale(targetTransform.localScale, 1f));
+            sequence.Insert(1, ReferencedCard.CardViewObject.transform.DOScale(targetTransform.localScale, 0.6f));
+            sequence.Insert(1.6f, ReferencedCard.CardViewObject.transform.DOScale(0f, 1f));
+            sequence.InsertCallback(2.6f, () =>
+            {
+                ReferencedCard.CardManager.SlotManager?.RemoveSlot(ReferencedCard.CardStats.GeneratedCardId);
+                ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+
+            });
+        }
+        else
+        {
+            (boardView.Controller as BoardController).Play_CardWithTarget(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
+        }
     }
 
     public override void OnNonSuccessfullTargetAcquisition()

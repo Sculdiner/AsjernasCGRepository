@@ -52,10 +52,6 @@ public class FollowerTargetingBehaviour : BaseTargetingCardBehaviour
         return true;
     }
 
-    public override void KillCurrentActions()
-    {
-    }
-
     public override Func<ClientSideCard, List<ClientSideCard>> GetTargetValidationMethod()
     {
         return targetValidationMethod;

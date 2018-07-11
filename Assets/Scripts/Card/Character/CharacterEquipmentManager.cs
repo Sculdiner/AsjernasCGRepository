@@ -18,26 +18,34 @@ public class CharacterEquipmentManager : PositionalSlotManager
     private List<ClientSideCard> Equipments = new List<ClientSideCard>();
     private readonly object equipmentLocker = new object();
 
-    public void UpdatePositions(bool newEquipmentAdded)
+    public void UpdatePositions(bool newEquipmentAdded, bool callbackOnEnd)
     {
+        var sequence = DOTween.Sequence();
         switch (Equipments.Count)
         {
             case 0:
                 break;
             case 1:
-                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, newEquipmentAdded);
+                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, newEquipmentAdded, sequence);
                 break;
             case 2:
-                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, false);
-                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle, newEquipmentAdded);
+                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, false, sequence);
+                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle, newEquipmentAdded, sequence);
                 break;
             case 3:
-                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, false);
-                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle, false);
-                SetCardPositionSlot(Equipments[2], PlacementPosition.OddMiddleRight, newEquipmentAdded);
+                SetCardPositionSlot(Equipments[0], PlacementPosition.OddMiddleLeft, false, sequence);
+                SetCardPositionSlot(Equipments[1], PlacementPosition.OddMiddle, false, sequence);
+                SetCardPositionSlot(Equipments[2], PlacementPosition.OddMiddleRight, newEquipmentAdded, sequence);
                 break;
             default:
                 break;
+        }
+        if (callbackOnEnd)
+        {
+            sequence.OnComplete(() =>
+            {
+                PhotonEngine.CompletedAction();
+            });
         }
     }
 
@@ -53,11 +61,11 @@ public class CharacterEquipmentManager : PositionalSlotManager
 
                 equipment.CardManager.SlotManager?.RemoveSlot(equipment.CardStats.GeneratedCardId);
                 equipment.CardManager.SlotManager = this;
-                
+
                 equipment.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Equipment);
                 equipment.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
                 Equipments.Add(equipment);
-                UpdatePositions(true);
+                UpdatePositions(true, true );
 
                 return true;
             }
@@ -78,25 +86,22 @@ public class CharacterEquipmentManager : PositionalSlotManager
             //var boxCollider = eq.CardViewObject.GetComponent<BoxCollider>();
             //boxCollider.center = new Vector3(0, 0, 0);
             //boxCollider.size = new Vector3(1, 1, 1);
-            UpdatePositions(false);
+            UpdatePositions(false, false);
         }
     }
 
-    private void SetCardPositionSlot(ClientSideCard cardManager, PlacementPosition position, bool tween)
+    private void SetCardPositionSlot(ClientSideCard cardManager, PlacementPosition position, bool tween, Sequence sequence)
     {
         var slot = PositionalSlots[position];
         if (tween)
         {
-            cardManager.CardViewObject.transform.DOMove(slot.transform.position, 1f).SetEase(Ease.InExpo).OnComplete(() =>
-            {
-                CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f);
-                PhotonEngine.CompletedAction();
-            });
+            sequence.Insert(0, cardManager.CardViewObject.transform.DOMove(slot.transform.position, 1f)).SetEase(Ease.InExpo);
+            sequence.InsertCallback(1f, () => { CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f); });
+            
         }
         else
         {
             cardManager.CardViewObject.transform.position = slot.transform.position;
-            PhotonEngine.CompletedAction();
         }
         var boxCollider = cardManager.CardViewObject.GetComponent<BoxCollider>();
         boxCollider.center = new Vector3(slot.center.x, slot.center.y, slot.center.z);

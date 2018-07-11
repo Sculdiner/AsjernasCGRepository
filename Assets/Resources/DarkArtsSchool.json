@@ -138,8 +138,7 @@
     "ImagePath": "disintegrate",
 	"CastTargetOwningType" : 0,
 	"CardCastType":0,
-	"CastValidTargets" : [8],
-    "Quantity": 1
+	"CastValidTargets" : [8]
   },
   { "CardTemplateId":11,
     "CardName": "Phylactery",

@@ -22,15 +22,33 @@ public class VisualStateManager : MonoBehaviour
     private CardVisualComponent _state;
     public CardVisualComponent CurrentState { get { return _state; } }
 
+    private bool AllowPreviewing;
+
     public void Awake()
     {
         _state = Card;
+        AllowPreviewing = true;
     }
+
+
+    public void DeactivatePreview()
+    {
+        Preview?.Hide();
+        AllowPreviewing = false;
+    }
+    public void AllowPreview()
+    {
+        AllowPreviewing = true;
+    }
+
 
     public CardVisualComponent PreviewAndRetainOriginalState()
     {
-        Preview.UpdateVisual(ControllingCardManager.Template);
-        Preview.Show();
+        if (AllowPreviewing)
+        {
+            Preview.UpdateVisual(ControllingCardManager.Template);
+            Preview.Show();
+        }
         return Preview;
     }
 
@@ -78,13 +96,17 @@ public class VisualStateManager : MonoBehaviour
                 _state = Card;
                 break;
             case CardVisualState.Preview:
-                Card.Hide();
-                Preview.Show();
-                Follower.Hide();
-                Equipment.Hide();
-                Ability.Hide();
-                Character.Hide();
-                _state = Preview;
+                
+                if (AllowPreviewing)
+                {
+                    Card.Hide();
+                    Preview.Show();
+                    Follower.Hide();
+                    Equipment.Hide();
+                    Ability.Hide();
+                    Character.Hide();
+                    _state = Preview;
+                }
                 break;
             case CardVisualState.Follower:
                 Card.Hide();
