@@ -2,6 +2,8 @@
 using Assets.Scripts.Card;
 using DG.Tweening;
 using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class ClientSideCard
@@ -21,7 +23,7 @@ public class ClientSideCard
     /// IMPORTANT: the following forces the card to CardVisual if the location is set to hand
     /// </summary>
     /// <param name="location"></param>
-    public void SetLocation(CardLocation location) 
+    public void SetLocation(CardLocation location)
     {
         CurrentLocation = location;
 
@@ -59,8 +61,9 @@ public class ClientSideCard
     public void TakeDamage(int damageAmount)
     {
         CardStats.Health -= damageAmount;
-        if (CardStats.Health <0 )
+        if (CardStats.Health < 0)
             CardStats.Health = 0;
+        CardManager.DoDamageEffect(damageAmount);
 
         CardManager.VisualStateManager.CurrentState.UpdateVisual(CardStats);
     }
@@ -70,7 +73,7 @@ public class ClientSideCard
         CardStats.Health += healAmount;
         if (CardStats.Health < 0)
             CardStats.Health = 0;
-
+        CardManager.DoDamageEffect(healAmount,true);
         CardManager.VisualStateManager.CurrentState.UpdateVisual(CardStats);
     }
 

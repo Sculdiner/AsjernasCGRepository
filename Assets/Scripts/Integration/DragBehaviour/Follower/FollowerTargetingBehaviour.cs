@@ -32,7 +32,13 @@ public class FollowerTargetingBehaviour : BaseTargetingCardBehaviour
         var seq = DOTween.Sequence();
         seq.Append(ReferencedCard.CardViewObject.transform.DOMove(acquiredTarget.transform.position, 0.3f)); //go in
         seq.Append(ReferencedCard.CardViewObject.transform.DOMove(PreDragPosition.Value, 1.5f).SetEase(Ease.InOutQuint)); //return
-        seq.OnComplete(() => { ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator(); }); //disable the rotator when you arrive
+        seq.OnComplete(() => {
+            ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
+            //test
+            var clientCard = BoardManager.Instance.GetCard(acquiredTarget.Template.GeneratedCardId);
+            clientCard.TakeDamage(ReferencedCard.CardStats.Power.GetValueOrDefault(1));
+            //
+        }); //disable the rotator when you arrive
     }
 
     public override void OnNonSuccessfullTargetAcquisition()
