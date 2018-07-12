@@ -9,22 +9,10 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    public MeshRenderer QuestMesh;
+    public GameObject GameObjectView;
     public Highlighter Highlighter;
     public BoardView BoardView;
     public CardManager CardManager;
     public QuestingPointBoard QuestingPointBoard;
-
-    public ClientSideCard CurrentQuest { get; set; }
-
-    public void SetQuest(ClientSideCard card)
-    {
-        CurrentQuest = card;
-        CardManager = card.CardManager;
-    }
-
-    public void Quest()
-    {
-
-    }
+    public ClientSideCard ClientSideCard { get; set; }
 }

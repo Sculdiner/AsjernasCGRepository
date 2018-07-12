@@ -16,6 +16,7 @@ public class VisualStateManager : MonoBehaviour
     public CardVisualComponent Equipment;
     public CardVisualComponent Ability;
     public CardVisualComponent Character;
+    public CardVisualComponent Quest;
     public ParticleSystem DissolvePlayParticleSystem;
     public ParticleSystem SmokePlayParticleSystem;
 
@@ -96,7 +97,6 @@ public class VisualStateManager : MonoBehaviour
                 _state = Card;
                 break;
             case CardVisualState.Preview:
-                
                 if (AllowPreviewing)
                 {
                     Card.Hide();
@@ -143,6 +143,11 @@ public class VisualStateManager : MonoBehaviour
                 Ability.Hide();
                 Character.Show();
                 _state = Character;
+                break;
+            case CardVisualState.Quest:
+                Preview.Hide();
+                Quest.Show();
+                _state = Quest;
                 break;
             default:
                 throw new Exception();

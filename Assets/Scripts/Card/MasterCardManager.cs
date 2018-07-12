@@ -10,6 +10,7 @@ public class MasterCardManager : MonoBehaviour
 {
 
     public GameObject CardTemplatePrefab;
+    public GameObject QuestTemplatePrefab;
 
     public TextAsset CardTemplates;
 
@@ -45,6 +46,19 @@ public class MasterCardManager : MonoBehaviour
         var cardTemplate = GetNewCardInstance(cardTemplateId);
         GameObject prefab = null;
         prefab = (GameObject)Instantiate(CardTemplatePrefab);
+        prefab.layer = LayerMask.NameToLayer("RaycastEligibleTargets");
+        var cardManager = prefab.GetComponent<CardManager>();
+        cardTemplate.GeneratedCardId = generatedCardId;
+        //cardManager.UpdateCardView(cardTemplate);
+        Cards.Add(generatedCardId, cardManager);
+        cardManager.SetInitialTemplate(cardTemplate);
+        return prefab;
+    }
+    public GameObject GenerateQuestPrefab(int cardTemplateId, int generatedCardId)
+    {
+        var cardTemplate = GetNewCardInstance(cardTemplateId);
+        GameObject prefab = null;
+        prefab = (GameObject)Instantiate(QuestTemplatePrefab);
         prefab.layer = LayerMask.NameToLayer("RaycastEligibleTargets");
         var cardManager = prefab.GetComponent<CardManager>();
         cardTemplate.GeneratedCardId = generatedCardId;

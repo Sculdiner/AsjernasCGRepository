@@ -16,8 +16,10 @@ public class BoardManager : MonoBehaviour
     private AIState AiState;
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
+    public QuestBoardManager QuestBoardManager;
     public PlayerState ActiveSetupSlotPlayer { get; private set; }
     public ClientSideCard ActiveInitiativeCard { get; set; }
+
     public void Awake()
     {
         Instance = this;
@@ -212,11 +214,7 @@ public class BoardManager : MonoBehaviour
 
         if (card.CardStats.CardType == CardType.Character)
         {
-            var currentQuest = GetQuestManager().CurrentQuest;
-            if (currentQuest != null)
-            {
-                validTargetsList.Add(currentQuest);
-            }
+            validTargetsList.Add(QuestBoardManager.CurrentQuestingManager.ClientSideCard);
         }
 
         return validTargetsList;
@@ -241,11 +239,7 @@ public class BoardManager : MonoBehaviour
 
         if (card.CardStats.CardType == CardType.Character)
         {
-            var currentQuest = GetQuestManager().CurrentQuest;
-            if (currentQuest != null)
-            {
-                validTargetsList.Add(currentQuest);
-            }
+            validTargetsList.Add(QuestBoardManager.CurrentQuestingManager.ClientSideCard);
         }
 
         return validTargetsList;
@@ -450,26 +444,22 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public QuestManager GetQuestManager()
-    {
-        return BoardView.Instance.QuestManager;
-    }
-
     public void SetQuest(int cardTemplateId, int generatedCardId)
     {
-        var questcardPrefab = MasterCardManager.GenerateCardPrefab(cardTemplateId, generatedCardId);
+        var questcardPrefab = MasterCardManager.GenerateQuestPrefab(cardTemplateId, generatedCardId);
         var cardManager = MasterCardManager.GetCardManager(generatedCardId);
-        var template = cardManager.Template;
-        var clientSideCard = new ClientSideCard()
-        {
-            CardStats = template,
-            CardViewObject = gameObject,
-            CardManager = cardManager,
-            Events = new ClientSideCardEvents()
-        };
-        RegisterCard(clientSideCard, clientSideCard.Events, AiState);
-        cardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
-        GetQuestManager().SetQuest(clientSideCard);
+        cardManager.VisualStateManager.ChangeVisual(CardVisualState.Quest);
+        var ccc = RegisterEncounterCard(questcardPrefab, cardManager.Template, CardLocation.PlayArea);
+       
+        var transf = QuestBoardManager.QuestTransform;
+        var questManager = questcardPrefab.GetComponent<QuestManager>();
+        questManager.ClientSideCard = ccc;
+        QuestBoardManager.SetQuest(questManager);
+        questcardPrefab.transform.position = transf.position;
+        questcardPrefab.transform.rotation = transf.rotation;
+        questcardPrefab.transform.localScale = transf.localScale;
+        //cardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+        //QuestBoardManager.SetQuest(90007);
     }
 
     public void ChangeResources(int userId, int resources)
