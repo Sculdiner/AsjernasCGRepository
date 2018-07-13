@@ -383,7 +383,7 @@ public class BoardView : View
     public TurnMessenger TurnMessenger;
     public TurnButton TurnButton;
     public InitiativeSlotManager InitiativeManager;
-    public QuestManager QuestManager;
+    public QuestBoardManager QuestManager;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }
