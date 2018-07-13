@@ -27,7 +27,10 @@ public class VisualStateManager : MonoBehaviour
 
     public void Awake()
     {
-        _state = Card;
+        if (ControllingCardManager.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Quest)
+            _state = Quest;
+        else
+            _state = Card;
         AllowPreviewing = true;
     }
 
@@ -79,73 +82,85 @@ public class VisualStateManager : MonoBehaviour
         switch (newState)
         {
             case CardVisualState.None:
-                Preview.Hide();
-                Follower.Hide();
-                Equipment.Hide();
-                Ability.Hide();
-                Character.Hide();
-                Card.Hide();
+                Preview?.Hide();
+                Follower?.Hide();
+                Equipment?.Hide();
+                Ability?.Hide();
+                Character?.Hide();
+                Card?.Hide();
+                Quest?.Hide();
                 _state = Card;
                 break;
             case CardVisualState.Card:
-                Preview.Hide();
-                Follower.Hide();
-                Equipment.Hide();
-                Ability.Hide();
-                Character.Hide();
+                Preview?.Hide();
+                Follower?.Hide();
+                Equipment?.Hide();
+                Ability?.Hide();
+                Character?.Hide();
                 Card.Show();
+                Quest?.Hide();
                 _state = Card;
                 break;
             case CardVisualState.Preview:
                 if (AllowPreviewing)
                 {
-                    Card.Hide();
+                    Card?.Hide();
                     Preview.Show();
-                    Follower.Hide();
-                    Equipment.Hide();
-                    Ability.Hide();
-                    Character.Hide();
+                    Follower?.Hide();
+                    Equipment?.Hide();
+                    Ability?.Hide();
+                    Character?.Hide();
+                    Quest?.Hide();
                     _state = Preview;
                 }
                 break;
             case CardVisualState.Follower:
-                Card.Hide();
-                Preview.Hide();
+                Card?.Hide();
+                Preview?.Hide();
                 Follower.Show();
-                Equipment.Hide();
-                Ability.Hide();
-                Character.Hide();
+                Equipment?.Hide();
+                Ability?.Hide();
+                Character?.Hide();
+                Quest?.Hide();
                 _state = Follower;
                 break;
             case CardVisualState.Ability:
-                Card.Hide();
-                Preview.Hide();
-                Follower.Hide();
-                Equipment.Hide();
+                Card?.Hide();
+                Preview?.Hide();
+                Follower?.Hide();
+                Equipment?.Hide();
                 Ability.Show();
-                Character.Hide();
+                Character?.Hide();
+                Quest?.Hide();
                 _state = Ability;
                 break;
             case CardVisualState.Equipment:
-                Card.Hide();
-                Preview.Hide();
-                Follower.Hide();
+                Card?.Hide();
+                Preview?.Hide();
+                Follower?.Hide();
                 Equipment.Show();
-                Ability.Hide();
-                Character.Hide();
+                Ability?.Hide();
+                Character?.Hide();
+                Quest?.Hide();
                 _state = Equipment;
                 break;
             case CardVisualState.Character:
-                Card.Hide();
-                Preview.Hide();
-                Follower.Hide();
-                Equipment.Hide();
-                Ability.Hide();
+                Card?.Hide();
+                Preview?.Hide();
+                Follower?.Hide();
+                Equipment?.Hide();
+                Ability?.Hide();
                 Character.Show();
+                Quest?.Hide();
                 _state = Character;
                 break;
             case CardVisualState.Quest:
-                Preview.Hide();
+                Card?.Hide();
+                Preview?.Hide();
+                Follower?.Hide();
+                Equipment?.Hide();
+                Ability?.Hide();
+                Character?.Hide();
                 Quest.Show();
                 _state = Quest;
                 break;

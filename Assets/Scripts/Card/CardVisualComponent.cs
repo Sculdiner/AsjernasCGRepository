@@ -20,7 +20,10 @@ public class CardVisualComponent : MonoBehaviour
     public TMP_Text Cost;
     public TMP_Text Power;
     public TMP_Text Health;
-    public TMP_Text Cooldown;
+    public TMP_Text CurrentCooldown;
+    public TMP_Text CooldownTarget;
+    public TMP_Text QuestTarget;
+    public TMP_Text QuestProgress;
 
     public void UpdateVisual(ClientCardTemplate template)
     {
@@ -49,6 +52,16 @@ public class CardVisualComponent : MonoBehaviour
         {
             Text.text = template.CardText;
         }
+
+        if (QuestTarget != null)
+        {
+            QuestTarget.text = template.QuestObjectiveTarget?.ToString();
+        }
+        if (QuestProgress != null)
+        {
+            QuestProgress.text = template.CurrentQuestPoints?.ToString();
+        }
+
         //if (Cooldown !=null)
         //{
         //    Cooldown.text = template.Co

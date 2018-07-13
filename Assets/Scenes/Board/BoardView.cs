@@ -27,7 +27,7 @@ public class BoardView : View
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1004, CardTemplateId = 4 });
 
-            BoardManager.SetQuest(10001,99099);
+            SetStartupQuest(10001, 99099);
             BoardManager.SetupSlotActivated(1);
             
             PhotonEngine.AddToQueue("CardDraw", () =>
@@ -265,6 +265,8 @@ public class BoardView : View
             RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
             RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
             RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
+
+            //SetStartupQuest(model.AiStateModel.EncounterId, model.AiStateModel.EncounterGeneratedCardId);
         }
 
 
@@ -340,6 +342,13 @@ public class BoardView : View
 
     //}
 
+    private void SetStartupQuest(int startingQuestId, int generatedCardId)
+    {
+        var cardPrefab = MasterCardManager.GenerateCardPrefab(startingQuestId, generatedCardId);
+        var questcard = BoardManager.RegisterEncounterCard(cardPrefab, cardPrefab.GetComponent<CardManager>().Template, CardLocation.PlayArea);
+        QuestSlotManager.ChangeQuest(questcard);
+    }
+
     private CharacterManager RegisterStartingCharacter(int userId, DetailedCardModel character)
     {
         var obj = MasterCardManager.GenerateCardPrefab(character.CardTemplateId, character.GeneratedCardId);
@@ -380,10 +389,10 @@ public class BoardView : View
     public AllySlotManager LeftPlayerAllySlotManager;
     public AllySlotManager RightPlayerAllySlotManager;
     public CharacterSlotManager CharacterSlotManager;
+    public QuestSlotManager QuestSlotManager;
     public TurnMessenger TurnMessenger;
     public TurnButton TurnButton;
     public InitiativeSlotManager InitiativeManager;
-    public QuestBoardManager QuestManager;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

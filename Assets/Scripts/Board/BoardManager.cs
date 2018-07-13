@@ -1,6 +1,7 @@
 ﻿using AsjernasCG.Common.BusinessModels.CardModels;
 using AsjernasCG.Common.EventModels.Game;
 using Assets.Scripts.Card;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ public class BoardManager : MonoBehaviour
     private AIState AiState;
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
-    public QuestBoardManager QuestBoardManager;
     public PlayerState ActiveSetupSlotPlayer { get; private set; }
     public ClientSideCard ActiveInitiativeCard { get; set; }
 
@@ -203,21 +203,9 @@ public class BoardManager : MonoBehaviour
 
     public List<ClientSideCard> FindValidAttackOrQuestTargetsOnBoard(ClientSideCard card)
     {
-        var validTargetsList = new List<ClientSideCard>();
-
-        if (card.CardStats.CardType == CardType.Character || card.CardStats.CardType == CardType.Follower)
-        {
-            var minions = AiState.Deck.Where(s => s.CurrentLocation == CardLocation.PlayArea && s.CardStats.CardType == CardType.Minion);
-            if (minions != null && minions.Any())
-                validTargetsList.AddRange(minions);
-        }
-
-        if (card.CardStats.CardType == CardType.Character)
-        {
-            validTargetsList.Add(QuestBoardManager.CurrentQuestingManager.ClientSideCard);
-        }
-
-        return validTargetsList;
+        var validTargets = FindValidAttackTargetsOnBoard(card);
+        validTargets.AddRange(FindValidQuestingTargetsOnBoard(card));
+        return validTargets;
     }
 
     public List<ClientSideCard> FindValidAttackTargetsOnBoard(ClientSideCard card)
@@ -239,7 +227,7 @@ public class BoardManager : MonoBehaviour
 
         if (card.CardStats.CardType == CardType.Character)
         {
-            validTargetsList.Add(QuestBoardManager.CurrentQuestingManager.ClientSideCard);
+            validTargetsList.Add(BoardView.Instance.QuestSlotManager.CurrentQuest);
         }
 
         return validTargetsList;
@@ -427,6 +415,8 @@ public class BoardManager : MonoBehaviour
         {
             ActiveInitiativeCard = null;
         }
+
+        BoardView.Instance.InitiativeManager.ActivateSlot(cardId);
     }
 
     public void Pass()
@@ -444,29 +434,61 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void SetQuest(int cardTemplateId, int generatedCardId)
-    {
-        var questcardPrefab = MasterCardManager.GenerateQuestPrefab(cardTemplateId, generatedCardId);
-        var cardManager = MasterCardManager.GetCardManager(generatedCardId);
-        cardManager.VisualStateManager.ChangeVisual(CardVisualState.Quest);
-        var ccc = RegisterEncounterCard(questcardPrefab, cardManager.Template, CardLocation.PlayArea);
-       
-        var transf = QuestBoardManager.QuestTransform;
-        var questManager = questcardPrefab.GetComponent<QuestManager>();
-        questManager.ClientSideCard = ccc;
-        QuestBoardManager.SetQuest(questManager);
-        questcardPrefab.transform.position = transf.position;
-        questcardPrefab.transform.rotation = transf.rotation;
-        questcardPrefab.transform.localScale = transf.localScale;
-        //cardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
-        //QuestBoardManager.SetQuest(90007);
-    }
-
     public void ChangeResources(int userId, int resources)
     {
         var player = GetPlayerStateById(userId);
         player.Resources = resources;
     }
+
+    public void EncounterCard(int cardTemplateId, int generatedCardId, Action onEffectCompletion)
+    {
+        var cardPrefab = MasterCardManager.GenerateCardPrefab(cardTemplateId, generatedCardId);
+        var cardManager = MasterCardManager.GetCardManager(generatedCardId);
+
+        var ccc = RegisterEncounterCard(cardPrefab, cardManager.Template, CardLocation.PlayArea);
+        if (cardManager.Template.CardType == CardType.Minion)
+            BoardView.Instance.EncounterSlotManager.AddEncounterCardToASlot(ccc);
+        else
+            DisplayCardPlayEffect(ccc, onEffectCompletion);
+    }
+
+    private void DisplayCardPlayEffect(ClientSideCard card, Action onEffectFinishCallback)
+    {
+        var targetTransform = GameObject.Find("OpponentPlayedCardold").transform;
+
+        var sequence = DOTween.Sequence();
+        card.CardManager.VisualStateManager.DeactivatePreview();
+        card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+        sequence.Insert(0, card.CardViewObject.transform.DOMove(targetTransform.position, 1f));
+        sequence.Insert(0, card.CardViewObject.transform.DORotate(targetTransform.rotation.eulerAngles, 1f));
+        sequence.Insert(0, card.CardViewObject.transform.DOScale(targetTransform.localScale, 1f));
+        sequence.Insert(1, card.CardViewObject.transform.DOScale(targetTransform.localScale, 0.6f));
+        sequence.InsertCallback(1.6f, () =>
+        {
+            card.CardManager.SlotManager?.RemoveSlot(card.CardStats.GeneratedCardId);
+        });
+        sequence.Insert(1.6f, card.CardViewObject.transform.DOScale(0f, 1f));
+        sequence.InsertCallback(2.6f, () =>
+        {
+            card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+            onEffectFinishCallback?.Invoke();
+            PhotonEngine.CompletedAction();
+        });
+    }
+    public void DisplayTeammateCardPlayEffect(ClientSideCard card, Action onEffectCompletion)
+    {
+        DisplayCardPlayEffect(card, onEffectCompletion);
+    }
+
+    public void DisplayTeammateCardPlayEffect(int cardTemplateId, int generatedCardId, int? ownerId, Action onEffectCompletion)
+    {
+        var cardPrefab = MasterCardManager.GenerateCardPrefab(cardTemplateId, generatedCardId);
+        var template = cardPrefab.GetComponent<CardManager>().Template;
+        var card = RegisterPlayerCard(cardPrefab, cardPrefab.GetComponent<CardManager>().Template, CardLocation.DiscardPile, ownerId.Value);
+
+        DisplayCardPlayEffect(card, onEffectCompletion);
+    }
+
 
     public TurnStatus TurnStatus = TurnStatus.PreGameStart;
     public static Action<ClientSideCard> OnCursorEntersCard;

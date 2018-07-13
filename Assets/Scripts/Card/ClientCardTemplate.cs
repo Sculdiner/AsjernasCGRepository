@@ -8,4 +8,5 @@ using System.Threading.Tasks;
 public class ClientCardTemplate : BaseCardTemplate
 {
     public string ImagePath { get; set; }
+    public int? CurrentQuestPoints { get; set; }
 }

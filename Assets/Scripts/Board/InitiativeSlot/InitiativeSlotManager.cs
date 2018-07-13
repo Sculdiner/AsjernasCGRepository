@@ -10,6 +10,7 @@ public class InitiativeSlotManager : MonoBehaviour
     public InitiativeSlot InitiativeSlotPrefab;
     public List<Transform> SlotPositions;
     public List<InitiativeSlot> CurrentSlots = new List<InitiativeSlot>();
+    public InitiativeSlot ActiveSlot;
     public BoardManager BoardManager;
     public void SetInitiativeSlot(List<int> cards)
     {
@@ -30,7 +31,7 @@ public class InitiativeSlotManager : MonoBehaviour
             {
                 Debug.Log($"found init slot for card with id:{item}. Current card count: {BoardManager.DEBUG_SHOWCARDCOUNT()}");
             }
-                
+
             var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;
             newSlot.SetCardInfo(card);
             CurrentSlots.Add(newSlot);
@@ -42,8 +43,14 @@ public class InitiativeSlotManager : MonoBehaviour
     public void RemoveSlot(int cardId)
     {
         var card = CurrentSlots?.FirstOrDefault(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
-        if (card!= null)
+        if (card != null)
         {
+            if (ActiveSlot != null && ActiveSlot.ReferencedCard.CardStats.GeneratedCardId == cardId)
+            {
+                ActiveSlot.Highlighter.constant = true;
+                ActiveSlot = null;
+            }
+
             CurrentSlots.Remove(card);
             DestroyImmediate(card);
             UpdatePositions();
@@ -63,6 +70,20 @@ public class InitiativeSlotManager : MonoBehaviour
         for (int i = 0; i < CurrentSlots.Count; i++)
         {
             CurrentSlots[i].transform.position = SlotPositions[i].transform.position;
+        }
+    }
+
+    public void ActivateSlot(int cardId)
+    {
+        ActiveSlot?.Highlighter.constant = false;
+        //ActiveSlot?. played overlay
+        ActiveSlot = CurrentSlots.FirstOrDefault(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
+        ActiveSlot?.Highlighter.constant = true;
+
+        foreach (var currentSlot in CurrentSlots)
+        {
+            currentSlot.Highlighter.constant = false;
+            //currentSlot.Highlighter.constant = false; played overlay
         }
     }
 }

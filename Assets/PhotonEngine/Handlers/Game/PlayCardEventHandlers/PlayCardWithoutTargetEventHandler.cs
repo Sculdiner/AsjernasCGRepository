@@ -34,5 +34,9 @@ public class PlayCardWithoutTargetEventHandler<TModel> : BaseEventHandler<TModel
             //boardView.HandSlotManagerV2.RemoveCard(model.GeneratedCardId);
             boardView.BoardManager.GetPlayerStateById(model.OwnerId)?.AllySlotManager.AddAllyCardLast(card);
         }
+        else if (card.CardStats.CardType == CardType.Event)
+        {
+            boardView.BoardManager.DisplayTeammateCardPlayEffect(card, () => { PhotonEngine.CompletedAction(); });
+        }
     }
 }

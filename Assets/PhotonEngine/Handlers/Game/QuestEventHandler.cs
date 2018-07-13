@@ -3,6 +3,11 @@ using AsjernasCG.Common.EventModels.Game;
 
 public class QuestEventHandler<TModel> : BaseEventHandler<TModel> where TModel : QuestProgressionModel
 {
+    public QuestEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.CallbackSync;
+    }
+
     public override byte EventCode
     {
         get
@@ -13,6 +18,7 @@ public class QuestEventHandler<TModel> : BaseEventHandler<TModel> where TModel :
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        var board = view as BoardView;
+        board.QuestSlotManager.ProgressQuest(model.ProgressionValue);
     }
 }

@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class InitiativeSlot : MonoBehaviour
 {
     public RawImage Image;
+    public Highlighter Highlighter;
     public ClientSideCard ReferencedCard { get; private set; }
-
     public void SetCardInfo(ClientSideCard card)
     {
         ReferencedCard = card;

@@ -161,4 +161,8 @@ public class Draggable : MonoBehaviour
         }
     }
 
+    public void ForceKillDraggingAction()
+    {
+        actions?.OnForceCancelAction();
+    }
 }
