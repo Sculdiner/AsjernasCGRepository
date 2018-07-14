@@ -58,8 +58,7 @@ public class PlayCardWithTargetEventHandler<TModel> : BaseEventHandler<TModel> w
         else
         {
             //play card effects
-            card.CardManager.SlotManager?.RemoveSlot(card.CardStats.GeneratedCardId);
-            card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+            boardView.BoardManager.RemoveCardFromPlay(card.CardStats.GeneratedCardId);
             PhotonEngine.CompletedAction();
         }
 

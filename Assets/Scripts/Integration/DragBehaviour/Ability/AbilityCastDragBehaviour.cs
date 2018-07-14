@@ -11,7 +11,7 @@ public class AbilityCastDragBehaviour : BaseTargetingCardBehaviour
     public AbilityCastDragBehaviour(ClientSideCard card) : base(card)
     {
         Layer = LayerMask.GetMask("RaycastEligibleTargets");
-        targetValidationMethod = BoardManager.Instance.FindValidTargetsOnBoard;
+        targetValidationMethod = BoardManager.Instance.FindValidAbOrEquipmentTargetsOnBoard;
     }
 
 

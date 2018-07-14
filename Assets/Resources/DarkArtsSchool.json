@@ -30,6 +30,7 @@
 		"CardName": "Collateral Damage",
 		"CardType": 4,
 		"CardText": "Whenever a unit dies this turn a random enemy is dealt 1 damage",
+		"CastType": 1,
 		"BaseEventAssembly": "CollateralDamageEventHandler"
 	},
 	{
@@ -40,7 +41,7 @@
 		"Power": 2,
 		"Health": 4,
 		"Initiative": 3,
-		"CastType": 0,
+		"CastType": 0
 	},
 	{
 		"CardTemplateId": 105,
@@ -58,7 +59,6 @@
 		"CardType": 4,
 		"CardText": "All enemies lose 1 health and both players generate 1 less energy next round.Shuffle this back to the encounter deck",
 		"CastType": 1
-
 	},
 	{
 		"CardTemplateId": 107,
@@ -180,6 +180,8 @@
 		"Faction": 2,
 		"Power": 1,
 		"Durability": 3,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0],
 		"CastType": 2
 	},
 	{
@@ -192,6 +194,8 @@
 		"Power": 0,
 		"Durability": 3,
 		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0],
 		"BaseEventAssembly": "MountweedBuckleEventHandler"
 	},
 	{
@@ -204,6 +208,8 @@
 		"Power": 0,
 		"Durability": 3,
 		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0],
 		"BaseEventAssembly": "GaiasAmuletEventHandler"
 	},
 	{
@@ -214,9 +220,12 @@
 		"CardText": "Target hero gets +1 attack for every 5 points of health.(Rounded down)",
 		"Faction": 2,
 		"InternalCooldownTarget": 3,
-		"CastType": 0,
-		"CastTargetOwningType": 3,
+		"CastType": 2,
 		"CastValidTargets": [0],
+		"CastTargetOwningType": 1,
+		"AbilityActivationType": 1,
+		"SecondaryEffectTargetOwningType": 3,
+		"SecondaryEffectValidTargets": [0],
 		"BaseEventAssembly": "GaiasGiftEventHandler"
 
 	},
@@ -230,9 +239,12 @@
 		"Faction": 2,
 		"Durability": 3,
 		"InternalCooldownTarget": 2,
-		"CastType": 0,
-		"CastTargetOwningType": 0,
-		"CastValidTargets": [8],
+		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0],
+		"AbilityActivationType": 1,
+		"SecondaryEffectTargetOwningType": 1,
+		"SecondaryEffectValidTargets": [0],
 		"BaseEventAssembly": "RangersMarkEventHandler"
 	},
 	{
@@ -298,7 +310,7 @@
 	},
 	{
 		"CardTemplateId": 55,
-		"CardName": "Seledin,Warmaster",
+		"CardName": "Seledin, Warmaster",
 		"CardType": 3,
 		"BaseResourceCost": 3,
 		"CardText": "Seledin gains +1 attack for every imperial warrior on the field",
@@ -334,7 +346,9 @@
 		"Faction": 0,
 		"Power": 1,
 		"Durability": 3,
-		"CastType": 2
+		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0]
 	},
 	{
 		"CardTemplateId": 58,
@@ -346,7 +360,9 @@
 		"Faction": 0,
 		"Power": 2,
 		"Durability": 2,
-		"CastType": 2
+		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0]
 	},
 	{
 		"CardTemplateId": 59,
@@ -359,6 +375,8 @@
 		"Power": 0,
 		"Durability": 3,
 		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0],
 		"BaseEventAssembly": "SacredTextsOfOahironEventHandler"
 	},
 	{
@@ -369,7 +387,10 @@
 		"CardText": "Lose 1 initiative and gain 1 attack for 3 rounds.",
 		"Faction": 0,
 		"InternalCooldownTarget": 3,
-		"CastType": 2
+		"AbilityActivationType": 0,
+		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0]
 
 	},
 	{
@@ -383,9 +404,11 @@
 		"Durability": 3,
 		"InternalCooldownTarget": 2,
 		"CastType": 2,
+		"CastTargetOwningType": 1,
+		"CastValidTargets": [0],
 		"AbilityActivationType": 1,
-		"AbilityActivationTargetOwningType": 0,
-		"AbilityActivationValidTargets": [8]
+		"SecondaryEffectTargetOwningType": 0,
+		"SecondaryEffectValidTargets": [8]
 	},
 	{
 		"CardTemplateId": 150,

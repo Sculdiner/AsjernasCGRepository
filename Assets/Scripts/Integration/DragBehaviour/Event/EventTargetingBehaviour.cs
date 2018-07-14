@@ -68,6 +68,7 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
         }
         else
         {
+            ReferencedCard.CardManager.VisualStateManager.DeactivatePreview();
             (boardView.Controller as BoardController).Play_CardWithTarget(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
         }
     }

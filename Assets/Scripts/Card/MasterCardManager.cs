@@ -27,7 +27,33 @@ public class MasterCardManager : MonoBehaviour
     public ClientCardTemplate GetNewCardInstance(int cardTemplateId)
     {
         if (CardTemplateCollection.ContainsKey(cardTemplateId))
-            return JsonConvert.DeserializeObject<ClientCardTemplate>(CardTemplateCollection[cardTemplateId]);
+        {
+            var preProcessedCard =  JsonConvert.DeserializeObject<ClientCardTemplate>(CardTemplateCollection[cardTemplateId]);
+            switch (preProcessedCard.CardType)
+            {
+                case CardType.Equipment:
+                    //preProcessedCard.CardCastAttachTargetOwningType = CardCastTargetOwningType.Own;
+                    //preProcessedCard.AttachmentValidTargets = new List<CardType>() { CardType.Character};
+                    break;
+                case CardType.Ability:
+                    //preProcessedCard.CardCastAttachTargetOwningType = CardCastTargetOwningType.Own;
+                    //preProcessedCard.AttachmentValidTargets = new List<CardType>() { CardType.Character };
+                    break;
+                case CardType.Follower:
+                    break;
+                case CardType.Event:
+                    break;
+                case CardType.Minion:
+                    break;
+                case CardType.Quest:
+                    break;
+                case CardType.Character:
+                    break;
+                default:
+                    break;
+            }
+            return preProcessedCard;
+        }
         return null;
     }
 

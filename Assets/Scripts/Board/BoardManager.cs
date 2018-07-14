@@ -243,6 +243,11 @@ public class BoardManager : MonoBehaviour
         return validTargetsList;
     }
 
+    public List<ClientSideCard> FindValidAbOrEquipmentTargetsOnBoard(ClientSideCard card)
+    {
+        return (card.ParticipatorState as PlayerState).Deck?.Where(s => s.CardStats.CardType == CardType.Character && s.CurrentLocation == CardLocation.PlayArea)?.ToList();
+    }
+
     public List<ClientSideCard> FindValidTargetsOnBoard(ClientSideCard card)
     {
         var validTargetsList = new List<ClientSideCard>();
@@ -445,6 +450,9 @@ public class BoardManager : MonoBehaviour
         if (card != null)
         {
             card.CardManager.SlotManager?.RemoveSlot(cardId);
+            card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+            card.SetLocation(CardLocation.DiscardPile);
+            card.CardViewObject.SetActive(false);
         }
     }
 

@@ -98,14 +98,17 @@ public class InitiativeSlotManager : MonoBehaviour
                 ActiveSlot.Highlighter.constant = false;
             }
             //ActiveSlot?. played overlay
-            ActiveSlot = CurrentSlots.First(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
+            ActiveSlot = CurrentSlots.FirstOrDefault(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
 
             foreach (var currentSlot in CurrentSlots)
             {
                 currentSlot.Highlighter.constant = false;
                 //currentSlot.Highlighter.constant = false; played overlay
             }
-            ActiveSlot.Highlighter.constant = true;
+            if (ActiveSlot != null)
+            {
+                ActiveSlot.Highlighter.constant = true;
+            }
         }
 
     }

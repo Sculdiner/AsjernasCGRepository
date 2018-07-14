@@ -37,8 +37,10 @@ public class ClientSideCard
             HoverComponent.SetAction<HandHoverBehaviour>();
         else if (this.CardStats.CardType == CardType.Quest)
             HoverComponent.SetAction<QuestHoverBehaviour>();
-        else
+        else if (location == CardLocation.PlayArea)
             HoverComponent.SetAction<BoardHoverBehaviour>();
+        else if (location == CardLocation.DiscardPile)
+            HoverComponent.SetAction<NoHoverBehaviour>();
     }
     public Sequence DoTweenSequence { get; set; }
     public Tween DoTweenTweening { get; set; }

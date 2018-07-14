@@ -22,6 +22,11 @@ public class CardElementValueChangeEventHandler<TModel> : BaseEventHandler<TMode
     public override void OnHandleEvent(View view, TModel model)
     {
         var boardview = view as BoardView;
-        boardview.BoardManager.GetCard(model.CardGeneratedId);
+        var card = boardview.BoardManager.GetCard(model.CardGeneratedId);
+        if (card != null)
+        {
+            card.CardManager.VisualStateManager.CurrentState.UpdateVisual(card.CardStats);
+        }
+
     }
 }

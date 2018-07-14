@@ -24,6 +24,8 @@ public class CardPlayCancelationEventHandler<TModel> : BaseEventHandler<TModel> 
             var draggable = cardToCancel.CardViewObject.GetComponent<Draggable>();
             if (draggable != null)
                 draggable.ForceKillDraggingAction();
+
+            cardToCancel.CardManager.VisualStateManager.AllowPreview(); //it is set to deactivated so that the player won't be able to hover over the collider of the card (in hand), while waiting for a server response
         }
         else
             Debug.Log($"Tried to cancel an action of a non-registered card. Registered card: {model.CardPlayIdToCancel}");

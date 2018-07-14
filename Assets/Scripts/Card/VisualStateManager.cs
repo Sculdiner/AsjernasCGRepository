@@ -30,7 +30,7 @@ public class VisualStateManager : MonoBehaviour
         //if (ControllingCardManager.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Quest)
         //    _state = Quest;
         //else
-            _state = Card;
+        _state = Card;
         AllowPreviewing = true;
     }
 
@@ -69,7 +69,7 @@ public class VisualStateManager : MonoBehaviour
         {
             highlighter.tween = true;
         }
-            
+
     }
 
     public void EndHighlight()
@@ -92,6 +92,7 @@ public class VisualStateManager : MonoBehaviour
                 Character?.Hide();
                 Card?.Hide();
                 Quest?.Hide();
+                AllowPreviewing = false;
                 _state = Card;
                 break;
             case CardVisualState.Card:
@@ -102,6 +103,7 @@ public class VisualStateManager : MonoBehaviour
                 Character?.Hide();
                 Card.Show();
                 Quest?.Hide();
+                AllowPreviewing = true;
                 _state = Card;
                 break;
             case CardVisualState.Preview:
@@ -125,6 +127,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability?.Hide();
                 Character?.Hide();
                 Quest?.Hide();
+                AllowPreviewing = true;
                 _state = Follower;
                 break;
             case CardVisualState.Ability:
@@ -135,6 +138,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability.Show();
                 Character?.Hide();
                 Quest?.Hide();
+                AllowPreviewing = true;
                 _state = Ability;
                 break;
             case CardVisualState.Equipment:
@@ -145,6 +149,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability?.Hide();
                 Character?.Hide();
                 Quest?.Hide();
+                AllowPreviewing = true;
                 _state = Equipment;
                 break;
             case CardVisualState.Character:
@@ -155,6 +160,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability?.Hide();
                 Character.Show();
                 Quest?.Hide();
+                AllowPreviewing = true;
                 _state = Character;
                 break;
             case CardVisualState.Quest:
@@ -165,6 +171,7 @@ public class VisualStateManager : MonoBehaviour
                 Ability?.Hide();
                 Character?.Hide();
                 Quest.Show();
+                AllowPreviewing = true;
                 _state = Quest;
                 break;
             default:
