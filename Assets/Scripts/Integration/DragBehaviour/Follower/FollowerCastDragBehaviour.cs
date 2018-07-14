@@ -118,5 +118,10 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
     public override void OnCancelAction()
     {
     }
+
+    public override bool CheckResourceOnStart()
+    {
+        return true;
+    }
 }
 

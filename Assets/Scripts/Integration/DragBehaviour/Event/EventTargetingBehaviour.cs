@@ -86,5 +86,10 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
     {
         return true;
     }
+
+    public override bool CheckResourceOnStart()
+    {
+        return true;
+    }
 }
 

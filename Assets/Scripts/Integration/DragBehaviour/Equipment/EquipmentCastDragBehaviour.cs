@@ -64,4 +64,9 @@ public class EquipmentCastDragBehaviour : BaseTargetingCardBehaviour
     {
         return true;
     }
+
+    public override bool CheckResourceOnStart()
+    {
+        return true;
+    }
 }

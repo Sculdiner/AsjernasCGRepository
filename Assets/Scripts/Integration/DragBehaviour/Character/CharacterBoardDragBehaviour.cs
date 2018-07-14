@@ -98,4 +98,9 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
     {
         return false;
     }
+
+    public override bool CheckResourceOnStart()
+    {
+        return false;
+    }
 }

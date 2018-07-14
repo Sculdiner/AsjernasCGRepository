@@ -61,4 +61,9 @@ public class FollowerTargetingBehaviour : BaseTargetingCardBehaviour
     {
         return false;
     }
+
+    public override bool CheckResourceOnStart()
+    {
+        return true;
+    }
 }

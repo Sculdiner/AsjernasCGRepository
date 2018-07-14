@@ -15,6 +15,11 @@ public class EventCastDragBehaviour : BaseDragCardBehaviour
         return true;
     }
 
+    public override bool CheckResourceOnStart()
+    {
+        return true;
+    }
+
     public override bool DragSuccessful()
     {
         return base.DragSuccessful();

@@ -16,6 +16,11 @@ public class NoDragBehaviour : DraggingActions
         return false;
     }
 
+    public override bool CheckResourceOnStart()
+    {
+        return false;
+    }
+
     public override bool DragSuccessful()
     {
         return true;
