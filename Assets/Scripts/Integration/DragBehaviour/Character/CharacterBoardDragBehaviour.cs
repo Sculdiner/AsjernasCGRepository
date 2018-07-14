@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
         }
         else if (target.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Quest)
         {
-            var manager = BoardManager.Instance.GetQuestManager();
+            var manager = BoardManager.Instance.QuestBoardManager.CurrentQuestingManager;
             manager.Highlighter.tween = true;
         }
 
@@ -45,9 +46,16 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
 
     public override void OnLoseTarget()
     {
-        TargetedCard.OnStopBeingTargetedForAttack(ReferencedCard);
-        var manager = BoardManager.Instance.GetQuestManager();
-        manager.Highlighter.tween = false;
+        if (TargetedCard.Template.CardType == CardType.Minion)
+        {
+            TargetedCard.OnStopBeingTargetedForAttack(ReferencedCard);
+        }
+        else if (TargetedCard.Template.CardType == CardType.Quest)
+        {
+            var manager = BoardManager.Instance.QuestBoardManager.CurrentQuestingManager;
+            manager.Highlighter.tween = false;
+
+        }
     }
 
     public override void OnSuccessfullTargetAcquisition(CardManager acquiredTarget)

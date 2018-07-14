@@ -25,7 +25,7 @@ public class CardManager : MonoBehaviour
     public void SetInitialTemplate(ClientCardTemplate template)
     {
         Template = template;
-        VisualStateManager.CurrentState.UpdateVisual(template);
+        VisualStateManager.CurrentState?.UpdateVisual(template);
         //UpdateCardView(InitialTemplate);
     }
 

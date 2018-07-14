@@ -12,5 +12,6 @@ public enum CardVisualState
     Follower = 2,
     Ability = 3,
     Equipment = 4,
-    Character = 5
+    Character = 5,
+    Quest = 6
 }

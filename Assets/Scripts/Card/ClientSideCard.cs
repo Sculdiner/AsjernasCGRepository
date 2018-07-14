@@ -37,6 +37,8 @@ public class ClientSideCard
 
         if (location == CardLocation.Hand)
             HoverComponent.SetAction<HandHoverBehaviour>();
+        else if (this.CardStats.CardType == CardType.Quest)
+            HoverComponent.SetAction<QuestHoverBehaviour>();
         else
             HoverComponent.SetAction<BoardHoverBehaviour>();
     }
