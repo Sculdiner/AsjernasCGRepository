@@ -39,6 +39,8 @@ public class GameRoutingEventHandler : BaseRoutingEventHandler
         _subEventHandlerCollection.AddHandler(new RemoveCardEventHelperEventHandler<IntegerModel>());
         _subEventHandlerCollection.AddHandler(new DamageEventHandler<DamageEventModel>());
         _subEventHandlerCollection.AddHandler(new HealDamageEventHandler<DamageEventModel>());
+        _subEventHandlerCollection.AddHandler(new QuestEventHandler<QuestProgressionModel>());
+        _subEventHandlerCollection.AddHandler(new QuestActionCancellationEventHandler<IntegerModel>());
     }
     public override ClientEventGroupCode RegisteredEventGroupCode
     {

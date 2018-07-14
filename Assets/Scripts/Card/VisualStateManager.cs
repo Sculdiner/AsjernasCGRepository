@@ -27,9 +27,9 @@ public class VisualStateManager : MonoBehaviour
 
     public void Awake()
     {
-        if (ControllingCardManager.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Quest)
-            _state = Quest;
-        else
+        //if (ControllingCardManager.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Quest)
+        //    _state = Quest;
+        //else
             _state = Card;
         AllowPreviewing = true;
     }
@@ -66,7 +66,10 @@ public class VisualStateManager : MonoBehaviour
     {
         var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
         if (highlighter != null)
+        {
             highlighter.tween = true;
+        }
+            
     }
 
     public void EndHighlight()

@@ -1,5 +1,6 @@
 ﻿using AsjernasCG.Common.BusinessModels.CardModels;
 using DG.Tweening;
+using HighlightingSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,27 +35,27 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
     {
         if (target.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Minion)
         {
+            Cursor.SetCursor(BoardView.Instance.AttackCursor, Vector2.zero, CursorMode.Auto);
             TargetedCard.OnStartBeingTargetedForAttack(ReferencedCard);
         }
         else if (target.Template.CardType == AsjernasCG.Common.BusinessModels.CardModels.CardType.Quest)
         {
-            var manager = BoardManager.Instance.QuestBoardManager.CurrentQuestingManager;
-            manager.Highlighter.tween = true;
+            Cursor.SetCursor(BoardView.Instance.QuestCursor, Vector2.zero, CursorMode.Auto);
+            target.GetComponent<Highlighter>().constant = true;
         }
 
     }
 
     public override void OnLoseTarget()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         if (TargetedCard.Template.CardType == CardType.Minion)
         {
             TargetedCard.OnStopBeingTargetedForAttack(ReferencedCard);
         }
         else if (TargetedCard.Template.CardType == CardType.Quest)
         {
-            var manager = BoardManager.Instance.QuestBoardManager.CurrentQuestingManager;
-            manager.Highlighter.tween = false;
-
+            TargetedCard.GetComponent<Highlighter>().constant = false;
         }
     }
 
@@ -69,8 +70,16 @@ public class CharacterBoardDragBehaviour : BaseTargetingCardBehaviour
         }
         else
         {
-            ReferencedCard.LastPosition = PreDragPosition.Value;
-            (BoardView.Instance.Controller as BoardController).Attack(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
+            if (TargetedCard.Template.CardType == CardType.Minion)
+            {
+                ReferencedCard.LastPosition = PreDragPosition.Value;
+                (BoardView.Instance.Controller as BoardController).Attack(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
+            }
+            else if (TargetedCard.Template.CardType == CardType.Quest)
+            {
+                ReferencedCard.LastPosition = PreDragPosition.Value;
+                (BoardView.Instance.Controller as BoardController).Quest(ReferencedCard.CardStats.GeneratedCardId);
+            }
         }
     }
 

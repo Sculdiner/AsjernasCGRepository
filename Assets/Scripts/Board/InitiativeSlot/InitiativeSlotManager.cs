@@ -12,58 +12,74 @@ public class InitiativeSlotManager : MonoBehaviour
     public List<InitiativeSlot> CurrentSlots = new List<InitiativeSlot>();
     public InitiativeSlot ActiveSlot;
     public BoardManager BoardManager;
+    private readonly object locker = new object();
+
+    public void ClearAllHighlights()
+    {
+        foreach (var slot in CurrentSlots)
+        {
+            slot.Highlighter.constant = false;
+        }
+    }
+
     public void SetInitiativeSlot(List<int> cards)
     {
-        foreach (var item in CurrentSlots)
-            DestroyImmediate(item);
-
-        CurrentSlots.Clear();
-
-        foreach (var item in cards)
+        lock (locker)
         {
-            var card = BoardManager.GetCard(item);
-            if (card == null)
-            {
-                Debug.Log($"can't find init slot for card with id:{item}. Current card count: {BoardManager.DEBUG_SHOWCARDCOUNT()}");
-                continue;
-            }
-            else
-            {
-                Debug.Log($"found init slot for card with id:{item}. Current card count: {BoardManager.DEBUG_SHOWCARDCOUNT()}");
-            }
+            foreach (var item in CurrentSlots)
+                Destroy(item.gameObject);
 
-            var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;
-            newSlot.SetCardInfo(card);
-            CurrentSlots.Add(newSlot);
+            CurrentSlots.Clear();
+
+            foreach (var item in cards)
+            {
+                var card = BoardManager.GetCard(item);
+                if (card == null)
+                {
+                    Debug.Log($"can't find init slot for card with id:{item}. Current card count: {BoardManager.DEBUG_SHOWCARDCOUNT()}");
+                    continue;
+                }
+                else
+                {
+                    Debug.Log($"found init slot for card with id:{item}. Current card count: {BoardManager.DEBUG_SHOWCARDCOUNT()}");
+                }
+
+                var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;
+                newSlot.SetCardInfo(card);
+                CurrentSlots.Add(newSlot);
+            }
+            UpdatePositions();
         }
-        UpdatePositions();
     }
 
 
     public void RemoveSlot(int cardId)
     {
-        var card = CurrentSlots?.FirstOrDefault(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
-        if (card != null)
+        lock (locker)
         {
-            if (ActiveSlot != null && ActiveSlot.ReferencedCard.CardStats.GeneratedCardId == cardId)
+            var card = CurrentSlots?.FirstOrDefault(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
+            if (card != null)
             {
-                ActiveSlot.Highlighter.constant = true;
-                ActiveSlot = null;
-            }
+                if (ActiveSlot != null && ActiveSlot.ReferencedCard.CardStats.GeneratedCardId == cardId)
+                {
+                    ActiveSlot.Highlighter.constant = true;
+                    ActiveSlot = null;
+                }
 
-            CurrentSlots.Remove(card);
-            DestroyImmediate(card);
-            UpdatePositions();
+                CurrentSlots.Remove(card);
+                Destroy(card.gameObject);
+                UpdatePositions();
+            }
         }
     }
 
-    public void SetInitiativeSlot(ClientSideCard card)
-    {
-        var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;
-        newSlot.SetCardInfo(card);
-        CurrentSlots.Add(newSlot);
-        UpdatePositions();
-    }
+    //public void SetInitiativeSlot(ClientSideCard card)
+    //{
+    //    var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;
+    //    newSlot.SetCardInfo(card);
+    //    CurrentSlots.Add(newSlot);
+    //    UpdatePositions();
+    //}
 
     public void UpdatePositions()
     {
@@ -75,15 +91,22 @@ public class InitiativeSlotManager : MonoBehaviour
 
     public void ActivateSlot(int cardId)
     {
-        ActiveSlot?.Highlighter.constant = false;
-        //ActiveSlot?. played overlay
-        ActiveSlot = CurrentSlots.FirstOrDefault(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
-        ActiveSlot?.Highlighter.constant = true;
-
-        foreach (var currentSlot in CurrentSlots)
+        lock (locker)
         {
-            currentSlot.Highlighter.constant = false;
-            //currentSlot.Highlighter.constant = false; played overlay
+            if (ActiveSlot != null)
+            {
+                ActiveSlot.Highlighter.constant = false;
+            }
+            //ActiveSlot?. played overlay
+            ActiveSlot = CurrentSlots.First(s => s.ReferencedCard.CardStats.GeneratedCardId == cardId);
+
+            foreach (var currentSlot in CurrentSlots)
+            {
+                currentSlot.Highlighter.constant = false;
+                //currentSlot.Highlighter.constant = false; played overlay
+            }
+            ActiveSlot.Highlighter.constant = true;
         }
+
     }
 }

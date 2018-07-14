@@ -4,6 +4,7 @@ using AsjernasCG.Common.EventModels.Game;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,8 +21,8 @@ public class BoardView : View
         MasterCardManager.LoadCards();
         if (IsArtistDebug)
         {
-            BoardManager.RegisterPlayer(1, LeftPlayerAllySlotManager);
-            BoardManager.RegisterPlayer(2, RightPlayerAllySlotManager);
+            BoardManager.RegisterPlayer(1, LeftPlayerAllySlotManager, LeftPlayerInfoManager);
+            BoardManager.RegisterPlayer(2, RightPlayerAllySlotManager, RightPlayerInfoManager);
             RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1001, CardTemplateId = 3 });
             RegisterStartingCharacter(1, new DetailedCardModel() { GeneratedCardId = 1002, CardTemplateId = 4 });
             RegisterStartingCharacter(2, new DetailedCardModel() { GeneratedCardId = 1003, CardTemplateId = 3 });
@@ -258,20 +259,19 @@ public class BoardView : View
         else
         {
             var model = BoardTransitionHelper.Instance.GameInitializationModel;
-            BoardManager.RegisterPlayer(model.Player1Model.PlayerId, LeftPlayerAllySlotManager);
-            BoardManager.RegisterPlayer(model.Player2Model.PlayerId, RightPlayerAllySlotManager);
+            BoardManager.RegisterPlayer(model.Player1Model.PlayerId, LeftPlayerAllySlotManager, LeftPlayerInfoManager);
+            BoardManager.RegisterPlayer(model.Player2Model.PlayerId, RightPlayerAllySlotManager, RightPlayerInfoManager);
 
             RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character1);
             RegisterStartingCharacter(model.Player1Model.PlayerId, model.Player1Model.Character2);
             RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character1);
             RegisterStartingCharacter(model.Player2Model.PlayerId, model.Player2Model.Character2);
 
-            //SetStartupQuest(model.AiStateModel.EncounterId, model.AiStateModel.EncounterGeneratedCardId);
+            SetStartupQuest(model.AiStateModel.InitialEncounterQuestModel.CardTemplateId, model.AiStateModel.InitialEncounterQuestModel.GeneratedCardId);
         }
 
 
-
-
+   
 
 
 
@@ -362,6 +362,14 @@ public class BoardView : View
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            Debug.Log($"PhotonEngine Queue: {Newtonsoft.Json.JsonConvert.SerializeObject(PhotonEngine.GetActionsInQueue())}");
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            PhotonEngine.CompletedAction();
+        }
     }
 
     private BoardController _controller;
@@ -387,12 +395,19 @@ public class BoardView : View
     public SimpleHandSlotManagerV2 HandSlotManagerV2;
     public EncounterSlotManager EncounterSlotManager;
     public AllySlotManager LeftPlayerAllySlotManager;
+    public PlayerInfoManager LeftPlayerInfoManager;
+
     public AllySlotManager RightPlayerAllySlotManager;
+    public PlayerInfoManager RightPlayerInfoManager;
+
     public CharacterSlotManager CharacterSlotManager;
     public QuestSlotManager QuestSlotManager;
     public TurnMessenger TurnMessenger;
     public TurnButton TurnButton;
     public InitiativeSlotManager InitiativeManager;
+
+    public Texture2D AttackCursor;
+    public Texture2D QuestCursor;
 
     //public Button AttackButton { get; set; }
     //public Button QuestButton { get; set; }

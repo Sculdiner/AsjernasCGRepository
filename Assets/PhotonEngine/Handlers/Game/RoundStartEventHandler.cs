@@ -19,7 +19,8 @@ public class RoundStartEventHandler<TModel> : BaseEventHandler<TModel> where TMo
     public override void OnHandleEvent(View view, TModel model)
     {
         var boardview = view as BoardView;
-        var text = PhotonEngine.UserId == model.ActiveUser ? "Your setup turn" : "Teammate's setup turn";
-        boardview.TurnMessenger.Show(text);
+        boardview.InitiativeManager.ClearAllHighlights();
+        //var text = PhotonEngine.UserId == model.ActiveUser ? "Your setup turn" : "Teammate's setup turn";
+        //boardview.TurnMessenger.Show(text);
     }
 }

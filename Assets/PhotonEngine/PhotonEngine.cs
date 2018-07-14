@@ -182,6 +182,17 @@ public class PhotonEngine : MonoBehaviour, IPhotonPeerListener
 
     private static bool processingAction = false;
 
+    public static List<string> GetActionsInQueue()
+    {
+        var list = new List<string>();
+        if (ActionQueue != null && ActionQueue.Any())
+        {
+            foreach (var item in ActionQueue)
+                list.Add(item.Caller);
+        }
+        return list;
+    }
+
     public static void NextAction()
     {
         if (processingAction)

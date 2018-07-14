@@ -19,6 +19,8 @@ public class SetupSlotActivatedEventHandler<TModel> : BaseEventHandler<TModel> w
     public override void OnHandleEvent(View view, TModel model)
     {
         var boardview = (view as BoardView);
+        boardview.BoardManager.ActiveCard?.CardManager.GetComponent<Draggable>()?.ForceKillDraggingAction();
+        BoardView.Instance.TurnButton.FlipToWait();
         boardview.BoardManager.SetupSlotActivated(model.Value);
         //boardview.BoardManager.ActiveCharacterManager?.CardManager.VisualStateManager.EndHighlight();
         //boardview.BoardManager.ActiveCharacterManager = boardview.BoardManager.GetCard(model.Value).CardManager.CharacterManager;

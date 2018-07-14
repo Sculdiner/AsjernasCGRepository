@@ -284,14 +284,21 @@
 	"ImagePath": "skeletonarcher",
 	"Power" : 2,
 	"Health" : 4
-  }
-  ,
+  },
   {
 	"CardTemplateId":10001,
 	"CardName":"Test Quest",
 	"CardType": 11,
 	"CardText" : "Your quest starts here...",
-	"QuestObjectiveTarget" : 7
-	
+	"QuestObjectiveTarget" : 10,
+	"QuestLineStage" : 1
+  },
+    {
+	"CardTemplateId":10002,
+	"CardName":"End Game",
+	"CardType": 11,
+	"CardText" : "Your quest ends here...",
+	"QuestObjectiveTarget" : 9,
+	"QuestLineStage" : 2
   }
 ]

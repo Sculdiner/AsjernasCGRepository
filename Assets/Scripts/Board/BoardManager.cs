@@ -34,18 +34,26 @@ public class BoardManager : MonoBehaviour
 
     public ClientSideCard RegisterEncounterCard(GameObject gameObject, ClientCardTemplate card, CardLocation location)
     {
+        var cardManager = gameObject.GetComponent<CardManager>();
         var clientSideCard = new ClientSideCard()
         {
             CardStats = card,
             CardViewObject = gameObject,
-            CardManager = gameObject.GetComponent<CardManager>()
+            CardManager = cardManager
         };
+        if (card.CardType == CardType.Quest)
+        {
+            if (!card.CurrentQuestPoints.HasValue)
+                card.CurrentQuestPoints = 0;
+            cardManager.VisualStateManager.ChangeVisual(CardVisualState.Quest);
+        }
         clientSideCard.SetLocation(location);
 
         var partState = AiState;
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
 
         Destroy(gameObject.GetComponent<Draggable>());
+        Destroy(gameObject.GetComponent<DragRotator>());
         //Debug.Log("Destroyed draggable component because the card is controlled by the AI");
 
         return RegisterCard(clientSideCard, eventHandling, partState);
@@ -99,7 +107,7 @@ public class BoardManager : MonoBehaviour
         return card;
     }
 
-    public void RegisterPlayer(int userId, AllySlotManager allySlotManager)
+    public void RegisterPlayer(int userId, AllySlotManager allySlotManager, PlayerInfoManager piManager)
     {
         var state = new PlayerState() { UserId = userId };
         if (userId == PhotonEngine.UserId)
@@ -107,12 +115,14 @@ public class BoardManager : MonoBehaviour
             CurrentUserPlayerState = state;
             allySlotManager.OwningPlayer = state;
             CurrentUserPlayerState.AllySlotManager = allySlotManager;
+            CurrentUserPlayerState.PlayerInfoManager = piManager;
         }
         else
         {
             allySlotManager.OwningPlayer = state;
             TeammatePlayerState = state;
             TeammatePlayerState.AllySlotManager = allySlotManager;
+            TeammatePlayerState.PlayerInfoManager = piManager;
         }
         ParticipatorReferenceCollection.Add(userId, state);
     }
@@ -394,6 +404,7 @@ public class BoardManager : MonoBehaviour
 
     public void ActivateInitiativeSlot(int cardId)
     {
+        ActiveCard?.CardManager.GetComponent<Draggable>()?.ForceKillDraggingAction();
         TurnStatus = TurnStatus.Encounter;
         ActiveInitiativeCard?.CardManager.VisualStateManager.EndHighlight();
         CurrentActiveInitiativeSlots.Clear();
@@ -402,11 +413,12 @@ public class BoardManager : MonoBehaviour
         //the slot is of the current user
         if (card.ParticipatorState is PlayerState && ((PlayerState)card.ParticipatorState).UserId == PhotonEngine.UserId)
         {
-            BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
             ActiveInitiativeCard = card;
+
+            BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
             ActiveInitiativeCard?.CardManager.VisualStateManager.Hightlight();
             BoardView.Instance.TurnButton.FlipToPass();
-
+            Debug.Log($"Flipped to Pass side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is mine");
             var hand = card.ParticipatorState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
             if (hand != null && hand.Any())
                 CurrentActiveInitiativeSlots.AddRange(hand);
@@ -414,6 +426,8 @@ public class BoardManager : MonoBehaviour
         else
         {
             ActiveInitiativeCard = null;
+            BoardView.Instance.TurnButton.FlipToWait();
+            Debug.Log($"Flipped to Wait side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is not mine");
         }
 
         BoardView.Instance.InitiativeManager.ActivateSlot(cardId);
@@ -438,6 +452,7 @@ public class BoardManager : MonoBehaviour
     {
         var player = GetPlayerStateById(userId);
         player.Resources = resources;
+        player.UpdateResources();
     }
 
     public void EncounterCard(int cardTemplateId, int generatedCardId, Action onEffectCompletion)

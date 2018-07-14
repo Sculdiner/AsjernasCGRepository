@@ -3,6 +3,11 @@ using AsjernasCG.Common.EventModels.Game;
 
 public class ResourceChangeEventHandler<TModel> : BaseEventHandler<TModel> where TModel : ResourceChangeModel
 {
+    public ResourceChangeEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.SerialSync;
+    }
+
     public override byte EventCode
     {
         get

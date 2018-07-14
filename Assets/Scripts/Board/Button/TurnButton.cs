@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 public class TurnButton : MonoBehaviour
 {
     public GameObject RotatingPartButtonObject;
+    public TMP_Text Text;
     private bool AllowFlip = false;
     private bool passSideOn = false;
     public void Awake()
@@ -30,16 +32,18 @@ public class TurnButton : MonoBehaviour
     public void FlipToPass()
     {
         AllowFlip = true;
-        var rotationx = RotatingPartButtonObject.transform.rotation.eulerAngles.x;
-        RotatingPartButtonObject.transform.Rotate(new Vector3(180, 0, 0));//DORotate(new Vector3(rotationx + 180, 0, 0), 0.7f);//.SetEase(Ease.InBounce);
+        Text.text = "Pass";
+        //var rotationx = RotatingPartButtonObject.transform.rotation.eulerAngles.x;
+        //RotatingPartButtonObject.transform.Rotate(new Vector3(180, 0, 0));//DORotate(new Vector3(rotationx + 180, 0, 0), 0.7f);//.SetEase(Ease.InBounce);
         passSideOn = true;
     }
 
     public void FlipToWait()
     {
         AllowFlip = false;
-        var rotationx = RotatingPartButtonObject.transform.rotation.eulerAngles.x;
-        RotatingPartButtonObject.transform.Rotate(new Vector3(180, 0, 0)); //DORotate(new Vector3(rotationx + 180, 0, 0), 0.7f);//.SetEase(Ease.InBounce);
+        Text.text = "Wait";
+        //var rotationx = RotatingPartButtonObject.transform.rotation.eulerAngles.x;
+        //RotatingPartButtonObject.transform.Rotate(new Vector3(180, 0, 0)); //DORotate(new Vector3(rotationx + 180, 0, 0), 0.7f);//.SetEase(Ease.InBounce);
         passSideOn = false;
     }
 

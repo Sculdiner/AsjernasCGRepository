@@ -3,6 +3,11 @@ using AsjernasCG.Common.ClientEventCodes;
 
 public class EncounterStartEventHandler<TModel> : BaseEventHandler<TModel> where TModel : EmptyModel
 {
+    public EncounterStartEventHandler()
+    {
+        ActionSyncType = UIActionSynchronizationType.SerialSync;
+    }
+
     public override byte EventCode
     {
         get
@@ -13,6 +18,7 @@ public class EncounterStartEventHandler<TModel> : BaseEventHandler<TModel> where
 
     public override void OnHandleEvent(View view, TModel model)
     {
-        throw new System.NotImplementedException();
+        var boardview = view as BoardView;
+        boardview.InitiativeManager.gameObject.SetActive(true);
     }
 }
