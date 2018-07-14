@@ -2205,6 +2205,7 @@ MonoBehaviour:
   Equipment: {fileID: 114427721696467506}
   Ability: {fileID: 114381290999157244}
   Character: {fileID: 114113856811877746}
+  Quest: {fileID: 0}
   DissolvePlayParticleSystem: {fileID: 198666041936148140}
   SmokePlayParticleSystem: {fileID: 198511827450346496}
 --- !u!114 &114140150255304624
@@ -3471,11 +3472,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5983,7 +5984,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 10
+        scalar: 30
         minScalar: 0
         maxCurve:
           serializedVersion: 2
@@ -6369,7 +6370,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.06132078, b: 0.104590446, a: 1}
+        key1: {r: 0.6226415, g: 0, b: 0.028657246, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -6535,7 +6536,7 @@ ParticleSystem:
         m_RotationOrder: 4
     tilesX: 2
     tilesY: 2
-    animationType: 1
+    animationType: 0
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
@@ -23544,7 +23545,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1e1e7b61994ee8941a787b9b721750e4, type: 2}
+  - {fileID: 2100000, guid: c94d3ef3ed612e44c81ff795fa764632, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -23568,7 +23569,7 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.05
+  m_MaxParticleSize: 0.02
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2

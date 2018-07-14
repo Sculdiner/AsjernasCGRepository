@@ -35,3 +35,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Assets/Plugins/Sirenix/Demos/Odin Attributes Overview.unitypackage.meta
+
+Assets/StreamingAssets/build_info\.txt
