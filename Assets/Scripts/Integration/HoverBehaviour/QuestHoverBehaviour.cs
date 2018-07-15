@@ -18,7 +18,7 @@ public class QuestHoverBehaviour : HoverActions
 
     public override void OnHoverStart()
     {
-        var viewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.transform.position + new Vector3(2f, 0, -0.5f));
+        var viewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.VisualStateManager.CurrentState.transform.position + new Vector3(2f, 0, -0.5f));
         Card.CardManager.VisualStateManager.PreviewAndRetainOriginalState();
         Card.CardManager.VisualStateManager.Preview.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(viewportPoint.x, viewportPoint.y, 4f));
         //var plane = GameObject.Find("HoverHelperPlane");

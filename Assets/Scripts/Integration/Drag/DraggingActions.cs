@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class DraggingActions
 {
@@ -9,6 +10,11 @@ public abstract class DraggingActions
         ReferencedCard = card;
     }
     public abstract bool AllowInSetup();
+    public abstract bool CheckResourceOnStart();
+    public virtual bool CustomValidationOnStartDrag()
+    {
+        return true;
+    }
     public Vector3? PreDragPosition { get; set; }
 
     public abstract void OnStartDrag();

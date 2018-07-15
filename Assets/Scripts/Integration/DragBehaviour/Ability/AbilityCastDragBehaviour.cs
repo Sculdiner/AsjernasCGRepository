@@ -6,11 +6,12 @@ using UnityEngine;
 public class AbilityCastDragBehaviour : BaseTargetingCardBehaviour
 {
     protected override int Layer { get; }
+
     private Func<ClientSideCard, List<ClientSideCard>> targetValidationMethod;
     public AbilityCastDragBehaviour(ClientSideCard card) : base(card)
     {
         Layer = LayerMask.GetMask("RaycastEligibleTargets");
-        targetValidationMethod = BoardManager.Instance.FindValidTargetsOnBoard;
+        targetValidationMethod = BoardManager.Instance.FindValidAbOrEquipmentTargetsOnBoard;
     }
 
 
@@ -64,5 +65,10 @@ public class AbilityCastDragBehaviour : BaseTargetingCardBehaviour
         BoardManager.Instance.ActiveCard = ReferencedCard;
         ReferencedCard.HoverComponent.ForceKillHover();
         ReferencedCard.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+    }
+
+    public override bool CheckResourceOnStart()
+    {
+        return true;
     }
 }

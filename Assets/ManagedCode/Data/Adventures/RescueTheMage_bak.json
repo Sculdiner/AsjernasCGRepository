@@ -1,0 +1,295 @@
+﻿[
+  //QUEST
+  {
+    "CardName": "Riding to the dark shore",
+    "CardType": 11,
+    "CardText": "<i>You are riding to the dark shore, following the trails of the abducters of your Ship's Mage, Shiver.</i>",
+    "SkillType": [ 1 ],
+    "QuestLineStage": 1,
+    "QuestObjectiveTarget": 7,
+    "CardImage": "riding1.jpg",
+    "Flags": [ "Survival" ],
+    "Traits": "Quest - Survival",
+    "CardTemplateId": 100
+  },
+  {
+    "CardName": "Breaking the shackles",
+    "CardType": 11,
+    "CardText": "<i>You manage to find the underground cave and are confronted by a skeleton jailer, near your handcuffed target. Perhaps these two magical orbs behind him are powering up the magical handcuffs of Shiver..</i>",
+    "SkillType": [ 0 ],
+    "QuestLineStage": 2,
+    "QuestObjectiveTarget": 14,
+    "CardImage": "cave1.jpg",
+    "Flags": [ "Magic" ],
+    "Traits": "Quest - Magic",
+    "CardTemplateId": 101
+  },
+  {
+    "CardName": "Seeing the bigger picture",
+    "CardType": 11,
+    "CardText": "<i>You free the mage and rush outside. Right when you are about to get on your mounts, you see the bones on the ground shaking! A necromancer!</i> You must kill the Necromancer and his bone giant to finish the quest.",
+    "QuestLineStage": 3,
+    "QuestObjectiveTarget": 5,
+    "CardImage": "ambush1.jpg",
+    "Traits": "Quest",
+    "CardTemplateId": 102
+  },
+
+  //MINIONS (16 cards) 20
+  {
+    "CardName": "Skeletal Warrior",
+    "CardType": 8,
+    "CardText": "",
+    "Power": 1,
+    "Health": 3,
+    "DeckThreatLevel": 1,
+    "Initiative": 2,
+    "Quantity": 4,
+    "CardImage": "skeletonwarrior.jpg",
+    "Traits": "Minion - Undead (T1)",
+    "CardTemplateId": 103
+  },
+  {
+    "CardName": "Skeletal Archer",
+    "CardType": 8,
+    "CardText": "Ranged 1(When encountered, deal 1 damage to the higher Threat target).",
+    "Power": 1,
+    "Health": 2,
+    "DeckThreatLevel": 1,
+    "Initiative": 4,
+    "Quantity": 3,
+    "CardImage": "skeletonarcher.jpeg",
+    "Traits": "Minion - Undead (T1)",
+    "CardTemplateId": 104
+  },
+  {
+    "CardName": "Maddening Sight",
+    "CardType": 4,
+    "CardText": "Blank a random Character's text till the end of the turn and add 5 Threat to him. He can't attack till the end of the turn.",
+    "DeckThreatLevel": 1,
+    "Quantity": 3,
+    "CardImage": "maddeningsight.jpg",
+    "Traits": "Event (T1)",
+    "CardTemplateId": 105
+  },
+  {
+    "CardName": "Animated Chain",
+    "CardType": 4,
+    "CardText": "Attachment. Attach to the higher Threat 'active' character. He can't attack or quest.",
+    "DeckThreatLevel": 1,
+    "Health": 2,
+    "Quantity": 2,
+    "CardImage": "chains.jpg",
+    "Traits": "Event - Attachment (T1)",
+    "CardTemplateId": 106
+  },
+  //{
+  //  "CardName": "Undead Sand-Crab",
+  //  "CardType": 8,
+  //  "CardText": "Attacks the lower threat target if able.",
+  //  "Power": 2,
+  //  "Health": 2,
+  //  "DeckThreatLevel": 1,
+  //  "Initiative": 4,
+  //  "Quantity": 3
+  //},
+  {
+    "CardName": "Zombie Bat",
+    "CardType": 8,
+    "CardText": "Horde 1 (When encountered put into play another <i>Zombie Bat</i> from the deck if able. Horde does not trigger again)", // swarm
+    "Power": 1,
+    "Health": 1,
+    "DeckThreatLevel": 1,
+    "Initiative": 10,
+    "Quantity": 3,
+    "CardImage": "vamp.jpg",
+    "Traits": "Minion - Creature (T1)",
+    "DefinedEvents": [
+      {
+        "Type": "Horde",
+        "Value": 1
+      }
+    ],
+    "CardTemplateId": 107
+  },
+  {
+    "CardName": "Waters Rising",
+    "CardType": 4,
+    "CardText": "Reveal the top 3 cards from the encounter deck. Put into play the lower level minion. Shuffle the rest.",
+    "DeckThreatLevel": 1,
+    "Quantity": 3,
+    "CardImage": "watersrising.jpg",
+    "Traits": "Event (T1)",
+    "BaseEventAssembly": "CG.GameLogic.CardBaseEventHandlers.WatersRisingEventHandler, CG.GameLogic",
+    "CardTemplateId": 108
+  },
+
+  //THREAT 2 (9 cards) 20
+  {
+    "CardName": "Animated Scythe",
+    "CardType": 8,
+    "CardText": "If encountered while on stealth, deal 1 damage to the attacker and ignore any damage taken",
+    "DeckThreatLevel": 2,
+    "Quantity": 2,
+    "CardImage": "animated_scythe.png",
+    "Traits": "Minion - Trap (T2)",
+    "Effects": [ "Stealth" ],
+    "Power": 1,
+    "Health": 1,
+    "Initiative": 1,
+    "CardTemplateId": 109
+  },
+  {
+    "CardName": "Shadow Servant",
+    "CardType": 8,
+    "CardText": "On death: Encounter a random Shadow event. <i>(note: shadow event is an event subtype)</i>",
+    "DeckThreatLevel": 2,
+    "Quantity": 2,
+    "CardImage": "shadow_servant.jpeg",
+    "Traits": "Minion (T2)",
+    "Effects": [ "Stealth" ],
+    "Power": 1,
+    "Health": 2,
+    "Initiative": 3,
+    "CardTemplateId": 110
+  },
+  {
+    "CardName": "Hands of the Dead",
+    "CardType": 4,
+    "CardText": "Deal 1 damage to each player unit. Shuffle this card into the encounter deck.",
+    "DeckThreatLevel": 2,
+    "Quantity": 2,
+    "CardImage": "handsofthedead.jpg",
+    "Traits": "Event (T2)",
+    "CardTemplateId": 111
+  },
+  {
+    "CardName": "Skeletal Mage",
+    "CardType": 8,
+    "CardText": "Attacks by this minion inflict <i>Frost</>. Deals +1 damage to frozen targets.",
+    "Power": 2,
+    "Health": 4,
+    "DeckThreatLevel": 2,
+    "Initiative": 4,
+    "Quantity": 2,
+    "CardImage": "skeletalmage.jpg",
+    "Traits": "Minion - Undead (T2)",
+    "CardTemplateId": 112
+  },
+  {
+    "CardName": "Undead Champion",
+    "CardType": 8,
+    "CardText": "Gain 1 shield at the start of the encounter phase",
+    "Power": 2,
+    "Health": 5,
+    "DeckThreatLevel": 2,
+    "Initiative": 3,
+    "Quantity": 3,
+    "CardImage": "undeadchampion.jpg",
+    "Traits": "Minion - Undead (T2)",
+    "CardTemplateId": 113
+  },
+  {
+    "CardName": "Unhallowed Roar",
+    "CardType": 4,
+    "CardText": "Remove 2 progress points from the active quest. If no points where removed, Encounter 1",
+    "DeckThreatLevel": 2,
+    "Quantity": 2,
+    "CardImage": "unhallowedroar.jpg",
+    "Traits": "Event (T2)",
+    "CardTemplateId": 114
+  },
+
+
+  //THREAT 3 (5 cards) 10
+  {
+    "CardName": "Fanged Spawn",
+    "CardType": 8,
+    "CardText": "Multi-attack 2. (Attacks <i>2</i> times. Each attack has a different target if able.)",
+    "Power": 2,
+    "Health": 7,
+    "DeckThreatLevel": 3,
+    "Initiative": 6,
+    "Quantity": 2,
+    "CardImage": "fangedspawn.jpg",
+    "Traits": "Minion - Abomination (T3)",
+    "CardTemplateId": 115
+  },
+  {
+    "CardName": "Pirate Apparition",
+    "CardType": 8,
+    "CardText": "Quest objectives cannot get boosted. Discard 1 card from your hand when attacking this minion.",
+    "Power": 2,
+    "Health": 5,
+    "DeckThreatLevel": 3,
+    "Initiative": 7,
+    "Quantity": 2,
+    "CardImage": "pirateapparition.jpg",
+    "Traits": "Minion - Ghost Pirate (T3)",
+    "CardTemplateId": 116
+  },
+  {
+    "CardName": "Death Rain",
+    "CardType": 4,
+    "CardText": "Ongoing 3(Placed near the active quest, discard it after 3 rounds, at the end step). Before the turn ends, deal 1 damage to all non-undead units and heal 1 damage from each undead unit.",
+    "DeckThreatLevel": 3,
+    "Quantity": 1,
+    "CardImage": "deathrain.jpg",
+    "Traits": "Event (T3)",
+    "CardTemplateId": 117
+  }
+  //,
+
+
+
+  ////QUEST OBJECTIVES
+  //{
+  //  "CardName": "Empowering Orb",
+  //  "CardType": 12,
+  //  "CardText": "When destroyed, add 4 progress to the current quest and deal 1 damage to every character and minion.",
+  //  "Health": 5,
+  //  "CardImage": "empoweringorb.jpg",
+  //  "Traits": "Quest Objective",
+  //  "Quantity": 2,
+  //  "IsObjective": true
+  //},
+  //{
+  //  "CardName": "Undead Jailer",
+  //  "CardType": 8,
+  //  "CardText": "Activation: If this minion has not taken any damage this round, <i>Encounter</i> an 'Animated Chain'",
+  //  "Power": 1,
+  //  "Health": 4,
+  //  "DeckThreatLevel": 2,
+  //  "Initiative": 4,
+  //  "Quantity": 1,
+  //  "CardImage": "undeadjailer.jpg",
+  //  "Traits": "Minion - Undead",
+  //  "IsObjective": true
+  //},
+  //{
+  //  "CardName": "Blood Giant",
+  //  "CardType": 8,
+  //  "CardText": "At the end of the turn, regain 2 life.",
+  //  "Power": 2,
+  //  "Health": 8,
+  //  "DeckThreatLevel": 3,
+  //  "Initiative": 2,
+  //  "Quantity": 1,
+  //  "CardImage": "bloodgiant.jpg",
+  //  "Traits": "Minion - Undead",
+  //  "IsObjective": true
+  //},
+  //{
+  //  "CardName": "Skurl, Necromancer",
+  //  "CardType": 8,
+  //  "CardText": "The first time each turn, a minion dies, return it to the encounter with 1 life remaining. On Death: Give Blood Giant +2 attack.",
+  //  "Power": 1,
+  //  "Health": 9,
+  //  "DeckThreatLevel": 3,
+  //  "Initiative": 8,
+  //  "Quantity": 1,
+  //  "CardImage": "necromancer.jpg",
+  //  "Traits": "Minion - Undead Wizard",
+  //  "IsObjective": true
+  //}
+]

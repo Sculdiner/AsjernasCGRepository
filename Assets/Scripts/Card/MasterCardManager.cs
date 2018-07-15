@@ -27,7 +27,34 @@ public class MasterCardManager : MonoBehaviour
     public ClientCardTemplate GetNewCardInstance(int cardTemplateId)
     {
         if (CardTemplateCollection.ContainsKey(cardTemplateId))
-            return JsonConvert.DeserializeObject<ClientCardTemplate>(CardTemplateCollection[cardTemplateId]);
+        {
+            var preProcessedCard =  JsonConvert.DeserializeObject<ClientCardTemplate>(CardTemplateCollection[cardTemplateId]);
+            switch (preProcessedCard.CardType)
+            {
+                case CardType.Equipment:
+                    //preProcessedCard.CardCastAttachTargetOwningType = CardCastTargetOwningType.Own;
+                    //preProcessedCard.AttachmentValidTargets = new List<CardType>() { CardType.Character};
+                    break;
+                case CardType.Ability:
+                    preProcessedCard.InternalCooldownCurrent = preProcessedCard.InternalCooldownTarget;
+                    //preProcessedCard.CardCastAttachTargetOwningType = CardCastTargetOwningType.Own;
+                    //preProcessedCard.AttachmentValidTargets = new List<CardType>() { CardType.Character };
+                    break;
+                case CardType.Follower:
+                    break;
+                case CardType.Event:
+                    break;
+                case CardType.Minion:
+                    break;
+                case CardType.Quest:
+                    break;
+                case CardType.Character:
+                    break;
+                default:
+                    break;
+            }
+            return preProcessedCard;
+        }
         return null;
     }
 
@@ -54,19 +81,19 @@ public class MasterCardManager : MonoBehaviour
         cardManager.SetInitialTemplate(cardTemplate);
         return prefab;
     }
-    public GameObject GenerateQuestPrefab(int cardTemplateId, int generatedCardId)
-    {
-        var cardTemplate = GetNewCardInstance(cardTemplateId);
-        GameObject prefab = null;
-        prefab = (GameObject)Instantiate(QuestTemplatePrefab);
-        prefab.layer = LayerMask.NameToLayer("RaycastEligibleTargets");
-        var cardManager = prefab.GetComponent<CardManager>();
-        cardTemplate.GeneratedCardId = generatedCardId;
-        //cardManager.UpdateCardView(cardTemplate);
-        Cards.Add(generatedCardId, cardManager);
-        cardManager.SetInitialTemplate(cardTemplate);
-        return prefab;
-    }
+    //public GameObject GenerateQuestPrefab(int cardTemplateId, int generatedCardId)
+    //{
+    //    var cardTemplate = GetNewCardInstance(cardTemplateId);
+    //    GameObject prefab = null;
+    //    prefab = (GameObject)Instantiate(QuestTemplatePrefab);
+    //    prefab.layer = LayerMask.NameToLayer("RaycastEligibleTargets");
+    //    var cardManager = prefab.GetComponent<CardManager>();
+    //    cardTemplate.GeneratedCardId = generatedCardId;
+    //    //cardManager.UpdateCardView(cardTemplate);
+    //    Cards.Add(generatedCardId, cardManager);
+    //    cardManager.SetInitialTemplate(cardTemplate);
+    //    return prefab;
+    //}
 
     public CardManager GetCardManager(int generatedCardId)
     {

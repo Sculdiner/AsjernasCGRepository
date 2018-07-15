@@ -68,6 +68,7 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
         }
         else
         {
+            ReferencedCard.CardManager.VisualStateManager.DeactivatePreview();
             (boardView.Controller as BoardController).Play_CardWithTarget(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
         }
     }
@@ -83,6 +84,11 @@ public class EventTargetingBehaviour : BaseTargetingCardBehaviour
     }
 
     public override bool AllowInSetup()
+    {
+        return true;
+    }
+
+    public override bool CheckResourceOnStart()
     {
         return true;
     }

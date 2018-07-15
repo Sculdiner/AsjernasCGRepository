@@ -10,7 +10,7 @@ public class EquipmentCastDragBehaviour : BaseTargetingCardBehaviour
     public EquipmentCastDragBehaviour(ClientSideCard card) : base(card)
     {
         Layer = LayerMask.GetMask("RaycastEligibleTargets");
-        targetValidationMethod = BoardManager.Instance.FindValidTargetsOnBoard;
+        targetValidationMethod = BoardManager.Instance.FindValidAbOrEquipmentTargetsOnBoard;
     }
    
     public override Func<ClientSideCard, List<ClientSideCard>> GetTargetValidationMethod()
@@ -61,6 +61,11 @@ public class EquipmentCastDragBehaviour : BaseTargetingCardBehaviour
     }
 
     public override bool AllowInSetup()
+    {
+        return true;
+    }
+
+    public override bool CheckResourceOnStart()
     {
         return true;
     }

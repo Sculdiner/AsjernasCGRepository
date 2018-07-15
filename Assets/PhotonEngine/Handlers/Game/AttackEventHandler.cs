@@ -30,6 +30,7 @@ public class AttackEventHandler<TModel> : BaseEventHandler<TModel> where TModel 
 
         seq.Append(attacker.CardViewObject.transform.DOMove(attacked.CardViewObject.transform.position, 0.3f)); //go in
         seq.Append(attacker.CardViewObject.transform.DOMove(attacker.LastPosition.Value, 1.5f).SetEase(Ease.InOutQuint)); //return
-        seq.OnComplete(() => { attacker.LastPosition = null; attacker.CardViewObject.GetComponent<DragRotator>().DisableRotator(); PhotonEngine.CompletedAction(); }); //disable the rotator when you arrive
+        seq.OnComplete(() => { attacker.LastPosition = null; attacker.CardViewObject.GetComponent<DragRotator>()?.DisableRotator(); PhotonEngine.CompletedAction(); }); //disable the rotator when you arrive
     }
 }
+

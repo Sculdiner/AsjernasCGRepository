@@ -1,6 +1,7 @@
 ﻿using AsjernasCG.Common.BusinessModels.CardModels;
 using AsjernasCG.Common.EventModels.Game;
 using Assets.Scripts.Card;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,6 @@ public class BoardManager : MonoBehaviour
     private AIState AiState;
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
-    public QuestBoardManager QuestBoardManager;
     public PlayerState ActiveSetupSlotPlayer { get; private set; }
     public ClientSideCard ActiveInitiativeCard { get; set; }
 
@@ -34,18 +34,26 @@ public class BoardManager : MonoBehaviour
 
     public ClientSideCard RegisterEncounterCard(GameObject gameObject, ClientCardTemplate card, CardLocation location)
     {
+        var cardManager = gameObject.GetComponent<CardManager>();
         var clientSideCard = new ClientSideCard()
         {
             CardStats = card,
             CardViewObject = gameObject,
-            CardManager = gameObject.GetComponent<CardManager>()
+            CardManager = cardManager
         };
+        if (card.CardType == CardType.Quest)
+        {
+            if (!card.CurrentQuestPoints.HasValue)
+                card.CurrentQuestPoints = 0;
+            cardManager.VisualStateManager.ChangeVisual(CardVisualState.Quest);
+        }
         clientSideCard.SetLocation(location);
 
         var partState = AiState;
         var eventHandling = gameObject.GetComponent<ClientSideCardEvents>();
 
         Destroy(gameObject.GetComponent<Draggable>());
+        Destroy(gameObject.GetComponent<DragRotator>());
         //Debug.Log("Destroyed draggable component because the card is controlled by the AI");
 
         return RegisterCard(clientSideCard, eventHandling, partState);
@@ -99,7 +107,7 @@ public class BoardManager : MonoBehaviour
         return card;
     }
 
-    public void RegisterPlayer(int userId, AllySlotManager allySlotManager)
+    public void RegisterPlayer(int userId, AllySlotManager allySlotManager, PlayerInfoManager piManager)
     {
         var state = new PlayerState() { UserId = userId };
         if (userId == PhotonEngine.UserId)
@@ -107,12 +115,14 @@ public class BoardManager : MonoBehaviour
             CurrentUserPlayerState = state;
             allySlotManager.OwningPlayer = state;
             CurrentUserPlayerState.AllySlotManager = allySlotManager;
+            CurrentUserPlayerState.PlayerInfoManager = piManager;
         }
         else
         {
             allySlotManager.OwningPlayer = state;
             TeammatePlayerState = state;
             TeammatePlayerState.AllySlotManager = allySlotManager;
+            TeammatePlayerState.PlayerInfoManager = piManager;
         }
         ParticipatorReferenceCollection.Add(userId, state);
     }
@@ -203,21 +213,9 @@ public class BoardManager : MonoBehaviour
 
     public List<ClientSideCard> FindValidAttackOrQuestTargetsOnBoard(ClientSideCard card)
     {
-        var validTargetsList = new List<ClientSideCard>();
-
-        if (card.CardStats.CardType == CardType.Character || card.CardStats.CardType == CardType.Follower)
-        {
-            var minions = AiState.Deck.Where(s => s.CurrentLocation == CardLocation.PlayArea && s.CardStats.CardType == CardType.Minion);
-            if (minions != null && minions.Any())
-                validTargetsList.AddRange(minions);
-        }
-
-        if (card.CardStats.CardType == CardType.Character)
-        {
-            validTargetsList.Add(QuestBoardManager.CurrentQuestingManager.ClientSideCard);
-        }
-
-        return validTargetsList;
+        var validTargets = FindValidAttackTargetsOnBoard(card);
+        validTargets.AddRange(FindValidQuestingTargetsOnBoard(card));
+        return validTargets;
     }
 
     public List<ClientSideCard> FindValidAttackTargetsOnBoard(ClientSideCard card)
@@ -239,11 +237,58 @@ public class BoardManager : MonoBehaviour
 
         if (card.CardStats.CardType == CardType.Character)
         {
-            validTargetsList.Add(QuestBoardManager.CurrentQuestingManager.ClientSideCard);
+            validTargetsList.Add(BoardView.Instance.QuestSlotManager.CurrentQuest);
         }
 
         return validTargetsList;
     }
+
+    public List<ClientSideCard> FindValidAbOrEquipmentTargetsOnBoard(ClientSideCard card)
+    {
+        return (card.ParticipatorState as PlayerState).Deck?.Where(s => s.CardStats.CardType == CardType.Character && s.CurrentLocation == CardLocation.PlayArea)?.ToList();
+    }
+
+    public List<ClientSideCard> FindValidSecondaryTargetsOnBoard(ClientSideCard card)
+    {
+        var validTargetsList = new List<ClientSideCard>();
+        if (!card.CardStats.SecondaryEffectTargetOwningType.HasValue)
+            return validTargetsList;
+
+        switch (card.CardStats.SecondaryEffectTargetOwningType.Value)
+        {
+            case CardCastTargetOwningType.Enemy:
+                return AiState.Deck.Where(c => card.CardStats.SecondaryEffectValidTargets.Contains(c.CardStats.CardType)).ToList();
+            case CardCastTargetOwningType.Own:
+                return CurrentUserPlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+            case CardCastTargetOwningType.Teammate:
+                return TeammatePlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+            case CardCastTargetOwningType.Friendly:
+                var ownValidCards = CurrentUserPlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (ownValidCards != null && ownValidCards.Any())
+                    validTargetsList.AddRange(ownValidCards);
+
+                var teammateValidCards = TeammatePlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (teammateValidCards != null && teammateValidCards.Any())
+                    validTargetsList.AddRange(teammateValidCards);
+                return validTargetsList;
+            case CardCastTargetOwningType.All:
+                var ownValidACards = CurrentUserPlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (ownValidACards != null && ownValidACards.Any())
+                    validTargetsList.AddRange(ownValidACards);
+
+                var teammateValidACards = TeammatePlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (teammateValidACards != null && teammateValidACards.Any())
+                    validTargetsList.AddRange(teammateValidACards);
+
+                var aiValidCards = AiState.Deck.Where(c => card.CardStats.SecondaryEffectValidTargets.Contains(c.CardStats.CardType)).ToList();
+                if (aiValidCards != null && aiValidCards.Any())
+                    validTargetsList.AddRange(aiValidCards);
+
+                return validTargetsList;
+        }
+        return validTargetsList;
+    }
+
 
     public List<ClientSideCard> FindValidTargetsOnBoard(ClientSideCard card)
     {
@@ -406,6 +451,7 @@ public class BoardManager : MonoBehaviour
 
     public void ActivateInitiativeSlot(int cardId)
     {
+        ActiveCard?.CardManager.GetComponent<Draggable>()?.ForceKillDraggingAction();
         TurnStatus = TurnStatus.Encounter;
         ActiveInitiativeCard?.CardManager.VisualStateManager.EndHighlight();
         CurrentActiveInitiativeSlots.Clear();
@@ -414,11 +460,12 @@ public class BoardManager : MonoBehaviour
         //the slot is of the current user
         if (card.ParticipatorState is PlayerState && ((PlayerState)card.ParticipatorState).UserId == PhotonEngine.UserId)
         {
-            BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
             ActiveInitiativeCard = card;
+
+            BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
             ActiveInitiativeCard?.CardManager.VisualStateManager.Hightlight();
             BoardView.Instance.TurnButton.FlipToPass();
-
+            Debug.Log($"Flipped to Pass side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is mine");
             var hand = card.ParticipatorState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
             if (hand != null && hand.Any())
                 CurrentActiveInitiativeSlots.AddRange(hand);
@@ -426,7 +473,11 @@ public class BoardManager : MonoBehaviour
         else
         {
             ActiveInitiativeCard = null;
+            BoardView.Instance.TurnButton.FlipToWait();
+            Debug.Log($"Flipped to Wait side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is not mine");
         }
+
+        BoardView.Instance.InitiativeManager.ActivateSlot(cardId);
     }
 
     public void Pass()
@@ -441,32 +492,68 @@ public class BoardManager : MonoBehaviour
         if (card != null)
         {
             card.CardManager.SlotManager?.RemoveSlot(cardId);
+            card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+            card.SetLocation(CardLocation.DiscardPile);
+            card.CardViewObject.SetActive(false);
         }
-    }
-
-    public void SetQuest(int cardTemplateId, int generatedCardId)
-    {
-        var questcardPrefab = MasterCardManager.GenerateQuestPrefab(cardTemplateId, generatedCardId);
-        var cardManager = MasterCardManager.GetCardManager(generatedCardId);
-        cardManager.VisualStateManager.ChangeVisual(CardVisualState.Quest);
-        var ccc = RegisterEncounterCard(questcardPrefab, cardManager.Template, CardLocation.PlayArea);
-       
-        var transf = QuestBoardManager.QuestTransform;
-        var questManager = questcardPrefab.GetComponent<QuestManager>();
-        questManager.ClientSideCard = ccc;
-        QuestBoardManager.SetQuest(questManager);
-        questcardPrefab.transform.position = transf.position;
-        questcardPrefab.transform.rotation = transf.rotation;
-        questcardPrefab.transform.localScale = transf.localScale;
-        //cardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
-        //QuestBoardManager.SetQuest(90007);
     }
 
     public void ChangeResources(int userId, int resources)
     {
         var player = GetPlayerStateById(userId);
         player.Resources = resources;
+        player.UpdateResources();
     }
+
+    public void EncounterCard(int cardTemplateId, int generatedCardId, Action onEffectCompletion)
+    {
+        var cardPrefab = MasterCardManager.GenerateCardPrefab(cardTemplateId, generatedCardId);
+        var cardManager = MasterCardManager.GetCardManager(generatedCardId);
+
+        var ccc = RegisterEncounterCard(cardPrefab, cardManager.Template, CardLocation.PlayArea);
+        if (cardManager.Template.CardType == CardType.Minion)
+            BoardView.Instance.EncounterSlotManager.AddEncounterCardToASlot(ccc);
+        else
+            DisplayCardPlayEffect(ccc, onEffectCompletion);
+    }
+
+    private void DisplayCardPlayEffect(ClientSideCard card, Action onEffectFinishCallback)
+    {
+        var targetTransform = GameObject.Find("OpponentPlayedCardold").transform;
+
+        var sequence = DOTween.Sequence();
+        card.CardManager.VisualStateManager.DeactivatePreview();
+        card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Card);
+        sequence.Insert(0, card.CardViewObject.transform.DOMove(targetTransform.position, 1f));
+        sequence.Insert(0, card.CardViewObject.transform.DORotate(targetTransform.rotation.eulerAngles, 1f));
+        sequence.Insert(0, card.CardViewObject.transform.DOScale(targetTransform.localScale, 1f));
+        sequence.Insert(1, card.CardViewObject.transform.DOScale(targetTransform.localScale, 0.6f));
+        sequence.InsertCallback(1.6f, () =>
+        {
+            card.CardManager.SlotManager?.RemoveSlot(card.CardStats.GeneratedCardId);
+        });
+        sequence.Insert(1.6f, card.CardViewObject.transform.DOScale(0f, 1f));
+        sequence.InsertCallback(2.6f, () =>
+        {
+            card.CardManager.VisualStateManager.ChangeVisual(CardVisualState.None);
+            onEffectFinishCallback?.Invoke();
+            PhotonEngine.CompletedAction();
+        });
+    }
+    public void DisplayTeammateCardPlayEffect(ClientSideCard card, Action onEffectCompletion)
+    {
+        DisplayCardPlayEffect(card, onEffectCompletion);
+    }
+
+    public void DisplayTeammateCardPlayEffect(int cardTemplateId, int generatedCardId, int? ownerId, Action onEffectCompletion)
+    {
+        var cardPrefab = MasterCardManager.GenerateCardPrefab(cardTemplateId, generatedCardId);
+        var template = cardPrefab.GetComponent<CardManager>().Template;
+        var card = RegisterPlayerCard(cardPrefab, cardPrefab.GetComponent<CardManager>().Template, CardLocation.DiscardPile, ownerId.Value);
+
+        DisplayCardPlayEffect(card, onEffectCompletion);
+    }
+
 
     public TurnStatus TurnStatus = TurnStatus.PreGameStart;
     public static Action<ClientSideCard> OnCursorEntersCard;

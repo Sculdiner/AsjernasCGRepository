@@ -52,7 +52,7 @@ public class Draggable : MonoBehaviour
                 else
                 {
                     //SetAction<EventCastDragBehaviour>();
-                    SetAction<EventTargetingBehaviour>();
+                    SetAction<EventCastDragBehaviour>();
                 }
                 break;
             case CardType.Character:
@@ -82,6 +82,13 @@ public class Draggable : MonoBehaviour
             {
                 if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)
                 {
+                    if (actions.CheckResourceOnStart())
+                    {
+                        if (ControllingCard.CardStats.BaseResourceCost.HasValue && ControllingCard.CardStats.BaseResourceCost > (ControllingCard.ParticipatorState as PlayerState).Resources)
+                        {
+                            return;
+                        }
+                    }
                     actions.OnStartDrag();
                 }
                 else
@@ -93,6 +100,13 @@ public class Draggable : MonoBehaviour
             {
                 if (AllowDrag())
                 {
+                    if (actions.CheckResourceOnStart())
+                    {
+                        if (ControllingCard.CardStats.BaseResourceCost.HasValue && ControllingCard.CardStats.BaseResourceCost > (ControllingCard.ParticipatorState as PlayerState).Resources)
+                        {
+                            return;
+                        }
+                    }
                     actions.OnStartDrag();
                 }
             }
@@ -115,6 +129,13 @@ public class Draggable : MonoBehaviour
                 {
                     if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)
                     {
+                        if (actions.CheckResourceOnStart())
+                        {
+                            if (ControllingCard.CardStats.BaseResourceCost.HasValue && ControllingCard.CardStats.BaseResourceCost > (ControllingCard.ParticipatorState as PlayerState).Resources)
+                            {
+                                return;
+                            }
+                        }
                         dragStarted = true;
                         actions.OnDraggingInUpdate();
                     }
@@ -127,6 +148,13 @@ public class Draggable : MonoBehaviour
                 {
                     if (AllowDrag())
                     {
+                        if (actions.CheckResourceOnStart())
+                        {
+                            if (ControllingCard.CardStats.BaseResourceCost.HasValue && ControllingCard.CardStats.BaseResourceCost > (ControllingCard.ParticipatorState as PlayerState).Resources)
+                            {
+                                return;
+                            }
+                        }
                         dragStarted = true;
                         actions.OnDraggingInUpdate();
                     }
@@ -161,4 +189,8 @@ public class Draggable : MonoBehaviour
         }
     }
 
+    public void ForceKillDraggingAction()
+    {
+        actions?.OnForceCancelAction();
+    }
 }
