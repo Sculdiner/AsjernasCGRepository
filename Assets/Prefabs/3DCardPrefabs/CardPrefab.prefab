@@ -1329,7 +1329,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358977496296688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.072451, y: -3.0622625, z: -2.3590276}
+  m_LocalPosition: {x: 6.77, y: 1.93, z: -0.09}
   m_LocalScale: {x: 0.7, y: 0.019999996, z: 1}
   m_Children:
   - {fileID: 4984216939514734}
@@ -5787,10 +5787,10 @@ MonoBehaviour:
   Quest: {fileID: 114517534590274728}
   DissolvePlayParticleSystem: {fileID: 198793325405580988}
   SmokePlayParticleSystem: {fileID: 198329332661839742}
-  CardActivationHighlightColor:
+  OriginalGradientHightlightColor:
     serializedVersion: 2
-    key0: {r: 0.44705883, g: 0.7137255, b: 0.32941177, a: 0.9529412}
-    key1: {r: 0.8623902, g: 0.9528302, b: 0.8224902, a: 1}
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}

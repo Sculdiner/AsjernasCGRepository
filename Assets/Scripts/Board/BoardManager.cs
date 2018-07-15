@@ -443,10 +443,12 @@ public class BoardManager : MonoBehaviour
         TurnStatus = TurnStatus.Setup;
         if (playerId == PhotonEngine.UserId)
         {
+            BoardView.Instance.TurnButton.FlipToPass();
             BoardView.Instance.TurnMessenger.Show("Your Setup");
         }
         else
         {
+            BoardView.Instance.TurnButton.FlipToWait();
             BoardView.Instance.TurnMessenger.Show("Teammate's Setup");
         }
         ActiveSetupSlotPlayer = GetPlayerStateById(playerId);

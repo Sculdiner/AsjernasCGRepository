@@ -117,6 +117,12 @@ public class FollowerCastDragBehaviour : BaseDragCardBehaviour
 
     public override void OnCancelAction()
     {
+        var handHelper = BoardView.Instance.HandSlotManagerV2;
+        BoardManager.Instance.ActiveCard = null;
+
+        ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
+        ReferencedCard.KillTweens();
+        handHelper.RefreshHandPositions(Ease.Linear, .35f);
     }
 
     public override bool CheckResourceOnStart()

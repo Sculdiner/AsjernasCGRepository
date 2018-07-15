@@ -1150,7 +1150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9ce2c5c97fb3b41962f03178dfc718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsArtistDebug: 0
+  IsArtistDebug: 1
   MessageBoxManager: {fileID: 751189069}
   PlayArea: {fileID: 0}
   FriendListViewManager: {fileID: 0}
