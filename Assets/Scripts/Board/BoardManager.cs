@@ -248,6 +248,48 @@ public class BoardManager : MonoBehaviour
         return (card.ParticipatorState as PlayerState).Deck?.Where(s => s.CardStats.CardType == CardType.Character && s.CurrentLocation == CardLocation.PlayArea)?.ToList();
     }
 
+    public List<ClientSideCard> FindValidSecondaryTargetsOnBoard(ClientSideCard card)
+    {
+        var validTargetsList = new List<ClientSideCard>();
+        if (!card.CardStats.SecondaryEffectTargetOwningType.HasValue)
+            return validTargetsList;
+
+        switch (card.CardStats.SecondaryEffectTargetOwningType.Value)
+        {
+            case CardCastTargetOwningType.Enemy:
+                return AiState.Deck.Where(c => card.CardStats.SecondaryEffectValidTargets.Contains(c.CardStats.CardType)).ToList();
+            case CardCastTargetOwningType.Own:
+                return CurrentUserPlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+            case CardCastTargetOwningType.Teammate:
+                return TeammatePlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+            case CardCastTargetOwningType.Friendly:
+                var ownValidCards = CurrentUserPlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (ownValidCards != null && ownValidCards.Any())
+                    validTargetsList.AddRange(ownValidCards);
+
+                var teammateValidCards = TeammatePlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (teammateValidCards != null && teammateValidCards.Any())
+                    validTargetsList.AddRange(teammateValidCards);
+                return validTargetsList;
+            case CardCastTargetOwningType.All:
+                var ownValidACards = CurrentUserPlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (ownValidACards != null && ownValidACards.Any())
+                    validTargetsList.AddRange(ownValidACards);
+
+                var teammateValidACards = TeammatePlayerState.Deck.Where(f => f.CurrentLocation == CardLocation.PlayArea && card.CardStats.SecondaryEffectValidTargets.Contains(f.CardStats.CardType)).ToList();
+                if (teammateValidACards != null && teammateValidACards.Any())
+                    validTargetsList.AddRange(teammateValidACards);
+
+                var aiValidCards = AiState.Deck.Where(c => card.CardStats.SecondaryEffectValidTargets.Contains(c.CardStats.CardType)).ToList();
+                if (aiValidCards != null && aiValidCards.Any())
+                    validTargetsList.AddRange(aiValidCards);
+
+                return validTargetsList;
+        }
+        return validTargetsList;
+    }
+
+
     public List<ClientSideCard> FindValidTargetsOnBoard(ClientSideCard card)
     {
         var validTargetsList = new List<ClientSideCard>();

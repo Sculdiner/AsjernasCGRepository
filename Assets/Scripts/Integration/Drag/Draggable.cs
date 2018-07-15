@@ -52,7 +52,7 @@ public class Draggable : MonoBehaviour
                 else
                 {
                     //SetAction<EventCastDragBehaviour>();
-                    SetAction<EventTargetingBehaviour>();
+                    SetAction<EventCastDragBehaviour>();
                 }
                 break;
             case CardType.Character:

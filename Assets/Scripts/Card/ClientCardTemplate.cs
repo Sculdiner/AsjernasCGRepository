@@ -9,4 +9,11 @@ public class ClientCardTemplate : BaseCardTemplate
 {
     public string ImagePath { get; set; }
     public int? CurrentQuestPoints { get; set; }
+    public int? RemainingCooldown
+    {
+        get
+        {
+            return base.InternalCooldownTarget - base.InternalCooldownCurrent;
+        }
+    }
 }

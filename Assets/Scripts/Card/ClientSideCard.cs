@@ -77,46 +77,4 @@ public class ClientSideCard
 
         CardManager.VisualStateManager.CurrentState.UpdateVisual(CardStats);
     }
-
-    public void ChangeCardElement(CardElementType type, string value)
-    {
-        switch (type)
-        {
-            case CardElementType.CardName:
-                break;
-            case CardElementType.CardType:
-                break;
-            case CardElementType.BaseResourceCost:
-                CardStats.BaseResourceCost = Int32.Parse(value);
-                break;
-            case CardElementType.CardText:
-                break;
-            case CardElementType.Durability:
-                CardStats.Durability = Int32.Parse(value);
-                break;
-            case CardElementType.Traits:
-                break;
-            case CardElementType.Faction:
-                break;
-            case CardElementType.Image:
-                break;
-            case CardElementType.Power:
-                CardStats.Power = Int32.Parse(value);
-                break;
-            case CardElementType.MaxHealth:
-                //CardStats.BaseResourceCost = Int32.Parse(value);
-                break;
-            case CardElementType.Threat:
-                break;
-            case CardElementType.Initiative:
-                break;
-            case CardElementType.MaxCooldown:
-                break;
-            case CardElementType.CurrentCooldown:
-                break;
-            default:
-                break;
-        }
-        CardManager.VisualStateManager.CurrentState.UpdateVisual(CardStats);
-    }
 }

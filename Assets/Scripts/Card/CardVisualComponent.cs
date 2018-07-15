@@ -60,6 +60,7 @@ public class CardVisualComponent : MonoBehaviour
             HealthSprite.enabled = false;
             DurabilitySprite.enabled = false;
             PowerSprite.enabled = false;
+            RemainingCooldown.text = template.InternalCooldownTarget.Value.ToString();
             Cost.text = template.BaseResourceCost.Value.ToString();
         }
         else if (template.CardType == CardType.Equipment)
@@ -110,21 +111,33 @@ public class CardVisualComponent : MonoBehaviour
     public void BakeForAbility(ClientCardTemplate template)
     {
         Image.texture = Resources.Load($"Images/{template.ImagePath}") as Texture2D;
-        if (!template.InternalCooldownCurrent.HasValue)
+        if (template.RemainingCooldown == 0)
         {
-            template.InternalCooldownCurrent = 0;
-        }
-        var cd = template.InternalCooldownTarget.Value - template.InternalCooldownCurrent.Value;
-        if (cd > 0)
-        {
-            RemainingCooldown.text = (template.InternalCooldownTarget.Value - template.InternalCooldownCurrent.Value).ToString();
-            RemainingCooldownSprite.gameObject.SetActive(true);
+            RemainingCooldownSprite.gameObject.SetActive(false);
+            RemainingCooldown.text = null;
+            //highlight
         }
         else
         {
-            RemainingCooldown.text = template.InternalCooldownTarget.Value.ToString() + ("Max");
-            RemainingCooldownSprite.gameObject.SetActive(false);
+            RemainingCooldownSprite.gameObject.SetActive(true);
+            RemainingCooldown.text = template.InternalCooldownTarget.Value.ToString();
         }
+        
+        //if (!template.InternalCooldownCurrent.HasValue)
+        //{
+        //    template.InternalCooldownCurrent = 0;
+        //}
+        //var cd = template.InternalCooldownTarget.Value - template.InternalCooldownCurrent.Value;
+        //if (cd > 0)
+        //{
+        //    RemainingCooldown.text = (template.InternalCooldownTarget.Value - template.InternalCooldownCurrent.Value).ToString();
+        //    RemainingCooldownSprite.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    RemainingCooldown.text = template.InternalCooldownTarget.Value.ToString() + ("Max");
+        //    RemainingCooldownSprite.gameObject.SetActive(false);
+        //}
     }
 
     public void BakeForEquipment(ClientCardTemplate template)

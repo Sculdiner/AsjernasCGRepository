@@ -53,7 +53,16 @@ public class CharacterAbilityManager : PositionalSlotManager
         {
             if (Abilities.Count < 2)
             {
-                abilityToAdd.CardViewObject.GetComponent<Draggable>().SetAction<NoDragBehaviour>();
+                var draggableComponent = abilityToAdd.CardViewObject.GetComponent<Draggable>();
+                if (abilityToAdd.CardStats.AbilityActivationType == AbilityActivationType.Target)
+                {
+                    draggableComponent.SetAction<AbilityActivationTargetingDragBehaviour>();
+                }
+                else
+                {
+                    draggableComponent.SetAction<AbilityActivationTapBehaviour>();
+                }
+
                 abilityToAdd.SetLocation(CardLocation.PlayArea);
                 abilityToAdd.CardViewObject.gameObject.GetComponent<DragRotator>().DisableRotator();
 

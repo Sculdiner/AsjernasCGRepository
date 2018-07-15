@@ -36,6 +36,7 @@ public class MasterCardManager : MonoBehaviour
                     //preProcessedCard.AttachmentValidTargets = new List<CardType>() { CardType.Character};
                     break;
                 case CardType.Ability:
+                    preProcessedCard.InternalCooldownCurrent = preProcessedCard.InternalCooldownTarget;
                     //preProcessedCard.CardCastAttachTargetOwningType = CardCastTargetOwningType.Own;
                     //preProcessedCard.AttachmentValidTargets = new List<CardType>() { CardType.Character };
                     break;

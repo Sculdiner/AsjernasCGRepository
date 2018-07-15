@@ -33,3 +33,4 @@ public class AttackEventHandler<TModel> : BaseEventHandler<TModel> where TModel 
         seq.OnComplete(() => { attacker.LastPosition = null; attacker.CardViewObject.GetComponent<DragRotator>()?.DisableRotator(); PhotonEngine.CompletedAction(); }); //disable the rotator when you arrive
     }
 }
+

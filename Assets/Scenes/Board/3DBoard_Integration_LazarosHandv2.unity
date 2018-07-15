@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17823075, g: 0.22316036, b: 0.3052192, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9ce2c5c97fb3b41962f03178dfc718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsArtistDebug: 0
+  IsArtistDebug: 1
   MessageBoxManager: {fileID: 751189069}
   PlayArea: {fileID: 0}
   FriendListViewManager: {fileID: 0}
