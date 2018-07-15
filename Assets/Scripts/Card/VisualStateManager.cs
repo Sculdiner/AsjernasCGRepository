@@ -19,7 +19,10 @@ public class VisualStateManager : MonoBehaviour
     public CardVisualComponent Quest;
     public ParticleSystem DissolvePlayParticleSystem;
     public ParticleSystem SmokePlayParticleSystem;
-
+    public Gradient OriginalGradientHightlightColor;
+    //public Gradient CardActivationHighlightColor;
+    //public Gradient TeammateCardActivationHighlightColor;
+    public bool IsHighlighted { get; private set; }
     private CardVisualComponent _state;
     public CardVisualComponent CurrentState { get { return _state; } }
 
@@ -33,7 +36,6 @@ public class VisualStateManager : MonoBehaviour
         _state = Card;
         AllowPreviewing = true;
     }
-
 
     public void DeactivatePreview()
     {
@@ -62,21 +64,28 @@ public class VisualStateManager : MonoBehaviour
         return Preview;
     }
 
-    public void Hightlight()
+    public void Hightlight(Gradient hoverColor = null)
     {
         var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
         if (highlighter != null)
         {
+            IsHighlighted = true;
             highlighter.tween = true;
+            if (hoverColor == null)
+                highlighter.tweenGradient = OriginalGradientHightlightColor;
+            else
+                highlighter.tweenGradient = hoverColor;
         }
-
     }
 
     public void EndHighlight()
     {
         var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
         if (highlighter != null)
+        {
+            IsHighlighted = false;
             highlighter.tween = false;
+        }
     }
 
     public void ChangeVisual(CardVisualState newState)

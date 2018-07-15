@@ -12,6 +12,8 @@ public class InitiativeSlotManager : MonoBehaviour
     public List<InitiativeSlot> CurrentSlots = new List<InitiativeSlot>();
     public InitiativeSlot ActiveSlot;
     public BoardManager BoardManager;
+    public Color ConstantSlotColor;
+    public Gradient GradientHoverColor;
     private readonly object locker = new object();
 
     public void ClearAllHighlights()
@@ -45,6 +47,7 @@ public class InitiativeSlotManager : MonoBehaviour
                 }
 
                 var newSlot = Instantiate(InitiativeSlotPrefab) as InitiativeSlot;
+                newSlot.CardHighlightColor = GradientHoverColor;
                 newSlot.SetCardInfo(card);
                 CurrentSlots.Add(newSlot);
             }
@@ -63,6 +66,7 @@ public class InitiativeSlotManager : MonoBehaviour
                 if (ActiveSlot != null && ActiveSlot.ReferencedCard.CardStats.GeneratedCardId == cardId)
                 {
                     ActiveSlot.Highlighter.constant = true;
+                    ActiveSlot.Highlighter.constantColor = ConstantSlotColor;
                     ActiveSlot = null;
                 }
 
@@ -108,6 +112,7 @@ public class InitiativeSlotManager : MonoBehaviour
             if (ActiveSlot != null)
             {
                 ActiveSlot.Highlighter.constant = true;
+                ActiveSlot.Highlighter.constantColor = ConstantSlotColor;
             }
         }
 

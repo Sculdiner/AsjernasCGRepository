@@ -78,6 +78,9 @@ public class Draggable : MonoBehaviour
     {
         if (actions != null)
         {
+            if (!actions.CustomValidationOnStartDrag())
+                return;
+
             if (BoardManager.Instance.TurnStatus == TurnStatus.Setup)
             {
                 if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)
@@ -125,6 +128,9 @@ public class Draggable : MonoBehaviour
         {
             if (actions != null)
             {
+                if (!actions.CustomValidationOnStartDrag())
+                    return;
+
                 if (BoardManager.Instance.TurnStatus == TurnStatus.Setup)
                 {
                     if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)
@@ -168,6 +174,9 @@ public class Draggable : MonoBehaviour
         dragStarted = false;
         if (actions != null)
         {
+            if (!actions.CustomValidationOnStartDrag())
+                return;
+
             if (BoardManager.Instance.TurnStatus == TurnStatus.Setup)
             {
                 if (actions.AllowInSetup() && (ControllingCard.ParticipatorState as PlayerState).UserId == BoardManager.Instance.ActiveSetupSlotPlayer.UserId)

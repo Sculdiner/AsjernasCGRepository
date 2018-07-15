@@ -73,4 +73,14 @@ public class AbilityActivationTargetingDragBehaviour : BaseTargetingCardBehaviou
     {
         return false;
     }
+
+    public override bool CustomValidationOnStartDrag()
+    {
+        if (!base.CustomValidationOnStartDrag())
+            return false;
+
+        if (ReferencedCard.CardStats.RemainingCooldown > 0)
+            return false;
+        return true;
+    }
 }

@@ -1329,7 +1329,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358977496296688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.498, y: -0.436, z: -3.0708783}
+  m_LocalPosition: {x: -7.072451, y: -3.0622625, z: -2.3590276}
   m_LocalScale: {x: 0.7, y: 0.019999996, z: 1}
   m_Children:
   - {fileID: 4984216939514734}
@@ -5787,6 +5787,35 @@ MonoBehaviour:
   Quest: {fileID: 114517534590274728}
   DissolvePlayParticleSystem: {fileID: 198793325405580988}
   SmokePlayParticleSystem: {fileID: 198329332661839742}
+  CardActivationHighlightColor:
+    serializedVersion: 2
+    key0: {r: 0.44705883, g: 0.7137255, b: 0.32941177, a: 0.9529412}
+    key1: {r: 0.8623902, g: 0.9528302, b: 0.8224902, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
 --- !u!114 &114920239594038052
 MonoBehaviour:
   m_ObjectHideFlags: 1

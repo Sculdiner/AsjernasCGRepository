@@ -26,21 +26,31 @@ public class AbilityActivationTapBehaviour : DraggingActions
 
     public override void OnDraggingInUpdate()
     {
-        
+
     }
 
     public override void OnEndDrag()
     {
-        
+        (BoardView.Instance.Controller as BoardController).ActivateAbilityWithoutTarget(ReferencedCard.CardStats.GeneratedCardId);
+    }
+
+    public override bool CustomValidationOnStartDrag()
+    {
+        if (!base.CustomValidationOnStartDrag())
+            return false;
+
+        if (ReferencedCard.CardStats.RemainingCooldown > 0)
+            return false;
+        return true;
     }
 
     public override void OnForceCancelAction()
     {
-        
+
     }
 
     public override void OnStartDrag()
     {
-        
+
     }
 }
