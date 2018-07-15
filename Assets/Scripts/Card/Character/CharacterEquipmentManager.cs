@@ -55,7 +55,10 @@ public class CharacterEquipmentManager : PositionalSlotManager
         {
             if (Equipments.Count < 3)
             {
-                equipment.CardViewObject.GetComponent<Draggable>().SetAction<NoDragBehaviour>();
+                var draggableComponent = equipment.CardViewObject.GetComponent<Draggable>();
+                if (draggableComponent != null)
+                    draggableComponent.SetAction<NoDragBehaviour>();
+
                 equipment.SetLocation(CardLocation.PlayArea);
                 equipment.CardViewObject.gameObject.GetComponent<DragRotator>().DisableRotator();
 
@@ -65,7 +68,7 @@ public class CharacterEquipmentManager : PositionalSlotManager
                 equipment.CardManager.VisualStateManager.ChangeVisual(CardVisualState.Equipment);
                 equipment.CardViewObject.transform.position = GameObject.Find("EquipmentStart").transform.position;
                 Equipments.Add(equipment);
-                UpdatePositions(true, true );
+                UpdatePositions(true, true);
 
                 return true;
             }
@@ -97,7 +100,7 @@ public class CharacterEquipmentManager : PositionalSlotManager
         {
             sequence.Insert(0, cardManager.CardViewObject.transform.DOMove(slot.transform.position, 1f)).SetEase(Ease.InExpo);
             sequence.InsertCallback(1f, () => { CameraShaker.Instance.ShakeOnce(4f, 4f, 0.1f, 1f); });
-            
+
         }
         else
         {
