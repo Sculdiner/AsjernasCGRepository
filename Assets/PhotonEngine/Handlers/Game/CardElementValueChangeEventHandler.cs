@@ -25,6 +25,7 @@ public class CardElementValueChangeEventHandler<TModel> : BaseEventHandler<TMode
     {
         var boardview = view as BoardView;
         var card = boardview.BoardManager.GetCard(model.CardGeneratedId);
+        Debug.Log($"modifying value for the card: {card.CardStats.CardName}");
         switch (model.CardElementType)
         {
             case CardElementType.BaseResourceCost:

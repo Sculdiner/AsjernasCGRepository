@@ -243,9 +243,10 @@
 		"CastTargetOwningType": 1,
 		"CastValidTargets": [0],
 		"AbilityActivationType": 1,
-		"SecondaryEffectTargetOwningType": 1,
-		"SecondaryEffectValidTargets": [0],
-		"BaseEventAssembly": "RangersMarkEventHandler"
+		"SecondaryEffectTargetOwningType": 0,
+		"SecondaryEffectValidTargets": [8],
+		"BaseEventAssembly": "RangersMarkEventHandler",
+		"ImagePath" : "huntersmark"
 	},
 	{
 		"CardTemplateId": 50,

@@ -469,6 +469,15 @@ public class BoardManager : MonoBehaviour
             var hand = card.ParticipatorState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
             if (hand != null && hand.Any())
                 CurrentActiveInitiativeSlots.AddRange(hand);
+            if (ActiveInitiativeCard?.CardManager.CharacterManager != null)
+            {
+                var abilities = ActiveInitiativeCard.CardManager.CharacterManager.CharacterAbilityManager.Abilities;
+                if (abilities!=null && abilities.Any())
+                {
+                    CurrentActiveInitiativeSlots.AddRange(abilities);
+                }
+            }
+            
         }
         else
         {
