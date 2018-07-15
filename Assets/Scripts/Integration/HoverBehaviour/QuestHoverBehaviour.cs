@@ -21,6 +21,8 @@ public class QuestHoverBehaviour : HoverActions
         var viewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.VisualStateManager.CurrentState.transform.position + new Vector3(2f, 0, -0.5f));
         Card.CardManager.VisualStateManager.PreviewAndRetainOriginalState();
         Card.CardManager.VisualStateManager.Preview.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(viewportPoint.x, viewportPoint.y, 4f));
+        Card.CardManager.VisualStateManager.Preview.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Card.CardManager.VisualStateManager.Preview.transform.localScale = new Vector3(0.7f, 0.02f, 1);
         //var plane = GameObject.Find("HoverHelperPlane");
         //plane.GetComponent<BoxCollider>().enabled = true;
         //var cardToScreen = Camera.main.WorldToScreenPoint(Card.CardViewObject.transform.position);

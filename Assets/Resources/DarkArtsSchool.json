@@ -20,7 +20,7 @@
 		"CardTemplateId": 102,
 		"CardName": "Ale smuggler",
 		"CardType": 8,
-		"CardText": "Deathrattle:Heal 1 damage to adjacent minions",
+		"CardText": "Deathrattle: Remove 2 quest progress",
 		"Power": 1,
 		"Health": 4,
 		"Initiative": 1

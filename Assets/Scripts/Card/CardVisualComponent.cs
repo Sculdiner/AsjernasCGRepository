@@ -46,7 +46,11 @@ public class CardVisualComponent : MonoBehaviour
             DurabilitySprite.enabled = false;
             PowerSprite.enabled = false;
             RemainingCooldownSprite.enabled = false;
-            Cost.text = template.BaseResourceCost.Value.ToString();
+            if (template.BaseResourceCost.HasValue)//template.IsAiControlled)
+                Cost.text = template.BaseResourceCost.Value.ToString();
+            else
+                CostSprite.gameObject.SetActive(false);
+            
         }
         else if (template.CardType == CardType.Follower)
         {
