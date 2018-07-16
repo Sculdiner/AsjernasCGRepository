@@ -18,7 +18,31 @@ public class BoardHoverBehaviour : HoverActions
 
     public override void OnHoverStart()
     {
-        var viewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.VisualStateManager.CurrentState.transform.position + new Vector3(1.5f, 0, 0.2f));
+
+        var offsetVector = new Vector3();
+        switch (Card.CardStats.CardType)
+        {
+            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Character:
+                offsetVector = new Vector3(0f, 0f, 2f);
+                break;
+            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Equipment:
+                offsetVector = new Vector3(0f, 0f, 2f);
+                break;
+            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Ability:
+                offsetVector = new Vector3(0f, 0f, 2f);
+                break;
+            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Follower:
+                offsetVector = new Vector3(1.5f, 0, 0.2f);
+                break;
+            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Minion:
+                offsetVector = new Vector3(1.5f, 0, 0.2f);
+                break;
+            default:
+                break;
+        }
+
+
+        var viewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.VisualStateManager.CurrentState.transform.position + offsetVector);
         Card.CardManager.VisualStateManager.PreviewAndRetainOriginalState();
         Card.CardManager.VisualStateManager.Preview.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(viewportPoint.x, viewportPoint.y, 4f));
         //var plane = GameObject.Find("HoverHelperPlane");

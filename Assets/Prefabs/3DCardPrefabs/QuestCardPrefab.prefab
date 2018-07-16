@@ -265,7 +265,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4377601362591176}
   - component: {fileID: 114193974581944502}
-  - component: {fileID: 114094009066723492}
   - component: {fileID: 114935336762119492}
   - component: {fileID: 114905006965179162}
   - component: {fileID: 114636997670830022}
@@ -361,7 +360,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1797243192784040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.3984914, y: -0.6751094, z: -1.1556493}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4350459153932162}
@@ -551,22 +550,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114094009066723492
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1797243192784040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea94a3f4b713c8746963e85961a4334e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameObjectView: {fileID: 1797243192784040}
-  Highlighter: {fileID: 114193974581944502}
-  BoardView: {fileID: 0}
-  CardManager: {fileID: 114935336762119492}
-  QuestingPointBoard: {fileID: 114467951090487542}
 --- !u!114 &114102608783032266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -826,9 +809,19 @@ MonoBehaviour:
   Text: {fileID: 0}
   Image: {fileID: 0}
   Cost: {fileID: 0}
+  CostSprite: {fileID: 0}
   Power: {fileID: 0}
+  PowerSprite: {fileID: 0}
   Health: {fileID: 0}
-  Cooldown: {fileID: 0}
+  HealthSprite: {fileID: 0}
+  CurrentCooldown: {fileID: 0}
+  RemainingCooldownSprite: {fileID: 0}
+  AbilityOnCooldownSprite: {fileID: 0}
+  RemainingCooldown: {fileID: 0}
+  Durability: {fileID: 0}
+  DurabilitySprite: {fileID: 0}
+  QuestTarget: {fileID: 0}
+  QuestProgress: {fileID: 0}
 --- !u!114 &114303125647145972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -862,9 +855,19 @@ MonoBehaviour:
   Text: {fileID: 114338092910655196}
   Image: {fileID: 114429989303031506}
   Cost: {fileID: 114486049728687270}
+  CostSprite: {fileID: 0}
   Power: {fileID: 114158404788994882}
+  PowerSprite: {fileID: 0}
   Health: {fileID: 114792636437811684}
-  Cooldown: {fileID: 0}
+  HealthSprite: {fileID: 0}
+  CurrentCooldown: {fileID: 0}
+  RemainingCooldownSprite: {fileID: 0}
+  AbilityOnCooldownSprite: {fileID: 0}
+  RemainingCooldown: {fileID: 0}
+  Durability: {fileID: 0}
+  DurabilitySprite: {fileID: 0}
+  QuestTarget: {fileID: 0}
+  QuestProgress: {fileID: 0}
 --- !u!114 &114338092910655196
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -20,25 +20,30 @@ public class FollowerTargetingBehaviour : BaseTargetingCardBehaviour
 
     public override void OnAcquiredNewTarget(CardManager newTarget)
     {
+        Cursor.SetCursor(BoardView.Instance.AttackCursor, Vector2.zero, CursorMode.Auto);
         TargetedCard.OnStartBeingTargetedForAttack(ReferencedCard);
     }
     public override void OnLoseTarget()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         TargetedCard.OnStopBeingTargetedForAttack(ReferencedCard);
     }
 
     public override void OnSuccessfullTargetAcquisition(CardManager acquiredTarget)
     {
-        var seq = DOTween.Sequence();
-        seq.Append(ReferencedCard.CardViewObject.transform.DOMove(acquiredTarget.transform.position, 0.3f)); //go in
-        seq.Append(ReferencedCard.CardViewObject.transform.DOMove(PreDragPosition.Value, 1.5f).SetEase(Ease.InOutQuint)); //return
-        seq.OnComplete(() => {
-            ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
-            //test
-            var clientCard = BoardManager.Instance.GetCard(acquiredTarget.Template.GeneratedCardId);
-            clientCard.TakeDamage(ReferencedCard.CardStats.Power.GetValueOrDefault(1));
-            //
-        }); //disable the rotator when you arrive
+        if (BoardView.Instance.IsArtistDebug)
+        {
+            var seq = DOTween.Sequence();
+            seq.Append(ReferencedCard.CardViewObject.transform.DOMove(acquiredTarget.transform.position, 0.3f)); //go in
+            seq.Append(ReferencedCard.CardViewObject.transform.DOMove(PreDragPosition.Value, 1.5f).SetEase(Ease.InOutQuint)); //return
+            seq.OnComplete(() => { ReferencedCard.CardViewObject.GetComponent<DragRotator>().DisableRotator(); }); //disable the rotator when you arrive
+        }
+        else
+        {
+            ReferencedCard.LastPosition = PreDragPosition.Value;
+            (BoardView.Instance.Controller as BoardController).Attack(ReferencedCard.CardStats.GeneratedCardId, acquiredTarget.Template.GeneratedCardId);
+        }
+        
     }
 
     public override void OnNonSuccessfullTargetAcquisition()

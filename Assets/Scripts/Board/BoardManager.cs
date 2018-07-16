@@ -17,6 +17,9 @@ public class BoardManager : MonoBehaviour
     private AIState AiState;
     public static BoardManager Instance;
     public ClientSideCard ActiveCard;
+    public Gradient EnemyActivationHighlightColor;
+    public Gradient OwnActivationHighlightColor;
+    public Gradient TeammateActivationHighlightColor;
     public PlayerState ActiveSetupSlotPlayer { get; private set; }
     public ClientSideCard ActiveInitiativeCard { get; set; }
 
@@ -41,6 +44,7 @@ public class BoardManager : MonoBehaviour
             CardViewObject = gameObject,
             CardManager = cardManager
         };
+        clientSideCard.CardManager.VisualStateManager.OriginalGradientHightlightColor = EnemyActivationHighlightColor;
         if (card.CardType == CardType.Quest)
         {
             if (!card.CurrentQuestPoints.HasValue)
@@ -67,6 +71,7 @@ public class BoardManager : MonoBehaviour
             CardViewObject = gameObject,
             CardManager = gameObject.GetComponent<CardManager>()
         };
+        clientSideCard.CardManager.VisualStateManager.OriginalGradientHightlightColor = PhotonEngine.UserId == userId ? OwnActivationHighlightColor : TeammateActivationHighlightColor;
         clientSideCard.SetLocation(location);
 
         var partState = ParticipatorReferenceCollection[userId];
@@ -438,10 +443,12 @@ public class BoardManager : MonoBehaviour
         TurnStatus = TurnStatus.Setup;
         if (playerId == PhotonEngine.UserId)
         {
+            BoardView.Instance.TurnButton.FlipToPass();
             BoardView.Instance.TurnMessenger.Show("Your Setup");
         }
         else
         {
+            BoardView.Instance.TurnButton.FlipToWait();
             BoardView.Instance.TurnMessenger.Show("Teammate's Setup");
         }
         ActiveSetupSlotPlayer = GetPlayerStateById(playerId);
@@ -458,10 +465,9 @@ public class BoardManager : MonoBehaviour
         var card = GetCard(cardId);
         CurrentActiveInitiativeSlots.Add(card);
         //the slot is of the current user
+        ActiveInitiativeCard = card;
         if (card.ParticipatorState is PlayerState && ((PlayerState)card.ParticipatorState).UserId == PhotonEngine.UserId)
         {
-            ActiveInitiativeCard = card;
-
             BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
             ActiveInitiativeCard?.CardManager.VisualStateManager.Hightlight();
             BoardView.Instance.TurnButton.FlipToPass();
@@ -469,10 +475,19 @@ public class BoardManager : MonoBehaviour
             var hand = card.ParticipatorState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
             if (hand != null && hand.Any())
                 CurrentActiveInitiativeSlots.AddRange(hand);
+            if (ActiveInitiativeCard?.CardManager.CharacterManager != null)
+            {
+                var abilities = ActiveInitiativeCard.CardManager.CharacterManager.CharacterAbilityManager.Abilities;
+                if (abilities!=null && abilities.Any())
+                {
+                    CurrentActiveInitiativeSlots.AddRange(abilities);
+                }
+            }
+            
         }
         else
         {
-            ActiveInitiativeCard = null;
+            card.CardManager.VisualStateManager.Hightlight();
             BoardView.Instance.TurnButton.FlipToWait();
             Debug.Log($"Flipped to Wait side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is not mine");
         }

@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 23040455809412118}
   - component: {fileID: 114003738464664312}
   - component: {fileID: 114895171692396580}
+  - component: {fileID: 65776657339699100}
   m_Layer: 0
   m_Name: InitiativeBox
   m_TagString: Untagged
@@ -72,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1532909982214050}
   m_LocalRotation: {x: 0, y: -0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 3.723, y: -0.678, z: 2.67}
+  m_LocalPosition: {x: -1.0931296, y: -0.66165036, z: -0.8932389}
   m_LocalScale: {x: 0.6662595, y: 0.52255327, z: 0.6662595}
   m_Children:
   - {fileID: 224506218577086860}
@@ -122,6 +123,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1532909982214050}
   m_Mesh: {fileID: 4300002, guid: 515ef1ed5ed1b934b9f4557b7724ecb2, type: 3}
+--- !u!65 &65776657339699100
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532909982214050}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5336252, y: 0.419021, z: 0.067051195}
+  m_Center: {x: 0, y: -0.000000022350706, z: 0.07352556}
 --- !u!114 &114003738464664312
 MonoBehaviour:
   m_ObjectHideFlags: 1

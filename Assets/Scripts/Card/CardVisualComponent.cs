@@ -35,6 +35,7 @@ public class CardVisualComponent : MonoBehaviour
 
     private void BakeForHandOrPreviewCard(ClientCardTemplate template)
     {
+        Debug.Log($"Baking visual for the card {template.CardName}. Bake sub type: {template.CardType.ToString()}");
         Name.text = template.CardName;
         Text.text = template.CardText;
 
@@ -45,7 +46,11 @@ public class CardVisualComponent : MonoBehaviour
             DurabilitySprite.enabled = false;
             PowerSprite.enabled = false;
             RemainingCooldownSprite.enabled = false;
-            Cost.text = template.BaseResourceCost.Value.ToString();
+            if (template.BaseResourceCost.HasValue)//template.IsAiControlled)
+                Cost.text = template.BaseResourceCost.Value.ToString();
+            else
+                CostSprite.gameObject.SetActive(false);
+            
         }
         else if (template.CardType == CardType.Follower)
         {
@@ -120,7 +125,7 @@ public class CardVisualComponent : MonoBehaviour
         else
         {
             RemainingCooldownSprite.gameObject.SetActive(true);
-            RemainingCooldown.text = template.InternalCooldownTarget.Value.ToString();
+            RemainingCooldown.text = template.RemainingCooldown.Value.ToString();
         }
         
         //if (!template.InternalCooldownCurrent.HasValue)
@@ -161,6 +166,7 @@ public class CardVisualComponent : MonoBehaviour
 
     public void UpdateVisual(ClientCardTemplate template)
     {
+        Debug.Log($"Updating visual for the card {template.CardName}. Bake type: {VisualState.ToString()}");
         switch (VisualState)
         {
             case CardVisualState.None:

@@ -54,13 +54,25 @@ public class CharacterAbilityManager : PositionalSlotManager
             if (Abilities.Count < 2)
             {
                 var draggableComponent = abilityToAdd.CardViewObject.GetComponent<Draggable>();
-                if (abilityToAdd.CardStats.AbilityActivationType == AbilityActivationType.Target)
+
+                if (draggableComponent!=null)
                 {
-                    draggableComponent.SetAction<AbilityActivationTargetingDragBehaviour>();
-                }
-                else
-                {
-                    draggableComponent.SetAction<AbilityActivationTapBehaviour>();
+                    if (PhotonEngine.UserId == (abilityToAdd.ParticipatorState as PlayerState).UserId)
+                    {
+                        if (abilityToAdd.CardStats.AbilityActivationType == AbilityActivationType.Target)
+                        {
+                            draggableComponent.SetAction<AbilityActivationTargetingDragBehaviour>();
+                        }
+                        else
+                        {
+                            draggableComponent.SetAction<AbilityActivationTapBehaviour>();
+                        }
+                    }
+                    else
+                    {
+                        draggableComponent.SetAction<NoDragBehaviour>();
+                    }
+                    
                 }
 
                 abilityToAdd.SetLocation(CardLocation.PlayArea);
