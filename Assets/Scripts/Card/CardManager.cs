@@ -17,6 +17,7 @@ public class CardManager : MonoBehaviour
     public LineRenderer TargetingGizmo;
     public Canvas TargetingRectangle;
     public Canvas TakeDamageEffect;
+    public Canvas TakeHealEffect;
     public PositionalSlotManager SlotManager { get; set; }
     public CharacterManager CharacterManager { get; set; }
 
@@ -42,17 +43,15 @@ public class CardManager : MonoBehaviour
     {
         if (!isHeal)
         {
-            TakeDamageEffect.gameObject.GetComponentInChildren<Image>().color = Color.red;
             TakeDamageEffect.gameObject.GetComponentInChildren<TMP_Text>().text = $"-{damageAmount}";
             TakeDamageEffect.gameObject.SetActive(true);
             TakeDamageEffect.gameObject.GetComponentInChildren<ParticleSystem>().Play();
         }
         else
         {
-            TakeDamageEffect.gameObject.GetComponentInChildren<Image>().color = Color.green;
-            TakeDamageEffect.gameObject.GetComponentInChildren<TMP_Text>().text = $"+{damageAmount}";
-            TakeDamageEffect.gameObject.SetActive(true);
-            TakeDamageEffect.gameObject.GetComponentInChildren<ParticleSystem>().Play();
+            TakeHealEffect.gameObject.GetComponentInChildren<TMP_Text>().text = $"+{damageAmount}";
+            TakeHealEffect.gameObject.SetActive(true);
+            TakeHealEffect.gameObject.GetComponentInChildren<ParticleSystem>().Play();
         }
         var coroutine = WaitAndSetDamageEffectInactive();
         StartCoroutine(coroutine);
@@ -61,8 +60,9 @@ public class CardManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1.3f);
+            yield return new WaitForSeconds(1.5f);
             TakeDamageEffect.gameObject.SetActive(false);
+            TakeHealEffect.gameObject.SetActive(false);
         }
     }
 }

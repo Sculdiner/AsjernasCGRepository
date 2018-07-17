@@ -11,7 +11,6 @@ public class BoardDebugger : MonoBehaviour
     public BoardManager BoardManager;
     public MasterCardManager MasterCardManager;
     public EncounterSlotManager EncounterSlotManager;
-    public HandVisual_Int HandSlotManager;
     public View ControlledView;
 
     private int prefabgeneratedid = 1000;
