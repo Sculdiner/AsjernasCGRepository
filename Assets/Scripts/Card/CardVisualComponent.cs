@@ -31,7 +31,10 @@ public class CardVisualComponent : MonoBehaviour
     public Image DurabilitySprite;
     public TMP_Text QuestTarget;
     public TMP_Text QuestProgress;
-
+    public Image InitiativeSprite;
+    public TMP_Text Initiative;
+    public Image ThreatSprite;
+    public TMP_Text Threat;
 
     private void BakeForHandOrPreviewCard(ClientCardTemplate template)
     {
@@ -46,11 +49,13 @@ public class CardVisualComponent : MonoBehaviour
             DurabilitySprite.enabled = false;
             PowerSprite.enabled = false;
             RemainingCooldownSprite.enabled = false;
+            ThreatSprite.gameObject.SetActive(false);
+            InitiativeSprite.gameObject.SetActive(false);
             if (template.BaseResourceCost.HasValue)//template.IsAiControlled)
                 Cost.text = template.BaseResourceCost.Value.ToString();
             else
                 CostSprite.gameObject.SetActive(false);
-            
+
         }
         else if (template.CardType == CardType.Follower)
         {
@@ -59,6 +64,8 @@ public class CardVisualComponent : MonoBehaviour
             Power.text = template.Power.Value.ToString();
             Health.text = template.Health.Value.ToString();
             Cost.text = template.BaseResourceCost.Value.ToString();
+            ThreatSprite.gameObject.SetActive(false);
+            Initiative.text = template.Initiative.Value.ToString();
         }
         else if (template.CardType == CardType.Ability)
         {
@@ -67,6 +74,8 @@ public class CardVisualComponent : MonoBehaviour
             PowerSprite.enabled = false;
             RemainingCooldown.text = template.InternalCooldownTarget.Value.ToString();
             Cost.text = template.BaseResourceCost.Value.ToString();
+            ThreatSprite.gameObject.SetActive(false);
+            InitiativeSprite.gameObject.SetActive(false);
         }
         else if (template.CardType == CardType.Equipment)
         {
@@ -75,6 +84,8 @@ public class CardVisualComponent : MonoBehaviour
             Power.text = template.Power.Value.ToString();
             Durability.text = template.Durability.Value.ToString();
             Cost.text = template.BaseResourceCost.Value.ToString();
+            ThreatSprite.gameObject.SetActive(false);
+            InitiativeSprite.gameObject.SetActive(false);
         }
         else if (template.CardType == CardType.Minion)
         {
@@ -83,6 +94,8 @@ public class CardVisualComponent : MonoBehaviour
             Power.text = template.Power.Value.ToString();
             Health.text = template.Health.Value.ToString();
             CostSprite.gameObject.SetActive(false);
+            ThreatSprite.gameObject.SetActive(false);
+            Initiative.text = template.Initiative.ToString();
         }
         else if (template.CardType == CardType.Quest)
         {
@@ -103,6 +116,8 @@ public class CardVisualComponent : MonoBehaviour
             Health.text = template.Health.Value.ToString();
             DurabilitySprite.gameObject.SetActive(false);
             RemainingCooldownSprite.gameObject.SetActive(false);
+            Threat.text = template.Threat.Value.ToString();
+            Initiative.text = template.Initiative.Value.ToString();
         }
     }
 
@@ -111,6 +126,7 @@ public class CardVisualComponent : MonoBehaviour
         Image.texture = Resources.Load($"Images/{template.ImagePath}") as Texture2D;
         Power.text = template.Power.Value.ToString();
         Health.text = template.Health.Value.ToString();
+        Initiative.text = template.Initiative.Value.ToString();
     }
 
     public void BakeForAbility(ClientCardTemplate template)
@@ -127,7 +143,7 @@ public class CardVisualComponent : MonoBehaviour
             RemainingCooldownSprite.gameObject.SetActive(true);
             RemainingCooldown.text = template.RemainingCooldown.Value.ToString();
         }
-        
+
         //if (!template.InternalCooldownCurrent.HasValue)
         //{
         //    template.InternalCooldownCurrent = 0;
@@ -156,6 +172,8 @@ public class CardVisualComponent : MonoBehaviour
         Image.texture = Resources.Load($"Images/{template.ImagePath}") as Texture2D;
         Power.text = template.Power.Value.ToString();
         Health.text = template.Health.Value.ToString();
+        Threat.text = template.Threat.Value.ToString();
+        Initiative.text = template.Initiative.Value.ToString();
     }
 
     public void BakeForQuest(ClientCardTemplate template)

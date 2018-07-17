@@ -20,28 +20,45 @@ public class BoardHoverBehaviour : HoverActions
     {
 
         var offsetVector = new Vector3();
-        switch (Card.CardStats.CardType)
+        //switch (Card.CardStats.CardType)
+        //{
+        //    case AsjernasCG.Common.BusinessModels.CardModels.CardType.Character:
+        //        offsetVector = new Vector3(0f, 0f, 2f);
+        //        break;
+        //    case AsjernasCG.Common.BusinessModels.CardModels.CardType.Equipment:
+        //        offsetVector = new Vector3(0f, 0f, 2f);
+        //        break;
+        //    case AsjernasCG.Common.BusinessModels.CardModels.CardType.Ability:
+        //        offsetVector = new Vector3(0f, 0f, 2f);
+        //        break;
+        //    case AsjernasCG.Common.BusinessModels.CardModels.CardType.Follower:
+        //        offsetVector = new Vector3(1.5f, 0, 0.2f);
+        //        break;
+        //    case AsjernasCG.Common.BusinessModels.CardModels.CardType.Minion:
+        //        offsetVector = new Vector3(1.5f, 0, 0.2f);
+        //        break;
+        //    default:
+        //        break;
+        //}
+
+        float finaloffsetX = 0f;
+        float finaloffsetZ = 0.15f;
+        var originalViewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.VisualStateManager.CurrentState.transform.position);
+        if (originalViewportPoint.x > 0.5) //render it left
         {
-            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Character:
-                offsetVector = new Vector3(0f, 0f, 2f);
-                break;
-            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Equipment:
-                offsetVector = new Vector3(0f, 0f, 2f);
-                break;
-            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Ability:
-                offsetVector = new Vector3(0f, 0f, 2f);
-                break;
-            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Follower:
-                offsetVector = new Vector3(1.5f, 0, 0.2f);
-                break;
-            case AsjernasCG.Common.BusinessModels.CardModels.CardType.Minion:
-                offsetVector = new Vector3(1.5f, 0, 0.2f);
-                break;
-            default:
-                break;
+            finaloffsetX = -1.3f;
+        }
+        else //render it right
+        {
+            finaloffsetX = 1.3f;
         }
 
+        if (originalViewportPoint.z < 0.2) //give it a little bit padding to the top
+        {
+            finaloffsetZ = 0.2f;
+        }
 
+        offsetVector = new Vector3(finaloffsetX, 0f, finaloffsetZ);
         var viewportPoint = Camera.main.WorldToViewportPoint(Card.CardManager.VisualStateManager.CurrentState.transform.position + offsetVector);
         Card.CardManager.VisualStateManager.PreviewAndRetainOriginalState();
         Card.CardManager.VisualStateManager.Preview.transform.position = Camera.main.ViewportToWorldPoint(new Vector3(viewportPoint.x, viewportPoint.y, 4f));
