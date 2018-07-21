@@ -585,7 +585,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: v0.0.0.1 Dev Build
+  m_Text: v0.1.0.1 Internal Dev
 --- !u!222 &640710310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1033,12 +1033,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsArtistDebug: 0
+  MessageBoxManager: {fileID: 0}
   ServerAddress: localhost:5060
   ApplicationName: AsjernasCGServer
   loggingIn: 0
-  UserName: 
-  PassWord: 
-  Email: 
   GameStateStatus: 
   LoginUserName: 
   LoginPassword: 
@@ -1230,14 +1228,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 1}
+  m_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: 49c389d39b58e7645b4c28091fff9a2a, type: 3}
+  m_Texture: {fileID: 2800000, guid: 3033cc4a1862b774498d1962d67bd775, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0

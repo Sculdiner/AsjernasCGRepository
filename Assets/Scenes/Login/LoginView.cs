@@ -11,9 +11,9 @@ public class LoginView : View
     public string ApplicationName;
     public bool loggingIn = false;
 
-    public string UserName;
-    public string PassWord;
-    public string Email;
+    //public string UserName;
+    //public string PassWord;
+    //public string Email;
     public string GameStateStatus;
     public string LoginUserName;
     public string LoginPassword;
@@ -42,9 +42,9 @@ public class LoginView : View
         if (server == 0)
         {
             PhotonEngine.ChangeConnectionOrReconnect("localhost:5060", "AsjernasCGServer");
-            PhotonEngine.Instance.Controller = Controller as LoginController; 
+            PhotonEngine.Instance.Controller = Controller as LoginController;
         }
-        else if(server == 1)
+        else if (server == 1)
         {
             PhotonEngine.ChangeConnectionOrReconnect("104.214.237.49:5060", "AsjernasCGServer");
             PhotonEngine.Instance.Controller = Controller as LoginController;
@@ -62,15 +62,15 @@ public class LoginView : View
 
     void OnGUI()
     {
-        UserName = GUI.TextField(new Rect(5, 5, 300, 30), UserName, 64);
-        PassWord = GUI.TextField(new Rect(5, 40, 300, 30), PassWord, 64);
-        Email = GUI.TextField(new Rect(5, 75, 300, 30), Email, 64);
-        if (GUI.Button(new Rect(5, 110, 300, 30), "Register") && !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(PassWord) && !string.IsNullOrEmpty(Email))
-        {
-            _controller.SendRegister(UserName, PassWord, Email);
-        }
+        //UserName = GUI.TextField(new Rect(5, 5, 300, 30), UserName, 64);
+        //PassWord = GUI.TextField(new Rect(5, 40, 300, 30), PassWord, 64);
+        //Email = GUI.TextField(new Rect(5, 75, 300, 30), Email, 64);
+        //if (GUI.Button(new Rect(5, 110, 300, 30), "Register") && !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(PassWord) && !string.IsNullOrEmpty(Email))
+        //{
+        //    _controller.SendRegister(UserName, PassWord, Email);
+        //}
 
-        GUI.Label(new Rect(5, 145, 300, 30), GameStateStatus);
+        GUI.Label(new Rect(5, 145, 300, 30), "Server Status : " + GameStateStatus);
 
         LoginUserName = GUI.TextField(new Rect(5, 180, 300, 30), LoginUserName, 64);
         LoginPassword = GUI.TextField(new Rect(5, 215, 300, 30), LoginPassword, 64);

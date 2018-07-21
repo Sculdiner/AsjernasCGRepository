@@ -31,10 +31,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.94
+    value: 10
   threshold:
     overrideState: 1
-    value: 4.25
+    value: 2
   softKnee:
     overrideState: 0
     value: 0.5
@@ -58,7 +58,7 @@ MonoBehaviour:
     value: {fileID: 0}
     defaultState: 1
   dirtIntensity:
-    overrideState: 1
+    overrideState: 0
     value: 0
 --- !u!114 &114281732205171474
 MonoBehaviour:
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
   m_Name: AmbientOcclusion
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1

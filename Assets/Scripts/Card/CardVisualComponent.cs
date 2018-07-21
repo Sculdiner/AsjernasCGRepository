@@ -13,6 +13,7 @@ public class CardVisualComponent : MonoBehaviour
 {
     public GameObject Visual;
     public CardVisualState VisualState;
+    public SpriteRenderer BackgroundHighlighter;
 
     public TMP_Text Name;
     public TMP_Text Text;
@@ -36,9 +37,17 @@ public class CardVisualComponent : MonoBehaviour
     public Image ThreatSprite;
     public TMP_Text Threat;
 
+    public void Highlight()
+    {
+        if (BackgroundHighlighter!=null)
+        {
+            //BackgroundHighlighter.material.SetColor("_ShadowLight_Color_1", Color.red);
+        }
+    }
+
     private void BakeForHandOrPreviewCard(ClientCardTemplate template)
     {
-        Debug.Log($"Baking visual for the card {template.CardName}. Bake sub type: {template.CardType.ToString()}");
+        //Debug.Log($"Baking visual for the card {template.CardName}. Bake sub type: {template.CardType.ToString()}");
         Name.text = template.CardName;
         Text.text = template.CardText;
 
@@ -95,7 +104,7 @@ public class CardVisualComponent : MonoBehaviour
             Health.text = template.Health.Value.ToString();
             CostSprite.gameObject.SetActive(false);
             ThreatSprite.gameObject.SetActive(false);
-            Initiative.text = template.Initiative.ToString();
+            InitiativeSprite.gameObject.SetActive(false);
         }
         else if (template.CardType == CardType.Quest)
         {
@@ -104,6 +113,8 @@ public class CardVisualComponent : MonoBehaviour
             PowerSprite.gameObject.SetActive(false);
             DurabilitySprite.gameObject.SetActive(false);
             RemainingCooldownSprite.gameObject.SetActive(false);
+            ThreatSprite?.gameObject.SetActive(false);
+            InitiativeSprite?.gameObject.SetActive(false);
             //DurabilitySprite.enabled = false;
             //RemainingCooldownSprite.enabled = false;
             //Power.text = template.Power.Value.ToString();
@@ -178,13 +189,14 @@ public class CardVisualComponent : MonoBehaviour
 
     public void BakeForQuest(ClientCardTemplate template)
     {
-        QuestTarget.text = template.QuestObjectiveTarget?.ToString();
+        QuestTarget.text = $"/{template.QuestObjectiveTarget?.ToString()}";
         QuestProgress.text = template.CurrentQuestPoints?.ToString();
+
     }
 
     public void UpdateVisual(ClientCardTemplate template)
     {
-        Debug.Log($"Updating visual for the card {template.CardName}. Bake type: {VisualState.ToString()}");
+        //Debug.Log($"Updating visual for the card {template.CardName}. Bake type: {VisualState.ToString()}");
         switch (VisualState)
         {
             case CardVisualState.None:
@@ -193,7 +205,10 @@ public class CardVisualComponent : MonoBehaviour
                 BakeForHandOrPreviewCard(template);
                 break;
             case CardVisualState.Preview:
-                BakeForHandOrPreviewCard(template);
+                {
+                    BakeForHandOrPreviewCard(template);
+                    Highlight();
+                }
                 break;
             case CardVisualState.Follower:
                 BakeForAlly(template);

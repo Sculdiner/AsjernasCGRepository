@@ -8,7 +8,7 @@ public class QuestSlotManager : PositionalSlotManager
     public Transform QuestPosition;
     public void ChangeQuest(ClientSideCard clientSideCard)
     {
-        if (CurrentQuest!=null)
+        if (CurrentQuest != null)
             RemoveSlot(CurrentQuest.CardStats.GeneratedCardId);
 
         CurrentQuest = clientSideCard;
@@ -37,7 +37,7 @@ public class QuestSlotManager : PositionalSlotManager
 
     public void ProgressQuest(int points)
     {
-        CurrentQuest.CardStats.CurrentQuestPoints = CurrentQuest.CardStats.CurrentQuestPoints.Value + points;
+        CurrentQuest.CardStats.CurrentQuestPoints = points;
         CurrentQuest.CardManager.VisualStateManager.CurrentState.UpdateVisual(CurrentQuest.CardStats);
         //visual
         PhotonEngine.CompletedAction();
