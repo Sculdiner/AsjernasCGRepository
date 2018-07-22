@@ -36,7 +36,13 @@ public class ClientSideCard
         HoverComponent.ForceKillHover();
 
         if (location == CardLocation.Hand)
+        {
             HoverComponent.SetAction<HandHoverBehaviour>();
+            if (ParticipatorState is PlayerState && CardStats.BaseResourceCost <= (ParticipatorState as PlayerState).Resources)
+            {
+                this.CardManager.VisualStateManager.Highlight(HighlightType.AvailableToPlay);
+            }
+        }
         else if (this.CardStats.CardType == CardType.Quest)
             HoverComponent.SetAction<QuestHoverBehaviour>();
         else if (location == CardLocation.PlayArea)
@@ -77,7 +83,7 @@ public class ClientSideCard
         CardStats.Health += healAmount;
         if (CardStats.Health < 0)
             CardStats.Health = 0;
-        CardManager.DoDamageEffect(healAmount,true);
+        CardManager.DoDamageEffect(healAmount, true);
         CardManager.VisualStateManager.CurrentState.UpdateVisual(CardStats);
     }
 }

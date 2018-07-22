@@ -11,9 +11,10 @@ public class InitiativeSlot : MonoBehaviour
 {
     public RawImage Image;
     public Highlighter Highlighter;
-    private bool BoardCardWasAlreadyHighlighted;
     public Gradient CardHighlightColor { get; set; }
     public ClientSideCard ReferencedCard { get; private set; }
+    private bool BoardCardWasAlreadyHighlighted;
+    private HighlightType? AlreadyActiveHighlightType;
 
     public void SetCardInfo(ClientSideCard card)
     {
@@ -26,7 +27,8 @@ public class InitiativeSlot : MonoBehaviour
         if (ReferencedCard != null)
         {
             BoardCardWasAlreadyHighlighted = ReferencedCard.CardManager.VisualStateManager.IsHighlighted;
-            ReferencedCard.CardManager.VisualStateManager.Hightlight(CardHighlightColor);
+            AlreadyActiveHighlightType = ReferencedCard.CardManager.VisualStateManager.HighlightType;
+            ReferencedCard.CardManager.VisualStateManager.Highlight(HighlightType.InitiativeSlotHoveringIndicator);
         }
     }
 
@@ -34,10 +36,11 @@ public class InitiativeSlot : MonoBehaviour
     {
         if (ReferencedCard != null)
         {
-            if (BoardCardWasAlreadyHighlighted)
+            if (BoardCardWasAlreadyHighlighted && AlreadyActiveHighlightType.HasValue)
             {
                 BoardCardWasAlreadyHighlighted = false;
-                ReferencedCard.CardManager.VisualStateManager.Hightlight();
+                ReferencedCard.CardManager.VisualStateManager.Highlight(AlreadyActiveHighlightType.Value);
+                AlreadyActiveHighlightType = null;
             }
             else
             {

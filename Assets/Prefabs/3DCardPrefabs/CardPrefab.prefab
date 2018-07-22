@@ -1229,7 +1229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1564971296568672
 GameObject:
   m_ObjectHideFlags: 1
@@ -1656,7 +1656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1870216220211240
 GameObject:
   m_ObjectHideFlags: 1
@@ -1794,7 +1794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1963428064076160
 GameObject:
   m_ObjectHideFlags: 1
@@ -1872,7 +1872,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358977496296688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.29, y: 0.377, z: -2.15}
+  m_LocalPosition: {x: 4.68, y: 0.152, z: -2.597}
   m_LocalScale: {x: 0.7, y: 0.019999996, z: 1}
   m_Children:
   - {fileID: 4984216939514734}
@@ -2607,7 +2607,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Visual: {fileID: 1234206661251122}
   VisualState: 5
-  BackgroundHighlighter: {fileID: 0}
+  BackgroundHighlighter: {fileID: 212794346013795182}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 0}
   Text: {fileID: 0}
   Image: {fileID: 114510229091837874}
@@ -3362,6 +3363,7 @@ MonoBehaviour:
   Visual: {fileID: 1699741133947526}
   VisualState: 2
   BackgroundHighlighter: {fileID: 0}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 0}
   Text: {fileID: 0}
   Image: {fileID: 114680789364580152}
@@ -4154,6 +4156,7 @@ MonoBehaviour:
   Visual: {fileID: 1745600975160920}
   VisualState: 4
   BackgroundHighlighter: {fileID: 0}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 0}
   Text: {fileID: 0}
   Image: {fileID: 114604011367046068}
@@ -5274,6 +5277,7 @@ MonoBehaviour:
   Visual: {fileID: 1265008528397354}
   VisualState: 2
   BackgroundHighlighter: {fileID: 0}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 0}
   Text: {fileID: 0}
   Image: {fileID: 114199622889084184}
@@ -5309,6 +5313,7 @@ MonoBehaviour:
   Visual: {fileID: 1870216220211240}
   VisualState: 3
   BackgroundHighlighter: {fileID: 0}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 0}
   Text: {fileID: 0}
   Image: {fileID: 114653204085406512}
@@ -5504,6 +5509,7 @@ MonoBehaviour:
   Visual: {fileID: 1164883608293954}
   VisualState: 6
   BackgroundHighlighter: {fileID: 0}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 0}
   Text: {fileID: 0}
   Image: {fileID: 0}
@@ -7300,7 +7306,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Visual: {fileID: 1473731348711116}
   VisualState: 0
-  BackgroundHighlighter: {fileID: 0}
+  BackgroundHighlighter: {fileID: 212391693197805360}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 114379469926899764}
   Text: {fileID: 114777657312530946}
   Image: {fileID: 114800846829860742}
@@ -7498,6 +7505,7 @@ MonoBehaviour:
   Visual: {fileID: 1277588639728360}
   VisualState: 1
   BackgroundHighlighter: {fileID: 212048659400960114}
+  VisualStateManager: {fileID: 0}
   Name: {fileID: 114321727944748580}
   Text: {fileID: 114482346726611784}
   Image: {fileID: 114647027524686294}
@@ -32361,7 +32369,7 @@ RectTransform:
   m_GameObject: {fileID: 1870152998001172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 7}
-  m_LocalScale: {x: 740.74286, y: 503.5804, z: 0.005000005}
+  m_LocalScale: {x: 724, y: 501, z: 0.005000005}
   m_Children: []
   m_Father: {fileID: 224747855056764860}
   m_RootOrder: 0
@@ -32471,7 +32479,7 @@ RectTransform:
   m_GameObject: {fileID: 1558108640632060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 7}
-  m_LocalScale: {x: 740.7364, y: 503.58743, z: 0.0025733393}
+  m_LocalScale: {x: 724, y: 501, z: 0.0025733393}
   m_Children: []
   m_Father: {fileID: 224784470676336356}
   m_RootOrder: 10

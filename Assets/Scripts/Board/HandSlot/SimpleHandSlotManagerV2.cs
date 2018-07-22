@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using AsjernasCG.Common.BusinessModels.CardModels;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using System;
@@ -138,11 +139,14 @@ public class SimpleHandSlotManagerV2 : PositionalSlotManager
                 //clientSideCard.CardManager.CardHandHelperComponent.HandSlotManager = this;
                 clientSideCard.CardViewObject.GetComponent<DragRotator>().DisableRotator();
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
-
                 //clientSideCard.CardViewObject.GetComponent<Draggable>().enabled = false;
                 clientSideCard.CardManager.SlotManager?.RemoveSlot(clientSideCard.CardStats.GeneratedCardId);
                 clientSideCard.CardManager.SlotManager = this;
                 HandCards.Add(clientSideCard);
+                if (clientSideCard.CardStats.BaseResourceCost <= BoardManager.Instance.GetCurrentUserPlayerState().Resources)
+                {
+                    clientSideCard.CardManager.VisualStateManager.Highlight(HighlightType.AvailableToPlay);
+                }
                 //ApplyFullHandDisplayHoverEvents(clientSideCard);
                 UpdatePositions(Ease.Linear, normalHandUpdateTimeframe);
             }

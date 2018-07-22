@@ -468,10 +468,10 @@ public class BoardManager : MonoBehaviour
         ActiveInitiativeCard = card;
         if (card.ParticipatorState is PlayerState && ((PlayerState)card.ParticipatorState).UserId == PhotonEngine.UserId)
         {
-            BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
-            ActiveInitiativeCard?.CardManager.VisualStateManager.Hightlight();
+            //BoardView.Instance.TurnMessenger.Show($"{card.CardStats.CardName} turn");
+            ActiveInitiativeCard?.CardManager.VisualStateManager.Highlight(HighlightType.InitiativeSlotActivated);
             BoardView.Instance.TurnButton.FlipToPass();
-            Debug.Log($"Flipped to Pass side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is mine");
+            //Debug.Log($"Flipped to Pass side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is mine");
             var hand = card.ParticipatorState.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
             if (hand != null && hand.Any())
                 CurrentActiveInitiativeSlots.AddRange(hand);
@@ -487,7 +487,7 @@ public class BoardManager : MonoBehaviour
         }
         else
         {
-            card.CardManager.VisualStateManager.Hightlight();
+            card.CardManager.VisualStateManager.Highlight(HighlightType.Enemy); //not correct
             BoardView.Instance.TurnButton.FlipToWait();
             Debug.Log($"Flipped to Wait side because the current active slot ({card.CardStats.CardName} - id: {card.CardStats.GeneratedCardId}) is not mine");
         }
@@ -518,6 +518,7 @@ public class BoardManager : MonoBehaviour
         var player = GetPlayerStateById(userId);
         player.Resources = resources;
         player.UpdateResources();
+        HighlightAvailableForPlayCards();
     }
 
     public void EncounterCard(int cardTemplateId, int generatedCardId, Action onEffectCompletion)
@@ -569,6 +570,28 @@ public class BoardManager : MonoBehaviour
         DisplayCardPlayEffect(card, onEffectCompletion);
     }
 
+    public void HighlightAvailableForPlayCards()
+    {
+        var state = GetCurrentUserPlayerState();
+        if (state.Deck != null && state.Deck.Any())
+        {
+            var hand = state.Deck.Where(s => s.CurrentLocation == CardLocation.Hand);
+            if (hand!=null && hand.Any())
+            {
+                foreach (var _card in hand)
+                {
+                    if (_card.CardStats.BaseResourceCost <= state.Resources)
+                    {
+                        _card.CardManager.VisualStateManager.Highlight(HighlightType.AvailableToPlay);
+                    }
+                    else
+                    {
+                        _card.CardManager.VisualStateManager.EndHighlight();
+                    }
+                }
+            }
+        }
+    }
 
     public TurnStatus TurnStatus = TurnStatus.PreGameStart;
     public static Action<ClientSideCard> OnCursorEntersCard;

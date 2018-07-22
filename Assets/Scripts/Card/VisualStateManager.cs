@@ -25,7 +25,7 @@ public class VisualStateManager : MonoBehaviour
     public bool IsHighlighted { get; private set; }
     private CardVisualComponent _state;
     public CardVisualComponent CurrentState { get { return _state; } }
-
+    public HighlightType? HighlightType { get; private set; }
     private bool AllowPreviewing;
 
     public void Awake()
@@ -54,6 +54,8 @@ public class VisualStateManager : MonoBehaviour
         {
             Preview.UpdateVisual(ControllingCardManager.Template);
             Preview.Show();
+            if (IsHighlighted && HighlightType.HasValue)
+                Highlight(HighlightType.Value, Preview);
         }
         return Preview;
     }
@@ -64,28 +66,45 @@ public class VisualStateManager : MonoBehaviour
         return Preview;
     }
 
-    public void Hightlight(Gradient hoverColor = null)
+    public void Highlight(HighlightType type)
     {
-        var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
-        if (highlighter != null)
+        var currentState = this.CurrentState;
+        Highlight(type, currentState);
+    }
+
+    public void Highlight(HighlightType type, CardVisualComponent component)
+    {
+        if (component == null)
+            return;
+
+        var currentHighlighter = component.BackgroundHighlighter;
+        if (currentHighlighter != null)
         {
+            HighlightType = type;
             IsHighlighted = true;
-            highlighter.tween = true;
-            if (hoverColor == null)
-                highlighter.tweenGradient = OriginalGradientHightlightColor;
-            else
-                highlighter.tweenGradient = hoverColor;
+            currentHighlighter.gameObject.SetActive(true);
+            //currentHighlighter.material.SetColor("_ShadowLight_Color_1", );
         }
     }
 
     public void EndHighlight()
     {
-        var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
-        if (highlighter != null)
+        var currentHighlighter = this.CurrentState.BackgroundHighlighter;
+        if (currentHighlighter != null)
         {
+            HighlightType = null;
             IsHighlighted = false;
-            highlighter.tween = false;
+            currentHighlighter.gameObject.SetActive(false);
+            //currentHighlighter.material.SetColor("_ShadowLight_Color_1", );
         }
+
+
+        //var highlighter = this.ControllingCardManager.GetComponent<Highlighter>();
+        //if (highlighter != null)
+        //{
+        //    IsHighlighted = false;
+        //    highlighter.tween = false;
+        //}
     }
 
     public void ChangeVisual(CardVisualState newState)
@@ -114,6 +133,8 @@ public class VisualStateManager : MonoBehaviour
                 Quest?.Hide();
                 AllowPreviewing = true;
                 _state = Card;
+                if (IsHighlighted && HighlightType.HasValue)
+                    Highlight(HighlightType.Value);
                 break;
             case CardVisualState.Preview:
                 if (AllowPreviewing)
@@ -126,6 +147,8 @@ public class VisualStateManager : MonoBehaviour
                     Character?.Hide();
                     Quest?.Hide();
                     _state = Preview;
+                    if (IsHighlighted && HighlightType.HasValue)
+                        Highlight(HighlightType.Value);
                 }
                 break;
             case CardVisualState.Follower:
@@ -138,6 +161,8 @@ public class VisualStateManager : MonoBehaviour
                 Quest?.Hide();
                 AllowPreviewing = true;
                 _state = Follower;
+                if (IsHighlighted && HighlightType.HasValue)
+                    Highlight(HighlightType.Value);
                 break;
             case CardVisualState.Ability:
                 Card?.Hide();
@@ -149,6 +174,8 @@ public class VisualStateManager : MonoBehaviour
                 Quest?.Hide();
                 AllowPreviewing = true;
                 _state = Ability;
+                if (IsHighlighted && HighlightType.HasValue)
+                    Highlight(HighlightType.Value);
                 break;
             case CardVisualState.Equipment:
                 Card?.Hide();
@@ -160,6 +187,8 @@ public class VisualStateManager : MonoBehaviour
                 Quest?.Hide();
                 AllowPreviewing = true;
                 _state = Equipment;
+                if (IsHighlighted && HighlightType.HasValue)
+                    Highlight(HighlightType.Value);
                 break;
             case CardVisualState.Character:
                 Card?.Hide();
@@ -171,6 +200,8 @@ public class VisualStateManager : MonoBehaviour
                 Quest?.Hide();
                 AllowPreviewing = true;
                 _state = Character;
+                if (IsHighlighted && HighlightType.HasValue)
+                    Highlight(HighlightType.Value);
                 break;
             case CardVisualState.Quest:
                 Card?.Hide();
@@ -182,6 +213,8 @@ public class VisualStateManager : MonoBehaviour
                 Quest.Show();
                 AllowPreviewing = true;
                 _state = Quest;
+                if (IsHighlighted && HighlightType.HasValue)
+                    Highlight(HighlightType.Value);
                 break;
             default:
                 throw new Exception();

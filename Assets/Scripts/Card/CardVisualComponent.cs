@@ -9,11 +9,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum HighlightType
+{
+    AvailableToPlay = 0,
+    Friendly = 1,
+    Enemy = 2,
+    PlayableArea = 3,
+    NotPlayableArea = 4,
+    InitiativeSlotActivated = 5,
+    InitiativeSlotHoveringIndicator = 6
+}
+
 public class CardVisualComponent : MonoBehaviour
 {
     public GameObject Visual;
     public CardVisualState VisualState;
     public SpriteRenderer BackgroundHighlighter;
+    public VisualStateManager VisualStateManager;
 
     public TMP_Text Name;
     public TMP_Text Text;
@@ -37,13 +49,13 @@ public class CardVisualComponent : MonoBehaviour
     public Image ThreatSprite;
     public TMP_Text Threat;
 
-    public void Highlight()
-    {
-        if (BackgroundHighlighter!=null)
-        {
-            //BackgroundHighlighter.material.SetColor("_ShadowLight_Color_1", Color.red);
-        }
-    }
+    //public void Highlight(HighlightType type)
+    //{
+    //    if (BackgroundHighlighter!=null)
+    //    {
+    //        BackgroundHighlighter.material.SetColor("_ShadowLight_Color_1", Color.red);
+    //    }
+    //}
 
     private void BakeForHandOrPreviewCard(ClientCardTemplate template)
     {
@@ -207,7 +219,7 @@ public class CardVisualComponent : MonoBehaviour
             case CardVisualState.Preview:
                 {
                     BakeForHandOrPreviewCard(template);
-                    Highlight();
+                    //Highlight();
                 }
                 break;
             case CardVisualState.Follower:

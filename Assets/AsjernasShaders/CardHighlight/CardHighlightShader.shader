@@ -11,22 +11,22 @@ Properties
 {
 [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
 _SourceNewTex_1("_SourceNewTex_1(RGB)", 2D) = "white" { }
-_ShadowLight_Precision_1("_ShadowLight_Precision_1", Range(1, 32)) = 30.865
-_ShadowLight_Size_1("_ShadowLight_Size_1", Range(0, 16)) = 0.95
-_ShadowLight_Color_1("_ShadowLight_Color_1", COLOR) = (0.4644412,1,0.4198113,1)
-_ShadowLight_Intensity_1("_ShadowLight_Intensity_1", Range(0, 4)) = 1.404
+_ShadowLight_Precision_1("_ShadowLight_Precision_1", Range(1, 32)) = 27.571
+_ShadowLight_Size_1("_ShadowLight_Size_1", Range(0, 16)) = 0.607
+_ShadowLight_Color_1("_ShadowLight_Color_1", COLOR) = (1,0.3529412,0,1)
+_ShadowLight_Intensity_1("_ShadowLight_Intensity_1", Range(0, 4)) = 2.114
 _ShadowLight_PosX_1("_ShadowLight_PosX_1", Range(-1, 1)) = 0
 _ShadowLight_PosY_1("_ShadowLight_PosY_1", Range(-1, 1)) = 0
 _ShadowLight_NoSprite_1("_ShadowLight_NoSprite_1", Range(0, 1)) = 1
-_HdrCreate_Value_1("_HdrCreate_Value_1", Range(-2, 2)) = 0.732
+_HdrCreate_Value_1("_HdrCreate_Value_1", Range(-2, 2)) = 0.611
 KaleidoscopeUV_PosX_1("KaleidoscopeUV_PosX_1",  Range(-2, 2)) = 0.53
 KaleidoscopeUV_PosY_1("KaleidoscopeUV_PosY_1",  Range(-2, 2)) = 0.35
-KaleidoscopeUV_Number_1("KaleidoscopeUV_Number_1", Range(0, 6)) = 2.929
+KaleidoscopeUV_Number_1("KaleidoscopeUV_Number_1", Range(0, 6)) = 1.104
 _Generate_Fire_PosX_1("_Generate_Fire_PosX_1", Range(-1, 2)) = 0.03
 _Generate_Fire_PosY_1("_Generate_Fire_PosY_1", Range(-1, 2)) = 0.3
 _Generate_Fire_Precision_1("_Generate_Fire_Precision_1", Range(0, 1)) = 0.069
 _Generate_Fire_Smooth_1("_Generate_Fire_Smooth_1", Range(0, 1)) = 0.473
-_Generate_Fire_Speed_1("_Generate_Fire_Speed_1", Range(-2, 2)) = 0.446
+_Generate_Fire_Speed_1("_Generate_Fire_Speed_1", Range(-2, 2)) = 0.182
 _AlphaAsAura_Fade_1("_AlphaAsAura_Fade_1", Range(0, 1)) = 1
 _SpriteFade("SpriteFade", Range(0, 1)) = 1.0
 

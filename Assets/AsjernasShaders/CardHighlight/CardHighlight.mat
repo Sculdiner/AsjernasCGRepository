@@ -55,11 +55,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SourceNewTex_1:
-        m_Texture: {fileID: 2800000, guid: 666f706f5d7fd6b4785cf6a3f017c1f9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1ce62dc230799b343ad9ef30c42604f4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - KaleidoscopeUV_Number_1: 2.929
+    - KaleidoscopeUV_Number_1: 1.104
     - KaleidoscopeUV_PosX_1: 0.53
     - KaleidoscopeUV_PosY_1: 0.35
     - _AlphaAsAura_Fade_1: 1
@@ -72,22 +72,22 @@ Material:
     - _Generate_Fire_PosY_1: 0.3
     - _Generate_Fire_Precision_1: 0.069
     - _Generate_Fire_Smooth_1: 0.473
-    - _Generate_Fire_Speed_1: 0.446
+    - _Generate_Fire_Speed_1: 0.182
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HDRControlValue_Value_1: 4
-    - _HdrCreate_Value_1: 0.732
+    - _HdrCreate_Value_1: 0.1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ShadowLight_Intensity_1: 1.404
+    - _ShadowLight_Intensity_1: 2.01
     - _ShadowLight_NoSprite_1: 1
     - _ShadowLight_PosX_1: 0
     - _ShadowLight_PosY_1: 0
-    - _ShadowLight_Precision_1: 30.865
-    - _ShadowLight_Size_1: 0.95
+    - _ShadowLight_Precision_1: 19.9
+    - _ShadowLight_Size_1: 0.45
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpriteFade: 1
@@ -102,4 +102,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowLight_Color_1: {r: 0.46444124, g: 1, b: 0.4198113, a: 1}
+    - _ShadowLight_Color_1: {r: 1, g: 0.3529412, b: 0, a: 1}
